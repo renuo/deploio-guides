@@ -1,0 +1,7 @@
+- [ ] Add dropdowns for the documentation sections on the left
+- [ ] Add search documentation field at the top of the sections to the left
+- [ ] Add translations
+- [ ] Remove dark mode functionality and button
+- [ ] What is 'Jetzt Starten'?
+- [ ] Check if we need login....?
+- [ ] Redo weird squares in React...

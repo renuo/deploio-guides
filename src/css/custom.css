@@ -1,0 +1,123 @@
+/**
+ * Any CSS included here will be global. The classic template
+ * bundles Infima by default. Infima is a CSS framework designed to
+ * work well for content-centric websites.
+ */
+
+
+/* You can override the default Infima variables here. */
+:root {
+  /*Font overrides*/
+  --ifm-font-family-base: Montserrat;
+  --ifm-code-font-size: 95%;
+  --ifm-color-primary: #141D50; /* rgb(20, 29, 80) */
+  --ifm-color-primary-dark: #121a48	;
+  --ifm-color-primary-darker: #111944;
+  --ifm-color-primary-darkest: #0e1438;
+  --ifm-color-primary-light: #162058;
+  --ifm-color-primary-lighter: #17215c;
+  --ifm-color-primary-lightest: #1a2668;
+
+  /*Background overrides*/
+  --ifm-navbar-background-color: #EAE9E8;
+
+  /*Menu overrides*/
+  --ifm-menu-color-background-active: rgba(20, 29, 80, 0.1)
+}
+
+html {
+}
+
+body {
+  background-color: #EAE9E8;
+  font-family: Montserrat;
+  color: var(--ifm-color-primary);
+
+  /*TODO: add background image with the mountains*/
+  /*background-image: url('/static/img/backgrounds/mountain_2.png'); !* Adjust the path to your image *!*/
+  /*background-size: cover; !* Ensure the image covers the entire page *!*/
+  /*background-position: center; !* Center the image *!*/
+  /*background-repeat: no-repeat; !* Prevent tiling *!*/
+  /*background-attachment: fixed; !* Keep the image fixed on scroll *!*/
+}
+
+h1, h2, h3, h4 {
+  font-stretch: extra-expanded;
+  text-transform: uppercase;
+}
+
+h1, h2, h3 {
+  font-weight: 400;
+}
+
+h4 {
+  font-weight: 500;
+}
+
+h5 {
+  font-weight: 600;
+  font-size: 16px;
+}
+
+/*This avoids the next/previous documentation page links being blue*/
+article {
+  a, a:hover {
+    color: #476DCC;
+  }
+}
+
+.menu {
+  font-weight: 600;
+}
+
+/*TODO: move the search above the items... somehow*/
+
+/*first child on menu__list-item*/
+.menu__list-item:first-child {
+  margin-top: 4rem;
+}
+
+.menu__link {
+  color: var(--ifm-color-primary);
+  padding: 0.75rem;
+}
+
+.navbar__title {
+  font-size: 1.5rem;
+}
+
+.navbar__item {
+  text-transform: uppercase;
+  margin: 0 0.25rem;
+}
+
+/*Tables*/
+
+table {
+  --ifm-table-cell-color: none;
+  padding: 0.75rem;
+}
+
+table th {
+  border-bottom: 2px solid var(--ifm-color-primary); /* Thick border for the header */
+  text-align: left;
+  font-weight: 600;
+}
+
+table td {
+  border: 0;
+  border-bottom: 1px solid #ccc; /* Thin borders for rows */
+  font-weight: 400;
+}
+
+/*Alerts*/
+
+.alert {
+  border: 2px 0 0 0 solid var(--ifm-color-primary);
+  border-top: 2px solid var(--ifm-color-primary);
+  --ifm-heading-font-weight: 500;
+  --ifm-h5-font-size: 1.2rem;
+
+}
+
+/*Footer*/

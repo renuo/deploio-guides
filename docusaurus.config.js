@@ -30,7 +30,11 @@ const config = {
   // may want to replace "en" with "zh-Hans".
   i18n: {
     defaultLocale: 'en',
-    locales: ['en', 'de', 'fr', 'it'],
+    locales: ['en', 'de'],
+    localeConfigs: {
+      en: { label: 'English' },
+      de: { label: 'Deutsch' },
+    },
   },
 
   presets: [
@@ -95,40 +99,8 @@ const config = {
         ],
       },
       footer: {
-        style: 'dark',
-        links: [
-          {
-            title: 'Community',
-            items: [
-              {
-                label: 'Stack Overflow',
-                href: 'https://stackoverflow.com/questions/tagged/docusaurus',
-              },
-              {
-                label: 'Discord',
-                href: 'https://discordapp.com/invite/docusaurus',
-              },
-              {
-                label: 'X',
-                href: 'https://x.com/docusaurus',
-              },
-            ],
-          },
-          {
-            title: 'More',
-            items: [
-              // {
-              //   label: 'Blog',
-              //   to: '/blog',
-              // },
-              {
-                label: 'GitHub',
-                href: 'https://github.com/facebook/docusaurus',
-              },
-            ],
-          },
-        ],
-        copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+        // The footer has been completely re-worked using React components so this section is empty
+        // links: []
       },
       // TODO: is this only for the code blocks? it's was doing in line styles which sucks
       prism: {

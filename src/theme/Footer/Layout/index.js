@@ -1,20 +1,31 @@
 import React from 'react';
-import clsx from 'clsx';
-export default function FooterLayout({style, links, logo, copyright}) {
+import useBaseUrl from '@docusaurus/useBaseUrl';
+import FooterLinks from "../Links";
+import FooterSocials from "../Socials";
+import FooterCertificates from "../Certificates";
+import FooterCopyright from "../Copyright";
+
+export default function FooterLayout({ columns, serviceTitle, serviceLinks, socials, copyright }) {
   return (
-    <footer
-      className={clsx('footer', {
-        'footer--dark': style === 'dark',
-      })}>
-      <div className="container container-fluid">
-        {links}
-        {(logo || copyright) && (
-          <div className="footer__bottom text--center">
-            {logo && <div className="margin-bottom--sm">{logo}</div>}
-            {copyright}
-          </div>
-        )}
+    <div className="footer-wrapper">
+      <div className="footer-background">
+        <img
+          src={useBaseUrl('/img/backgrounds/mountain_2.png')}
+          alt="Mountain Background"
+        />
+        <div className="footer-gradient"></div>
       </div>
-    </footer>
+      <div className="footer-content">
+        <footer className="footer">
+          <FooterCertificates />
+          <div>
+            <FooterLinks columns={columns} serviceTitle={serviceTitle} serviceLinks={serviceLinks}/>
+            <FooterSocials socials={socials}/>
+            <FooterCopyright copyright={copyright} />
+          </div>
+        </footer>
+      </div>
+    </div>
   );
 }
+

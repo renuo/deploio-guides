@@ -35,6 +35,7 @@ Show the user how to set up nctl with an account, provide some general informati
 
 - For nctl / cockpit / deploio as a whole
 - Maybe more articles and blogs
+- If using Node, we need `BP_INCLUDE_NODEJS_RUNTIME="true"` and a `package.json` in the root otherwise it won't run 
 
 ### Best Practices for Beginners
 

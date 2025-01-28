@@ -16,7 +16,7 @@ export default function FooterLayout({ columns, serviceTitle, serviceLinks, soci
         <div className="footer-gradient"></div>
       </div>
       <div className="footer-content">
-        <footer className="footer">
+        <footer className="footer container">
           <FooterCertificates />
           <div>
             <FooterLinks columns={columns} serviceTitle={serviceTitle} serviceLinks={serviceLinks}/>

@@ -32,7 +32,7 @@ To specify a subdirectory to be used as the root of the app, you can use the `BP
 --build-env=BP_NODE_PROJECT_PATH="./node-app"
 ```
 
-## NextJS
+## Next.js
 
 In specific scenarios, such as when utilizing the NextJS router, additional steps are essential to get your application
 to build.

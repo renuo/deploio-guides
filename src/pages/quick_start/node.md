@@ -1,9 +1,9 @@
 ---
-title: Node
-description: Node
+title: Quick Start Guide for Node.js Applications
+description: Learn how to deploy Node.js applications with Deploio
 ---
 
-# Node.js
+# Quick Start Guide for Node.js Applications
 
 The Deploio build environment makes use of
 the [Paketo Node.js buildpack](https://paketo.io/docs/reference/nodejs-reference/).
@@ -21,7 +21,7 @@ nctl create application nextjs \
 
 ## Build env considerations
 
-The build process offers a few environment variables which can be used to adjust it to your use-case. 
+The build process offers a few environment variables which can be used to adjust it to your use-case.
 See the [how to](https://paketo.io/docs/howto/nodejs/) section of the documentation for all available variables.
 
 ### Build an App in a Subdirectory

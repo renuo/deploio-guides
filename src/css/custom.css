@@ -202,11 +202,9 @@ table td {
 
                 .footer-link {
                   color: white;
-                  text-decoration: none;
-                  transition: color 0.3s ease;
 
                   &:hover {
-                    color: #007bff;
+                    text-decoration: underline;
                   }
 
                   @media (min-width: 768px) {

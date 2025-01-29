@@ -6,10 +6,9 @@ import co2NeutralIcon from '/img/icons/co2_neutral_certification.png';
 export default function FooterCertificates() {
   return (
     <div className="certificates-wrapper">
-      <img src={iso9001Icon} alt="ISO 9001:2015 certification"/>
-      <img src={iso27001Icon} alt="ISO 27001:2013 certification"/>
-      <img src={co2NeutralIcon} alt="CO2 neutral certification"/>
+      <img src={iso9001Icon} alt="ISO 9001:2015 certification" />
+      <img src={iso27001Icon} alt="ISO 27001:2013 certification" />
+      <img src={co2NeutralIcon} alt="CO2 neutral certification" />
     </div>
-  )
+  );
 }
-

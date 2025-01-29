@@ -5,7 +5,7 @@ import FooterSocials from "../Socials";
 import FooterCertificates from "../Certificates";
 import FooterCopyright from "../Copyright";
 
-export default function FooterLayout({ columns, serviceTitle, serviceLinks, socials, copyright }) {
+export default function FooterLayout() {
   return (
     <div className="footer-wrapper">
       <div className="footer-background">
@@ -19,9 +19,9 @@ export default function FooterLayout({ columns, serviceTitle, serviceLinks, soci
         <footer className="footer container">
           <FooterCertificates />
           <div>
-            <FooterLinks columns={columns} serviceTitle={serviceTitle} serviceLinks={serviceLinks}/>
-            <FooterSocials socials={socials}/>
-            <FooterCopyright copyright={copyright} />
+            <FooterLinks />
+            <FooterSocials />
+            <FooterCopyright />
           </div>
         </footer>
       </div>

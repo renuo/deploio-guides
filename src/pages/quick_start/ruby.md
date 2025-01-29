@@ -1,8 +1,6 @@
 ---
 title: Ruby
 description: Ruby
-todo: 
-  - make this at least look like the mockup...
 ---
 
 # Quick Start Guide for Ruby on Rails Applications

@@ -5,7 +5,7 @@ description: Learn how to deploy Go applications with Deploio
 
 # Quick Start Guide for Go Applications
 
-The Deploio Go build environment makes use of
+The Deploio build environment makes use of
 the [Heroku Go Cloud Native Buildpack](https://github.com/heroku/buildpacks-go/).
 
 ## Example App

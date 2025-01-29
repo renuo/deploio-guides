@@ -21,7 +21,7 @@ nctl create application nextjs \
 
 ## Build env considerations
 
-The build process offers a few env variables to adjust it to your use-case. 
+The build process offers a few environment variables which can be used to adjust it to your use-case. 
 See the [how to](https://paketo.io/docs/howto/nodejs/) section of the documentation for all available variables.
 
 ### Build an App in a Subdirectory

@@ -13,7 +13,7 @@ sidebar_position: 11
 
 ##### Retrieving environment variables from Heroku
 
-Below is an example of a shell script that you can use. You will need to replace the `heroku_project` variable with your desired project, and the output will be a list of environment variables from the project which can then be passed when creating the application using the `nctl` command line.
+Below is an example of a shell script that you can use. You will need to replace the `heroku_project` variable with your desired project, and the output will be a list of environment variables from the project which can then be passed when creating the application using the `nctl` command line. The [Heroku cli](https://devcenter.heroku.com/articles/heroku-cli) and [`jq` command line utility](https://jqlang.github.io/jq/) have to be installed.
 
 `env-migration.sh`:
 ```shell

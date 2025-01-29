@@ -1,9 +1,9 @@
 ---
-title: PHP
-description: PHP
+title: Quick Start Guide for PHP Applications
+description: Learn how to deploy PHP applications on Deploio
 ---
 
-# PHP
+# Quick Start Guide for PHP Applications
 
 The Deploio build environment makes use of the [Paketo PHP buildpack](https://paketo.io/docs/reference/php-reference/).
 

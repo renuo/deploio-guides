@@ -22,7 +22,7 @@ nctl create application symfony \
 
 As already mentioned, we are currently using the [Paketo PHP buildpack](https://paketo.io/docs/reference/php-reference/)
 for providing PHP support. It includes the [Paketo php-dist buildpack](https://github.com/paketo-buildpacks/php-dist)
-which provides the PHP binary distribution. The built PHP binary distribution includes quite some extensions which can
+which provides the PHP binary distribution. The built PHP binary distribution includes a number of extensions which can
 be used in your PHP application on Deploio. All of them are defined in separate yaml files per PHP version in
 the [Paketo php-dist buildpack](https://github.com/paketo-buildpacks/php-dist/tree/main/dependency/actions/compile/extensions-manifests).
 

@@ -1,42 +1,39 @@
 import React from 'react';
 
-export default function FooterLinks({ columns, serviceTitle, serviceLinks }) {
+export default function FooterLinks() {
   return (
     <div className="footer-links-wrapper">
-      <div className={"footer-columns-wrapper"}>
-        {columns.map(({title, links}, index) => (
-          <nav className="footer-column" key={index}>
-            <h3 className="footer-column-title">{title}</h3>
-            <ul className="footer-links">
-              {links.map((link, i) => (
-                <li key={i}>
-                  {link.href ? (
-                    <a
-                      href={link.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="footer-link"
-                    >
-                      {link.text}
-                    </a>
-                  ) : (
-                    <p className="footer-link-text">{link.text}</p>
-                  )}
-                </li>
-              ))}
-            </ul>
-          </nav>
-        ))}
+      <div className="footer-columns-wrapper">
+        <nav className="footer-column">
+          <h3 className="footer-column-title">Support</h3>
+          <ul className="footer-links">
+            <li><a href="https://status.nine.ch/" target="_blank" className="footer-link">Status</a></li>
+            <li><a href="https://docs.nine.ch/docs/category/deploio-paas/" target="_blank" className="footer-link">Documentation</a></li>
+            <li><a href="https://join.slack.com/t/deploiocommunity/shared_invite/zt-20tb3k93m-O4NEUs0RjZYGQNQoih8zkA" target="_blank" className="footer-link">Slack Community</a></li>
+            <li><a href="https://github.com/ninech/deploio-examples" target="_blank" className="footer-link">GitHub Examples</a></li>
+            <li><a href="/pricing" target="_blank" className="footer-link">Pricing</a></li>
+          </ul>
+        </nav>
+
+        <nav className="footer-column">
+          <h3 className="footer-column-title">Contact</h3>
+          <ul className="footer-links">
+            <li><p className="footer-link-text">Nine Internet Solutions AG<br/>Badenerstrasse 47<br/>8004 Zürich, Schweiz</p></li>
+            <li><a href="mailto:info@nine.ch" target="_blank" className="footer-link">info@nine.ch</a></li>
+            <li><a href="tel:+41446374040" target="_blank" className="footer-link">+41 44 637 40 40</a></li>
+          </ul>
+        </nav>
       </div>
 
       <nav className="footer-service">
-        <h3 className="footer-column-title">{serviceTitle}</h3>
+        <h3 className="footer-column-title">A Service By</h3>
         <div className="service-links">
-          {serviceLinks.map(({href, src, alt}, i) => (
-            <a href={href} target="_blank" rel="noopener noreferrer" key={i}>
-              <img className="service-logo" src={src} alt={alt}/>
-            </a>
-          ))}
+          <a href="https://www.nine.ch" target="_blank" rel="noopener noreferrer">
+            <img className="service-logo" src="/img/logos/nine_logo.png" alt="Nine Logo" />
+          </a>
+          <a href="https://www.renuo.ch" target="_blank" rel="noopener noreferrer">
+            <img className="service-logo" src="/img/logos/renuo_logo.png" alt="Renuo Logo" />
+          </a>
         </div>
       </nav>
     </div>

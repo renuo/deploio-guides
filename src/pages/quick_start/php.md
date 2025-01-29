@@ -29,7 +29,7 @@ the [Paketo php-dist buildpack](https://github.com/paketo-buildpacks/php-dist/tr
 Currently, it is not possible to use extensions that are not defined in the above-mentioned files.
 
 It is important to mention that none of the pre-built extensions get loaded by default (due to memory usage
-optimizations)! You will either have to load them via requirements in Composer or via custom `*.ini` files. Both
+optimizations). You will either have to load them via requirements in Composer or via custom `*.ini` files. Both
 approaches will be explained in the following sections.
 
 ### Loading extensions via Composer

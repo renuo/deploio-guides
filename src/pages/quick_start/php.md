@@ -3,6 +3,11 @@ title: Quick Start Guide for PHP Applications
 description: Learn how to deploy PHP applications on Deploio
 ---
 
+```mdx-code-block
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+```
+
 # Quick Start Guide for PHP Applications
 
 The Deploio build environment makes use of the [Paketo PHP buildpack](https://paketo.io/docs/reference/php-reference/).
@@ -91,23 +96,37 @@ the [how to](https://paketo.io/docs/howto/php/) section of the documentation for
 
 By default, the PHP built-in web server will be used. For production use cases, we recommend using Apache or NGINX:
 
-- **PHP Built-in Web Server**
+```mdx-code-block
+<Tabs>
+<TabItem value="PHP Built-in Web Server">
+```
 
-  ```bash
-  --build-env=BP_PHP_SERVER=php-server
-  ```
+```bash
+--build-env=BP_PHP_SERVER=php-server
+```
 
-- **Apache HTTPD Web Server**
+```mdx-code-block
+</TabItem>
+<TabItem value="Apache HTTPD Web Server">
+```
 
-  ```bash
-  --build-env=BP_PHP_SERVER=httpd
-  ```
+```bash
+--build-env=BP_PHP_SERVER=httpd
+```
 
-- **NGINX Web Server**
+```mdx-code-block
+</TabItem>
+<TabItem value="NGINX Web Server">
+```
 
-  ```bash
-  --build-env=BP_PHP_SERVER=nginx
-  ```
+```bash
+--build-env=BP_PHP_SERVER=nginx
+```
+
+```mdx-code-block
+</TabItem>
+</Tabs>
+```
 
 Additionally, if required, the web server can be customized further by
 providing [your own server-specific config file](https://paketo.io/docs/howto/php/#provide-your-own-web-server-configuration-file).

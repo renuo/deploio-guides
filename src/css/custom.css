@@ -34,7 +34,7 @@ body {
   color: var(--ifm-color-primary);
 }
 
-h1, h2, h3 {
+h1, h2, h3, h4 {
   font-stretch: extra-expanded;
   text-transform: uppercase;
 }
@@ -42,6 +42,7 @@ h1, h2, h3 {
 h1 {
   font-size: 3rem;
   font-weight: 400;
+  margin-bottom: 1.5rem;
 }
 
 h2 {
@@ -53,14 +54,14 @@ h2 {
 
 h3 {
   font-size: 32px;
-  font-weight: 500;
+  font-weight: 400;
   margin-top: 2rem;
   margin-bottom: 1.5rem;
 }
 
 h4 {
   font-size: 24px;
-  font-weight: 600;
+  font-weight: 500;
   margin-top: 1rem;
 }
 

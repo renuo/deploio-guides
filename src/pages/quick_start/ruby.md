@@ -55,7 +55,7 @@ Now you should have decided the following:
 
 We will need this later for when we create the application.
 
-### Build and Runtime Environment Variables
+### Environment Variables
 
 To use many of the services on the application, you will need to set up the environment variables. This can be done manually with more control, deciding whether the environment variables is required at build or runtime, or alternatively a shell script could be used to retrieve all the environment variables if the application is already running elsewhere.
 

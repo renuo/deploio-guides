@@ -1,6 +1,6 @@
 ---
-title: Quick Start Guide for PHP Applications
-description: Learn how to deploy PHP applications with Deploio
+title: Quick Start Guide for Python Applications
+description: Learn how to deploy Python applications with Deploio
 ---
 
 # Quick Start Guide for Python Applications

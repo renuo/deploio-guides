@@ -43,7 +43,7 @@ const config = {
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         docs: {
-          path: './src/documentation',
+          path: 'documentation',
           routeBasePath: 'documentation',
         },
         theme: {

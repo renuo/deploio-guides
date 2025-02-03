@@ -35,7 +35,7 @@ We have quick start guides for a number of technologies. Please see them [here](
 
 There are a number of blogs and other resources available that can provide more information and use cases for Deploio. Please see a list below:
 
-- <a href="/ruby_heroku_migration_guide" target="_blank">Learn how to migrate an app from Heroku to Deploio</a>
+- <a href="/ruby_heroku_migration_guide" target="_blank">Learn how to migrate a Rails app from Heroku to Deploio</a>
 
 ##### Videos
 

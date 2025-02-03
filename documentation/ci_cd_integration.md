@@ -40,7 +40,7 @@ nctl create asa {token_name}
 and then we can view the token using:
 
 ```bash
-nctl get apiserviceaccount gifcoins --print-token
+nctl get apiserviceaccount {token_name} --print-token
 ```
 
 We can then set this as the `DEPLOIO_API_TOKEN` on the CI environment.

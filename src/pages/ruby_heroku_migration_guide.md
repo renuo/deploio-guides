@@ -100,10 +100,11 @@ nctl auth set-project gifcoins
 
 ### Environment Variables
 
-As noted at the beginning, we will need to set up the environment variables. We can manually set these or retrieve these from the existing platform provider. However this is done, we will require the variables in the below format so that we can use the `--env` flag when creating the application.
+[As noted at the beginning](#environment-variables), we will need to set up the environment variables. We can manually set these or retrieve these from the existing platform provider. However this is done, we will require the variables in the format of `key1=value1;key2=value2;...` so that we can use the `--env` flag when creating the application:
 
 ```
-ADMIN_EMAIL=admin@damin.ch;ADMIN_PASSWORD=password
+nctl update application main \
+  --env 'ADMIN_EMAIL=admin@damin.ch;ADMIN_PASSWORD=password'
 ```
 
 ### Setup Access to GitHub Repository
@@ -183,7 +184,7 @@ nctl create app main \
 - `--git-revision` sets the target revision for the application, in this case we want to deploy the **main** branch.
 - `--size` sets the resources available for the application. This defaults to “micro” but we want to use “mini” which closely matches the Heroku Dyno as covered in the first step.
 - `--basic-auth=false` disables the built in Deploio basic auth. We have set this because we already have basic auth “manually” set up on the project, however we would recommend utilising the built in basic auth if possible.
-- `--build-env=BP_INCLUDE_NODEJS_RUNTIME="true"` sets an environment variable for build time which is required for Rails projects. If the build requires Node, a `package.json` file also needs to be present at the root.
+- `--build-env=BP_INCLUDE_NODEJS_RUNTIME="true"` ensures Node is available at build time for applications using JavaScript. Additionally, a `package.json` file also needs to be present at the root.
 
 Note that we do not set the language as this allows the buildpack to be automatically detected. You can read more about buildpacks <a href="/documentation/security" target="_blank">here</a>.
 
@@ -369,7 +370,7 @@ blocks:
 
 We will also add a `bin/check_deploio_deployment_status.rb` script which will check Deploio for the build and release status, and provide feedback to the CI output.
 
-```ruby
+```
 require 'yaml'
 require 'open3'
 

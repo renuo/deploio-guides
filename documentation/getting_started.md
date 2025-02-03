@@ -25,11 +25,21 @@ Show the user how to set up nctl with an account, provide some general informati
 - Explaination on the structure of projects, applications and some considerations here
 - Organisations too? Or perhaps earlier when creating an account
 
-### Links to guides and quick-start resources
+### Useful resources
 
-- Quick start page
-- Blogs
-- Videos?
+##### Quick start guides
+
+We have quick start guides for a number of technologies. Please see them [here](/quick_start)
+
+##### Blogs
+
+There are a number of blogs and other resources available that can provide more information and use cases for Deploio. Please see a list below:
+
+- <a href="/ruby_heroku_migration_guide" target="_blank">Learn how to migrate an app from Heroku to Deploio</a>
+
+##### Videos
+
+We have also posted tutorial videos showing how Deploio works. Please view these [here](#)
 
 ### Avoid commom pitfalls
 

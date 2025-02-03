@@ -7,7 +7,7 @@ sidebar_position: 11
 
 With Deploio, it is extremely easy to migrate an application, and all resources, from other providers. In this section we will provide information on how to migrate environment variables, databases, as well as how to adapt the DNS records and CI workflows.
 
-Most example will focus on migrating from Heroku, however this can be adapted should you be migrating from another provider.
+Most examples will focus on migrating from Heroku, however this can be adapted should you be migrating from another provider.
 
 ### Retrieving and restoring databases
 

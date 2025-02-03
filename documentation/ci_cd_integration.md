@@ -24,7 +24,7 @@ Once this is done, we can install and authenticate `nctl` as below.
 
 ```bash
 sudo apt-get update && sudo apt-get install nctl
-nctl auth login --api-token=$DEPLOIO_API_TOKEN --organization=$DEPLOIO_ORG
+nctl auth login
 ```
 
 ##### Issue tokens for secure deployment automation.

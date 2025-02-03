@@ -22,7 +22,7 @@ nctl create application rails \
 
 ## Build env considerations
 
-The full behavior of the buildpack is [documented here](https://arc.net/l/quote/qmvlcipe).
+The full behavior of the buildpack is [documented here](https://github.com/heroku/buildpacks-ruby/blob/c8cdfd0be3a61f7b50d36cae12ec3d22f8068afc/docs/application_contract.md).
 
 ### Ruby Version Detection
 

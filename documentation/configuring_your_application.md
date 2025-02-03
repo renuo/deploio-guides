@@ -13,7 +13,8 @@ Define web processes for your application
 
 ##### deploio.yaml
 
-Configure deployment jobs with ease (e.g. database migrations)
+- Configure deployment jobs with ease (e.g. database migrations)
+- Set up workers to run background jobs
 
 ### Web Applications
 
@@ -30,3 +31,7 @@ Configure deployment jobs with ease (e.g. database migrations)
 ### Deployment Jobs
 
 ##### More examples?
+
+### Flags and there usages
+
+Maybe good to detail each flag available and what it does

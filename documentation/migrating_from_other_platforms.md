@@ -23,7 +23,6 @@ In the below example, you would need to replace the `heroku_project` variable wi
 
 `env-migration.sh`:
 ```shell
-#!/bin/sh
 set -e
 
 # Function to convert JSON to --env='KEY=VALUE;KEY=VALUE;...' format

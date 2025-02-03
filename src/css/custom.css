@@ -9,6 +9,8 @@
 :root {
   /*Font overrides*/
   --ifm-font-family-base: Montserrat;
+  --ifm-font-size-base: 16px;
+  --ifm-line-height-base: 21.6px;
   --ifm-code-font-size: 95%;
   --ifm-color-primary: #141D50; /* rgb(20, 29, 80) */
   --ifm-color-primary-dark: #121a48;
@@ -34,7 +36,7 @@ body {
   color: var(--ifm-color-primary);
 }
 
-h1, h2, h3, h4 {
+h1, h2, h3 {
   font-stretch: extra-expanded;
   text-transform: uppercase;
 }
@@ -44,25 +46,29 @@ h1, h2, h3 {
 }
 
 h1 {
-  font-size: 3rem;
-}
-
-h2 {
   font-size: 40px;
 }
 
-h3 {
+h2 {
   font-size: 32px;
 }
 
-h4 {
+h3 {
   font-weight: 500;
   font-size: 24px;
+  margin-top: 56px;
 }
 
-h5 {
+h4, h5 {
   font-weight: 600;
   font-size: 16px;
+  margin-top: 40px;
+}
+
+.summary {
+  font-size: 20px;
+  margin-bottom: 80px;
+  line-height: 27px;
 }
 
 /*This avoids the next/previous documentation page links being blue*/
@@ -127,7 +133,7 @@ table td {
   box-shadow: 0 30px 40px 0 #141D501A;
   padding: 24px 24px 56px 24px;
   color: var(--ifm-color-primary);
-  margin-top: 1em;
+  margin-top: 80px;
   margin-bottom: 3em !important;
 }
 
@@ -136,6 +142,7 @@ table td {
 .footer-wrapper {
   position: relative;
   padding-top: 4rem;
+  margin-top: 11rem;
   height: 100%;
   width: 100%;
 

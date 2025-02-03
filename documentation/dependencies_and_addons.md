@@ -44,19 +44,19 @@ This creates the Redis instance with name `{application_name}` within the projec
 Firstly, we can get the **FQDN**, and check the other details, by running:
 
 ```
-nctl get kvs {application_name}
+nctl get keyvaluestore {application_name}
 ```
 
 We will also need to get the **password** for the access by running:
 
 ```
-nctl get kvs {application_name} --print-token
+nctl get keyvaluestore {application_name} --print-token
 ```
 
 From this we can construct and set the `REDIS_URL` and `REDISCLI_AUTH` environment variable as follows:
 
 ```
-nctl update app {application_name} --env='REDIS_URL=rediss://:{PASSWORD}@{FQDN};REDISCLI_AUTH={PASSWORD}'
+nctl update application {application_name} --env='REDIS_URL=rediss://:{PASSWORD}@{FQDN};REDISCLI_AUTH={PASSWORD}'
 ```
 
 Note that we are using `rediss` as TLS is enabled.

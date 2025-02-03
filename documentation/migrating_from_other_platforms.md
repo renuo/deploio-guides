@@ -70,7 +70,7 @@ Once you are happy with the script, you can then simply run `zsh env-migration.s
 The second output can now be passed when creating the application. We can just keep these at hand for when we create the application, or, if the application is already created, we can update using the below command:
 
 ```
-nctl update app gifcoins --env='ADMIN_EMAIL=admin@damin.ch;ADMIN_PASSWORD=password'
+nctl update application gifcoins --env='ADMIN_EMAIL=admin@damin.ch;ADMIN_PASSWORD=password'
 ```
 
 **Disclaimer:**

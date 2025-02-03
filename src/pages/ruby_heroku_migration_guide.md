@@ -17,7 +17,7 @@ This example uses the tools listed below, and can be slightly adapted should you
 - **PostgresQL** database (PG15)
 - **Redis** server
 - **GitHub** for the code repository
-- **OnePassword** for creating SSH keys
+- **1Password** for creating SSH keys
 - **Semaphore** for the CI
 
 ## Preparation
@@ -84,7 +84,8 @@ The project needs to be prefixed with the organisation you are currently working
 In our example, we are in the `renuo` organization and creating the project `gifcoins`, so we need to run the following:
 
 ```
-nctl create project renuo-gifcoins --display-name='gifcoins'
+nctl create project renuo-gifcoins \
+  --display-name='gifcoins'
 ```
 
 Once this is created, we can now set the project so that all of our future commands are within this project space.
@@ -102,22 +103,22 @@ nctl auth set-project gifcoins
 As noted at the beginning, we will need to set up the environment variables. We can manually set these or retrieve these from the existing platform provider. However this is done, we will require the variables in the below format so that we can use the `--env` flag when creating the application.
 
 ```
-'ADMIN_EMAIL=admin@damin.ch;ADMIN_PASSWORD=password'
+ADMIN_EMAIL=admin@damin.ch;ADMIN_PASSWORD=password
 ```
 
 ### Setup Access to GitHub Repository
 
 Before we actually create the application, we first need to set up access to the code repository.
 
-First, we need to create an SSH key, We will do this using OnePassword, but this can be done in any way you prefer. We will need to add the **public key to the GitHub repository** and pass the **private key to the application** when we create the application. Note that this SSH key can then be used for any application created that requires access to the repository. For example if you want to create multiple applications within the project, these can all use the same key.
+First, we need to create an SSH key, We will do this using 1Password, but this can be done in any way you prefer. We will need to add the **public key to the GitHub repository** and pass the **private key to the application** when we create the application. Note that this SSH key can then be used for any application created that requires access to the repository. For example if you want to create multiple applications within the project, these can all use the same key.
 
 To create the SSH key we can run the following:
 
 ```
 op item create --title gifcoins-deploy-ssh-key \
---vault Deploio \
---category ssh-key \
---ssh-generate-key Ed25519
+  --vault Deploio \
+  --category ssh-key \
+  --ssh-generate-key Ed25519
 ```
 
 In the response, we get the public key, and to view the private key we can run:
@@ -133,9 +134,10 @@ Otherwise, we can push this directly to the GitHub repository deploy keys by run
 [//]: # (TODO: I'm not sure about this - I changed after Lukas commented but I think it's messed up. Check commands)
 
 ```
-gh repo deploy-key add <(op item get {ID} --fields public_key) \
---repo renuo/gifcoins \
---title deploio_deploy_key_main
+gh repo deploy-key add \
+  --repo renuo/gifcoins \
+  --title deploio_deploy_key_main \
+  <(op item get {ID} --fields public_key)
 ```
 
 We now will need to provide our application with the private key. However, we will need to first store this to a local file, and use the `--git-ssh-private-key-from-file` flag to set this directly from the file when creating our application.
@@ -143,7 +145,7 @@ We now will need to provide our application with the private key. However, we wi
 First we need to store this to a temporary file:
 
 ```
-op item get {ID} --fields private_key --reveal > temporary_private_key_file
+op item get {ID} --fields private_key --reveal | tr -d '"' > temporary_private_key_file
 ```
 
 Unfortunately this will contain quotation marks around the private key. These will need to be removed before passing the file to `nctl`. We need to do this manually.
@@ -167,18 +169,18 @@ Now that we have the following available to us...
 
 ```
 nctl create app main \
---project renuo-gifcoins \
---git-ssh-private-key-from-file=temporary_private_key_file \
---git-url git@github.com:renuo/gifcoins.git \
---git-revision="main" \
---size=mini \
---basic-auth=false \
---build-env=BP_INCLUDE_NODEJS_RUNTIME="true" \
---env='ADMIN_EMAIL=admin@damin.ch.ch;ADMIN_PASSWORD=password'
+  --project renuo-gifcoins \
+  --git-ssh-private-key-from-file=temporary_private_key_file \
+  --git-url git@github.com:renuo/gifcoins.git \
+  --git-revision="main" \
+  --size=mini \
+  --basic-auth=false \
+  --build-env=BP_INCLUDE_NODEJS_RUNTIME="true" \
+  --env='ADMIN_EMAIL=admin@damin.ch.ch;ADMIN_PASSWORD=password'
 ```
 
 - `--git-ssh-private-key-from-file` sets the private key from a file, rather than passing this as a string. We pass the private key we saved earlier.
-- `--git-revision` sets the target branch for the application, in this case we want to deploy the **main** branch.
+- `--git-revision` sets the target revision for the application, in this case we want to deploy the **main** branch.
 - `--size` sets the resources available for the application. This defaults to “micro” but we want to use “mini” which closely matches the Heroku Dyno as covered in the first step.
 - `--basic-auth=false` disables the built in Deploio basic auth. We have set this because we already have basic auth “manually” set up on the project, however we would recommend utilising the built in basic auth if possible.
 - `--build-env=BP_INCLUDE_NODEJS_RUNTIME="true"` sets an environment variable for build time which is required for Rails projects. If the build requires Node, a `package.json` file also needs to be present at the root.
@@ -194,7 +196,7 @@ nctl logs application main --follow
 As an example, we see that we require the `FONTAWESOME_NPM_AUTH_TOKEN` during the build process. Therefore we can just update the application and add this to the build environment variables (note the slightly different syntax):
 
 ```
-nctl update app main --build-env=FONTAWESOME_NPM_AUTH_TOKEN="token"
+nctl update application main --build-env=FONTAWESOME_NPM_AUTH_TOKEN="token"
 ```
 
 Because this is a build environment variable, the re-build will automatically be triggered.
@@ -209,13 +211,13 @@ Should you wish to migrate a database from another provider, you can view the do
 
 ### Setup Database Access
 
-First, we will need to create an SSH key which will be used to protect access to the database. We will do this using OnePassword, but this can be done in any way you prefer.
+First, we will need to create an SSH key which will be used to protect access to the database. We will do this using 1Password, but this can be done in any way you prefer.
 
 ```
 op item create --title gifcoins-main-postgres-ssh-key \
---vault Deploio \
---category ssh-key \
---ssh-generate-key ed25519
+  --vault Deploio \
+  --category ssh-key \
+  --ssh-generate-key ed25519
 ```
 
 We can take the public key from the response, and add this to the allowed SSH keys when creating the database. You will also need to retrieve your IP address and add this to the allowed CIDRs.
@@ -226,10 +228,10 @@ Now we have the IP address and public key, we can run the command to create the 
 
 ```
 nctl create postgres main \
---postgres-version=15 \
---machine-type=nine-db-s \
---allowed-cidrs={IP_ADDRESS}/32 \
---ssh-keys={PUBLIC_KEY}
+  --postgres-version=15 \
+  --machine-type=nine-db-s \
+  --allowed-cidrs={IP_ADDRESS}/32 \
+  --ssh-keys="$(op item get {ID} --fields public_key)"
 ```
 
 Now that the database server has been created, we can access the server using the FQDN, generated user and password, and we can create the database.
@@ -264,19 +266,19 @@ This creates the Redis instance with name `main` within the project space. We no
 Firstly, we can get the **FQDN**, and check the other details, by running:
 
 ```
-nctl get kvs main
+nctl get keyvaluestore main
 ```
 
 We will also need to get the **password** for the access by running:
 
 ```
-nctl get kvs main --print-token
+nctl get keyvaluestore main --print-token
 ```
 
 From this we can construct and set the `REDIS_URL` and `REDISCLI_AUTH` environment variable as follows:
 
 ```
-nctl update app main --env='REDIS_URL=rediss://:{PASSWORD}@{FQDN};REDISCLI_AUTH={PASSWORD}'
+nctl update application main --env='REDIS_URL=rediss://:{PASSWORD}@{FQDN};REDISCLI_AUTH={PASSWORD}'
 ```
 
 Note that we are using `rediss` as TLS is enabled.
@@ -296,9 +298,18 @@ workerJobs:
   size: mini
 ```
 
+You can also call this directly by:
+
+```
+nctl update application develop  \
+  --worker-job-command="bundle exec sidekiq -C config/sidekiq.yml" \
+  --worker-job-name "sidekiq" \ 
+  --worker-job-size mini
+```
+
 ## Configure CI
 
-For our application we host the CI infrastructure on **Semaphore**. We therefore need to allow Semaphore to have access to the application, and also amend our deployment process and commands.
+For our application we host the CI infrastructure on [**Semaphore**](https://semaphoreci.com). We therefore need to allow Semaphore to have access to the application, and also amend our deployment process and commands.
 
 Firstly, we need to use the **API Service Account (ASA)** to create a token. This token can then be used in the deploy script, the allow the CI to authenticate with `nctl`.
 
@@ -311,7 +322,7 @@ nctl create asa gifcoins
 We can then view the token using:
 
 ```
-nctl get asa gifcoins --print-token
+nctl get apiserviceaccount gifcoins --print-token
 ```
 
 Now that we have the token to hand, we can set this as an environment variable on the CI. We will set this as `DEPLOIO_API_TOKEN`. We also need to set the `DEPLOIO_ORG` variable to our organisation name (in this case **'renuo'**).
@@ -349,7 +360,7 @@ blocks:
             - echo "deb [trusted=yes] https://repo.nine.ch/deb/ /" | sudo tee /etc/apt/sources.list.d/repo.nine.ch.list
             - sudo apt-get update && sudo apt-get install nctl
             - nctl auth login --api-token=$DEPLOIO_API_TOKEN --organization=$DEPLOIO_ORG
-            - nctl update app $DEPLOIO_APP_NAME --project $DEPLOIO_PROJECT --git-revision=$(git rev-parse HEAD) --build-env="RUBY_VERSION=$(cat .ruby-version)" --skip-repo-access-check
+            - nctl update application $DEPLOIO_APP_NAME --project $DEPLOIO_PROJECT --git-revision=$(git rev-parse HEAD) --build-env="RUBY_VERSION=$(cat .ruby-version)" --skip-repo-access-check
             - ruby bin/check_deploio_deployment_status.rb
 
 ```
@@ -358,7 +369,7 @@ blocks:
 
 We will also add a `bin/check_deploio_deployment_status.rb` script which will check Deploio for the build and release status, and provide feedback to the CI output.
 
-```
+```ruby
 require 'yaml'
 require 'open3'
 

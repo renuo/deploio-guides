@@ -51,6 +51,7 @@ h1 {
 
 h2 {
   font-size: 32px;
+  margin-top: 80px;
 }
 
 h3 {
@@ -67,7 +68,6 @@ h4, h5 {
 
 .summary {
   font-size: 20px;
-  margin-bottom: 80px;
   line-height: 27px;
 }
 

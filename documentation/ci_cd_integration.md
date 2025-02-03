@@ -17,7 +17,7 @@ Otherwise, we can automate deployments using scripts and integrate deployments w
 
 We will need to configure the CI process to install and authenticate the `nctl` CLI.
 
-For this, we will need to set the `DEPLOIO_API_TOKEN` variable and `DEPLOIO_ORG` variable on the CI environment. We can use the API Service Account (ASA) to create a token. See the next section for instructions on this. 
+For this, we will need to set the `NCTL_API_TOKEN` variable and `NCTL_ORGANIZATION` variable on the CI environment. We can use the API Service Account (ASA) to create a token. See the next section for instructions on this.
 
 
 Once this is done, we can install and authenticate `nctl` as below.

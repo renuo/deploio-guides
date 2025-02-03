@@ -56,7 +56,7 @@ The script can also be adapted as required, for example we could use the below *
 jq 'to_entries | map(select(.key | startswith("HEROKU") | not)) | map("\(.key)=\(.value)") | join(";")
 ```
 
-Once you are happy with the script, you can then simply run `zsh env-migration.sh` and the output will look something like this:
+Once you are happy with the script, you can then simply run `bash env-migration.sh` and the output will look something like this:
 
 ```
 {

@@ -9,7 +9,8 @@ sidebar_position: 3
 
 ##### GitHub
 
-Use the GitHub app (OAuth) for integration.
+- Create SSH key and add the **public key to the GitHub repository** and pass the **private key to the application**
+- Use the GitHub app (OAuth) for integration?
 
 ##### GitLab
 

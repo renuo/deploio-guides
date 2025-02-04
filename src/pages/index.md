@@ -4,6 +4,7 @@ description: Homepage
 todo: 
   - change to a jsx file?
   - I want it centralized on the page 
+hide_table_of_contents: true
 ---
 
 <h3 style={{ textAlign: 'center', margin: '4rem' }}>You've got a project written in...</h3>

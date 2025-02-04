@@ -3,6 +3,7 @@ title: Quick Start
 description: Quick Start
 todo: 
   - move to jsx file
+hide_table_of_contents: true
 ---
 
 

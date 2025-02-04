@@ -106,6 +106,9 @@ const config = {
         theme: prismThemes.github,
         darkTheme: prismThemes.dracula,
       },
+      colorMode: {
+        disableSwitch: true
+      },
     }),
   headTags: [
     {

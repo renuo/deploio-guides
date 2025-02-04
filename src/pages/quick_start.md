@@ -2,14 +2,15 @@
 title: Quick Start
 description: Quick Start
 todo: 
-  - surely I can't do this in md... .jsx?
-  - I want it centralized on the page
+  - move to jsx file
+hide_table_of_contents: true
 ---
 
 
-## **You've got a project written in...**
+<h3 style={{ textAlign: 'center', margin: '4rem' }}>You've got a project written in...</h3>
 
-<div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '1.5rem' }}>
+
+<div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '3rem', margin: '4rem auto 8rem auto' }}>
 
 <a href="quick_start/ruby" style={{ textDecoration: 'none', textAlign: 'center' }}>
   <div style={{ width: '120px', height: '120px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', border: '1px solid #e0e0e0', borderRadius: '8px', padding: '1rem', boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)' }}>
@@ -48,8 +49,8 @@ todo:
 
 <a href="quick_start/static" style={{ textDecoration: 'none', textAlign: 'center' }}>
   <div style={{ width: '120px', height: '120px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', border: '1px solid #e0e0e0', borderRadius: '8px', padding: '1rem', boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)' }}>
-    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="Static HTML" style={{ width: '60px', height: '60px' }} />
-    <span style={{ marginTop: '0.5rem', fontWeight: 'bold' }}>Static HTML</span>
+    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML" style={{ width: '60px', height: '60px' }} />
+    <span style={{ marginTop: '0.5rem', fontWeight: 'bold' }}>HTML</span>
   </div>
 </a>
 

@@ -137,6 +137,39 @@ table td {
   margin-bottom: 3em !important;
 }
 
+/*Homepage*/
+
+.tile-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);  /* 6 columns by default */
+  grid-template-rows: repeat(2, auto);    /* 2 rows by default */
+  gap: 2rem;
+  justify-content: center;
+  width: fit-content;
+  margin: 3rem auto 8rem auto;
+}
+
+@media (max-width: 1280px) {
+  .tile-grid {
+    grid-template-columns: repeat(4, 1fr);  /* On small screens: 4 columns */
+    grid-template-rows: repeat(3, auto);    /* On small screens: 3 rows */
+  }
+}
+
+@media (max-width: 768px) {
+  .tile-grid {
+    grid-template-columns: repeat(3, 1fr);  /* On small screens: 4 columns */
+    grid-template-rows: repeat(4, auto);    /* On small screens: 3 rows */
+  }
+}
+
+@media (max-width: 480px) {
+  .tile-grid {
+    grid-template-columns: repeat(2, 1fr);  /* On small screens: 4 columns */
+    grid-template-rows: repeat(6, auto);    /* On small screens: 3 rows */
+  }
+}
+
 /*Footer*/
 
 .footer-wrapper {

@@ -1,6 +1,9 @@
 ---
-title: Quick Start Guide for PHP Applications
+title: Create an Application
 description: Learn how to deploy PHP applications on Deploio
+id: create_app
+displayed_sidebar: phpSidebar
+sidebar_position: 1
 ---
 
 ```mdx-code-block

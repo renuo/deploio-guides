@@ -1,6 +1,9 @@
 ---
-title: Quick Start Guide for Python Applications
+title: Create an Application
 description: Learn how to deploy Python applications with Deploio
+id: create_app
+displayed_sidebar: pythonSidebar
+sidebar_position: 1
 ---
 
 # Quick Start Guide for Python Applications

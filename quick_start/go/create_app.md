@@ -1,6 +1,9 @@
 ---
-title: Quick Start Guide for Go Applications
+title: Create an Application
 description: Learn how to deploy Go applications with Deploio
+id: create_app
+displayed_sidebar: goSidebar
+sidebar_position: 1
 ---
 
 # Quick Start Guide for Go Applications

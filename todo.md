@@ -5,3 +5,4 @@
 - [ ] What is 'Jetzt Starten'?
 - [ ] Check if we need login....?
 - [ ] Redo weird squares in React...
+- [ ] Any way to add the current "area" e.g. "Ruby" or "Documentation" - maybe to top of sidebar

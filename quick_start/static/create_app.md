@@ -1,6 +1,9 @@
 ---
-title: Quick Start Guide for Static Sites
+title: Create an Application
 description: Learn how to deploy static sites with Deploio
+id: create_app
+displayed_sidebar: staticSidebar
+sidebar_position: 1
 ---
 
 # Quick Start Guide for Static Sites

@@ -130,11 +130,11 @@ table td {
   --ifm-heading-font-weight: 500;
   --ifm-h5-font-size: 1.2rem;
   border-radius: 0;
-  box-shadow: 0 30px 40px 0 #141D501A;
-  padding: 24px 24px 56px 24px;
+  box-shadow: 0 20px 20px 0 #141D501A;
+  padding: 24px 24px 24px 24px;
   color: var(--ifm-color-primary);
   margin-top: 1em;
-  margin-bottom: 3em !important;
+  margin-bottom: 2em !important;
 }
 
 /*Homepage*/

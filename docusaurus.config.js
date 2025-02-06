@@ -14,7 +14,7 @@ import {themes as prismThemes} from 'prism-react-renderer';
 const config = {
   title: 'Deplo.io Documentation',
   tagline: 'A comprehensive guide deploying apps on Deploio',
-  favicon: 'img/favicon.ico',
+  favicon: 'img/light_logo.svg',
 
   // Set the production url of your site here
   url: 'https://docs.deplo.io',

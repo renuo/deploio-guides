@@ -159,13 +159,14 @@ Please note, should you use a different tool for storing your code, you can set 
 
 Now that we have the following available to us...
 
-✅ The required resources and sizes for the application
-✅ The project created for the application
-✅ Environment variables in the correct format to be passed with the `--env` flag
+✅ The required resources and sizes for the application\
+✅ The project created for the application\
+✅ Environment variables in the correct format to be passed with the `--env` flag\
 ✅ A private SSH key stored locally, with the public key already setup on the GitHub repository
 
 ...we can create our application. We do this by running the `nctl create app` command with a number of flags. An example can be found below with explanations on the additional flags, however it is recommended to read through the available configuration [here](https://docs.nine.ch/docs/category/configuration).
 
+[//]: # (TODO: can probably update the above link to `documentation/configuring_your_application` eventually?)
 [//]: # (TODO: can probably update the above link to `documentation/configuring_your_application` eventually?)
 
 ```
@@ -202,13 +203,15 @@ nctl update application main --build-env=FONTAWESOME_NPM_AUTH_TOKEN="token"
 
 Because this is a build environment variable, the re-build will automatically be triggered.
 
-Once the app is stable, we can create (and migrate if necessary) the database. This will be covered in the next section.
+Once the app is stable, we can migrate the database. This will be covered in the next section.
 
-[//]: # (TODO: update the below to actual migrate from Heroku)
+## Create and Migrate Database
 
-## Create Database
+To migrate the database from Heroku to Deploio, you will need to do the following:
 
-Should you wish to migrate a database from another provider, you can view the documentation <a href="/documentation/migrating_from_other_platforms" target="_blank">here</a>. In this example however, we will simply create an empty database from scratch.
+✅ Set up the Deploio database server with SSH access, and allow access from your IP address.\
+✅ Capture and download a backup from the Heroku application database.\
+✅ “Restore” this backup to the Deploio database.
 
 ### Setup Database Access
 
@@ -227,6 +230,8 @@ We can take the public key from the response, and add this to the allowed SSH ke
 
 Now we have the IP address and public key, we can run the command to create the database server. There are a number of options that you need to consider. For example,  the daily backup retention defaults to 10, which we will leave unchanged. The full list of options can be found <a href="/documentation/dependencies_and_addons" target="_blank">here</a>.
 
+We will be working with a PostgreSQL database.
+
 ```
 nctl create postgres main \
   --postgres-version=15 \
@@ -239,18 +244,84 @@ Now that the database server has been created, we can access the server using th
 
 We can find this information as follows:
 
-- **FQDN**: Run `nctl get postgres main`
-- **User**: This is always set to `dbadmin` but you can check by running `nctl get postgres main --print-user`
-- **Password**: Run `nctl get postgres main --print-password`
+- **FQDN**: Run
+  ```sh
+  nctl get postgres main
+  ```
+- **User**: The default user is `dbadmin`, but you can verify with
+  ```sh
+  nctl get postgres main --print-user
+  ```
+- **Password**: Retrieve it using
+  ```sh
+  nctl get postgres main --print-password
+  ```
 
-Now, we want to create the database on the server. We can use the `createdb` command to do so (you will be prompted to enter the password):
+Now, we want to create the database on the server. We can use the `createdb` command to do so:
 
 ```
 createdb -U dbadmin \
 -h {FQDN} main
 ```
 
-We can check that this database was created by entering the server using `psql -U dbadmin -h {FQDN} -d postgres` and then running the command `\l` to list the databases on the server.
+Here we pass the user `dbadmin`, the FQDN and the database name 'main'. You need to replace this with your database details. 
+
+You will be prompted to enter the password.
+
+We can now check that this database was created by entering the server using `psql -U dbadmin -h {FQDN} -d postgres` and then running the command `\l` to list the databases on the server.
+
+### Capture the database from Heroku
+
+Now that we have our database setup and running, we can capture and download the existing databases from Heroku, and then “restore” this to the database we just created.
+
+To capture and download locally we can run:
+
+```
+heroku pg:backups:capture -a main
+heroku pg:backups:download -a main
+```
+
+This will create a `latest.dump` file locally on your machine in your current directory.
+
+Now we can use `pg_restore` with the credentials for the database, and use this dump file to restore the database from Heroku. To do this we will run:
+
+```
+pg_restore \
+-U {user} \
+-h {FQDN} \
+-d main \
+-c -v latest.dump --no-owner --no-acl
+```
+
+We pass;
+
+- The **user** we created earlier (typically `dbadmin`)
+- The **FQDN** for the Deploio database server
+- The database **name** that we set up earlier
+- `-c` to clean the database first
+- The `latest.dump` file which is to be restored
+- `--no-owner` so the objects are owned by the user passed
+- `--no-acl` to not restore the access control lists
+
+Again, you will be prompted for the server password.
+
+Finally, now this is all set up, we need to update the `DATABASE_URL` in the environment variables. For this, you will need the database url.
+
+This can be retrieved by running the following command:
+
+```
+nctl get postgres main --print-connection-string
+```
+
+And then can be set as follows:
+
+```
+nctl update app main \
+--language="ruby" \
+--env="DATABASE_URL=$(nctl get postgres main --print-connection-string)/main"
+```
+
+Again, 'main' is the name of our database. You need to replace this with your database name. 
 
 ## Create Key Value Store
 

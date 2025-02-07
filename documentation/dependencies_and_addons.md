@@ -162,8 +162,7 @@ We can now access the server using the FQDN and generated user and password. We 
 Now we want to create the database on the server. We can run the following command:
 
 ```
-createdb -U dbadmin \
--h {FQDN} main
+createdb -U dbadmin -h {FQDN} {database-name}
 ```
 
 You will be prompted to enter the password.

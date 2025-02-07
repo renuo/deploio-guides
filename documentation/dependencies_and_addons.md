@@ -218,9 +218,7 @@ SSH access for the user is controlled by storing an SSH key in Cockpit.
 
 ##### Restoring and working with the created backups
 
-The backup routine used is the same as the one we use for our managed servers. We have described how to work with the backups as well as more information about restoring backups in the following support articles:
-
- - <a href="https://docs.nine.ch/docs/managed-server-services/databases/postgresql-backup-and-restoration/" target="_blank">PostgreSQL Backups and Restore</a>
+The backup routine used is the same as the one we use for our managed servers. We have described how to work with the backups as well as more information about restoring backups in the following support article: <a href="https://docs.nine.ch/docs/managed-server-services/databases/postgresql-backup-and-restoration/" target="_blank">PostgreSQL Backups and Restore</a>
 
 #### Automatic storage space expansion
 

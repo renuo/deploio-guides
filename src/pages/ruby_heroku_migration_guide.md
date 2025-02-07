@@ -264,9 +264,11 @@ createdb -U dbadmin \
 -h {FQDN} main
 ```
 
+Here we pass the user `dbadmin`, the FQDN and the database name 'main'. You need to replace this with your database details. 
+
 You will be prompted to enter the password.
 
-We can check that this database was created by entering the server using `psql -U dbadmin -h {FQDN} -d postgres` and then running the command `\l` to list the databases on the server.
+We can now check that this database was created by entering the server using `psql -U dbadmin -h {FQDN} -d postgres` and then running the command `\l` to list the databases on the server.
 
 ### Capture the database from Heroku
 
@@ -316,8 +318,10 @@ And then can be set as follows:
 ```
 nctl update app main \
 --language="ruby" \
---env="DATABASE_URL=postgres://username:password@fqdn:5432/name"
+--env="DATABASE_URL=$(nctl get postgres main --print-connection-string)/main"
 ```
+
+Again, 'main' is the name of our database. You need to replace this with your database name. 
 
 ## Create Key Value Store
 

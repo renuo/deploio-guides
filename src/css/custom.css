@@ -9,6 +9,8 @@
 :root {
   /*Font overrides*/
   --ifm-font-family-base: Montserrat;
+  --ifm-font-size-base: 16px;
+  --ifm-line-height-base: 21.6px;
   --ifm-code-font-size: 95%;
   --ifm-color-primary: #141D50; /* rgb(20, 29, 80) */
   --ifm-color-primary-dark: #121a48;
@@ -34,41 +36,39 @@ body {
   color: var(--ifm-color-primary);
 }
 
-h1, h2, h3, h4 {
+h1, h2, h3 {
   font-stretch: extra-expanded;
   text-transform: uppercase;
+  font-weight: 400;
 }
 
 h1 {
-  font-size: 3rem;
-  font-weight: 400;
+  font-size: 40px;
   margin-bottom: 1.5rem;
 }
 
 h2 {
-  font-size: 40px;
-  font-weight: 400;
-  margin-top: 3rem;
-  margin-bottom: 1.5rem;
+  font-size: 32px;
+  margin-top: 80px;
+  margin-bottom: 16px;
 }
 
 h3 {
-  font-size: 32px;
-  font-weight: 400;
-  margin-top: 2rem;
-  margin-bottom: 1.5rem;
-}
-
-h4 {
-  font-size: 24px;
   font-weight: 500;
-  margin-top: 1rem;
+  font-size: 24px;
+  margin-top: 56px;
+  margin-bottom: 12px;
 }
 
-h5 {
-  font-size: 16px;
+h4, h5 {
   font-weight: 600;
-  margin-top: 1rem;
+  font-size: 16px;
+  margin-top: 40px;
+}
+
+.summary {
+  font-size: 20px;
+  line-height: 27px;
 }
 
 /*This avoids the next/previous documentation page links being blue*/

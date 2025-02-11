@@ -1,7 +1,7 @@
 ---
 id: kvs
 title: Create a Key Value Store
-displayed_sidebar: rubySidebar
+displayed_sidebar: quickStartSidebar
 sidebar_position: 3
 ---
 

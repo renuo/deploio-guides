@@ -57,64 +57,10 @@ const config = {
     [
       '@docusaurus/plugin-content-docs',
       {
-        id: 'dockerDocs',
-        path: 'quick_start/docker',
-        routeBasePath: 'quick_start/docker',
-        sidebarPath: require.resolve('./sidebarsDocker.js'),
-      },
-    ],
-    [
-      '@docusaurus/plugin-content-docs',
-      {
-        id: 'goDocs',
-        path: 'quick_start/go',
-        routeBasePath: 'quick_start/go',
-        sidebarPath: require.resolve('./sidebarsGo.js'),
-      },
-    ],
-    [
-      '@docusaurus/plugin-content-docs',
-      {
-        id: 'nodeDocs',
-        path: 'quick_start/node',
-        routeBasePath: 'quick_start/node',
-        sidebarPath: require.resolve('./sidebarsNode.js'),
-      },
-    ],
-    [
-      '@docusaurus/plugin-content-docs',
-      {
-        id: 'phpDocs',
-        path: 'quick_start/php',
-        routeBasePath: 'quick_start/php',
-        sidebarPath: require.resolve('./sidebarsPhp.js'),
-      },
-    ],
-    [
-      '@docusaurus/plugin-content-docs',
-      {
-        id: 'pythonDocs',
-        path: 'quick_start/python',
-        routeBasePath: 'quick_start/python',
-        sidebarPath: require.resolve('./sidebarsPython.js'),
-      },
-    ],
-    [
-      '@docusaurus/plugin-content-docs',
-      {
-        id: 'rubyDocs',
-        path: 'quick_start/ruby',
-        routeBasePath: 'quick_start/ruby',
-        sidebarPath: require.resolve('./sidebarsRuby.js'),
-      },
-    ],
-    [
-      '@docusaurus/plugin-content-docs',
-      {
-        id: 'staticDocs',
-        path: 'quick_start/static',
-        routeBasePath: 'quick_start/static',
-        sidebarPath: require.resolve('./sidebarsStatic.js'),
+        id: 'quickStartDocs',
+        path: 'quick_start',
+        routeBasePath: 'quick_start',
+        sidebarPath: require.resolve('./sidebarsQuickStart.js'),
       },
     ],
   ],
@@ -175,6 +121,11 @@ const config = {
       colorMode: {
         disableSwitch: true
       },
+      docs: {
+        sidebar: {
+          autoCollapseCategories: true
+        }
+      }
     }),
   headTags: [
     {

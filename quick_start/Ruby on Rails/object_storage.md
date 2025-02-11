@@ -1,7 +1,7 @@
 ---
 id: object_storage
 title: Setup Object Storage
-displayed_sidebar: rubySidebar
+displayed_sidebar: quickStartSidebar
 sidebar_position: 4
 ---
 

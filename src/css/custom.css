@@ -84,9 +84,8 @@ article {
 
 /*TODO: move the search above the items... somehow*/
 
-/*first child on menu__list-item*/
-.menu__list-item:first-child {
-  margin-top: 4rem;
+.theme-doc-sidebar-menu.menu__list {
+  padding-top: 4rem;
 }
 
 .menu__link {

@@ -1,7 +1,7 @@
 ---
 id: background_jobs
 title: Setup Background Jobs
-displayed_sidebar: rubySidebar
+displayed_sidebar: quickStartSidebar
 sidebar_position: 5
 ---
 

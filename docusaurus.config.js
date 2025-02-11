@@ -121,6 +121,11 @@ const config = {
       colorMode: {
         disableSwitch: true
       },
+      docs: {
+        sidebar: {
+          autoCollapseCategories: true
+        }
+      }
     }),
   headTags: [
     {

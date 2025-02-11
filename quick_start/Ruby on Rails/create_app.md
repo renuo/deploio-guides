@@ -2,8 +2,9 @@
 title: Create an Application
 description: Learn how to deploy Ruby on Rails applications with Deploio
 id: create_app
-displayed_sidebar: rubySidebar
+displayed_sidebar: quickStartSidebar
 sidebar_position: 1
+pagination_prev: null
 ---
 
 [//]: # (TODO: is there a way I can show I'm in the Ruby section? Same with the documentation section. Like a title to the left?)

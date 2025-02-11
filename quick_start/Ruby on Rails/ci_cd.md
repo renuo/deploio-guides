@@ -1,7 +1,7 @@
 ---
 id: ci_cd
 title: Configure CI/CD
-displayed_sidebar: rubySidebar
+displayed_sidebar: quickStartSidebar
 sidebar_position: 6
 ---
 

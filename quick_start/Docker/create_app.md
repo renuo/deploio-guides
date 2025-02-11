@@ -2,8 +2,9 @@
 title: Create an Application
 description: Learn how to deploy Docker apps on Deploio
 id: create_app
-displayed_sidebar: dockerSidebar
+displayed_sidebar: quickStartSidebar
 sidebar_position: 1
+pagination_prev: null
 ---
 
 # Quick Start Guide for Docker Apps (Beta)

@@ -2,8 +2,9 @@
 title: Create an Application
 description: Learn how to deploy Node.js applications with Deploio
 id: create_app
-displayed_sidebar: nodeSidebar
+displayed_sidebar: quickStartSidebar
 sidebar_position: 1
+pagination_prev: null
 ---
 
 # Quick Start Guide for Node.js Applications

@@ -24,6 +24,16 @@ guides you through migrating a Rails project from Heroku.
 
 ## Create the database
 
+:::tip
+To ensure the database resource gets allocated to the correct project, you should switch to the correct project context:
+
+```bash
+nctl auth set-project my-project
+```
+
+Alternatively, you can specify the project name with the `-p, --project` flag in the following commands.
+:::
+
 To create a database for your Rails application, you can use the `nctl create` command.
 Below, we show a sample command for creating a PostgreSQL and MySQL database.
 

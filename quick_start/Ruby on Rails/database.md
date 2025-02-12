@@ -207,6 +207,51 @@ Where `my_database` is the name of the database you created.
 </Tabs>
 ```
 
+## Troubleshooting
+
+If you encounter any issues when **connecting to the database**, check that your IP address was correctly added to the 
+allowed CIDRs. You can do this by running:
+
+```mdx-code-block
+<Tabs>
+<TabItem value="PostgreSQL">
+```
+
+```bash
+nctl get postgres {NAME} -o yaml
+```
+
+and then search for the `allowedCIDRs` field.
+To add your current IP address, you could use the following command:
+
+```bash
+nctl update postgres {NAME} --allowed-cidrs "$(curl -s ipinfo.io/ip)/32"
+```
+
+```mdx-code-block
+</TabItem>
+<TabItem value="MySQL">
+```
+
+```bash
+nctl get mysql {NAME} -o yaml
+```
+
+and then search for the `allowedCIDRs` field.
+To add your current IP address, you could use the following command:
+
+```bash
+nctl update mysql {NAME} --allowed-cidrs "$(curl -s ipinfo.io/ip)/32"
+```
+
+```mdx-code-block
+</TabItem>
+</Tabs>
+```
+
+Also, ensure that your current **client version is compatible with the database version**. 
+You can find the currently used version in the YAML output of `nctl get` by searching for the `version` field.
+
 ## Further Steps
 
 ##### Check Database Configuration

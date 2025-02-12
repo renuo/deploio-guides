@@ -65,6 +65,8 @@ nctl create application rails \
   --env="SECRET_KEY_BASE=$(rails secret)"
 ```
 
+Replace the name `rails` with any app name best suited for your project.
+
 :::note
 This requires the [Rails CLI](https://guides.rubyonrails.org/command_line.html) to be installed for the `SECRET_KEY_BASE`.
 If you don't have it, any long random string will do (127+ chars), e.g. `openssl rand -hex 64` or

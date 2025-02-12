@@ -4,7 +4,27 @@
 // There are various equivalent ways to declare your Docusaurus config.
 // See: https://docusaurus.io/docs/api/docusaurus-config
 
-import {themes as prismThemes} from 'prism-react-renderer';
+import { themes as prismThemes } from "prism-react-renderer";
+
+const enhancedGithubTheme = {
+  ...prismThemes.github,
+  styles: [
+    ...prismThemes.github.styles,
+    {
+      types: ["shell-symbol"],
+      style: {
+        color: "#0550AE",
+        fontWeight: "bold",
+      },
+    },
+    {
+      types: ["output"],
+      style: {
+        color: "#6B6B6B",
+      },
+    }
+  ],
+}
 
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
@@ -115,8 +135,9 @@ const config = {
       },
       // TODO: is this only for the code blocks? it's was doing in line styles which sucks
       prism: {
-        theme: prismThemes.github,
+        theme: enhancedGithubTheme,
         darkTheme: prismThemes.dracula,
+        additionalLanguages: ['shell-session', 'bash'],
       },
       colorMode: {
         disableSwitch: true

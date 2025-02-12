@@ -24,7 +24,10 @@
   --ifm-navbar-background-color: #EAE9E8;
 
   /*Menu overrides*/
-  --ifm-menu-color-background-active: rgba(20, 29, 80, 0.1)
+  --ifm-menu-color-background-active: rgba(20, 29, 80, 0.1);
+
+  /*Alert overrides*/
+  --ifm-alert-background-color-highlight: rgba(20, 29, 80, 0.04);
 }
 
 html {
@@ -124,8 +127,10 @@ table td {
 /*Alerts*/
 
 .alert {
-  border: 2px 0 0 0 solid var(--ifm-color-primary);
-  border-top: 2px solid var(--ifm-color-primary);
+  --alert-border-top-color: var(--ifm-color-primary);
+
+  border: 2px 0 0 0 solid var(--alert-border-top-color);
+  border-top: 2px solid var(--alert-border-top-color);
   --ifm-heading-font-weight: 500;
   --ifm-h5-font-size: 1.2rem;
   border-radius: 0;
@@ -135,6 +140,27 @@ table td {
   margin-top: 1em;
   margin-bottom: 2em !important;
 }
+
+.alert--success {
+  --ifm-alert-background-color: #F0FAF0;
+  --alert-border-top-color: #003100;
+}
+
+.alert--info {
+  --ifm-alert-background-color: #F1F7FD;
+  --alert-border-top-color: #193C47;
+}
+
+.alert--warning {
+  --ifm-alert-background-color: #FFFBF0;
+  --alert-border-top-color: #4D3800;
+}
+
+.alert--danger {
+  --ifm-alert-background-color: #FFF2F3;
+  --alert-border-top-color: #4B1113;
+}
+
 
 /*Homepage*/
 

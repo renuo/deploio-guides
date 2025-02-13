@@ -4,6 +4,7 @@ title: Configure Continuous Deployment
 description: Learn how to configure the CD for your Rails application.
 displayed_sidebar: quickStartSidebar
 sidebar_position: 6
+pagination_next: null
 ---
 
 # Configure the CD for Your Rails Application

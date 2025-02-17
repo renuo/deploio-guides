@@ -31,8 +31,7 @@ nctl update application {application_name} \
 
 The `--worker-job-command` flag specifies the command to run the worker. The `--worker-job-name` flag specifies the name
 of the worker, and finally, the `--worker-job-size` flag specifies the instance type for the worker, which are the
-equivalent of the instance types for the application. The available sizes are
-available [here](https://docs.nine.ch/docs/deplo-io/sizing-overview/).
+equivalent of the instance types for the application. The available sizes can be viewed [here](https://docs.nine.ch/docs/deplo-io/sizing-overview/).
 
 ## Observing a Worker
 

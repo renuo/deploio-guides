@@ -94,7 +94,8 @@ version not be specified in the `package.json` file, the buildpack will fall bac
 
 The build process offers a few environment variables which can be used to adjust it to your use-case.
 See the [how to](https://paketo.io/docs/howto/nodejs/) section of the buildpack documentation for all available variables.
-Also, if you want to add custom environment variables to your application, ensure that they're available during the
+
+If you need to add custom environment variables to your application, ensure that they're available during the
 build by using the `--build-env` flag when updating your application with `nctl update app`.
 
 ### Build an App in a Subdirectory

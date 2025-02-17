@@ -46,7 +46,7 @@ spec:
 ## Retrieve Object Storage Information
 
 After creating the object storage, you can view the access information by navigating to the details page of the newly
-created bucket.
+created **bucket**.
 
 ![Object Storage Panel](/img/object_storage_panel.png)
 

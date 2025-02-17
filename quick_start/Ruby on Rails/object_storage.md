@@ -15,8 +15,7 @@ You can see the pricing [here](https://docs.nine.ch/docs/object-storage/manage-b
 
 ## Setup Object Storage
 
-Currently, there's no dedicated command to create an object storage instance. You can create an object storage in
-the [Cockpit UI](https://cockpit.nine.ch/en/object_storage/storage/buckets/new). Select the desired project in the
+Currently, there's no dedicated command to create an object storage instance using `nctl`. However, you can create an object storage via the [Cockpit UI](https://cockpit.nine.ch/en/object_storage/storage/buckets/new). Select the desired project in the
 dropdown and specify the location, which ideally is `nine-es34`, the same location as Deploio applications.
 
 :::info

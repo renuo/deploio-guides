@@ -50,7 +50,7 @@ created **bucket**.
 
 ![Object Storage Panel](/img/object_storage_panel.png)
 
-However, to interact with the created object storage, you need to create a bucket user. You can do this by navigating to
+However, to interact with the created object storage, you need to create a **bucket user**. You can do this by navigating to
 the "Bucket Users" tab in the Cockpit. The user needs to reside in the same location as the bucket. After creating the
 user, you can retrieve the access key and secret key by clicking on "Show" in the "Credentials" row.
 

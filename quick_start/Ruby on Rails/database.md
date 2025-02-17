@@ -7,7 +7,7 @@ sidebar_position: 2
 
 # Create a database for your Rails application
 
-Should you wish to migrate a database from elsewhere, you can view this section in the documentation [here](/documentation/dependencies_and_addons), or read [this blog](/ruby_heroku_migration_guide) which guides you through migrating a Rails project from Heroku.
+Should you wish to migrate a database from elsewhere, you can view this section in the documentation [here](/articles/migrating_from_other_platforms), or read [this blog](/ruby_heroku_migration_guide) which guides you through migrating a Rails project from Heroku.
 
 [//]: # (TODO: do I talk about SSH keys etc here or just creating?)
 
@@ -76,7 +76,7 @@ Rails should automatically use the `DATABASE_URL` environment variable to connec
 
 ##### Run Migrations
 
-You can now run the migrations on your Rails application to create the tables in the database. This can be done through the [`deploio.yaml`](/documentation/configuring_your_application#deploioyaml) file (which runs on deployment) or by manually running the migrations.
+You can now run the migrations on your Rails application to create the tables in the database. This can be done through the [`deploio.yaml`](/articles/configuring_your_application#deploioyaml) file (which runs on deployment) or by manually running the migrations.
 
 ##### Final Checks
 

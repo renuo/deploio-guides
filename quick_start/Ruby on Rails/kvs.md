@@ -7,7 +7,7 @@ sidebar_position: 3
 
 # Create a Key Value Store for your Rails application
 
-Should you require workers or caching, you can use Redis as a key-value store. You can see the different sizes available and pricing [here](/documentation/dependencies_and_addons#key-value-store).
+Should you require workers or caching, you can use Redis as a key-value store. You can see the different sizes available and pricing [here](/articles/other_dependencies#key-value-store).
 
 ## Create the Key Value Store
 

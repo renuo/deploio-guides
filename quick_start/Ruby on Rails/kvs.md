@@ -43,7 +43,8 @@ $ nctl get keyvaluestore {application_name}
 PROJECT       NAME                  FQDN                                                    TLS     MEMORY SIZE
 my-project    {application_name}    {application_name}.1234567.keyvaluestore.nineapis.ch    true    1Gi
 
-Retrieve the password for the key-value store
+Retrieve the password for the key-value store:
+
 $ nctl get keyvaluestore {application_name} --print-token
 ...password...
 ```

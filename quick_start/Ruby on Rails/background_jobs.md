@@ -9,7 +9,7 @@ sidebar_position: 5
 
 <div class="summary">
 Should you require a background process for a worker such as [Sidekiq](https://sidekiq.org), 
-[Good job](https://github.com/bensheldon/good_job), or [Delayed Job](https://github.com/collectiveidea/delayed_job), you can setup a worker command  
+[Good job](https://github.com/bensheldon/good_job), or [Delayed Job](https://github.com/collectiveidea/delayed_job), you can setup a worker command.
 </div>
 
 ## Creating a Worker

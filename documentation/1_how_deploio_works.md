@@ -1,6 +1,7 @@
 ---
 title: How Deploio Works
-sidebar_position: 2
+sidebar_position: 1
+slug: /
 ---
 
 # How Deploio Works
@@ -9,6 +10,11 @@ Provide details on the build and release process, the underlying technology and 
 
 ### Repo, Build, Release Process
 
+All you require for deploying an application with Deploio is:
+
+- a git repository with the application codebase <img src="/img/icons/git.svg" height="20px" width="20px"/>
+- a laptop or PC for installing `nctl` and deploying the application 💻
+- a domain to point to your application 🌐
 
 ##### Repo
 

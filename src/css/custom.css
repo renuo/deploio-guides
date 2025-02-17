@@ -166,7 +166,7 @@ table td {
 
 .tile-grid {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);  /* 6 columns by default */
+  grid-template-columns: repeat(7, 1fr);  /* 7 columns by default */
   grid-template-rows: repeat(2, auto);    /* 2 rows by default */
   gap: 2rem;
   justify-content: center;

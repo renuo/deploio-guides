@@ -1,42 +1,11 @@
 ---
-title: Monitoring and Logs
-sidebar_position: 8
+title: Troubleshooting
+sidebar_position: 9
 ---
 
-# Monitoring and Logs
+# Troubleshooting
 
-### Logs
-
-[//]: # (TODO: check this - nctl log always just show stdout?)
-
-
-##### nctl logs
-
-- View logs via `nctl logs` (stdout)
-- Debug errors with `grep`.
-
-##### Third party tools
-
-  - AppSignal
-  - rorvswild
-  - ?
-
-### Performance Metrics
-
-##### Resource Stats
-  - `nctl stats`
-  - Track CPU, memory, and costs.
-
-##### Activity Logs
-
-  - See what's live and when.
-
-##### DNS
-  - where does it run?
-
-[//]: # (TODO: Should DNS go here??)
-
-### Troubleshooting
+Should you have an emergency with your application, we have a few tools and guides to help you get back on track.
 
 [//]: # (TODO: Activity logs here? what actually does this mean)
 [//]: # (TODO: Same with DNS stuff)
@@ -67,5 +36,3 @@ sidebar_position: 8
   - Comprehensive guides on [docs.nine.ch](https://docs.nine.ch).
   - Call Nine
   - Join the Slack workspace
-
-[//]: # (TODO: Too much here? - split up?)

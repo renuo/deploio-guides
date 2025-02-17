@@ -1,11 +1,17 @@
 ---
 title: Our Stack
-sidebar_position: 12
+sidebar_position: 13
 ---
 
 # Our Stack
 
 Container-based infrastructure.
+
+- Safe?
+- Data loss?
+- K8?
+- Tenant separation?
+- Anything else?
 
 ### Swiss infrastructure (AS29691)
 

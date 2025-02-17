@@ -70,16 +70,15 @@ hide_table_of_contents: true
 <div 
   className="tile-grid"
 >
+  <a href="documentation/how_deploio_works" style={{ textDecoration: 'none', textAlign: 'center' }}>
+    <div style={{ width: '140px', height: '140px', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid #e0e0e0', borderRadius: '8px', padding: '2rem', boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)' }}>
+      <span style={{ fontWeight: 'bold' }}>How Deploio Works</span>
+    </div>
+  </a>
 
   <a href="documentation" style={{ textDecoration: 'none', textAlign: 'center' }}>
     <div style={{ width: '140px', height: '140px', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid #e0e0e0', borderRadius: '8px', padding: '2rem', boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)' }}>
       <span style={{ fontWeight: 'bold' }}>Getting Started</span>
-    </div>
-  </a>
-  
-  <a href="documentation/how_deploio_works" style={{ textDecoration: 'none', textAlign: 'center' }}>
-    <div style={{ width: '140px', height: '140px', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid #e0e0e0', borderRadius: '8px', padding: '2rem', boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)' }}>
-      <span style={{ fontWeight: 'bold' }}>How Deploio Works</span>
     </div>
   </a>
   
@@ -88,10 +87,16 @@ hide_table_of_contents: true
       <span style={{ fontWeight: 'bold' }}>Code Repository Setup</span>
     </div>
   </a>
-  
-  <a href="documentation/dependencies_and_addons" style={{ textDecoration: 'none', textAlign: 'center' }}>
+
+  <a href="documentation/configuring_your_database" style={{ textDecoration: 'none', textAlign: 'center' }}>
     <div style={{ width: '140px', height: '140px', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid #e0e0e0', borderRadius: '8px', padding: '2rem', boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)' }}>
-      <span style={{ fontWeight: 'bold' }}>Dependencies and Add-Ons</span>
+      <span style={{ fontWeight: 'bold' }}>Configuring Your Database</span>
+    </div>
+  </a>
+  
+  <a href="documentation/other_dependencies" style={{ textDecoration: 'none', textAlign: 'center' }}>
+    <div style={{ width: '140px', height: '140px', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid #e0e0e0', borderRadius: '8px', padding: '2rem', boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)' }}>
+      <span style={{ fontWeight: 'bold' }}>Other Dependencies</span>
     </div>
   </a>
   
@@ -101,15 +106,21 @@ hide_table_of_contents: true
     </div>
   </a>
   
-  <a href="documentation/additional_configuration" style={{ textDecoration: 'none', textAlign: 'center' }}>
+  <a href="documentation/networking_and_deployment" style={{ textDecoration: 'none', textAlign: 'center' }}>
     <div style={{ width: '140px', height: '140px', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid #e0e0e0', borderRadius: '8px', padding: '2rem', boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)' }}>
-      <span style={{ fontWeight: 'bold' }}>Additional Configuration</span>
+      <span style={{ fontWeight: 'bold' }}>Networking & Deployment</span>
     </div>
   </a>
   
-  <a href="documentation/cicd_integration" style={{ textDecoration: 'none', textAlign: 'center' }}>
+  <a href="documentation/ci_cd_integration" style={{ textDecoration: 'none', textAlign: 'center' }}>
     <div style={{ width: '140px', height: '140px', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid #e0e0e0', borderRadius: '8px', padding: '2rem', boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)' }}>
       <span style={{ fontWeight: 'bold' }}>CI/CD Integration</span>
+    </div>
+  </a>
+  
+  <a href="documentation/troubleshooting" style={{ textDecoration: 'none', textAlign: 'center' }}>
+    <div style={{ width: '140px', height: '140px', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid #e0e0e0', borderRadius: '8px', padding: '2rem', boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)' }}>
+      <span style={{ fontWeight: 'bold' }}>Troubleshooting</span>
     </div>
   </a>
   
@@ -125,12 +136,6 @@ hide_table_of_contents: true
     </div>
   </a>
   
-  <a href="documentation/tools" style={{ textDecoration: 'none', textAlign: 'center' }}>
-    <div style={{ width: '140px', height: '140px', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid #e0e0e0', borderRadius: '8px', padding: '2rem', boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)' }}>
-      <span style={{ fontWeight: 'bold' }}>Tools</span>
-    </div>
-  </a>
-  
   <a href="documentation/migrating_from_other_platforms" style={{ textDecoration: 'none', textAlign: 'center' }}>
     <div style={{ width: '140px', height: '140px', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid #e0e0e0', borderRadius: '8px', padding: '2rem', boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)' }}>
       <span style={{ fontWeight: 'bold' }}>Migrating From Other Platforms</span>
@@ -140,6 +145,12 @@ hide_table_of_contents: true
   <a href="documentation/our_stack" style={{ textDecoration: 'none', textAlign: 'center' }}>
     <div style={{ width: '140px', height: '140px', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid #e0e0e0', borderRadius: '8px', padding: '2rem', boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)' }}>
       <span style={{ fontWeight: 'bold' }}>Our Stack</span>
+    </div>
+  </a>
+
+  <a href="documentation/tools" style={{ textDecoration: 'none', textAlign: 'center' }}>
+    <div style={{ width: '140px', height: '140px', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid #e0e0e0', borderRadius: '8px', padding: '2rem', boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)' }}>
+      <span style={{ fontWeight: 'bold' }}>Tools</span>
     </div>
   </a>
 

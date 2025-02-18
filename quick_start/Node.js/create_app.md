@@ -6,6 +6,7 @@ id: create_app
 displayed_sidebar: quickStartSidebar
 sidebar_position: 1
 pagination_prev: null
+pagination_next: null
 ---
 
 # Quick Start Guide for Node.js Applications

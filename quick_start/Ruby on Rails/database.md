@@ -14,7 +14,8 @@ import TabItem from '@theme/TabItem';
 # Create a database for your Rails application
 
 <div class="summary">
-In this guide, we will show you how to create a database for your Ruby on Rails application using Deploio. You can see more information on databases here](/documentation/dependencies_and_addons).
+In this guide, we will show you how to create a database for your Ruby on Rails application using Deploio.
+You can see more information on databases [here](/documentation/dependencies_and_addons).
 
 Should you wish to migrate an already existing database from elsewhere, you can view this section in the
 documentation [here](/documentation/migrating_from_other_platforms), or read [this blog](/ruby_heroku_migration_guide) which
@@ -35,13 +36,14 @@ nctl auth set-project my-project
 Alternatively, you can specify the project name with the `-p, --project` flag in the following commands.
 :::
 
-To create a database for your Rails application, you can use the `nctl create` command.
-Below, we show a sample command for creating a PostgreSQL and MySQL database.
-
 ```mdx-code-block
 <Tabs>
 <TabItem value="PostgreSQL">
 ```
+
+To create a database for your Rails application, you can use the `nctl create` command.
+Below, we show a sample command for creating a PostgreSQL database.
+
 
 ```bash
 nctl create postgres {NAME} \
@@ -51,36 +53,10 @@ nctl create postgres {NAME} \
   --ssh-keys-file=my-key.pub
 ```
 
-Further details on the flags can be found in the by running `nctl create postgres --help`.
-
-```mdx-code-block
-</TabItem>
-<TabItem value="MySQL">
-```
-
-```bash
-nctl create mysql {NAME} \
-  --character-set-collation=utf8mb4_unicode_ci \
-  --machine-type=nine-db-s \
-  --allowed-cidrs="203.0.113.1/32,..." \
-  --ssh-keys-file=my-key.pub
-```
-
-Further details on the flags can be found in the by running `nctl create mysql --help`.
-Note that currently, only MySQL 8 databases are supported.
-
-```mdx-code-block
-</TabItem>
-</Tabs>
-```
+Further details on the flags can be found in the manual by running `nctl create postgres --help`.
 
 We can now access the server using the **fully-qualified domain name (FQDN)** and generated user and password. 
 We can find this information as follows:
-
-```mdx-code-block
-<Tabs>
-<TabItem value="PostgreSQL">
-```
 
 ```shell-session
 $ nctl get postgres {NAME}
@@ -105,10 +81,69 @@ You will be prompted to enter the password.
 We can check that this database was created by entering the server using `psql -U dbadmin -h {FQDN} -d postgres` and
 then running the command `\l` to list the databases on the server.
 
+## Configure Your Rails Application
+
+To connect your Rails application to the database, you need to set the `DATABASE_URL` environment variable.
+We can retrieve the value of this environment variable by running:
+
+```bash
+nctl get postgres {NAME} --print-connection-string
+```
+
+:::note
+The connection string will look something like this: `postgres://dbadmin:password@{FQDN}`.
+We can append the database name to the end of this string to create the full connection string.
+:::
+
+Thus, we can set the `DATABASE_URL` environment variable as follows:
+
+```bash
+nctl update app {APP_NAME} \
+--env="DATABASE_URL=$(nctl get postgres {NAME} --print-connection-string)/my-database"
+```
+
+Where `my-database` is the name of the database you created.
+
+## Troubleshooting
+
+If you encounter any issues when **connecting to the database**, check that your IP address was correctly added to the 
+allowed CIDRs. You can do this by running:
+
+```bash
+nctl get postgres {NAME} -o yaml
+```
+
+and then search for the `allowedCIDRs` field.
+To add your current IP address, you could use the following command:
+
+```bash
+nctl update postgres {NAME} --allowed-cidrs "$(curl -s ipinfo.io/ip)/32"
+```
+
+Also, ensure that your current **client version is compatible with the database version**. 
+You can find the currently used version in the YAML output of `nctl get` by searching for the `version` field.
+
 ```mdx-code-block
 </TabItem>
 <TabItem value="MySQL">
 ```
+
+To create a database for your Rails application, you can use the `nctl create` command.
+Below, we show a sample command for creating a MySQL database.
+
+```bash
+nctl create mysql {NAME} \
+  --character-set-collation=utf8mb4_unicode_ci \
+  --machine-type=nine-db-s \
+  --allowed-cidrs="203.0.113.1/32,..." \
+  --ssh-keys-file=my-key.pub
+```
+
+Further details on the flags can be found in the manual by running `nctl create mysql --help`.
+Note that currently, only MySQL 8 databases are supported.
+
+We can now access the server using the **fully-qualified domain name (FQDN)** and generated user and password.
+We can find this information as follows:
 
 ```shell-session
 $ nctl get mysql {NAME}
@@ -129,9 +164,9 @@ mysql -h {FQDN} -u dbadmin -p
 ```
 
 :::warning
-Currently, Deploio supports **MySQL version 8**. If you have mysql version 9 installed on your local machine, 
+Currently, Deploio supports **MySQL version 8**. If you have mysql version 9 installed on your local machine,
 you probably lack the `mysql_native_password` plugin as it has been removed in MySQL 9.
-Hence, you would need to install an older version of the client 
+Hence, you would need to install an older version of the client
 
 (e.g. `brew install mysql-client@8.4` and then `/opt/homebrew/opt/mysql-client@8.4/bin/mysql -h ...` on macOS using Homebrew).
 :::
@@ -144,46 +179,13 @@ CREATE DATABASE my_database;
 
 To check that the database was created, we can run the command `SHOW DATABASES;`.
 
-For more setup commands, visit the 
+For more setup commands, visit the
 [official MySQL documentation](https://docs.nine.ch/docs/on-demand-databases/on-demand-databases-mysql/#basic-commands).
-
-```mdx-code-block
-</TabItem>
-</Tabs>
-```
 
 ## Configure Your Rails Application
 
 To connect your Rails application to the database, you need to set the `DATABASE_URL` environment variable.
 We can retrieve the value of this environment variable by running:
-
-```mdx-code-block
-<Tabs>
-<TabItem value="PostgreSQL">
-```
-
-```bash
-nctl get postgres {NAME} --print-connection-string
-```
-
-:::note
-The connection string will look something like this: `postgres://dbadmin:password@{FQDN}`.
-We can append the database name to the end of this string to create the full connection string.
-:::
-
-Thus, we can set the `DATABASE_URL` environment variable as follows:
-
-```bash
-nctl update app {APP_NAME} \
---env="DATABASE_URL=$(nctl get postgres {NAME} --print-connection-string)/my-database"
-```
-
-Where `my-database` is the name of the database you created.
-
-```mdx-code-block
-</TabItem>
-<TabItem value="MySQL">
-```
 
 ```bash
 nctl get mysql {NAME} --print-connection-string
@@ -203,36 +205,10 @@ nctl update app {APP_NAME} \
 
 Where `my_database` is the name of the database you created.
 
-```mdx-code-block
-</TabItem>
-</Tabs>
-```
-
 ## Troubleshooting
 
-If you encounter any issues when **connecting to the database**, check that your IP address was correctly added to the 
+If you encounter any issues when **connecting to the database**, check that your IP address was correctly added to the
 allowed CIDRs. You can do this by running:
-
-```mdx-code-block
-<Tabs>
-<TabItem value="PostgreSQL">
-```
-
-```bash
-nctl get postgres {NAME} -o yaml
-```
-
-and then search for the `allowedCIDRs` field.
-To add your current IP address, you could use the following command:
-
-```bash
-nctl update postgres {NAME} --allowed-cidrs "$(curl -s ipinfo.io/ip)/32"
-```
-
-```mdx-code-block
-</TabItem>
-<TabItem value="MySQL">
-```
 
 ```bash
 nctl get mysql {NAME} -o yaml
@@ -245,13 +221,13 @@ To add your current IP address, you could use the following command:
 nctl update mysql {NAME} --allowed-cidrs "$(curl -s ipinfo.io/ip)/32"
 ```
 
+Also, ensure that your current **client version is compatible with the database version**.
+You can find the currently used version in the YAML output of `nctl get` by searching for the `version` field.
+
 ```mdx-code-block
 </TabItem>
 </Tabs>
 ```
-
-Also, ensure that your current **client version is compatible with the database version**. 
-You can find the currently used version in the YAML output of `nctl get` by searching for the `version` field.
 
 ## Further Steps
 
@@ -278,3 +254,4 @@ to interact with it through your Rails application.
 
 Do you need a Redis-compatible **key value store** for your application (e.g. for running Sidekiq)? 
 Proceed to the next step.
+

@@ -25,7 +25,7 @@ Deploio will regularly check for changes in the specified branch and deploy the 
 Before you begin, you need to have the following:
 
 - A Rails application under version control with Git and a remote repository on GitHub, GitLab, Bitbucket, or any other
-  Git hosting service.
+  [Git hosting service](../../documentation/code_repository_setup)
 - A running Deploio Rails application. If you haven't deployed your Rails application yet, follow
   the [Create a Rails Application](./create_app.md) guide.
 - A CI/CD tool like GitHub Actions, GitLab CI/CD, or CircleCI that is able to run bash scripts. Ideally, a CI pipeline

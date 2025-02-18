@@ -35,8 +35,9 @@ application** you prefer since the workflow remains the same.
 
 In case you don't have a Next.js application yet, you can create one using the Next.js CLI.
 We recommend following the [official Next.js guide](https://nextjs.org/docs/app/getting-started/installation) to create
-a new Next.js application. In case you don't want to create a new application and don't have an existing one, you can
-use our basic Next.js app in our [examples repository](https://github.com/ninech/deploio-examples#nodejs).
+a new Next.js application. 
+If you want to learn the process,
+we also provide a basic Next.js app in our [examples repository](https://github.com/ninech/deploio-examples#nodejs). 
 
 ## Use Git to Store Your Application
 
@@ -94,7 +95,8 @@ version not be specified in the `package.json` file, the buildpack will fall bac
 ## Build env considerations
 
 The build process offers a few environment variables which can be used to adjust it to your use-case.
-See the [how to](https://paketo.io/docs/howto/nodejs/) section of the buildpack documentation for all available variables.
+See the [how to](https://paketo.io/docs/howto/nodejs/) section of the buildpack documentation for all available
+variables.
 
 If you need to add custom environment variables to your application, ensure that they're available during the
 build by using the `--build-env` flag when updating your application with `nctl update app`.

@@ -55,7 +55,10 @@ the "Bucket Users" tab in the Cockpit. The user needs to reside in the same loca
 user, you can retrieve the access key and secret key by clicking on "Show" in the "Credentials" row.
 
 ![Bucket User Panel](/img/bucket_user_panel.png)
+
+<div class="centering">
 ![Bucket User Credentials](/img/bucket_user_credentials.png)
+</div>
 
 ## Configure Active Storage
 

@@ -382,3 +382,12 @@ table td {
     }
   }
 }
+
+/* Utils */
+
+.centering {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}

@@ -39,7 +39,7 @@ running `nctl auth set-project {project_name}`. Alternatively, you can specify t
 `--project` flag.
 :::
 
-To prevent that you have to store your personal credentials in your CI/CD pipeline, you should create an API service
+To avoid having to store your personal credentials in your CI/CD pipeline, you should create an API service
 account (ASA) that only has permissions within a project. You can create a new service account using the `nctl` CLI:
 
 ```bash
@@ -84,10 +84,12 @@ nctl update app $DEPLOIO_APP_NAME \
   --skip-repo-access-check
 ```
 
-This script installs the `nctl` CLI in a first step. In case you are using a different operating system, you need to
+The first step in the script adds the `nine.ch` Debian repository to the system, and the second step installs the `nctl` CLI. In case you are using a different operating system, you need to
 adjust the installation command accordingly. You can find instructions on how to install the `nctl` CLI in
 the [CLI documentation](https://github.com/ninech/nctl?tab=readme-ov-file#setup).
-In the second step, the script authenticates the `nctl` CLI using the API token.
+
+In the third step, the script authenticates the `nctl` CLI using the API token.
+
 Finally, the script updates the git-revision of the application and thus tells Deploio to fetch the latest version of
 your application from your specified git repository.
 
@@ -108,9 +110,9 @@ flaws:
 
 To circumvent these issues, you might want to add a check that waits for the deployment to finish and then check its
 status. A more sophisticated approach including an example of a status check script in Ruby can be found in
-our [blog post on how to migrate a Rails application from Heroku to Deploio.](/ruby_heroku_migration_guide#configure-ci)
+our [blog post on how to migrate a Rails application from Heroku to Deploio.](/ruby_heroku_migration_guide#configure-ci). This Ruby script can be adapted for your preferred language and setup.
 
-### Trouble Shooting
+### Troubleshooting
 
 If you encounter issues when running the `nctl auth login` command such as it running indefinitely, most likely the
 `NCTL_API_TOKEN` is not set correctly. Ensure that the token is set correctly and that it is available to the script.

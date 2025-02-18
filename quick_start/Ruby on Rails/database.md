@@ -14,9 +14,10 @@ import TabItem from '@theme/TabItem';
 # Create a database for your Rails application
 
 <div class="summary">
-In this guide, we will show you how to create a database for your Ruby on Rails application using Deploio.
+In this guide, we will show you how to create a database for your Ruby on Rails application using Deploio. You can see more information on databases here](/documentation/dependencies_and_addons).
+
 Should you wish to migrate an already existing database from elsewhere, you can view this section in the
-documentation [here](/documentation/dependencies_and_addons), or read [this blog](/ruby_heroku_migration_guide) which
+documentation [here](/documentation/migrating_from_other_platforms), or read [this blog](/ruby_heroku_migration_guide) which
 guides you through migrating a Rails project from Heroku.
 </div>
 

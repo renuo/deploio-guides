@@ -5,11 +5,11 @@ description: Learn how to migrate an app from Heroku to Deploio
 
 # A Guide for Migrating a Ruby on Rails Application from Heroku to Deploio
 
-In this guide, we will be migrating the application called **gifcoins** using only the `nctl` command line tool. This guide could also be used to set up an application using the Cockpit user interface. See an overview of the tools available <a href="/articles/tools" target="_blank">here</a>.
+In this guide, we will be migrating the application called **gifcoins** using only the `nctl` command line tool. This guide could also be used to set up an application using the Cockpit user interface. See an overview of the tools available <a href="/documentation/tools" target="_blank">here</a>.
 
 Our application will actually be named `main` as we will have multiple environments to setup. The environments will be set up as applications within the project `gifcoins`. The application created will be automatically namespaced within the project, so it is sufficient to only name it by the environment.
 
-For more information on these terms and the structure, read the documentation <a href="/articles/how_deploio_works" target="_blank">here</a>.
+For more information on these terms and the structure, read the documentation <a href="/documentation/how_deploio_works" target="_blank">here</a>.
 
 This example uses the tools listed below, and can be slightly adapted should you use something different. You can use the general documentation for details on other configurations.
 
@@ -61,7 +61,7 @@ We will need this later for when we create the application.
 
 To use many of the services on the application, you will need to set up the environment variables. This can be done manually with more control, deciding whether the environment variables is required at build or runtime, or alternatively a shell script could be used to retrieve all the environment variables if the application is already running elsewhere.
 
-You can see an example of such a script <a href="/articles/migrating_from_other_platforms" target="_blank">here</a> which is for retrieving the environment variables from Heroku and setting all variables as both build and runtime variables for the application.
+You can see an example of such a script <a href="/documentation/migrating_from_other_platforms" target="_blank">here</a> which is for retrieving the environment variables from Heroku and setting all variables as both build and runtime variables for the application.
 
 You should decide on a preferred approach, and be aware of which environment variables required for setting up the project and deploying the application on Deploio.
 
@@ -73,7 +73,7 @@ You will need to ensure that you are authorised and logged in to the `nctl` comm
 nctl auth whoami
 ```
 
-You can see more information about setting up the `nctl` command line [here](articles/#installing-nctl).
+You can see more information about setting up the `nctl` command line [here](documentation/#installing-nctl).
 
 ## Create Project
 
@@ -153,7 +153,7 @@ Unfortunately this will contain quotation marks around the private key. These wi
 
 We will use the private key that we have stored in the next step when creating the application.
 
-Please note, should you use a different tool for storing your code, you can set up the access to the repository in a similar way. For more details see <a href="/articles/code_repository_setup" target="_blank">here</a>.
+Please note, should you use a different tool for storing your code, you can set up the access to the repository in a similar way. For more details see <a href="/documentation/code_repository_setup" target="_blank">here</a>.
 
 ### Create the Application
 
@@ -166,7 +166,7 @@ Now that we have the following available to us...
 
 ...we can create our application. We do this by running the `nctl create app` command with a number of flags. An example can be found below with explanations on the additional flags, however it is recommended to read through the available configuration [here](https://docs.nine.ch/docs/category/configuration).
 
-[//]: # (TODO: can probably update the above link to `articles/configuring_your_application` eventually?)
+[//]: # (TODO: can probably update the above link to `documentation/configuring_your_application` eventually?)
 
 ```
 nctl create app main \
@@ -186,7 +186,7 @@ nctl create app main \
 - `--basic-auth=false` disables the built in Deploio basic auth. We have set this because we already have basic auth “manually” set up on the project, however we would recommend utilising the built in basic auth if possible.
 - `--build-env=BP_INCLUDE_NODEJS_RUNTIME="true"` ensures Node is available at build time for applications using JavaScript. Additionally, a `package.json` file also needs to be present at the root.
 
-Note that we do not set the language as this allows the buildpack to be automatically detected. You can read more about buildpacks <a href="/articles/security" target="_blank">here</a>.
+Note that we do not set the language as this allows the buildpack to be automatically detected. You can read more about buildpacks <a href="/documentation/security" target="_blank">here</a>.
 
 Now, this will most likely fail. This is because we haven’t set the build environment variables. Unless you know exactly which variables are required at build time, we recommend that you add these one at a time and watch for the errors using:
 
@@ -227,7 +227,7 @@ We can take the public key from the response, and add this to the allowed SSH ke
 
 ### Create the Database
 
-Now we have the IP address and public key, we can run the command to create the database server. There are a number of options that you need to consider. For example,  the daily backup retention defaults to 10, which we will leave unchanged. The full list of options can be found <a href="/articles/configurating_your_database" target="_blank">here</a>.
+Now we have the IP address and public key, we can run the command to create the database server. There are a number of options that you need to consider. For example,  the daily backup retention defaults to 10, which we will leave unchanged. The full list of options can be found <a href="/documentation/configurating_your_database" target="_blank">here</a>.
 
 We will be working with a PostgreSQL database.
 
@@ -358,7 +358,7 @@ Note that we are using `rediss` as TLS is enabled.
 
 For our application, we use **Sidekiq** for the background jobs.
 
-To implement this, we need to create a `.deploio.yml` file in the project root directory. This specifies the worker name, the command to start the worker and the dyno size (this is set to micro by default). See more information <a href="/articles/configuring_your_application" target="_blank">here</a>.
+To implement this, we need to create a `.deploio.yml` file in the project root directory. This specifies the worker name, the command to start the worker and the dyno size (this is set to micro by default). See more information <a href="/documentation/configuring_your_application" target="_blank">here</a>.
 
 For our example, we add the following to the file:
 
@@ -398,7 +398,7 @@ nctl get apiserviceaccount gifcoins --print-token
 
 Now that we have the token to hand, we can set this as an environment variable on the CI. We will set this as `DEPLOIO_API_TOKEN`. We also need to set the `DEPLOIO_ORG` variable to our organisation name (in this case **'renuo'**).
 
-In our case we are using Semaphore for our <a href="/articles/ci_cd_integration" target="_blank">CI integration</a>. We therefore have a `.semaphore/main-deploy.yml` file. We will configure this to:
+In our case we are using Semaphore for our <a href="/documentation/ci_cd_integration" target="_blank">CI integration</a>. We therefore have a `.semaphore/main-deploy.yml` file. We will configure this to:
 
 - Install and authenticate the `nctl` CLI using the ASA token
 - Update the app to point to the new git revision

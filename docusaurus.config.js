@@ -64,7 +64,7 @@ const config = {
       ({
         docs: {
           path: 'documentation',
-          routeBasePath: 'articles',
+          routeBasePath: 'documentation',
         },
         theme: {
           customCss: './src/css/custom.css',
@@ -112,7 +112,7 @@ const config = {
             position: 'right'
           },
           {
-            to: '/articles',
+            to: '/documentation',
             label: 'Technical Reference',
             position: 'right'
           },

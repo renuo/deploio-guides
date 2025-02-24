@@ -52,4 +52,4 @@ nctl update application {application_name} --delete-worker-job={worker_job_name}
 
 ## Next Steps
 
-Do you need to **configure the CD**? Proceed to the [next step](./06_cd).
+Do you need to **configure the CD**? Proceed to the [next step](./cd).

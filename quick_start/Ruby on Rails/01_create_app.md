@@ -3,7 +3,6 @@ title: Create a Rails Application
 description: Learn how to deploy Ruby on Rails applications with Deploio
 id: create_app
 displayed_sidebar: quickStartSidebar
-sidebar_position: 1
 pagination_prev: null
 ---
 
@@ -62,6 +61,8 @@ nctl create application rails \
   --git-sub-path=ruby/rails-basic \
   --env="SECRET_KEY_BASE=$(rails secret)"
 ```
+
+Replace the name `rails` with any app name best suited for your project.
 
 :::note
 This requires the [Rails CLI](https://guides.rubyonrails.org/command_line.html) to be installed for the `SECRET_KEY_BASE`.

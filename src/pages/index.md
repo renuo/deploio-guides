@@ -120,7 +120,7 @@ hide_table_of_contents: true
   
   <a href="articles/troubleshooting" style={{ textDecoration: 'none', textAlign: 'center' }}>
     <div style={{ width: '140px', height: '140px', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid #e0e0e0', borderRadius: '8px', padding: '2rem', boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)' }}>
-      <span style={{ fontWeight: 'bold' }}>Troubleshooting</span>
+      <span style={{ fontWeight: 'bold' }}>Trouble&shy;shooting</span>
     </div>
   </a>
   

@@ -1,6 +1,5 @@
 ---
 title: How Deploio Works
-sidebar_position: 1
 slug: /
 ---
 

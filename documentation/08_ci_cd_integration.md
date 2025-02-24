@@ -1,6 +1,5 @@
 ---
 title: CI/CD Integration
-sidebar_position: 8
 ---
 
 # CI/CD Integration

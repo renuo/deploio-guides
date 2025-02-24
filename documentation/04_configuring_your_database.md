@@ -1,6 +1,5 @@
 ---
 title: Configuring your Database
-sidebar_position: 4
 ---
 
 ```mdx-code-block

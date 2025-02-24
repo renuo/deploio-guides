@@ -1,6 +1,5 @@
 ---
 title: Security
-sidebar_position: 11
 ---
 
 # Security

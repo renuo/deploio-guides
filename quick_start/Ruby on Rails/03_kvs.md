@@ -2,7 +2,6 @@
 id: kvs
 title: Create a Key Value Store
 displayed_sidebar: quickStartSidebar
-sidebar_position: 3
 ---
 
 # Create a Key Value Store for your Rails application

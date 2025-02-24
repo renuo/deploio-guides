@@ -2,7 +2,6 @@
 id: create_database
 title: Create a Database
 displayed_sidebar: quickStartSidebar
-sidebar_position: 2
 ---
 
 # Create a database for your Rails application

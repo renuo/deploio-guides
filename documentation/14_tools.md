@@ -1,6 +1,5 @@
 ---
 title: Tools
-sidebar_position: 14
 ---
 
 # Tools

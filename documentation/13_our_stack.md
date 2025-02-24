@@ -1,6 +1,5 @@
 ---
 title: Our Stack
-sidebar_position: 13
 ---
 
 # Our Stack

@@ -3,7 +3,6 @@ title: Create an Application
 description: Learn how to deploy PHP applications on Deploio
 id: create_app
 displayed_sidebar: quickStartSidebar
-sidebar_position: 1
 pagination_prev: null
 ---
 

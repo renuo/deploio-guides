@@ -1,6 +1,5 @@
 ---
 title: Networking & Deployment
-sidebar_position: 7
 ---
 
 # Networking & Deployment

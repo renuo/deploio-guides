@@ -1,6 +1,5 @@
 ---
 title: Monitoring and Logs
-sidebar_position: 10
 ---
 
 # Monitoring and Logs

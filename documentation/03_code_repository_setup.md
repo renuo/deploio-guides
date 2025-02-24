@@ -1,6 +1,5 @@
 ---
 title: Code Repository Setup
-sidebar_position: 3
 ---
 
 # Code Repository Setup

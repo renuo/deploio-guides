@@ -1,6 +1,5 @@
 ---
 title: Configuring Your Application
-sidebar_position: 6
 ---
 
 # Configuring Your Application

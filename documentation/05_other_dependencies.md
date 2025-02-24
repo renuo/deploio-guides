@@ -1,6 +1,5 @@
 ---
 title: Other Dependencies
-sidebar_position: 5
 ---
 
 ```mdx-code-block

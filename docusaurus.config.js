@@ -97,10 +97,11 @@ const config = {
           src: 'img/light_logo.svg',
         },
         items: [
-          {
-            type: 'localeDropdown',
-            position: 'right'
-          },
+          // TODO: disabled until we add translations
+          // {
+          //   type: 'localeDropdown',
+          //   position: 'right'
+          // },
           {
             to: '/about_deploio',
             label: 'About Deploio',
@@ -116,11 +117,12 @@ const config = {
             label: 'Documentation',
             position: 'right'
           },
-          {
-            to: '/pricing',
-            label: 'Pricing',
-            position: 'right'
-          },
+          // TODO: disabled until we add pricing page / link to pricing calculator
+          // {
+          //   to: '/pricing',
+          //   label: 'Pricing',
+          //   position: 'right'
+          // },
           // TODO: include Algolia search for whole site
           // {
           //   to: '/search',

@@ -3,7 +3,6 @@ id: object_storage
 title: Create an Object Storage for your Rails application
 description: Learn how to setup Object Storage for your Rails application
 displayed_sidebar: quickStartSidebar
-sidebar_position: 4
 ---
 
 # Create an Object Storage for your Rails application

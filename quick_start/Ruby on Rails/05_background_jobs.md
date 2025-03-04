@@ -1,8 +1,8 @@
 ---
 id: background_jobs
 title: Setup Background Jobs
-description: Learn how to setup background jobs for your Rails application.
-sidebar_position: 5
+description: Learn how to setup background jobs for your Rails application
+displayed_sidebar: quickStartSidebar
 ---
 
 # Setup Background Jobs for your Rails application
@@ -52,4 +52,4 @@ nctl update application {application_name} --delete-worker-job={worker_job_name}
 
 ## Next Steps
 
-Do you need to **configure the CD**? Proceed to the [next step](./cd.md).
+Do you need to **configure the CD**? Proceed to the [next step](./cd).

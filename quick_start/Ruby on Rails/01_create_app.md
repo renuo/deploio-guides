@@ -3,11 +3,8 @@ title: Create a Rails Application
 description: Learn how to deploy Ruby on Rails applications with Deploio
 id: create_app
 displayed_sidebar: quickStartSidebar
-sidebar_position: 1
 pagination_prev: null
 ---
-
-[//]: # (TODO: is there a way I can show I'm in the Ruby section? Same with the documentation section. Like a title to the left?)
 
 # Create a Rails Application
 
@@ -18,8 +15,8 @@ It assumes you have a basic understanding of Ruby on Rails and Git.
 
 ## Prerequisites
 
-* This quick start guide assumes you have **installed `nctl` on your laptop**. If not, please go through the instructions [here](/documentation#installing-nctl).
-* You should also have an **organization and project created**, where you will create the application. If you haven't done this yet, please follow the instructions [here](/documentation#creating-an-account).
+* This quick start guide assumes you have **installed `nctl` on your laptop**. If not, please go through the instructions [here](/documentation/getting_started#creating-an-account).
+* You should also have an **organization and project created**, where you will create the application. If you haven't done this yet, please follow the instructions [here](/documentation/getting_started#setting-up-your-first-project).
 * This example also presumes that you are **using a public repository**. 
   Should you need to set up access to a private repository, you will need to create an SSH key for security. See more details [here](/documentation/code_repository_setup).
 * A locally running version of Ruby, Rubygems, Bundler, and Rails

@@ -1,6 +1,5 @@
 ---
 title: Migrating from Other Platforms
-sidebar_position: 11
 ---
 
 # Migrating from Other Platforms

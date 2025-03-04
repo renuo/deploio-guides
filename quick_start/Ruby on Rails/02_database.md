@@ -3,7 +3,6 @@ id: create_database
 title: Create a Database for Your Rails Application
 description: Learn how to create a database for your Ruby on Rails application with Deploio
 displayed_sidebar: quickStartSidebar
-sidebar_position: 2
 ---
 
 ```mdx-code-block
@@ -15,7 +14,7 @@ import TabItem from '@theme/TabItem';
 
 <div class="summary">
 In this guide, we will show you how to create a database for your Ruby on Rails application using Deploio.
-You can see more information on databases [here](/documentation/dependencies_and_addons).
+You can see more information on databases [here](/documentation/configuring_your_database).
 
 Should you wish to migrate an already existing database from elsewhere, you can view this section in the
 documentation [here](/documentation/migrating_from_other_platforms), or read [this blog](/ruby_heroku_migration_guide) which

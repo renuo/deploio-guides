@@ -3,14 +3,13 @@ id: kvs
 title: Create a Key Value Store
 description: Learn how to create a key value store for your Ruby on Rails application with Deploio
 displayed_sidebar: quickStartSidebar
-sidebar_position: 3
 ---
 
 # Create a Key Value Store for your Rails application
 
 <div class="summary">
 Should you require workers or caching, you can use our Redis-compatible key-value store (KVS). 
-You can see the different sizes available and pricing [here](/documentation/dependencies_and_addons#key-value-store).
+You can see the different sizes available and pricing [here](/documentation/other_dependencies#key-value-store).
 </div>
 
 ## Create the Key Value Store

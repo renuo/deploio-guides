@@ -1,11 +1,10 @@
 ---
 title: Security
-sidebar_position: 9
 ---
 
 # Security
 
-### Key Features
+### Key Features of Deploio
 
 [//]: # (TODO: Look in to zero-trust - should MySQL thing go here?)
 
@@ -28,7 +27,7 @@ sidebar_position: 9
 
 ##### Version control
 
-### Considerations
+### Security configuration and considerations
 
 ##### Docker images
 

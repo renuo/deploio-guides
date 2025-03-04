@@ -4,7 +4,6 @@ sidebar_label: Create a Node Application
 description: Learn how to deploy a Node.js applications with Deploio
 id: create_app
 displayed_sidebar: quickStartSidebar
-sidebar_position: 1
 pagination_prev: null
 pagination_next: null
 ---

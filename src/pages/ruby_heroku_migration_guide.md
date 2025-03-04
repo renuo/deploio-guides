@@ -167,7 +167,6 @@ Now that we have the following available to us...
 ...we can create our application. We do this by running the `nctl create app` command with a number of flags. An example can be found below with explanations on the additional flags, however it is recommended to read through the available configuration [here](https://docs.nine.ch/docs/category/configuration).
 
 [//]: # (TODO: can probably update the above link to `documentation/configuring_your_application` eventually?)
-[//]: # (TODO: can probably update the above link to `documentation/configuring_your_application` eventually?)
 
 ```
 nctl create app main \
@@ -228,7 +227,7 @@ We can take the public key from the response, and add this to the allowed SSH ke
 
 ### Create the Database
 
-Now we have the IP address and public key, we can run the command to create the database server. There are a number of options that you need to consider. For example,  the daily backup retention defaults to 10, which we will leave unchanged. The full list of options can be found <a href="/documentation/dependencies_and_addons" target="_blank">here</a>.
+Now we have the IP address and public key, we can run the command to create the database server. There are a number of options that you need to consider. For example,  the daily backup retention defaults to 10, which we will leave unchanged. The full list of options can be found <a href="/documentation/configurating_your_database" target="_blank">here</a>.
 
 We will be working with a PostgreSQL database.
 

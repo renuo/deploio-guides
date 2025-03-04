@@ -114,7 +114,7 @@ const config = {
           },
           {
             to: '/documentation',
-            label: 'Documentation',
+            label: 'Technical Reference',
             position: 'right'
           },
           // TODO: disabled until we add pricing page / link to pricing calculator

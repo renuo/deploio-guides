@@ -1,6 +1,25 @@
 :root {
-  --docsearch-primary-color: var(--ifm-color-primary);
+  --docsearch-primary-color: var(--ifm-color-primary); /* #141D50 */
   --docsearch-text-color: var(--ifm-font-color-base);
+  --docsearch-container-background: rgba(234, 233, 232, 0.8);
+  --docsearch-modal-background: #EAE9E8;
+  --docsearch-modal-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.2);
+  --docsearch-hit-color: var(--ifm-color-primary);
+  --docsearch-hit-active-color: var(--ifm-color-primary);
+  --docsearch-hit-background: #EAE9E8;
+  --docsearch-hit-shadow: none;
+  --docsearch-searchbox-background: #f1f1f1;
+  --docsearch-searchbox-focus-background: #f1f1f1;
+  --docsearch-highlighted-color: var(--ifm-color-primary);
+}
+
+/* Hide recent searches section */
+.DocSearch-Dropdown-Container .DocSearch-Dropdown .DocSearch-StartScreen .DocSearch-Help,
+.DocSearch-Dropdown-Container .DocSearch-Recent,
+.DocSearch-StartScreen--recent,
+.DocSearch-RecentSearches,
+.DocSearch-Recent {
+  display: none !important;
 }
 
 .DocSearch-Button {
@@ -11,15 +30,25 @@
   padding: 0 12px;
   background: #f1f1f1;
   margin-bottom: 0.5rem;
-  transition: all var(--ifm-transition-fast)
-    var(--ifm-transition-timing-default);
+  font-family: Montserrat;
+  transition: all var(--ifm-transition-fast) var(--ifm-transition-timing-default);
+  color: var(--ifm-color-primary);
+  border: none;
+}
+
+.DocSearch-Button-Placeholder {
+  margin-left: auto;
+  margin-right: auto;
+  font-weight: 600;
+  font-size: 0.9rem;
 }
 
 .DocSearch-Container {
   z-index: calc(var(--ifm-z-index-fixed) + 1);
+  background-color: var(--docsearch-container-background);
 }
 
-/* Style search results to look more like sidebar */
+/* Style search results to match sidebar exactly */
 .DocSearch-Modal {
   margin: 0;
   width: var(--doc-sidebar-width);
@@ -27,52 +56,91 @@
   height: 100vh;
   max-height: 100vh;
   border-radius: 0;
-  box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: var(--docsearch-modal-shadow);
   position: fixed;
   top: 0;
   left: 0;
   transform: none !important;
+  background-color: var(--docsearch-modal-background);
+  font-family: Montserrat;
 }
 
+/* Make the search box match sidebar style */
+.DocSearch-Form {
+  border-radius: 0.4rem;
+  box-shadow: none;
+  padding: 0.5rem;
+  background-color: var(--docsearch-searchbox-background);
+  border: none;
+}
+
+.DocSearch-Input {
+  font-family: Montserrat;
+  font-size: 0.9rem;
+  color: var(--ifm-color-primary);
+}
+
+/* Header section styling */
 .DocSearch-Hit-source {
   background: var(--ifm-color-primary-lightest);
   color: white;
-  padding: 0.5rem;
+  padding: 0.75rem;
   text-transform: uppercase;
   font-weight: 600;
   font-size: 0.85rem;
+  margin: 0;
 }
 
+/* Result item styling */
 .DocSearch-Hit {
   padding: 0;
+  border-radius: 0;
+  box-shadow: none;
 }
 
 .DocSearch-Hit a {
-  padding: 0.5rem;
+  padding: 0.75rem;
   border-radius: 0;
+  color: var(--ifm-color-primary);
+  background-color: transparent;
+  border: none;
+}
+
+.DocSearch-Hit-title {
+  font-weight: 600;
+  color: var(--ifm-color-primary);
+  font-size: 0.9rem;
 }
 
 .DocSearch-Hit-content-wrapper {
   white-space: normal;
+  padding: 0;
 }
 
 .DocSearch-Hit-path {
+  color: var(--ifm-color-primary);
+  opacity: 0.7;
+  font-size: 0.8rem;
+}
+
+/* Selected result item */
+.DocSearch-Hit[aria-selected=true] a {
+  background-color: var(--ifm-menu-color-background-active);
+  color: var(--ifm-color-primary);
+}
+
+.DocSearch-Hit-Container {
+  align-items: center;
+}
+
+/* Result icon styling */
+.DocSearch-Hit-icon {
   color: var(--ifm-color-primary);
 }
 
 /* Hide the footer and logo */
 .DocSearch-Footer {
   display: none;
-}
-
-.DocSearch-Form {
-  border-radius: 4px;
-  box-shadow: none;
-  padding: 0.5rem;
-}
-
-.DocSearch-Hit[aria-selected=true] a {
-  background-color: var(--ifm-menu-color-background-active);
 }
 
 /* Hide the keyboard shortcuts hints */
@@ -83,12 +151,16 @@
 /* Position the Cancel button better */
 .DocSearch-Cancel {
   margin-right: 1rem;
+  color: var(--ifm-color-primary);
+  font-family: Montserrat;
+  font-weight: 600;
 }
 
 /* Make sure search results scroll instead of modal growing */
 .DocSearch-Modal .DocSearch-Dropdown {
   max-height: calc(100vh - 80px);
   overflow-y: auto;
+  padding: 0;
 }
 
 /* Hide the keyboard shortcut display and text in the search button */
@@ -96,8 +168,25 @@
   display: none !important;
 }
 
-/* Make sure the placeholder text is centered */
-.DocSearch-Button-Placeholder {
-  margin-left: auto;
-  margin-right: auto;
+/* Remove shadows and borders */
+.DocSearch-Hit {
+  box-shadow: none !important;
+}
+
+/* Style highlighted text */
+.DocSearch-Hits mark {
+  background: rgba(20, 29, 80, 0.1);
+  color: var(--ifm-color-primary);
+}
+
+/* Style the search box input */
+.DocSearch-Input {
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+/* Make the search icon match sidebar */
+.DocSearch-Search-Icon {
+  color: var(--ifm-color-primary);
+  opacity: 0.7;
 }

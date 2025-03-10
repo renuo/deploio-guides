@@ -133,11 +133,9 @@
   align-items: center;
 }
 
-/* Hide tree indicators and icons */
-.DocSearch-Hit-Tree,
-.DocSearch-Hit-icon,
-.DocSearch-Hit-action {
-  display: none !important;
+/* Result icon styling */
+.DocSearch-Hit-icon {
+  color: var(--ifm-color-primary);
 }
 
 /* Hide the footer and logo */

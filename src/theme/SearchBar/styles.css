@@ -1,0 +1,103 @@
+:root {
+  --docsearch-primary-color: var(--ifm-color-primary);
+  --docsearch-text-color: var(--ifm-font-color-base);
+}
+
+.DocSearch-Button {
+  margin: 0;
+  width: 100%;
+  border-radius: 0.4rem;
+  height: 40px;
+  padding: 0 12px;
+  background: #f1f1f1;
+  margin-bottom: 0.5rem;
+  transition: all var(--ifm-transition-fast)
+    var(--ifm-transition-timing-default);
+}
+
+.DocSearch-Container {
+  z-index: calc(var(--ifm-z-index-fixed) + 1);
+}
+
+/* Style search results to look more like sidebar */
+.DocSearch-Modal {
+  margin: 0;
+  width: var(--doc-sidebar-width);
+  max-width: 350px;
+  height: 100vh;
+  max-height: 100vh;
+  border-radius: 0;
+  box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.2);
+  position: fixed;
+  top: 0;
+  left: 0;
+  transform: none !important;
+}
+
+.DocSearch-Hit-source {
+  background: var(--ifm-color-primary-lightest);
+  color: var(--ifm-color-primary);
+  padding: 0.5rem;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+.DocSearch-Hit {
+  padding: 0;
+}
+
+.DocSearch-Hit a {
+  padding: 0.5rem;
+  border-radius: 0;
+}
+
+.DocSearch-Hit-content-wrapper {
+  white-space: normal;
+}
+
+.DocSearch-Hit-path {
+  color: var(--ifm-color-primary);
+}
+
+/* Hide the footer and logo */
+.DocSearch-Footer {
+  display: none;
+}
+
+.DocSearch-Form {
+  border-radius: 4px;
+  box-shadow: none;
+  padding: 0.5rem;
+}
+
+.DocSearch-Hit[aria-selected=true] a {
+  background-color: var(--ifm-menu-color-background-active);
+}
+
+/* Hide the keyboard shortcuts hints */
+.DocSearch-Commands {
+  display: none;
+}
+
+/* Position the Cancel button better */
+.DocSearch-Cancel {
+  margin-right: 1rem;
+}
+
+/* Make sure search results scroll instead of modal growing */
+.DocSearch-Modal .DocSearch-Dropdown {
+  max-height: calc(100vh - 80px);
+  overflow-y: auto;
+}
+
+/* Hide the search button text on mobile */
+@media screen and (max-width: 996px) {
+  .DocSearch-Button-Keys {
+    display: none;
+  }
+  
+  .DocSearch-Button-Placeholder {
+    display: none;
+  }
+}

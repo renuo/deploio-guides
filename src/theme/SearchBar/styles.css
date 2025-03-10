@@ -36,7 +36,7 @@
 
 .DocSearch-Hit-source {
   background: var(--ifm-color-primary-lightest);
-  color: var(--ifm-color-primary);
+  color: white;
   padding: 0.5rem;
   text-transform: uppercase;
   font-weight: 600;

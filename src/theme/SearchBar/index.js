@@ -1,11 +1,17 @@
-import React, { useRef, useCallback, useMemo } from 'react';
+import React, { useRef, useCallback, useMemo, useState } from 'react';
 import { createPortal } from 'react-dom';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import { useHistory } from '@docusaurus/router';
-import { useBaseUrlUtils } from '@docusaurus/useBaseUrl';
 import Link from '@docusaurus/Link';
-import { useSearchResultUrlProcessor } from '@docusaurus/theme-search-algolia/client';
+import Head from '@docusaurus/Head';
+import { isRegexpStringMatch } from '@docusaurus/theme-common';
+import { useSearchLinkCreator } from '@docusaurus/theme-common';
+import { 
+  useAlgoliaContextualFacetFilters,
+  useSearchResultUrlProcessor 
+} from '@docusaurus/theme-search-algolia/client';
 import { DocSearchButton, useDocSearchKeyboardEvents } from '@docsearch/react';
+import Translate from '@docusaurus/Translate';
 
 let DocSearchModal = null;
 
@@ -14,26 +20,55 @@ function Hit({ hit, children }) {
 }
 
 function ResultsFooter({ state, onClose }) {
+  const createSearchLink = useSearchLinkCreator();
+  
   return (
-    <Link to={`/search?q=${state.query}`} onClick={onClose}>
-      See all {state.context.nbHits} results
+    <Link to={createSearchLink(state.query)} onClick={onClose}>
+      <Translate
+        id="theme.SearchBar.seeAll"
+        values={{count: state.context.nbHits}}>
+        {'See all {count} results'}
+      </Translate>
     </Link>
   );
 }
 
-function DocSearch({ contextualSearch, externalUrlProcessor }) {
+function mergeFacetFilters(f1, f2) {
+  const normalize = (f) => typeof f === 'string' ? [f] : f;
+  return [...normalize(f1), ...normalize(f2)];
+}
+
+function DocSearch({
+  contextualSearch,
+  externalUrlRegex,
+  ...props
+}) {
   const { siteMetadata } = useDocusaurusContext();
-  const processSearchResultUrl = useSearchResultUrlProcessor(externalUrlProcessor);
-  const { withBaseUrl } = useBaseUrlUtils();
+  const processSearchResultUrl = useSearchResultUrlProcessor();
+  
+  const contextualSearchFacetFilters = useAlgoliaContextualFacetFilters();
+  const configFacetFilters = props.searchParameters?.facetFilters ?? [];
+  
+  const facetFilters = contextualSearch
+    ? mergeFacetFilters(contextualSearchFacetFilters, configFacetFilters)
+    : configFacetFilters;
+  
+  const searchParameters = {
+    ...props.searchParameters,
+    facetFilters,
+  };
+  
   const history = useHistory();
   const searchContainer = useRef(null);
   const searchButtonRef = useRef(null);
-
+  const [isOpen, setIsOpen] = useState(false);
+  const [initialQuery, setInitialQuery] = useState(undefined);
+  
   const importDocSearchModalIfNeeded = useCallback(() => {
     if (DocSearchModal) {
       return Promise.resolve();
     }
-
+    
     return Promise.all([
       import('@docsearch/react/modal'),
       import('@docsearch/react/style'),
@@ -42,54 +77,63 @@ function DocSearch({ contextualSearch, externalUrlProcessor }) {
       DocSearchModal = Modal;
     });
   }, []);
-
-  const onClose = useCallback(() => {
-    searchContainer.current?.removeAttribute('style');
+  
+  const prepareSearchContainer = useCallback(() => {
+    if (!searchContainer.current) {
+      const divElement = document.createElement('div');
+      searchContainer.current = divElement;
+      document.body.insertBefore(divElement, document.body.firstChild);
+    }
+  }, []);
+  
+  const openModal = useCallback(() => {
+    prepareSearchContainer();
+    importDocSearchModalIfNeeded().then(() => setIsOpen(true));
+  }, [importDocSearchModalIfNeeded, prepareSearchContainer]);
+  
+  const closeModal = useCallback(() => {
+    setIsOpen(false);
     searchButtonRef.current?.focus();
   }, []);
-
-  const onOpen = useCallback(() => {
-    importDocSearchModalIfNeeded().then(() => {
-      searchContainer.current.style.position = 'relative';
-      searchContainer.current.style.zIndex = 2;
-    });
-  }, [importDocSearchModalIfNeeded, searchContainer]);
-
-  const onInput = useCallback(
+  
+  const handleInput = useCallback(
     (event) => {
-      importDocSearchModalIfNeeded().then(() => {
-        searchContainer.current.style.position = 'relative';
-        searchContainer.current.style.zIndex = 2;
-      });
+      if (event.key === 'f' && (event.metaKey || event.ctrlKey)) {
+        // ignore browser's ctrl+f
+        return;
+      }
+      // prevents duplicate key insertion in the modal input
+      event.preventDefault();
+      setInitialQuery(event.key);
+      openModal();
     },
-    [importDocSearchModalIfNeeded, searchContainer]
+    [openModal],
   );
-
-  const navigator = useCallback(
-    ({ itemUrl }) => {
-      history.push(itemUrl);
+  
+  const navigator = useRef({
+    navigate({ itemUrl }) {
+      if (isRegexpStringMatch(externalUrlRegex, itemUrl)) {
+        window.location.href = itemUrl;
+      } else {
+        history.push(itemUrl);
+      }
     },
-    [history]
-  );
-
-  const transformItems = useCallback(
-    (items) => {
-      return items.map((item) => {
-        const { url, ...rest } = item;
-        return {
-          ...rest,
-          url: processSearchResultUrl(url),
-        };
-      });
-    },
-    [processSearchResultUrl]
-  );
-
+  }).current;
+  
+  const transformItems = useRef((items) =>
+    props.transformItems
+      ? props.transformItems(items)
+      : items.map((item) => ({
+          ...item,
+          url: processSearchResultUrl(item.url),
+        }))
+  ).current;
+  
   const resultsFooterComponent = useMemo(
-    () => (footerProps) => <ResultsFooter {...footerProps} onClose={onClose} />,
-    [onClose]
+    () => (footerProps) => <ResultsFooter {...footerProps} onClose={closeModal} />,
+    [closeModal]
   );
-
+  
   const transformSearchClient = useCallback(
     (searchClient) => {
       searchClient.addAlgoliaAgent('docusaurus', siteMetadata.docusaurusVersion);
@@ -97,53 +141,98 @@ function DocSearch({ contextualSearch, externalUrlProcessor }) {
     },
     [siteMetadata.docusaurusVersion]
   );
-
+  
   useDocSearchKeyboardEvents({
-    isOpen: false,
-    onOpen,
-    onClose,
-    onInput,
+    isOpen,
+    onOpen: openModal,
+    onClose: closeModal,
+    onInput: handleInput,
     searchButtonRef,
   });
-
-  const { algolia } = useDocusaurusContext().siteConfig.themeConfig;
-
+  
   return (
-    <div className="sidebar-search-container" ref={searchContainer}>
+    <>
+      <Head>
+        {/* This hints the browser that the website will load data from Algolia,
+        and allows it to preconnect to the DocSearch cluster. It makes the first
+        query faster, especially on mobile. */}
+        <link
+          rel="preconnect"
+          href={`https://${props.appId}-dsn.algolia.net`}
+          crossOrigin="anonymous"
+        />
+      </Head>
+      
       <DocSearchButton
         onTouchStart={importDocSearchModalIfNeeded}
         onFocus={importDocSearchModalIfNeeded}
         onMouseOver={importDocSearchModalIfNeeded}
-        onClick={onOpen}
+        onClick={openModal}
         ref={searchButtonRef}
         translations={{
           buttonText: 'Search',
           buttonAriaLabel: 'Search',
         }}
       />
-
-      {DocSearchModal && (
-        <DocSearchModal
-          initialScrollY={window.scrollY}
-          onClose={onClose}
-          initialQuery=""
-          navigator={navigator}
-          transformItems={transformItems}
-          hitComponent={Hit}
-          transformSearchClient={transformSearchClient}
-          {...algolia}
-          searchParameters={{
-            ...algolia.searchParameters,
-            ...(contextualSearch && {
-              facetFilters: [
-                ...(algolia.searchParameters?.facetFilters ?? []),
-                `language:${siteMetadata.i18n.currentLocale}`,
-              ],
-            }),
-          }}
-        />
-      )}
-    </div>
+      
+      {isOpen &&
+        DocSearchModal &&
+        searchContainer.current &&
+        createPortal(
+          <DocSearchModal
+            onClose={closeModal}
+            initialScrollY={window.scrollY}
+            initialQuery={initialQuery}
+            navigator={navigator}
+            transformItems={transformItems}
+            hitComponent={Hit}
+            transformSearchClient={transformSearchClient}
+            {...(props.searchPagePath && {
+              resultsFooterComponent,
+            })}
+            {...props}
+            searchParameters={searchParameters}
+            placeholder="Search"
+            translations={{
+              searchBox: {
+                resetButtonTitle: 'Clear the query',
+                resetButtonAriaLabel: 'Clear the query',
+                cancelButtonText: 'Cancel',
+                cancelButtonAriaLabel: 'Cancel',
+              },
+              startScreen: {
+                recentSearchesTitle: 'Recent',
+                noRecentSearchesText: 'No recent searches',
+                saveRecentSearchButtonTitle: 'Save this search',
+                removeRecentSearchButtonTitle: 'Remove this search from history',
+                favoriteSearchesTitle: 'Favorite',
+                removeFavoriteSearchButtonTitle: 'Remove this search from favorites',
+              },
+              errorScreen: {
+                titleText: 'Unable to fetch results',
+                helpText: 'You might want to check your network connection.',
+              },
+              footer: {
+                selectText: 'to select',
+                selectKeyAriaLabel: 'Enter key',
+                navigateText: 'to navigate',
+                navigateUpKeyAriaLabel: 'Arrow up',
+                navigateDownKeyAriaLabel: 'Arrow down',
+                closeText: 'to close',
+                closeKeyAriaLabel: 'Escape key',
+                searchByText: 'Search by',
+              },
+              noResultsScreen: {
+                noResultsText: 'No results for',
+                suggestedQueryText: 'Try searching for',
+                reportMissingResultsText: 'Believe this query should return results?',
+                reportMissingResultsLinkText: 'Let us know.',
+              },
+            }}
+          />,
+          searchContainer.current,
+        )}
+    </>
   );
 }
 

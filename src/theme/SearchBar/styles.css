@@ -89,6 +89,9 @@
   font-weight: 600;
   font-size: 0.85rem;
   margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 /* Result item styling */
@@ -99,7 +102,7 @@
 }
 
 .DocSearch-Hit a {
-  padding: 0.75rem;
+  padding: 1rem 0.75rem;
   border-radius: 0;
   color: var(--ifm-color-primary);
   background-color: transparent;

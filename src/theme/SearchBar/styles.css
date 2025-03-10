@@ -91,13 +91,13 @@
   overflow-y: auto;
 }
 
-/* Hide the search button text on mobile */
-@media screen and (max-width: 996px) {
-  .DocSearch-Button-Keys {
-    display: none;
-  }
-  
-  .DocSearch-Button-Placeholder {
-    display: none;
-  }
+/* Hide the keyboard shortcut display and text in the search button */
+.DocSearch-Button-Keys {
+  display: none !important;
+}
+
+/* Make sure the placeholder text is centered */
+.DocSearch-Button-Placeholder {
+  margin-left: auto;
+  margin-right: auto;
 }

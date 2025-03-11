@@ -13,6 +13,10 @@
   --docsearch-highlighted-color: var(--ifm-color-primary);
 }
 
+.theme-doc-sidebar-container {
+  font-family: Montserrat;
+}
+
 /* Hide recent searches section */
 .DocSearch-Dropdown-Container .DocSearch-Dropdown .DocSearch-StartScreen .DocSearch-Help,
 .DocSearch-Dropdown-Container .DocSearch-Recent,
@@ -30,17 +34,20 @@
   padding: 0 12px;
   background: #f1f1f1;
   margin-bottom: 0.5rem;
+  margin-top: 3rem;
   font-family: Montserrat;
   transition: all var(--ifm-transition-fast) var(--ifm-transition-timing-default);
   color: var(--ifm-color-primary);
-  border: none;
+  outline: 2px solid #141D501A;
+  border-radius: 0;
+  background-color: var(--docsearch-modal-background);
 }
 
 .DocSearch-Button-Placeholder {
   margin-left: auto;
   margin-right: auto;
-  font-weight: 600;
-  font-size: 0.9rem;
+  font-weight: 400;
+  font-size: 1rem;
 }
 
 .DocSearch-Container {
@@ -70,8 +77,7 @@
   border-radius: 0.4rem;
   box-shadow: none;
   padding: 0.5rem;
-  background-color: var(--docsearch-searchbox-background);
-  border: none;
+  background-color: var(--docsearch-modal-background);
 }
 
 .DocSearch-Input {
@@ -190,6 +196,6 @@
 
 /* Make the search icon match sidebar */
 .DocSearch-Search-Icon {
-  color: var(--ifm-color-primary);
-  opacity: 0.7;
+  color: var(--ifm-color-primary) !important;
+  opacity: 0.8;
 }

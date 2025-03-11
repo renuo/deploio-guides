@@ -170,7 +170,7 @@ function DocSearch({
         onClick={openModal}
         ref={searchButtonRef}
         translations={{
-          buttonText: 'Search',
+          buttonText: 'Search documentation...',
           buttonAriaLabel: 'Search',
         }}
       />
@@ -192,7 +192,7 @@ function DocSearch({
             })}
             {...props}
             searchParameters={searchParameters}
-            placeholder="Search"
+            placeholder="Search documentation..."
             translations={{
               searchBox: {
                 resetButtonTitle: 'Clear the query',

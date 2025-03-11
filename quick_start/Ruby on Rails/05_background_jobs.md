@@ -16,7 +16,7 @@ Should you require a background process for a worker such as [Sidekiq](https://s
 
 :::info
 Some active job backends such as Sidekiq require a key-value store such as Redis to store job data. In case you haven't
-set up Redis, you can follow the instructions [here](./kvs.md).
+set up Redis, you can follow the instructions [here](./03_kvs.md).
 :::
 
 To add a worker to a running application, we can use the `nctl update application` command. The following example

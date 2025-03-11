@@ -63,4 +63,4 @@ the [documentation](https://docs.nine.ch/docs/on-demand-databases/on-demand-key-
 
 ## Next Steps
 
-Do you need **object storage** for your application? Proceed to [the next step.](./object_storage.md)
+Do you need **object storage** for your application? Proceed to [the next step.](./04_object_storage.md)

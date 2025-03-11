@@ -18,7 +18,6 @@
   font-family: Montserrat;
 }
 
-/* Hide recent searches section */
 .DocSearch-Dropdown-Container .DocSearch-Dropdown .DocSearch-StartScreen .DocSearch-Help,
 .DocSearch-Dropdown-Container .DocSearch-Recent,
 .DocSearch-StartScreen--recent,
@@ -56,7 +55,6 @@
   background-color: var(--docsearch-container-background);
 }
 
-/* Style search results to match sidebar exactly */
 .DocSearch-Modal {
   margin: 0;
   width: var(--doc-sidebar-width);
@@ -73,7 +71,6 @@
   font-family: Montserrat;
 }
 
-/* Make the search box match sidebar style */
 .DocSearch-Form {
   border-radius: 0.4rem;
   box-shadow: none;
@@ -87,7 +84,6 @@
   color: var(--ifm-color-primary);
 }
 
-/* Header section styling */
 .DocSearch-Hit-source {
   background: var(--ifm-color-primary-lightest);
   color: white;
@@ -99,7 +95,6 @@
   margin: 0;
 }
 
-/* Result item styling */
 .DocSearch-Hit {
   padding: 0;
   border-radius: 0;
@@ -132,7 +127,6 @@
   font-size: 0.8rem;
 }
 
-/* Selected result item */
 .DocSearch-Hit[aria-selected=true] a {
   background-color: var(--ifm-menu-color-background-active);
   color: var(--ifm-color-primary);
@@ -147,22 +141,18 @@
   display: none;
 }
 
-/* Result icon styling */
 .DocSearch-Hit-icon {
   color: var(--ifm-color-primary);
 }
 
-/* Hide the footer and logo */
 .DocSearch-Footer {
   display: none;
 }
 
-/* Hide the keyboard shortcuts hints */
 .DocSearch-Commands {
   display: none;
 }
 
-/* Position the Cancel button better */
 .DocSearch-Cancel {
   margin-right: 1rem;
   color: var(--ifm-color-primary);
@@ -170,36 +160,30 @@
   font-weight: 600;
 }
 
-/* Make sure search results scroll instead of modal growing */
 .DocSearch-Modal .DocSearch-Dropdown {
   max-height: calc(100vh - 80px);
   overflow-y: auto;
   padding: 0;
 }
 
-/* Hide the keyboard shortcut display and text in the search button */
 .DocSearch-Button-Keys {
   display: none !important;
 }
 
-/* Remove shadows and borders */
 .DocSearch-Hit {
   box-shadow: none !important;
 }
 
-/* Style highlighted text */
 .DocSearch-Hits mark {
   background: rgba(20, 29, 80, 0.1);
   color: var(--ifm-color-primary);
 }
 
-/* Style the search box input */
 .DocSearch-Input {
   box-shadow: none !important;
   background: transparent !important;
 }
 
-/* Make the search icon match sidebar */
 .DocSearch-Search-Icon {
   color: var(--ifm-color-primary) !important;
   opacity: 0.8;

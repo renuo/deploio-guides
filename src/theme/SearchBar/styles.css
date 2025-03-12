@@ -11,6 +11,7 @@
   --docsearch-hit-shadow: none;
   --docsearch-searchbox-background: #f1f1f1;
   --docsearch-searchbox-focus-background: #f1f1f1;
+  --docsearch-searchbox-height: max-content;
   --docsearch-highlighted-color: var(--ifm-color-primary);
 }
 
@@ -34,7 +35,7 @@
   padding: 0 12px;
   background: #f1f1f1;
   margin-bottom: 0.5rem;
-  margin-top: 3.2rem;
+  margin-top: 0;
   font-family: Montserrat;
   transition: all var(--ifm-transition-fast) var(--ifm-transition-timing-default);
   color: var(--ifm-color-primary);
@@ -72,13 +73,19 @@
 }
 
 .DocSearch-Form {
-  border-radius: 0.4rem;
+  border-radius: 0;
   box-shadow: none;
   padding: 0.5rem;
   background-color: var(--docsearch-modal-background);
+  outline: 2px solid #141D501A;
 }
 
-.DocSearch-Input {
+.DocSearch-SearchBar {
+  padding: 0.5rem;
+}
+
+.DocSearch-Input,
+.DocSearch-Button {
   font-family: Montserrat;
   font-size: 0.9rem;
   color: var(--ifm-color-primary);
@@ -112,8 +119,7 @@
   font-weight: 600;
   color: var(--ifm-color-primary);
   font-size: 1rem;
-  padding-top: 0.2rem;
-  padding-bottom: 0.4rem;
+  padding: 0;
 }
 
 .DocSearch-Hit-content-wrapper {
@@ -135,6 +141,11 @@
 .DocSearch-Hit-Container {
   align-items: center;
   height: max-content;
+  padding: 0.5rem 0;
+}
+
+.DocSearch-Hit-Container:has(.DocSearch-Hit-Tree) {
+  padding: 0 
 }
 
 .DocSearch-Hit-Tree~.DocSearch-Hit-icon {
@@ -182,6 +193,10 @@
 .DocSearch-Input {
   box-shadow: none !important;
   background: transparent !important;
+}
+
+.DocSearch-Input::placeholder {
+  color: var(--docsearch-text-color);
 }
 
 .DocSearch-Search-Icon {

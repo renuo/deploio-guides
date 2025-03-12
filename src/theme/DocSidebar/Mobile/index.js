@@ -6,11 +6,16 @@ import {
 } from '@docusaurus/theme-common';
 import {useNavbarMobileSidebar} from '@docusaurus/theme-common/internal';
 import DocSidebarItems from '@theme/DocSidebarItems';
+import SearchBar from '@theme/SearchBar';
+import styles from '../styles.module.css';
 // eslint-disable-next-line react/function-component-definition
 const DocSidebarMobileSecondaryMenu = ({sidebar, path}) => {
   const mobileSidebar = useNavbarMobileSidebar();
   return (
     <ul className={clsx(ThemeClassNames.docs.docSidebarMenu, 'menu__list')}>
+      <div className={styles.sidebarSearchContainer}>
+        <SearchBar />
+      </div>
       <DocSidebarItems
         items={sidebar}
         activePath={path}

@@ -56,10 +56,17 @@
   background-color: var(--docsearch-container-background);
 }
 
+/* @docusaurus/theme-common/src/hooks/useWindowSize.ts:24 */
+@media screen and (max-width: 996px) {
+  .DocSearch-Modal {
+    width: var(--ifm-navbar-sidebar-width) !important;
+  }
+}
+
 .DocSearch-Modal {
   margin: 0;
   width: var(--doc-sidebar-width);
-  max-width: 350px;
+  max-width: 100%;
   height: 100vh;
   max-height: 100vh;
   border-radius: 0;

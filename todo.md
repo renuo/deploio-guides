@@ -1,8 +1,0 @@
-- [ ] Add dropdowns for the documentation sections on the left
-- [ ] Add search documentation field at the top of the sections to the left
-- [ ] Add translations
-- [X] Remove dark mode functionality and button
-- [ ] What is 'Jetzt Starten'? I guess to go to Cockpit sign up bit? Add link
-- [ ] Check if we need login....?
-- [ ] Redo weird squares in React...
-- [ ] Any way to add the current "area" e.g. "Ruby" or "Documentation" - maybe to top of sidebar

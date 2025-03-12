@@ -1,3 +1,11 @@
+.sidebarSearchContainer {
+  padding: 0.5rem;
+  position: sticky;
+  top: 0;
+  background-color: var(--ifm-background-color);
+  z-index: var(--ifm-z-index-fixed);
+}
+
 @media (min-width: 997px) {
   .menu {
     flex-grow: 1;

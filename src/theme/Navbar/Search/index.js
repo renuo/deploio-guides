@@ -1,10 +1,8 @@
-import React from 'react';
-import clsx from 'clsx';
-import styles from './styles.module.css';
-export default function NavbarSearch({children, className}) {
-  return (
-    <div className={clsx(className, styles.navbarSearchContainer)}>
-      {children}
-    </div>
-  );
+/**
+ * This component overrides the default Navbar Search so that 
+ * it doesn't show up in the navbar at all. We've moved the search
+ * to the sidebar instead.
+ */
+export default function NavbarSearch({ children, className }) {
+  return null;
 }

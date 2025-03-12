@@ -7,6 +7,7 @@ import {
 } from '@docusaurus/theme-common/internal';
 import {translate} from '@docusaurus/Translate';
 import DocSidebarItems from '@theme/DocSidebarItems';
+import SearchBar from '@theme/SearchBar';
 import styles from './styles.module.css';
 function useShowAnnouncementBar() {
   const {isActive} = useAnnouncementBar();
@@ -36,6 +37,9 @@ export default function DocSidebarDesktopContent({path, sidebar, className}) {
         showAnnouncementBar && styles.menuWithAnnouncementBar,
         className,
       )}>
+      <div className={styles.sidebarSearchContainer}>
+        <SearchBar />
+      </div>
       <ul className={clsx(ThemeClassNames.docs.docSidebarMenu, 'menu__list')}>
         <DocSidebarItems items={sidebar} activePath={path} level={1} />
       </ul>

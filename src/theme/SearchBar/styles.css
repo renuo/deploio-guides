@@ -1,14 +1,190 @@
 :root {
   --docsearch-primary-color: var(--ifm-color-primary);
+  /* #141D50 */
   --docsearch-text-color: var(--ifm-font-color-base);
+  --docsearch-container-background: rgba(234, 233, 232, 0.8);
+  --docsearch-modal-background: #EAE9E8;
+  --docsearch-modal-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.2);
+  --docsearch-hit-color: var(--ifm-color-primary);
+  --docsearch-hit-active-color: var(--ifm-color-primary);
+  --docsearch-hit-background: #EAE9E8;
+  --docsearch-hit-shadow: none;
+  --docsearch-searchbox-background: #f1f1f1;
+  --docsearch-searchbox-focus-background: #f1f1f1;
+  --docsearch-highlighted-color: var(--ifm-color-primary);
+}
+
+.theme-doc-sidebar-container {
+  font-family: Montserrat;
+}
+
+.DocSearch-Dropdown-Container .DocSearch-Dropdown .DocSearch-StartScreen .DocSearch-Help,
+.DocSearch-Dropdown-Container .DocSearch-Recent,
+.DocSearch-StartScreen--recent,
+.DocSearch-RecentSearches,
+.DocSearch-Recent {
+  display: none !important;
 }
 
 .DocSearch-Button {
   margin: 0;
-  transition: all var(--ifm-transition-fast)
-    var(--ifm-transition-timing-default);
+  width: 100%;
+  border-radius: 0.4rem;
+  height: 40px;
+  padding: 0 12px;
+  background: #f1f1f1;
+  margin-bottom: 0.5rem;
+  margin-top: 3.2rem;
+  font-family: Montserrat;
+  transition: all var(--ifm-transition-fast) var(--ifm-transition-timing-default);
+  color: var(--ifm-color-primary);
+  outline: 2px solid #141D501A;
+  border-radius: 0;
+  background-color: var(--docsearch-modal-background);
+}
+
+.DocSearch-Button-Placeholder {
+  margin-left: auto;
+  margin-right: auto;
+  font-weight: 400;
+  font-size: 1rem;
 }
 
 .DocSearch-Container {
   z-index: calc(var(--ifm-z-index-fixed) + 1);
+  background-color: var(--docsearch-container-background);
+}
+
+.DocSearch-Modal {
+  margin: 0;
+  width: var(--doc-sidebar-width);
+  max-width: 350px;
+  height: 100vh;
+  max-height: 100vh;
+  border-radius: 0;
+  box-shadow: var(--docsearch-modal-shadow);
+  position: fixed;
+  top: 0;
+  left: 0;
+  transform: none !important;
+  background-color: var(--docsearch-modal-background);
+  font-family: Montserrat;
+}
+
+.DocSearch-Form {
+  border-radius: 0.4rem;
+  box-shadow: none;
+  padding: 0.5rem;
+  background-color: var(--docsearch-modal-background);
+}
+
+.DocSearch-Input {
+  font-family: Montserrat;
+  font-size: 0.9rem;
+  color: var(--ifm-color-primary);
+}
+
+.DocSearch-Hit-source {
+  background: var(--ifm-color-primary-lightest);
+  color: white;
+  padding: 0rem;
+  padding-left: 0.5rem;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 0.75rem;
+  margin: 0;
+}
+
+.DocSearch-Hit {
+  padding: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.DocSearch-Hit a {
+  border-radius: 0;
+  color: var(--ifm-color-primary);
+  background-color: transparent;
+  border: none;
+}
+
+.DocSearch-Hit-title {
+  font-weight: 600;
+  color: var(--ifm-color-primary);
+  font-size: 1rem;
+  padding-top: 0.2rem;
+  padding-bottom: 0.4rem;
+}
+
+.DocSearch-Hit-content-wrapper {
+  white-space: normal;
+  padding: 0;
+}
+
+.DocSearch-Hit-path {
+  color: var(--ifm-color-primary);
+  opacity: 0.7;
+  font-size: 0.8rem;
+}
+
+.DocSearch-Hit[aria-selected=true] a {
+  background-color: var(--ifm-menu-color-background-active);
+  color: var(--ifm-color-primary);
+}
+
+.DocSearch-Hit-Container {
+  align-items: center;
+  height: max-content;
+}
+
+.DocSearch-Hit-Tree~.DocSearch-Hit-icon {
+  display: none;
+}
+
+.DocSearch-Hit-icon {
+  color: var(--ifm-color-primary);
+}
+
+.DocSearch-Footer {
+  display: none;
+}
+
+.DocSearch-Commands {
+  display: none;
+}
+
+.DocSearch-Cancel {
+  margin-right: 1rem;
+  color: var(--ifm-color-primary);
+  font-family: Montserrat;
+  font-weight: 600;
+}
+
+.DocSearch-Modal .DocSearch-Dropdown {
+  max-height: calc(100vh - 80px);
+  overflow-y: auto;
+  padding: 0;
+}
+
+.DocSearch-Button-Keys {
+  display: none !important;
+}
+
+.DocSearch-Hit {
+  box-shadow: none !important;
+}
+
+.DocSearch-Hits mark {
+  background: rgba(20, 29, 80, 0.1);
+  color: var(--ifm-color-primary);
+}
+
+.DocSearch-Input {
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+.DocSearch-Search-Icon {
+  color: var(--ifm-color-primary) !important;
+  opacity: 0.8;
 }

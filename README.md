@@ -8,9 +8,9 @@
 
 - [X] Remove dark mode functionality and button
 
-- [ ] Add 'Jetzt Starten' button. What is this? I guess to go to Cockpit sign up form?
+- [ ] Add 'Jetzt Starten' button. Goes to the signup form.
 
-- [ ] Check if we need login....? - Asked Vanessa but pretty sure we do not.
+- [ ] Add 'login' button. Goes to the Cockpit login.
 
 - [ ] Redo weird squares in React... I don't like how it's JSX in and md file.
 

@@ -90,13 +90,6 @@ const config = {
     ({
       // Replace with your project's social card
       image: 'img/docusaurus-social-card.jpg',
-      algolia: {
-        appId: 'Z73Z02Q77N',
-        apiKey: 'f39eba8239cbb9bd04b9b41ba3cd05af', // public key, can be commited
-        indexName: 'deplo',
-        contextualSearch: true,
-        advanced_filters: false,
-      },
       navbar: {
         title: 'deplo.io',
         logo: {

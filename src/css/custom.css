@@ -85,10 +85,10 @@ article {
   font-weight: 600;
 }
 
-/* Search has been added to the sidebar */
+/*TODO: move the search above the items... somehow*/
 
 .theme-doc-sidebar-menu.menu__list {
-  padding-top: 0;
+  padding-top: 4rem;
 }
 
 .menu__link {

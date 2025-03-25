@@ -75,6 +75,7 @@ h4, h5 {
 }
 
 /*This avoids the next/previous documentation page links being blue*/
+
 article {
   a, a:hover {
     color: #476DCC;
@@ -84,8 +85,6 @@ article {
 .menu {
   font-weight: 600;
 }
-
-/*TODO: move the search above the items... somehow*/
 
 .theme-doc-sidebar-menu.menu__list {
   padding-top: 4rem;
@@ -161,6 +160,10 @@ table td {
   --alert-border-top-color: #4B1113;
 }
 
+/*Alogolia Search model overrides*/
+.DocSearch {
+  --docsearch-modal-width: 800px;
+}
 
 /*Homepage*/
 

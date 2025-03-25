@@ -86,10 +86,6 @@ article {
   font-weight: 600;
 }
 
-.theme-doc-sidebar-menu.menu__list {
-  padding-top: 4rem;
-}
-
 .menu__link {
   color: var(--ifm-color-primary);
   padding: 0.75rem;

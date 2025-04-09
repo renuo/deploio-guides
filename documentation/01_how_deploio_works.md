@@ -84,7 +84,7 @@ flowchart TD
 
 ##### Project
 
-A project represents a workspace that contains one or more applications and related services such as databases, Redis instances and object storage. It is a logical grouping of applications and services that share the same codebase, configuration, and deployment settings, and environment variables can also be set at Project level. Projects are isolated from each other, allowing for better organization and management of resources.
+A project represents a workspace that contains one or more applications and related services such as databases, Redis instances and object storage. It is a logical grouping of applications and services that share the same codebase, configuration, and deployment settings, and environment variables can also be set at Project level. Projects are isolated from each other, allowing for better organisation and management of resources.
 
 It is typical that a Project will have an Application running for each environment.
 

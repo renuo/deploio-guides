@@ -35,10 +35,12 @@ You can deploy them with `nctl`:
   --git-sub-path=static/react
   ```
 
-## Build env considerations
+## Web server root
 
-To override the automatically detected paths mentioned above, you can specify the build env variable
-`BP_STATIC_WEBROOT=<directory>` to any directory within your Git repository.
+If you need to modify the location of the static files served by the web server, you can set 
+the `BP_STATIC_WEBROOT=<directory>` build ENV variable to any directory relative to the Git repo (e.g. `dist`).
+
+`BP_STATIC_WEBROOT` defaults to `build`.
 
 ## NPM Frontend
 

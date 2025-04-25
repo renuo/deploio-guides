@@ -38,9 +38,15 @@ You can deploy them with `nctl`:
 ## Web server root
 
 If you need to modify the location of the static files served by the web server, you can set 
-the `BP_STATIC_WEBROOT=<directory>` build ENV variable to any directory relative to the Git repo (e.g. `dist`).
+the build environment variable `BP_STATIC_WEBROOT=<directory>`.
 
 `BP_STATIC_WEBROOT` defaults to `build`.
+So per default Deploio serves your app from `/workspace/build`.
+
+[Vite](https://vite.dev/) for example builds into `dist`.
+So you need to set `BP_STATIC_WEBROOT=dist`
+
+
 
 ## NPM Frontend
 

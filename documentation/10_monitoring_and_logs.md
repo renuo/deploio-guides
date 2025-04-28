@@ -6,7 +6,7 @@ title: Monitoring and Logs
 
 When you are wondering, "how is my application doing?" or "what's going on with my deployment?", you can turn to monitoring and logs to get the answers you need.
 
-### Logs
+## Logs
 
 [//]: # (TODO: check this - nctl log always just show stdout?)
 
@@ -22,7 +22,7 @@ When you are wondering, "how is my application doing?" or "what's going on with 
   - rorvswild
   - ?
 
-### Performance Metrics
+## Performance Metrics
 
 ##### Resource Stats
   - `nctl stats`

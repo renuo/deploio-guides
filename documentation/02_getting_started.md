@@ -7,7 +7,7 @@ description: Show the user how to set up nctl with an account, provide some gene
 
 This guide helps you get up and running with **Deploio**, from installing the CLI (`nctl`) to creating your first project. You'll also find resources, best practices, and common pitfalls to avoid.
 
-### Installing nctl
+## Installing nctl
 
 **`nctl`** is the command-line interface used to interact with Deploio and the underlying Nine Kubernetes Engine (NKE). You can use it to manage projects, trigger deployments, view logs, and more.
 
@@ -32,7 +32,7 @@ nctl auth whoami
 nctl get all
 ```
 
-### Creating an account
+## Creating an account
 
 ##### Setting up access within an organization
 
@@ -60,7 +60,7 @@ Should you wish to create an individual user, you can do so on the [Cockpit regi
 
 [//]: # (TODO: what about via nctl? is this possible?)
 
-### Setting up your first project
+## Setting up your first project
 
 In Deploio, the structure follows a strict hierarchy:
 
@@ -84,7 +84,7 @@ An `Application` is the actual deployment unit. It can be a web application, a m
 
 You can see an explanation of the configuration levels [here](https://docs.nine.ch/docs/deplo-io/configuration/deploio-configuration-layers).
 
-### Useful resources
+## Useful resources
 
 ##### Blogs
 
@@ -106,7 +106,7 @@ There are a number of blogs and other resources available that can provide more 
 [//]: # (TODO: As above... any videos?!)
 [//]: # (We have also posted tutorial videos showing how Deploio works. Please view these [here]&#40;#&#41;)
 
-### Avoid commom pitfalls
+## Avoid commom pitfalls
 
 - If you are **using Node in your application**, you need: 
   - A `package.json` in the root of the project
@@ -124,7 +124,7 @@ There are a number of blogs and other resources available that can provide more 
 
 - Projects are **prefixed with your organization name**. For example `my-project` within `org` can be referred to as `org-my-project`.
 
-### Best Practices for Beginners
+## Best Practices for Beginners
 
 [//]: # (- Suggested defaults for deployment configurations with explanation)
 [//]: # (- Security guidelines for managing secrets and roles)

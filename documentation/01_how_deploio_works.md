@@ -7,7 +7,7 @@ slug: /
 
 Provide details on the build and release process, the underlying technology and how it integrates with your code repository. 
 
-### Repo, Build, Release Process
+## Repo, Build, Release Process
 
 All you require for deploying an application with Deploio is:
 
@@ -33,7 +33,7 @@ We deploy your application on Kubernetes.
 
 [//]: # (TODO: a diagram here would be good)
 
-### Workflow
+## Workflow
 
 ##### Code Management
 
@@ -47,7 +47,7 @@ Automated builds using buildpacks or custom Docker images.
 
 Seamless deployment to Kubernetes with proper versioning.
 
-### Glossary of Key Terms
+## Glossary of Key Terms
 
 ##### Project
 

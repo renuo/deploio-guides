@@ -4,7 +4,7 @@ title: Code Repository Setup
 
 # Code Repository Setup
 
-### Supported Platforms
+## Supported Platforms
 
 ##### GitHub
 
@@ -23,7 +23,7 @@ Compatible with both public and private repositories.
 
  How to set up secure access
   
-### Repository Access
+## Repository Access
 
 ##### Private Repositories
 

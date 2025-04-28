@@ -15,7 +15,7 @@ This guide helps you get up and running with **Deploio**, from installing the CL
 
 #### Step-by-step setup:
 
-1. Download and install `nctl`. Various methods of installation are detailed on the [Github page](https://cockpit.nine.ch).
+1. Download and install `nctl`. Various methods of installation are detailed on the [Github page](https://github.com/ninech/nctl#setup).
 
 2. Login to the API (providing you have an account) using:
 ```bash
@@ -27,7 +27,7 @@ nctl auth login
 nctl auth whoami
 ```
 
-4. View your available project:
+4. View your available projects:
 ```bash
 nctl get all
 ```
@@ -82,6 +82,8 @@ A `Project` is the logical container to group applications within. We can define
 
 An `Application` is the actual deployment unit. It can be a web application, a microservice, or any other deployable unit. Each application is associated with a specific project and inherits the default configuration from the project unless specified otherwise.
 
+You can see an explanation of the configuration levels [here](https://docs.nine.ch/docs/deplo-io/configuration/deploio-configuration-layers).
+
 ### Useful resources
 
 ##### Blogs
@@ -124,10 +126,9 @@ There are a number of blogs and other resources available that can provide more 
 
 ### Best Practices for Beginners
 
-[//]: # (- Suggested defaults for deployment configurations with explaination)
+[//]: # (- Suggested defaults for deployment configurations with explanation)
 [//]: # (- Security guidelines for managing secrets and roles)
 
-- Use buildpacks unless you require custom Docker logic — they're fast and automatically detected.
 - Store secrets securely using environment variables managed via Cockpit or nctl.
 - Regularly review and update your configurations to ensure they meet the latest security and performance standards.
 - Use staging environments to test your applications before deploying to production.

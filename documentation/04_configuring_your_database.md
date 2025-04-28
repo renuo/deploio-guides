@@ -16,11 +16,13 @@ Deploio supports a variety of databases, including MySQL, MariaDB and PostgreSQL
 <TabItem value="PostgreSQL">
 ```
 
+## PostgreSQL
+
 ### Protecting Database Access
 
-To protect the database you can use an SSH key. You will need to pass the public key to the `--ssh-keys` flag when creating the database and use the private key to gain access.
+To access the database, you must set up SSH key authentication. You will need to pass the public key to the `--ssh-keys` flag when creating the database and use the private key to gain access.
 
-You can also add your IP address to the `--allowed-cidrs` flag. If you wish to allow all IP addresses, you can set this to `0.0.0.0/0`. 
+You also need to add your IP address to the `--allowed-cidrs` flag. If you wish to allow all IP addresses, you can set this to `0.0.0.0/0`. 
 
 ### Database creation settings
 
@@ -166,7 +168,11 @@ We can check that this database was created by entering the server using `psql -
 
 ### Backup and Restore
 
+See [Backup Retention Policy section](#backup-retention-policy) for configuration options.
+
 Nine backs up the databases daily between 01:00 and 02:00. These backups are kept locally for 10 days (configurable) and on a remote backup system for seven days.
+
+[//]: # (TODO: can we explain the remote backup system? what is it?)
 
 Backups are stored in the `/home/dbadmin/backup directory`. All backups are versioned in directories with the following time scheme (example, exact timestamp will vary): `2022-11-18-0134`.
 
@@ -295,6 +301,8 @@ Deploio database instances run on Nine’s managed infrastructure. Nine monitors
 
 Nine monitors the instance with a monitoring system 24x7. In the event of a malfunction, an (on-call) technician from Nine is automatically alerted and restores proper operation as quickly as possible.
 
+You can also view the current status of a database via the Cockpit, as well as information such as version, backup retention policy and "Allowed IP Addresses". This information can help when trying to assess and connection issues. 
+
 > ⚠️ Resource saturation (e.g., full CPU/memory/disk) is **not considered a malfunction**. You are responsible for monitoring performance and scaling your instance as needed.
 
 #### What is Monitored by Nine
@@ -306,7 +314,7 @@ Nine monitors the **availability** and **infrastructure health** of the database
 - Backup completion status
 - Disk thresholds (for automatic storage expansion)
 
-However, **application-level metrics like query latency, connection count, or CPU load** are not exposed via Cockpit today.
+However, **application-level metrics like query latency, connection count, or CPU load** are not exposed via Cockpit today. This feature is currently WIP and will be available soon.
 
 #### What You Can Monitor Yourself
 
@@ -346,11 +354,13 @@ SELECT * FROM pg_stat_activity;
 <TabItem value="MySQL">
 ```
 
+## MySQL
+
 ### Protecting Database Access
 
-To protect the database you can use an SSH key. You will need to pass the public key to the `--ssh-keys` flag when creating the database and use the private key to gain access.
+To access the database, you must set up SSH key authentication. You will need to pass the public key to the `--ssh-keys` flag when creating the database and use the private key to gain access.
 
-You can also add your IP address to the `--allowed-cidrs` flag. If you wish to allow all IP addresses, you can set this to `0.0.0.0/0`.
+You also need to add your IP address to the `--allowed-cidrs` flag. If you wish to allow all IP addresses, you can set this to `0.0.0.0/0`.
 
 ### Database creation settings
 
@@ -501,6 +511,8 @@ Now we want to create the database on the server. We can run the following comma
 
 ### Backup and Restore
 
+See [Backup Retention Policy section](#backup-retention-policy) for configuration options.
+
 Nine backs up the databases daily between 01:00 and 02:00. These backups are kept locally for 10 days (configurable) and on a remote backup system for seven days.
 
 Backups are stored in the `/home/dbadmin/backup directory`. All backups are versioned in directories with the following time scheme (example, exact timestamp will vary): `2022-11-18-0134`.
@@ -638,6 +650,8 @@ Deploio database instances run on Nine’s managed infrastructure. Nine monitors
 
 Nine monitors the instance with a monitoring system 24x7. In the event of a malfunction, an (on-call) technician from Nine is automatically alerted and restores proper operation as quickly as possible.
 
+You can also view the current status of a database via the Cockpit, as well as information such as version, backup retention policy and "Allowed IP Addresses". This information can help when trying to assess and connection issues.
+
 > ⚠️ Resource saturation (e.g., full CPU/memory/disk) is **not considered a malfunction**. You are responsible for monitoring performance and scaling your instance as needed.
 
 #### What is Monitored by Nine
@@ -649,7 +663,7 @@ Nine monitors the **availability** and **infrastructure health** of the database
 - Backup completion status
 - Disk thresholds (for automatic storage expansion)
 
-However, **application-level metrics like query latency, connection count, or CPU load** are not exposed via Cockpit today.
+However, **application-level metrics like query latency, connection count, or CPU load** are not exposed via Cockpit today. This feature is currently WIP and will be available soon.
 
 #### What You Can Monitor Yourself
 

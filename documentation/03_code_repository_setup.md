@@ -5,7 +5,7 @@ description: How to set up your code repository for Deploio
 
 # Code Repository Setup
 
-To deploy your application with Deploio, you must connect your code repository so that we can fetch your application code during the build process.
+To deploy your application with Deploio, you must connect your code repository so that we can fetch your application code during the build process. We explain how to set it up in this section.
 
 We support all major Git platforms, including GitHub, GitLab, Bitbucket, and private Git servers. This guide explains how to set up secure access and configure your repository properly.
 
@@ -61,11 +61,13 @@ We support all major Git platforms, including GitHub, GitLab, Bitbucket, and pri
 
    > ⚠️ Ensure the key is unquoted — quotation marks around the private key must be removed before use.
 
+You can view more details about creating the application in our [quick start guides](/quick_start).
+
 ### GitLab
 
 Deploio works with both GitLab.com and self-hosted GitLab instances.
 
-##### SSH Key Integration
+#### SSH Key Integration
 
 Follow the same steps as GitHub: generate a key pair. To add the public key in GitLab, follow [this guide](https://docs.gitlab.com/user/project/deploy_keys/).
 
@@ -75,7 +77,7 @@ Then provide the private key when creating the app in Cockpit or via `nctl`, as 
 
 Deploio works with Bitbucket Cloud.
 
-##### SSH Key Integration
+#### SSH Key Integration
 
 Generate a key pair using the same steps as GitHub.  
 To add the deploy key, follow [Bitbucket's SSH access docs](https://support.atlassian.com/bitbucket-cloud/docs/add-an-ssh-key-to-your-bitbucket-cloud-account/).

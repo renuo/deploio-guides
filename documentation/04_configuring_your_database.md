@@ -168,6 +168,7 @@ We can now access the server using the FQDN and generated user and password. We 
 
 Now we want to create the database on the server. We can run the following command:
 
+[//]: # (TODO: can we find a way for the user to input the desired name and update the commands?)
 ```
 createdb -U dbadmin -h {FQDN} {DATABASE_NAME}
 ```

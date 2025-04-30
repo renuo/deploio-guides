@@ -92,8 +92,6 @@ You can view the available versions below for your desired database.
 <TabItem value="PostgreSQL">
 ```
 
-### PostgreSQL
-
 #### Versions available
 
 In the following table you can find the support period of each PostgreSQL version:
@@ -163,7 +161,7 @@ Please adjust the flags as you need.
 We can now access the server using the FQDN and generated user and password. We can find this information as follows:
 
 - **FQDN**: Run `nctl get postgres {DATABASE_NAME}`
-- **User**: This is always set to `dbadmin` but you can check by running `nctl get postgres {DATABASE_NAME} --print-user`
+- **User**: Run `nctl get postgres {DATABASE_NAME} --print-user`
 - **Password**: Run `nctl get postgres {DATABASE_NAME} --print-password`
 
 Now we want to create the database on the server. We can run the following command:
@@ -239,8 +237,6 @@ Use the <a href="https://www.postgresql.org/docs/16/sql-commands.html" target="_
 ```mdx-code-block
 <TabItem value="MySQL">
 ```
-
-### MySQL
 
 #### Versions available
 
@@ -401,7 +397,9 @@ Use the official MySQL documentation for additional info about <a href="https://
 
 ### Monitoring for health and performance
 
-Deploio database instances run on Nine’s managed infrastructure. Nine monitors basic infrastructure-level availability, however you are responsible for observing database-level performance and load.
+Deploio database instances run on Nine’s managed infrastructure. Nine monitors basic infrastructure-level availability, however you are responsible for observing database-level performance and load. 
+
+You can view the current status of the system [here](https://status.nine.ch/).
 
 Nine monitors the instance with a monitoring system 24x7. In the event of a malfunction, an (on-call) technician from Nine is automatically alerted and restores proper operation as quickly as possible.
 
@@ -507,7 +505,7 @@ See [Backup Retention Policy section](#backup-retention-policy) for configuratio
 
 Nine backs up the databases daily between 01:00 and 02:00. These backups are kept locally for 10 days (configurable) and on a remote backup system for seven days.
 
-[//]: # (TODO: can we explain the remote backup system? what is it?)
+[//]: # (TODO: can we explain the remote backup system? what is it? Ask Nine for more info)
 
 Backups are stored in the `/home/dbadmin/backup directory`. All backups are versioned in directories with the following time scheme (example, exact timestamp will vary): `2022-11-18-0134`.
 

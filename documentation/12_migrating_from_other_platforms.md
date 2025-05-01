@@ -8,13 +8,13 @@ With Deploio, it is extremely easy to migrate an application, and all resources,
 
 Most examples will focus on migrating from Heroku, however this can be adapted should you be migrating from another provider.
 
-### Retrieving and restoring databases
+## Retrieving and restoring databases
 
 
 
 
 
-### Retrieving environment variables
+## Retrieving environment variables
 
 Below is an example of a shell script that you can use for retrieving environment variables. Depending on the platform you are migrating from, and whether they have a comprehensive CLI infrastructure, this could be adapted for your case.
 
@@ -75,7 +75,7 @@ nctl update application gifcoins --env='ADMIN_EMAIL=admin@damin.ch;ADMIN_PASSWOR
 
 Please be aware that this is just an example of how to automate retrieving the environment variables. The user should make sure that they understand the script, which environment variables that they require, and thoroughly check the output.
 
-### Updating DNS records
+## Updating DNS records
 
 Given that we now have a new url for the application, we will need to update the DNS records to point to the new application running on Deploio.
 
@@ -91,7 +91,7 @@ It may be that you need to disable the "proxy mode"...
 
 [//]: # (TODO: show an example with some images)
 
-### Adapting deployment workflows for Deploio
+## Adapting deployment workflows for Deploio
 
 Currently, when we link the GitHub repository and target revision for the application, the application will automatically re-deploy on branch changes. 
 
@@ -103,7 +103,7 @@ On the other hand, should you wish to integrate the deployment process to the CI
 
 [//]: # (TODO: add from migration guide)
 
-### How to guides
+## How to guides
 
 Please see a list below of "how to" guides for migrating to Deploio:
 

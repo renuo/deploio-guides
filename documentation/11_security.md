@@ -4,7 +4,7 @@ title: Security
 
 # Security
 
-### Key Features of Deploio
+## Key Features of Deploio
 
 [//]: # (TODO: Look in to zero-trust - should MySQL thing go here?)
 
@@ -27,7 +27,7 @@ title: Security
 
 ##### Version control
 
-### Security configuration and considerations
+## Security configuration and considerations
 
 ##### Docker images
 
@@ -42,7 +42,7 @@ title: Security
   - MySQL connection is unencrypted
   - Anything else?
 
-### Best Practices
+## Best Practices
 
 #####  Secure Docker images and buildpacks.
 

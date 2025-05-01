@@ -4,7 +4,7 @@ title: CI/CD Integration
 
 # CI/CD Integration
 
-### Automate Deployments
+## Automate Deployments
 
 Currently, when we link the GitHub repository and target revision for the application, the application will automatically re-deploy on branch changes.
 
@@ -200,7 +200,7 @@ Once the above has been put in to place, we should see the following process:
 
 ✅ We then trigger the script (in our case a Ruby script) which provides feedback on the release. Once this has completed successfully the CI is finished and we have an updated application running.
 
-### Deployment Strategies
+## Deployment Strategies
 
 ##### Rolling deployments.
 ##### Blue/green deployments.

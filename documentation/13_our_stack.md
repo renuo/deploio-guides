@@ -12,23 +12,23 @@ Container-based infrastructure.
 - Tenant separation?
 - Anything else?
 
-### Swiss infrastructure (AS29691)
+## Swiss infrastructure (AS29691)
 
 - ...
 
-### Powered by Nutanix and Kubernetes
+## Powered by Nutanix and Kubernetes
 
 - ...
 
-### Heroku Buildpacks for builds
+## Heroku Buildpacks for builds
 
 - ...
 
-### Docker for containerized deployments.
+## Docker for containerized deployments.
 
 - ...
 
-### Kubernetes for orchestration.
+## Kubernetes for orchestration.
 
 - ...
 

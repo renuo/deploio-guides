@@ -6,7 +6,7 @@ description: Provide details on the build and release process, the underlying te
 
 # How Deploio Works
 
-### Repo, Build, Release Process
+## Repo, Build, Release Process
 
 All you require for deploying an application with Deploio is:
 
@@ -42,7 +42,7 @@ While Deploio runs on a scalable Kubernetes infrastructure, your apps don’t au
 
 For more details on the infrastructure used to run your app, view the Nine Kubernetes Engine documentation [here](https://docs.nine.ch/docs/managed-kubernetes/nke/nine-kubernetes-engine).
 
-### Workflow
+## Workflow
 
 ##### Code Management
 
@@ -89,7 +89,7 @@ flowchart TD
     G --> H([Application is available securely])
 ```
 
-### Glossary of Key Terms
+## Glossary of Key Terms
 
 ##### Project
 

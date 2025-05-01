@@ -4,7 +4,7 @@ title: Tools
 
 # Tools
 
-### CLI
+## CLI
 
 Our `nctl` CLI for managing your projects and deployments.
 
@@ -19,7 +19,7 @@ Our `nctl` CLI for managing your projects and deployments.
 Unlikely to change much over time.
 
 
-### API
+## API
 
 Our REST API for managing your projects and deployments.
 
@@ -31,7 +31,7 @@ Our REST API for managing your projects and deployments.
 
 ##### Create your own GUI
 
-### GUI (Cockpit)
+## GUI (Cockpit)
 
 Our GUI for managing your projects and deployments.
 

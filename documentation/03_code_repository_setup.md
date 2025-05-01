@@ -104,7 +104,7 @@ If you're using a custom Git server (e.g., Gitea, Gitolite, bare Git over SSH):
    git@yourserver.com:org/repo.git
    ```
   
-### Repository Access
+## Repository Access
 
 #### 🔐 Private Repositories
 

@@ -79,7 +79,7 @@ You can see more information about setting up the `nctl` command line [here](doc
 
 Firstly, we need to create the project. This is the outer level where we can group resources, set project level configuration and have an overview of the applications running for the project. A project can have many applications (and/or environments) if this is how you wish your project to be set up.
 
-The project needs to be prefixed with the organisation you are currently working within, but we will also add a `display-name` option. This means it will display this name (without the prefix) in the Cockpit.
+The project needs to be prefixed with the organization you are currently working within, but we will also add a `display-name` option. This means it will display this name (without the prefix) in the Cockpit.
 
 In our example, we are in the `renuo` organization and creating the project `gifcoins`, so we need to run the following:
 
@@ -396,7 +396,7 @@ We can then view the token using:
 nctl get apiserviceaccount gifcoins --print-token
 ```
 
-Now that we have the token to hand, we can set this as an environment variable on the CI. We will set this as `DEPLOIO_API_TOKEN`. We also need to set the `DEPLOIO_ORG` variable to our organisation name (in this case **'renuo'**).
+Now that we have the token to hand, we can set this as an environment variable on the CI. We will set this as `DEPLOIO_API_TOKEN`. We also need to set the `DEPLOIO_ORG` variable to our organization name (in this case **'renuo'**).
 
 In our case we are using Semaphore for our <a href="/documentation/ci_cd_integration" target="_blank">CI integration</a>. We therefore have a `.semaphore/main-deploy.yml` file. We will configure this to:
 

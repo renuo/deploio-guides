@@ -1,10 +1,10 @@
-# Still to-do
+# TODO:
 
 - [ ] Add dropdowns for the documentation sections on the left - see mockup.
 
-- [ ] Add search documentation field at the top of the sections to the left - Daniel on this
+- [X] Add search documentation field at the top of the sections to the left - Daniel on this
 
-- [ ] Add translations (German only?)
+- [ ] Add translations (German only?) - maybe now not necessary 
 
 - [X] Remove dark mode functionality and button
 
@@ -16,13 +16,13 @@
 
 - [X] Any way to add the current "area" e.g. "Ruby" or "Documentation" - maybe to top of sidebar
 
-- [ ] Fill out **How Deploio Works**
+- [X] Fill out **How Deploio Works**
 
 - [ ] Add video link in **Getting Started**
 
-- [ ] Fill out guides for **Code Repository Setups** (GitHub done)
+- [X] Fill out guides for **Code Repository Setups** (GitHub done)
 
-- [ ] Fill out "Monitoring for health and performance" in **Database** section
+- [X] Fill out "Monitoring for health and performance" in **Configuring your Database** section
 
 - [ ] Fill out "Object Storage" and "Persistent Volumes" in **Other Dependencies** section
 
@@ -43,6 +43,8 @@
 - [ ] Fill out **Tools** section
 
 - [ ] Add "Pricing" page - is this just information or interactive?
+
+- [ ] GO PUBLIC!
 
 # Website
 
@@ -72,16 +74,4 @@ This command generates static content into the `build` directory and can be serv
 
 ### Deployment
 
-Using SSH:
-
-```
-$ USE_SSH=true yarn deploy
-```
-
-Not using SSH:
-
-```
-$ GIT_USER=<Your GitHub username> yarn deploy
-```
-
-If you are using GitHub pages for hosting, this command is a convenient way to build the website and push to the `gh-pages` branch.
+...

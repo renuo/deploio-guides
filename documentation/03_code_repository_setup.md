@@ -11,20 +11,27 @@ We support all major Git platforms, including GitHub, GitLab, Bitbucket, and pri
 
 ### GitHub
 
-[//]: # (TODO: not sure about this? There's no documentation and Cockpit doesn't give the option)
+[//]: # (TODO: speak to Nine about OAuth support - I would expect a button to authorize with GitHub)
 
-[//]: # (Deploio supports both **OAuth-based integration** via the GitHub App and **manual SSH access**.)
+When creating a new application in the Cockpit or via the nctl CLI, you will need to enter the **Git URL** and authentication details. Deploio supports both **HTTPS** and **SSH** access methods for GitHub repositories.
 
-[//]: # (##### GitHub App &#40;Recommended&#41;)
+##### HTTPS Access with Personal Access Token (PAT)
 
-[//]: # (- Navigate to the **Deploio Cockpit** and link your GitHub account.)
+1. [Generate a GitHub Personal Access Token](https://github.com/settings/tokens) with `repo` scope (or fine-grained read-only access).
 
-[//]: # (- Select the repositories you want to grant access to.)
+2. In Cockpit:
 
-[//]: # (- Deploio will securely fetch your code using GitHub’s API.)
+   - Set the **Git URL** to your repo, e.g.
+     ```
+     https://github.com/your-org/your-repo.git
+     ```
+   - Enter the **Username**: your GitHub username
+   - Enter the **Password**: your GitHub PAT
 
-[//]: # (- This is the easiest way to manage repository permissions without handling SSH keys manually.)
+   > ⚠️ Your PAT acts like a password — do not share or expose it.
 
+You can view more details about creating the application in our [quick start guides](/quick_start).
+   
 ##### SSH Key Integration
 
 1. **Generate an SSH key** (if you don’t have one yet):

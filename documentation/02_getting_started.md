@@ -78,7 +78,7 @@ flowchart TD
 <br></br>
 A created `Organization` is the top-level entity, which can contain multiple projects. 
 
-A `Project` is the logical container to group applications within. We can define a default configuration on a project level. This will be the default for all applications within the project, unless this is overwritten at the application level. Each project can have multiple applications. This structure allows for better organization and management of resources.
+A `Project` is the logical container to group applications within. Each project can have multiple applications. This structure allows for better organization and management of resources.
 
 An `Application` is the actual deployment unit. It can be a web application, a microservice, or any other deployable unit. Each application is associated with a specific project and inherits the default configuration from the project unless specified otherwise.
 

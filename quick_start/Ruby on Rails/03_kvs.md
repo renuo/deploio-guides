@@ -26,8 +26,8 @@ Firstly, we create the key value store by running the `create kvs` command:
 nctl create keyvaluestore {application_name}
 ```
 
-This creates the on-demand key-value store instance with name `{application_name}` within the currently active project
-space. The created store supports the latest API of Redis (Version 7). Due
+This creates the on-demand key-value store instance with name `{application_name}` owned by the currently active project.
+The created store supports the latest API of Redis (Version 7). Due
 to [license changes](https://redis.io/blog/what-redis-license-change-means-for-our-managed-service-providers/) and the associated uncertainty about the future development of Redis,
 we have decided to use a Redis-compatible alternative as a replacement soon.
 We now need to retrieve the information for

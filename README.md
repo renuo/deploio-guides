@@ -1,6 +1,6 @@
 # TODO:
 
-- [ ] Add dropdowns for the documentation sections on the left - see mockup.
+- [ ] Add dropdowns for the documentation sections on the left... should we have each heading (##) as a separate page within that section? similar layout to the quick guides?
 
 - [X] Add search documentation field at the top of the sections to the left - Daniel on this
 

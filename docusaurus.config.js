@@ -129,6 +129,13 @@ const config = {
             position: 'right'
           },
           {
+            href: 'https://cockpit.nine.ch/de/session/new?origin=%2F',
+            label: 'Login',
+            position: 'right',
+            target: '_blank',
+            rel: 'noopener noreferrer'
+          },
+          {
             href: 'https://deplo.io/#register',
             label: 'Get Started',
             position: 'right',

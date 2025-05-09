@@ -108,7 +108,7 @@ const config = {
           src: 'img/light_logo.svg',
         },
         items: [
-          // TODO: disabled until we add translations
+          // TODO: disabled until we add translations (if we do)
           // {
           //   type: 'localeDropdown',
           //   position: 'right'
@@ -129,6 +129,13 @@ const config = {
             position: 'right'
           },
           {
+            href: 'https://deplo.io/pricing',
+            label: 'Pricing',
+            position: 'right',
+            target: '_blank',
+            rel: 'noopener noreferrer'
+          },
+          {
             href: 'https://cockpit.nine.ch/de/session/new?origin=%2F',
             label: 'Login',
             position: 'right',
@@ -142,19 +149,7 @@ const config = {
             className: 'navbar__item navbar__item--white navbar__item--last',
             target: '_blank',
             rel: 'noopener noreferrer'
-          },
-          // TODO: disabled until we add pricing page / link to pricing calculator
-          // {
-          //   to: '/pricing',
-          //   label: 'Pricing',
-          //   position: 'right'
-          // },
-          // TODO: include Algolia search for whole site
-          // {
-          //   to: '/search',
-          //   label: 'Search',
-          //   position: 'right'
-          // },
+          }
         ],
       },
       footer: {

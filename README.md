@@ -42,7 +42,7 @@
 
 - [ ] Fill out **Tools** section
 
-- [ ] Add "Pricing" page - is this just information or interactive?
+- [X] Add "Pricing" page - is this just information or interactive?
 
 - [ ] GO PUBLIC!
 

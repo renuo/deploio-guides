@@ -128,6 +128,14 @@ const config = {
             label: 'Technical Reference',
             position: 'right'
           },
+          {
+            href: 'https://deplo.io/#register',
+            label: 'Get Started',
+            position: 'right',
+            className: 'navbar__item navbar__item--white navbar__item--last',
+            target: '_blank',
+            rel: 'noopener noreferrer'
+          },
           // TODO: disabled until we add pricing page / link to pricing calculator
           // {
           //   to: '/pricing',

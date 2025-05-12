@@ -14,8 +14,10 @@ You can see the pricing [here](https://docs.nine.ch/docs/object-storage/manage-b
 
 ## Setup Object Storage
 
-Currently, there's no dedicated command to create an object storage instance using `nctl`. However, you can create an object storage via the [Cockpit UI](https://cockpit.nine.ch/en/object_storage/storage/buckets/new). Select the desired project in the
-dropdown and specify the location, which ideally is `nine-es34`, the same location as Deploio applications.
+Currently, there's no dedicated command to create an object storage instance using `nctl`. However, you can create an
+object storage via the [Cockpit UI](https://cockpit.nine.ch/en/object_storage/storage/buckets/new). Select the desired
+project in the dropdown and specify the location, which ideally is `nine-es34`, the same location as Deploio
+applications.
 
 :::info
 Even though the `nctl` CLI does not have a dedicated command for object storage, you can still create it using the
@@ -35,7 +37,7 @@ metadata:
   namespace: <project>
 spec:
   forProvider:
-    location: nine-cz42
+    location: nine-es34
     storageTier: standard
 ```
 
@@ -49,9 +51,9 @@ created **bucket**.
 
 ![Object Storage Panel](/img/object_storage_panel.png)
 
-However, to interact with the created object storage, you need to create a **bucket user**. You can do this by navigating to
-the "Bucket Users" tab in the Cockpit. The user needs to reside in the same location as the bucket. After creating the
-user, you can retrieve the access key and secret key by clicking on "Show" in the "Credentials" row.
+However, to interact with the created object storage, you need to create a **bucket user**. You can do this by
+navigating to the "Bucket Users" tab in the Cockpit. The user needs to reside in the same location as the bucket. After
+creating the user, you can retrieve the access key and secret key by clicking on "Show" in the "Credentials" row.
 
 ![Bucket User Panel](/img/bucket_user_panel.png)
 
@@ -80,7 +82,7 @@ You can set the environment variables using the information you retrieved from t
 nctl update application {application_name} --env="DEPLOIO_ACCESS_KEY={ACCESS_KEY};DEPLOIO_SECRET_KEY={SECRET_KEY};DEPLOIO_ENDPOINT={API_ENDPOINT};DEPLOIO_BUCKET={BUCKET_NAME}"
 ```
 
-Finally, we can configure Active Storage to use the newly created service by setting the `service` configuration in the
+Finally, you can configure Active Storage to use the newly created service by setting the `service` configuration in the
 production environment:
 
 ```ruby title="config/environments/production.rb"

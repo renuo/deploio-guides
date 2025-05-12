@@ -4,210 +4,76 @@ title: Configuring Your Application
 
 # Configuring Your Application
 
-Your application isn't just about the code — it’s also about how it runs. This section covers the essential configurations that define its behavior, from environment variables and deployment files, to worker processes and background jobs. 
+Your application isn't just about the code — it's also about how it runs. This section covers the essential configurations that define its behaviour, from environment variables and deployment files, to worker processes and background jobs.
 
-Here, you'll learn how to set up and fine-tune your app’s internal mechanics to ensure smooth operation.
+Here, you'll learn how to set up and fine-tune your app's internal mechanics to ensure 
+smooth operation.
 
-## Environment Variables
+## Configuration Methods
 
-Environment variables allow you to customize your application's behavior between environments (e.g. development, staging, production) without changing code.
+Deploio provides multiple ways to configure your application:
 
-#### Build Variables
+### 1. nctl (CLI)
 
-Build variables are available **only during the build phase** (i.e., when the container is being created using the Dockerfile or buildpack). They are not available at runtime. 
-
-These are useful for tools like Webpack, Babel, or asset precompilation that may require certain environment variables to be set during the build process.
-
-The environment variables can be set in the Cockpit under **Application → Configuration**, and then under the **Build Environment Variables** section.
-
-These can also be set via the CLI using the `--build-env` flag in the format `--build-env=KEY=VALUE;...`. This can be set during app creation, or when updating the app.
-
-For a brand-new application:
+Using the `nctl` CLI tool, you can configure your application through commands. This is ideal for automation and scripting, for example retrieving environment variables from your current platform, and applying them at application creation.
 
 ```bash
+# Example: Creating an app with configuration
 nctl create app my-app --project my-project \
-  --build-env=NODE_ENV:"production";SENTRY_AUTH_TOKEN:"xyz123"
+  --env=DATABASE_URL:"postgres://user:password@host/db" \
+  --build-env=NODE_ENV:"production" \
+  --port=3000 \
+  --basic-auth
 ```
 
-For an existing application:
+### 2. Cockpit (GUI)
 
-```bash
-nctl update app my-app --project my-project \
-  --build-env=NODE_ENV:"production";SENTRY_AUTH_TOKEN:"xyz123"
-```
+The Deploio Cockpit provides a user-friendly interface for configuring your application.
 
-##### Runtime Variables
+Once the application is created, you can go to the Application page, and use the tabs, and the edit page to configure the application.
 
-Runtime variables are loaded **every time your application boots up**, making them suitable for configuring behavior, authentication, credentials, and other per-environment or per-deploy settings.
+The following tabs are available for configuration:
 
-These are useful for setting up database connection strings, API keys, and other sensitive information that should not be hard-coded into your application.
+#### Application Tabs
 
-The environment variables can be set in the Cockpit under **Application → Configuration**, and then under the **Environment Variables** section.
+| Tab | Description |
+|-----|-------------|
+| **Git** | Configure the git repository URL and authentication details for your application |
+| **Hosts** | Manage deployment hosts and view DNS configuration records (TXT and CNAME) for your domain registrar |
+| **Configuration** | Manage environment variables, build variables, and basic application settings (auth, port, replicas, size). Shows the source of each setting (default or `deploio.yaml`) |
+| **Static Egress** | Configure static IP addresses for outbound traffic. [Learn more about static egress](https://docs.nine.ch/docs/managed-kubernetes/nke/static-egress-nke) |
+| **Jobs** | View worker and scheduled jobs. For configuration, use [CLI or deploio.yaml](#worker-jobs) |
+| **Dockerfile Build** | View build options for Dockerfile-based applications. Configure using `--dockerfile-path` and `--dockerfile-build-context` flags. [Learn more about Dockerfile builds](https://docs.nine.ch/docs/deplo-io/dockerfile-build/) |
+| **Logs** | Access real-time application logs |
+| **Builds** | Monitor build status and history |
+| **Releases** | Track application releases and their status |
 
-These can also be set via the CLI using the `--env` flag in the format `--env=KEY=VALUE;...`. This can be set during app creation, or when updating the app, similarly to the above.
+#### Edit page
 
-For a brand-new application:
+You can also use the `edit` button on the top right of the page to edit the application. 
 
-```bash
-nctl create app my-app --project my-project \
-  --env=DATABASE_URL:"postgres://user:password@host/db";REDIS_URL:"redis://host";SECRET_KEY_BASE:"abc123"
-```
+![Edit button demonstration](/img/edit_button.gif)
 
-For an existing application:
+Here you can **add** deploy jobs, worker jobs, scheduled jobs, as well as the basic configuration for your application (port, replicas, size, basic auth, etc).
 
-```bash
-nctl update app my-app --project my-project \
-  --env=DATABASE_URL:"postgres://user:password@host/db";REDIS_URL:"redis://host";SECRET_KEY_BASE:"abc123"
-```
+### 3. deploio.yaml
 
-## Configuration Files
+<!-- TODO: add more details here -->
 
-##### Procfile
-
-Used to declare and configure the processes that make up your application. This is where you define how your application's processes should run, including web servers, background workers, and other processes.
-
-This will differ from project to project, however an example could be:
-```bash
-web: bundle exec puma -C config/puma.rb
-worker: bundle exec sidekiq
-```
-
-> Each line in the Procfile defines a process type and the command to run it. The process type is used by Deploio to manage and scale your application.
-
-##### deploio.yaml
-
-A Git-tracked configuration file used to configure your application. It can be stored alongside your application code, and will be read by the build system when building the application.
-
-You can use this file to: 
-
-- Set application configuration (e.g. size, port, replicas)
-- Define environment variables
-- Enable basic authentication
-- Set up deploy jobs
-- Define background jobs (workers)
-- Define scheduled jobs (cron jobs)
-
-Any settings specified directly in the application configuration takes precedence over this file. 
+A Git-tracked configuration file that can be stored alongside your application code:
 
 ```yaml
-# Application size (micro, mini, standard-1, standard-2)
+# deploio.yaml
 size: micro
-# Port the app is listening on.
 port: 8080
-## Sets the amount of replicas of the running app.
 replicas: 1
-# Env variables which are passed to the app at runtime.
 env:
-  - name: RESPONSE_TEXT
-    value: "Hello from a Go Deploio app!"
-# enables basic authentication for the application
-enableBasicAuth: true
-# A job that runs before a new release gets deployed.
-deployJob:
-  name: "hello-go"
-  command: echo "Hello from a Go Deploio app!
-# A job that runs in the background non-stop.
+  - name: DATABASE_URL
+    value: "postgres://user:password@host/db"
 workerJobs:
   - name: sidekiq-worker
-    command: "bundle exec sidekiq -e production -C config/sidekiq.yml"
+    command: "bundle exec sidekiq"
     size: standard-2
-# A job that is set to run at specific times.
-scheduledJobs:
-  - name: "daily-backup"
-    schedule: "0 3 * * *"
-    command: /app/backup.sh
-```
-
-You can read more information in the [Nine documentation](https://docs.nine.ch/docs/deplo-io/configuration/deploio-configuration-layers#git-configuration-via-yaml-file) and view the fields that can be used in the `.deploio.yaml` in the [API docs](https://docs.nine.ch/api/#tag/ProjectConfig/operation/createAppsNineChV1alpha1NamespacedProjectConfig).
-
-## Web Applications
-
-##### Basic Authentication
-
-Protect non-production environments (like staging) with HTTP Basic Auth, configurable directly in the Cockpit and built in to Deploio.
-
-You can enable basic authentication using the `--basic-auth` flag:
-
-```bash
-nctl create app my-app --basic-auth
-```
-
-or disable with:
-
-```bash
-nctl update app my-app --basic-auth=false
-```
-
-Once enabled, you can use the `--basic-auth-credentials` flag to show the username and password for your application:
-
-```bash
-nctl get app my-app --basic-auth-credentials
-```
-
-To rotate the credentials for basic authentication you can use:
-
-```bash
-nctl update app my-app --change-basic-auth-password
-```
-
-##### Routing
-
-In most cases, you do not need to change the default port that Deploio chooses for your application. The chosen port will be injected as the env variable `$PORT` to the application at **runtime**. So in any case, for compiled languages you have to make sure the app is listening on the port defined in that env variable. For other languages such as Ruby, PHP, Node.js or Python this will be automatically taken care of.
-
-However, you can change this by using the `--port` flag when creating or updating your application, or by defining this in the `deploio.yaml` file:
-
-```yaml
-web:
-  port: 3000
-```
-
-This tells Deploio to expose your app's internal port 3000 to the outside world.
-
-## Worker Jobs
-
-##### Job systems
-
-You can run background tasks for your application using a job system. Deploio supports a variety of job systems, including:
-
-- **Sidekiq**: A popular background job processing library for Ruby applications.
-- **Resque**: A Redis-backed library for creating background jobs.
-- **Delayed Job**: A simple background job processing library for Ruby.
-- **RabbitMQ**: A message broker that can be used for background job processing.
-- **Celery**: A distributed task queue for Python applications.
-- **Bull**: A Redis-based queue system for Node.js applications.
-- **RQ**: A simple Python library for queueing jobs and processing them in the background with workers.
-- **Beanstalkd**: A simple, fast work queue.
-- **Kue**: A priority job queue for Node.js backed by Redis.
-- **and many more**
-
-These can be configured in the `deploio.yaml` file, as highlighted earlier in the [deploio.yaml section](#deploioyaml).
-
-```yaml
-You need to define them in the `Procfile`, or you can use the `deploio.yaml` file.
-
-[//]: # (TODO: show example here)
-
-## Deployment Jobs
-
-##### Setup
-
-Deployment jobs are scripts that run during app deploys. They are useful for running database migrations, clearing caches, or any other tasks that needs to run **before** a new release gets deployed.
-
-You can specify a deploy job when creating an application by using various related flags on the `nctl create` or `nctl update` command:
-
-```bash
---deploy-job-command="rake db:prepare"       Command to execute before a new release gets deployed. No deploy job will be executed
-                                             if this is not specified.
---deploy-job-name="release"                  Name of the deploy job. The deployment will only continue if the job finished successfully.
---deploy-job-retries=3                       How many times the job will be restarted on failure. Default is 3 and maximum 5.
---deploy-job-timeout=5m                      Timeout of the job. Default is 5m, minimum is 1 minute and maximum is 30 minutes.
-
-$ nctl create app --deploy-job-command="rake db:prepare"
-```
-
-These could also be defined in the `deploio.yaml` file:
-
-```yaml
 deployJob:
   - name: migrate
     command: bundle exec rake db:migrate
@@ -215,35 +81,434 @@ deployJob:
     timeout: 5m
 ```
 
+### 4. Procfile
+
+<!-- TODO: more details to be added here I think... see Davids comments -->
+
+A `Procfile` in your application's root directory declares the processes that make up your application:
+
+```bash
+# Procfile
+web: bundle exec puma -C config/puma.rb
+worker: bundle exec sidekiq
+```
+## Configuration Topics
+
+### Environment Variables
+
+Environment variables allow you to customize your application's behavior between environments (e.g. development, staging production) without changing code.
+
+#### Build Variables
+
+Build variables are available **only during the build phase** (i.e., when the container is being created using the Dockerfile or buildpack). They are not available at runtime. 
+
+#### Runtime Variables
+
+Runtime variables are loaded **every time your application boots up**, making them suitable for configuring behavior, authentication, credentials, and other per-environment or per-deploy settings.
+
+These are useful for setting up database connection strings, API keys, and other sensitive information that should not be hard-coded into your application.
+
+#### Configuring Environment Variables
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+<Tabs>
+<TabItem value="nctl" label="nctl">
+
+Environment variables can be configured using the `nctl` CLI tool. In particular, you can use the `--build-env` and `--env` flags to set build and runtime variables, respectively, in the format `--env=KEY=VALUE;...`. Environment variables can be set up during app creation, or when updating the app.
+
+For a brand-new application:
+
+```bash
+# Build variables (only during build phase)
+nctl create app my-app --build-env=NODE_ENV:"production"
+
+# Runtime variables (loaded at boot)
+nctl create app my-app --env=DATABASE_URL:"postgres://user:password@host/db"
+```
+
+For an existing application:
+
+```bash
+# Build variables (only during build phase)
+nctl update app my-app --build-env=NODE_ENV:"production"
+
+# Runtime variables (loaded at boot)
+nctl update app my-app --env=DATABASE_URL:"postgres://user:password@host/db"
+```
+
+If you are coming from Heroku, you can use the script [here](12_migrating_from_other_platforms.md#retrieving-environment-variables) to retrieve your environment variables in the format required by Deploio.
+
+</TabItem>
+<TabItem value="cockpit" label="Cockpit">
+
+You can also configure environment variables in the Cockpit. This is useful for quickly setting up environment variables for your application, and viewing the current environment variables in a more user-friendly way.
+
+You can navigate to your Application page, and then either click on the **Configuration** tab, or the **Edit** button on the top right of the page.
+
+<!-- TODO: insert gif -->
+
+In both cases, the environment variables are split into two sections: **Environment Variables** and **Build Environment Variables**.
+
+</TabItem>
+<TabItem value="yaml" label="deploio.yaml">
+
+Environment variables can also be configured in the `deploio.yaml` file.
+
+```yaml
+# Build variables
+buildEnv:
+  - name: NODE_ENV
+    value: "production"
+
+# Runtime variables
+env:
+  - name: DATABASE_URL
+    value: "postgres://user:password@host/db"
+```
+
+</TabItem>
+<TabItem value="procfile" label="Procfile">
+
+Environment variables cannot be configured in the Procfile. Please use one of the other methods instead.
+
+</TabItem>
+</Tabs>
+
+### Web Application Configuration
+
+There are a number of configuration options for your web application.
+
+#### Basic Authentication
+
+Protect non-production environments with HTTP Basic Auth.
+
+<Tabs>
+<TabItem value="nctl" label="nctl">
+
+Basic authentication can be enabled using the `nctl` CLI tool.
+
+```bash
+# Enable basic auth
+nctl create app my-app --basic-auth
+
+# Get credentials
+nctl get app my-app --basic-auth-credentials
+
+# Rotate credentials
+nctl update app my-app --change-basic-auth-password
+```
+
+</TabItem>
+<TabItem value="cockpit" label="Cockpit">
+
+Navigate to your Application page and click the **Edit** button. Under **Basic Configuration**, you can enable/disable basic authentication.
+
+<!-- TODO: how do I view the credentials from the Cockpit? -->
+
+</TabItem>
+<TabItem value="yaml" label="deploio.yaml">
+
+```yaml
+# Enable basic authentication
+enableBasicAuth: true
+```
+
+</TabItem>
+<TabItem value="procfile" label="Procfile">
+
+Basic authentication cannot be configured in the Procfile. Use one of the other methods instead.
+
+</TabItem>
+</Tabs>
+
+<!-- TODO: check the below - seems crazy -->
 :::note[Note]
-The rollout of the release only continues if the deploy jobs are finished successfully
+Basic authentication credentials can not be edited. Deploio ensures that secure credentials are created and used.
 :::
 
-##### Monitoring
+#### Port Configuration
 
-[//]: # (TODO: test this)
+Configure which port your application listens on. Deploio automatically sets a `$PORT` runtime environment variable that your application can use.
 
-You can view the status of a deploy job using:
+<Tabs>
+<TabItem value="nctl" label="nctl">
 
-```bash
-nctl get releases my-app --project my-project -o yaml
-```
-
-This will output the status of the release, including the status of the deploy job and any error that may have occurred.
+Set the port using the `--port` flag:
 
 ```bash
-[...]
-status:
-  atProvider:
-    deployJobStatus:
-      exitTime: 2023-07-18T11:01:47Z
-      name: name
-      reason: backoffLimitExceeded
-      startTime: 2023-07-18T11:00:58Z
-      status: failed
-    releaseStatus: failure
+# Set port during app creation
+nctl create app my-app --port=3000
+
+# Update port for existing app
+nctl update app my-app --port=3000
 ```
 
-## Other Flags
+</TabItem>
+<TabItem value="cockpit" label="Cockpit">
 
-Many configuration flags have been referenced in this guide. We would recommend that you read through the available flags and their usages by running `nctl create app -h`. This way you can decide what configuration you need to set before creating your application.
+Navigate to your Application page and click the **Edit** button. 
+
+Under **Configuration**, you can set the port number.
+
+</TabItem>
+<TabItem value="yaml" label="deploio.yaml">
+
+```yaml
+# Set the port
+port: 3000
+```
+
+</TabItem>
+<TabItem value="procfile" label="Procfile">
+
+<!-- TODO: do I even need this? What if I don't have `-p` here and just set it through Deploio? -->
+
+The Procfile can use the `$PORT` runtime environment variable that Deploio automatically sets:
+
+```bash
+web: bundle exec puma -p $PORT
+```
+
+:::note[Note]
+The `$PORT` environment variable is automatically set by Deploio at runtime. You don't need to configure it manually.
+:::
+
+</TabItem>
+</Tabs>
+
+#### Replicas
+
+Configure how many instances of your application should run.
+
+<Tabs>
+<TabItem value="nctl" label="nctl">
+
+Set the number of replicas using the `--replicas` flag:
+
+```bash
+# Set replicas during app creation
+nctl create app my-app --replicas=3
+
+# Update replicas for existing app
+nctl update app my-app --replicas=3
+```
+
+</TabItem>
+<TabItem value="cockpit" label="Cockpit">
+
+Navigate to your Application page and click the **Edit** button. 
+
+Under **Configuration**, you can set the number of replicas.
+
+</TabItem>
+<TabItem value="yaml" label="deploio.yaml">
+
+```yaml
+# Set the number of replicas
+replicas: 3
+```
+
+</TabItem>
+<TabItem value="procfile" label="Procfile">
+
+Replicas cannot be configured in the Procfile. Use one of the other methods instead.
+
+</TabItem>
+</Tabs>
+
+#### Size
+
+Configure the compute resources allocated to your application. You can view the available sizes and more information [here](04_configuring_your_database.md#machine-type).
+
+<Tabs>
+<TabItem value="nctl" label="nctl">
+
+Set the size using the `--size` flag:
+
+```bash
+# Set size during app creation
+nctl create app my-app --size=standard-2
+
+# Update size for existing app
+nctl update app my-app --size=standard-2
+```
+
+</TabItem>
+<TabItem value="cockpit" label="Cockpit">
+
+Navigate to your Application page and click the **Edit** button. 
+
+Under **Configuration**, you can select the size from the dropdown menu.
+
+</TabItem>
+<TabItem value="yaml" label="deploio.yaml">
+
+```yaml
+# Set the size
+size: standard-2
+```
+
+</TabItem>
+<TabItem value="procfile" label="Procfile">
+
+Size cannot be configured in the Procfile. Use one of the other methods instead.
+
+</TabItem>
+</Tabs>
+
+### Deployment Jobs
+
+Deployment jobs are a way to run a command before a new release is deployed. This is useful for running database migrations, or other setup tasks. The deployment will only continue if the job finished successfully.
+
+We will see how to configure the extra options using each method, but here is an overview of the options:
+
+| Option | Description | Default | Limits |
+|--------|-------------|---------|---------|
+| `--deploy-job-name` | Name of the deploy job. The deployment will only continue if the job finished successfully. | "release" | - |
+| `--deploy-job-command` | Command to execute before a new release gets deployed. No deploy job will be executed if this is not specified. | - | - |
+| `--deploy-job-retries` | How many times the job will be restarted on failure. | 3 | Max: 5 |
+| `--deploy-job-timeout` | Timeout of the job. | 5m | Min: 1m, Max: 30m |
+
+<Tabs>
+<TabItem value="nctl" label="nctl">
+
+```bash
+# Create a deployment job (you can also run update app with the same command for an existing app)
+nctl create app my-app \
+  --deploy-job-name="migrate" \
+  --deploy-job-command="rake db:migrate" \
+  --deploy-job-retries=3 \
+  --deploy-job-timeout=5m
+```
+
+</TabItem>
+<TabItem value="cockpit" label="Cockpit">
+
+Navigate to your Application page and click the **Edit** button. 
+
+Under **Jobs**, you can enable a new **Deploy Job**. This requires a command, which will be executed by a bash shell before a new release is deployed. You also need to specify the number of retries and a timeout.
+
+You can view the jobs in the **Jobs** tab, however configuration must be done via the above, or using another method.
+
+</TabItem>
+<TabItem value="yaml" label="deploio.yaml">
+
+```yaml
+deployJob:
+  name: "database-migration"
+  command: "rake db:prepare"
+  retries: 3
+  timeout: 5m
+```
+
+</TabItem>
+<TabItem value="procfile" label="Procfile">
+
+Deployment jobs cannot be configured in the Procfile. Use one of the other methods instead.
+
+</TabItem>
+</Tabs>
+
+### Worker Jobs
+
+Worker jobs are background processes that run alongside your main application. They are useful for handling tasks like processing queues, sending emails, or running scheduled tasks. Worker jobs share the app's image and environment but have a different entry point, e.g., for task scheduling.
+
+We will see how to configure the extra options using each method, but here is an overview of the options:
+
+| Option | Description | Default | Limits |
+|--------|-------------|---------|---------|
+| `--worker-job-name` | Name of the worker job. | - | - |
+| `--worker-job-command` | Command to execute for the worker job. | - | - |
+| `--worker-job-size` | Size of the worker job. | "micro" | See [available sizes](04_configuring_your_database.md#machine-type) |
+
+<!-- TODO: where do we have sizes for workers? maybe not in here? we should add -->
+
+<Tabs>
+<TabItem value="nctl" label="nctl">
+
+```bash
+# Create a worker job (works for both create and update app)
+nctl create app my-app \
+  --worker-job-name="sidekiq" \
+  --worker-job-command="bundle exec sidekiq" \
+  --worker-job-size="standard-2"
+```
+
+</TabItem>
+<TabItem value="cockpit" label="Cockpit">
+
+Navigate to your Application page and click the **Edit** button. 
+
+Under **Jobs**, you can create multiple **Worker Jobs**. Each job requires a name, a command, and the size of the worker to run the job.
+
+You can view the jobs in the **Jobs** tab, however configuration must be done via the above, or using another method.
+
+</TabItem>
+<TabItem value="yaml" label="deploio.yaml">
+
+```yaml
+workerJobs:
+  - name: "sidekiq"
+    command: "bundle exec sidekiq"
+    size: "standard-2"
+```
+
+</TabItem>
+<TabItem value="procfile" label="Procfile">
+
+<!-- TODO: look further into this -->
+
+```bash
+# Define worker processes
+web: bundle exec puma
+worker: bundle exec sidekiq
+```
+
+</TabItem>
+</Tabs>
+
+### Scheduled Jobs
+
+<Tabs>
+<TabItem value="nctl" label="nctl">
+
+```bash
+# Create a scheduled job (works for both create and update app)
+nctl create app my-app \
+  --scheduled-job-command="bundle exec rails runner" \
+  --scheduled-job-name=scheduled-1 \
+  --scheduled-job-size=micro \
+  --scheduled-job-schedule="* * * * *"    
+```
+
+</TabItem>
+<TabItem value="cockpit" label="Cockpit">
+
+Navigate to your Application page and click the **Edit** button. 
+
+Under **Jobs**, you can create multiple **Scheduled Jobs**. Each job requires a name, a command, a sheduel, and the size of the worker to run the job. You can also specify the retries and timeout for the job.
+
+You can view the jobs in the **Jobs** tab, however configuration must be done via the above, or using another method.
+
+</TabItem>
+<TabItem value="yaml" label="deploio.yaml">
+
+```yaml
+scheduledJobs:
+  - command: sleep 60; date
+    name: scheduled-1
+    retries: 0
+    schedule: "*/5 * * * *"
+    size: micro
+    timeout: 5m0s
+```
+
+</TabItem>
+<TabItem value="procfile" label="Procfile">
+
+Scheduled jobs cannot be configured in the Procfile. Use one of the other methods instead.
+
+</TabItem>
+</Tabs>

@@ -15,7 +15,7 @@ It assumes you have a basic understanding of Ruby on Rails and Git.
 
 ## Prerequisites
 
-* This quick start guide assumes you have **installed `nctl` on your laptop**. If not, please go through the instructions [here](/documentation/getting_started#creating-an-account).
+* This quick start guide assumes you have **installed `nctl` on your laptop**. If not, please go through the instructions [here](/documentation/getting_started#installing-nctl).
 * You should also have an **organization and project created**, where you will create the application. If you haven't done this yet, please follow the instructions [here](/documentation/getting_started#setting-up-your-first-project).
 * This example also presumes that you are **using a public repository**. 
   Should you need to set up access to a private repository, you will need to create an SSH key for security. See more details [here](/documentation/code_repository_setup).
@@ -53,7 +53,7 @@ For demonstration purposes, we will use our sample Rails application hosted on G
 
 ## Create a Deploio Application
 
-To create an application on Deploio, we can use the `nctl create application` command:
+To create an application on Deploio, you can use the `nctl create application` command:
 
 ```bash
 nctl create application rails \
@@ -86,4 +86,4 @@ of the repository for the Node.js runtime to be installed.
 The app should be running by now.
 However, if you are migrating an existing application or just created a new one that requires a database, chances are
 high that the current setup will not work.
-In this case, we will need to set up a **database**, which is described in the next step.
+In this case, you will need to set up a **database**, which is described in the next step.

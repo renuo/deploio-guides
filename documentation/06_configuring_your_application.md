@@ -1,12 +1,11 @@
 ---
 title: Configuring Your Application
 ---
-
 # Configuring Your Application
 
 Your application isn't just about the code — it's also about how it runs. This section covers the essential configurations that define its behaviour, from environment variables and deployment files, to worker processes and background jobs.
 
-Here, you'll learn how to set up and fine-tune your app's internal mechanics to ensure 
+Here, you'll learn how to set up and fine-tune your app's internal mechanics to ensure
 smooth operation.
 
 ## Configuration Methods
@@ -36,21 +35,22 @@ The following tabs are available for configuration:
 
 #### Application Tabs
 
-| Tab | Description |
-|-----|-------------|
-| **Git** | Configure the git repository URL and authentication details for your application |
-| **Hosts** | Manage deployment hosts and view DNS configuration records (TXT and CNAME) for your domain registrar |
-| **Configuration** | Manage environment variables, build variables, and basic application settings (auth, port, replicas, size). Shows the source of each setting (default or `deploio.yaml`) |
-| **Static Egress** | Configure static IP addresses for outbound traffic. [Learn more about static egress](https://docs.nine.ch/docs/managed-kubernetes/nke/static-egress-nke) |
-| **Jobs** | View worker and scheduled jobs. For configuration, use [CLI or deploio.yaml](#worker-jobs) |
-| **Dockerfile Build** | View build options for Dockerfile-based applications. Configure using `--dockerfile-path` and `--dockerfile-build-context` flags. [Learn more about Dockerfile builds](https://docs.nine.ch/docs/deplo-io/dockerfile-build/) |
-| **Logs** | Access real-time application logs |
-| **Builds** | Monitor build status and history |
-| **Releases** | Track application releases and their status |
+
+| Tab                  | Description                                                                                                                                                                                                                 |
+| ---------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Git**              | Configure the git repository URL and authentication details for your application                                                                                                                                            |
+| **Hosts**            | Manage deployment hosts and view DNS configuration records (TXT and CNAME) for your domain registrar                                                                                                                        |
+| **Configuration**    | Manage environment variables, build variables, and basic application settings (auth, port, replicas, size). Shows the source of each setting (default or`deploio.yaml`)                                                     |
+| **Static Egress**    | Configure static IP addresses for outbound traffic.[Learn more about static egress](https://docs.nine.ch/docs/managed-kubernetes/nke/static-egress-nke)                                                                     |
+| **Jobs**             | View worker and scheduled jobs. For configuration, use[CLI or deploio.yaml](#worker-jobs)                                                                                                                                   |
+| **Dockerfile Build** | View build options for Dockerfile-based applications. Configure using`--dockerfile-path` and `--dockerfile-build-context` flags. [Learn more about Dockerfile builds](https://docs.nine.ch/docs/deplo-io/dockerfile-build/) |
+| **Logs**             | Access real-time application logs                                                                                                                                                                                           |
+| **Builds**           | Monitor build status and history                                                                                                                                                                                            |
+| **Releases**         | Track application releases and their status                                                                                                                                                                                 |
 
 #### Edit page
 
-You can also use the `edit` button on the top right of the page to edit the application. 
+You can also use the `edit` button on the top right of the page to edit the application.
 
 ![Edit button demonstration](/img/edit_button.gif)
 
@@ -58,40 +58,84 @@ Here you can **add** deploy jobs, worker jobs, scheduled jobs, as well as the ba
 
 ### 3. deploio.yaml
 
-<!-- TODO: add more details here -->
+A Git-tracked configuration file that can be stored alongside your application code. It can be stored alongside your application code, and will be read by the build system when building the application.
 
-A Git-tracked configuration file that can be stored alongside your application code:
+This allows you to have all the configuration in one YAML file, and not have to use the CLI or Cockpit to configure your application.
+
+However, the settings specified directly in the application configuration will take precedence over the settings in the `deploio.yaml` file.
+
+You can use this file to: 
+
+- [Define default environment variables](#environment-variables)
+- [Set application configuration (e.g. size, port, replicas)](#web-application-configuration)
+- [Enable basic authentication](#basic-authentication)
+- [Set up deployment jobs](#deployment-jobs)
+- [Define background jobs (workers)](#worker-jobs)
+- [Define scheduled jobs (cron jobs)](#scheduled-jobs)
+
+Below is an example of a `deploio.yaml` file. You can see an up-to-date list of fields that can be used in the [API docs](https://docs.nine.ch/api/#tag/ProjectConfig/operation/createAppsNineChV1alpha1NamespacedProjectConfig).
 
 ```yaml
-# deploio.yaml
+# Application size (micro, mini, standard-1, standard-2)
 size: micro
+# Port the app is listening on.
 port: 8080
+## Sets the amount of replicas of the running app.
 replicas: 1
+# Env variables which are passed to the app at runtime.
 env:
-  - name: DATABASE_URL
-    value: "postgres://user:password@host/db"
-workerJobs:
-  - name: sidekiq-worker
-    command: "bundle exec sidekiq"
-    size: standard-2
+  - name: RESPONSE_TEXT
+    value: "Hello from a Deploio app!"
+# enables basic authentication for the application - recommended to protect applications that are not yet productive
+enableBasicAuth: true
+# A job that runs before a new release gets deployed.
 deployJob:
-  - name: migrate
-    command: bundle exec rake db:migrate
-    retries: 3
-    timeout: 5m
+  name: "hello"
+  command: echo "Hello from a Deploio app!
+# A job that runs in the background non-stop.
+workerJobs:
+  - name: "sidekiq-worker"
+    command: "bundle exec sidekiq -e production -C config/sidekiq.yml"
+# A job that is set to run at specific times.
+scheduledJobs:
+  - name: "daily-backup"
+    schedule: "0 3 * * *"
+    command: /app/backup.sh
 ```
 
 ### 4. Procfile
 
-<!-- TODO: more details to be added here I think... see Davids comments -->
+A **Procfile** in your application's root directory used to declare and configure the processes that make up your application.
 
-A `Procfile` in your application's root directory declares the processes that make up your application:
+This was something Heroku introduced, and it has been adopted as somewhat of a standard for expressing what commands are run to start an application.
+
+For Deploio, you can use the **Procfile** to override the otherwise automatically generated `web` entrypoint that will be executed when starting your application.
+
+:::note[Note]
+You can use both `deploio.yaml` and `Procfile` in your application, to configure your application fully within it's codebase. The `deploio.yaml` file is used for application-wide configuration (like environment variables, size, replicas, etc.), while the `Procfile` is used to define the processes that make up your application.
+:::
+
+For example, when trying to run a Docusaurus project on Deploio, the following Procfile is needed as by default it would try to start a development server:
+
+```bash
+# Procfile
+web: npm run serve -- -p $PORT
+```
+
+Another example is a Rails application, where you might want to start the Rails server and a worker:
 
 ```bash
 # Procfile
 web: bundle exec puma -C config/puma.rb
-worker: bundle exec sidekiq
+worker: bundle exec sidekiq -C config/sidekiq.yml
 ```
+
+<!-- TODO: can we only have one web process and one worker? or can we have multiple lines with the same prefix? -->
+
+<!-- TODO: are there other process types for production? -->
+
+<!-- TODO: what happens if web or worker fails? is it restarted and how many times until Deploio marks it as failed? -->
+
 ## Configuration Topics
 
 ### Environment Variables
@@ -100,7 +144,9 @@ Environment variables allow you to customize your application's behavior between
 
 #### Build Variables
 
-Build variables are available **only during the build phase** (i.e., when the container is being created using the Dockerfile or buildpack). They are not available at runtime. 
+Build variables are available **only during the build phase** (i.e., when the container is being created using the Dockerfile or buildpack). They are not available at runtime.
+
+These are useful for tools like Webpack, Babel, or asset precompilation that may require certain environment variables to be set during the build process.
 
 #### Runtime Variables
 
@@ -122,20 +168,20 @@ For a brand-new application:
 
 ```bash
 # Build variables (only during build phase)
-nctl create app my-app --build-env=NODE_ENV:"production"
+nctl create app my-app --build-env=NODE_ENV:"production";SENTRY_AUTH_TOKEN:"xyz123"
 
 # Runtime variables (loaded at boot)
-nctl create app my-app --env=DATABASE_URL:"postgres://user:password@host/db"
+nctl create app my-app --env=DATABASE_URL:"postgres://user:password@host/db";REDIS_URL:"redis://host";SECRET_KEY_BASE:"abc123"
 ```
 
 For an existing application:
 
 ```bash
 # Build variables (only during build phase)
-nctl update app my-app --build-env=NODE_ENV:"production"
+nctl update app my-app --build-env=NODE_ENV:"production";SENTRY_AUTH_TOKEN:"xyz123"
 
 # Runtime variables (loaded at boot)
-nctl update app my-app --env=DATABASE_URL:"postgres://user:password@host/db"
+nctl update app my-app --env=DATABASE_URL:"postgres://user:password@host/db";REDIS_URL:"redis://host";SECRET_KEY_BASE:"abc123"
 ```
 
 If you are coming from Heroku, you can use the script [here](12_migrating_from_other_platforms.md#retrieving-environment-variables) to retrieve your environment variables in the format required by Deploio.
@@ -145,11 +191,11 @@ If you are coming from Heroku, you can use the script [here](12_migrating_from_o
 
 You can also configure environment variables in the Cockpit. This is useful for quickly setting up environment variables for your application, and viewing the current environment variables in a more user-friendly way.
 
-You can navigate to your Application page, and then either click on the **Configuration** tab, or the **Edit** button on the top right of the page.
-
-<!-- TODO: insert gif -->
+You can navigate to your **Application** page, and then either click on the **Configuration** tab, or the **Edit** button on the top right of the page.
 
 In both cases, the environment variables are split into two sections: **Environment Variables** and **Build Environment Variables**.
+
+Here you can add, edit, or delete environment variables, as well as editing in a yaml format.
 
 </TabItem>
 <TabItem value="yaml" label="deploio.yaml">
@@ -182,7 +228,7 @@ There are a number of configuration options for your web application.
 
 #### Basic Authentication
 
-Protect non-production environments with HTTP Basic Auth.
+Protect non-production environments (like staging) with HTTP Basic Auth, configurable directly in the Cockpit and built in to Deploio.
 
 <Tabs>
 <TabItem value="nctl" label="nctl">
@@ -190,7 +236,7 @@ Protect non-production environments with HTTP Basic Auth.
 Basic authentication can be enabled using the `nctl` CLI tool.
 
 ```bash
-# Enable basic auth
+# Enable basic auth (you can also run update app with the same command)
 nctl create app my-app --basic-auth
 
 # Get credentials
@@ -203,12 +249,16 @@ nctl update app my-app --change-basic-auth-password
 </TabItem>
 <TabItem value="cockpit" label="Cockpit">
 
-Navigate to your Application page and click the **Edit** button. Under **Basic Configuration**, you can enable/disable basic authentication.
+Navigate to your **Application** page and click the **Edit** button.
 
-<!-- TODO: how do I view the credentials from the Cockpit? -->
+Under **Configuration**, you can enable/disable basic authentication.
+
+Once enabled, you can also get the credentials by clicking the **Show** button on the **Application** page.
 
 </TabItem>
 <TabItem value="yaml" label="deploio.yaml">
+
+As noted previously, any configuration set in the Cockpit or `nctl` will take precedence over the configuration in `deploio.yaml`.
 
 ```yaml
 # Enable basic authentication
@@ -223,19 +273,45 @@ Basic authentication cannot be configured in the Procfile. Use one of the other 
 </TabItem>
 </Tabs>
 
-<!-- TODO: check the below - seems crazy -->
+<!-- TODO: can we change the credentials? Maybe via env vars? How are they generated? -->
+
 :::note[Note]
-Basic authentication credentials can not be edited. Deploio ensures that secure credentials are created and used.
+Basic authentication credentials can not be edited. Deploio automatically generates the credentials to ensure that secure credentials are always used.
 :::
 
 #### Port Configuration
 
-Configure which port your application listens on. Deploio automatically sets a `$PORT` runtime environment variable that your application can use.
+In most cases, you do not need to change the default port that Deploio chooses for your application. The port you configure here tells Deploio which port to expect your application to listen on internally. This port will be injected as the `$PORT` environment variable to your application at runtime.
+
+For most frameworks (Ruby, PHP, Node.js, Python), this is handled automatically. For compiled languages, you need to ensure your application listens on the port specified by the `$PORT` environment variable.
+
+<!-- TODO: check the below is correct -->
+
+:::note[How Port Configuration Works]
+When you configure a port in Deploio (via `deploio.yaml`, `nctl`, or Cockpit), two things happen:
+
+1. Deploio's routing layer is configured to forward traffic to this port
+2. The port value is injected as the `$PORT` environment variable at runtime
+
+Your application must listen on this port to receive traffic. There are two ways to ensure this:
+
+- **Recommended**: Use the `$PORT` environment variable in your Procfile:
+  ```bash
+  web: bundle exec puma -p $PORT
+  ```
+  This ensures your application always listens on the port Deploio expects.
+
+- **Not Recommended**: Hardcode a port in your Procfile:
+  ```bash
+  web: bundle exec puma -p 3000
+  ```
+  This might cause issues if the port doesn't match Deploio's configuration.
+:::
 
 <Tabs>
 <TabItem value="nctl" label="nctl">
 
-Set the port using the `--port` flag:
+Set the internal port using the `--port` flag:
 
 ```bash
 # Set port during app creation
@@ -248,7 +324,7 @@ nctl update app my-app --port=3000
 </TabItem>
 <TabItem value="cockpit" label="Cockpit">
 
-Navigate to your Application page and click the **Edit** button. 
+Navigate to your **Application** page and click the **Edit** button.
 
 Under **Configuration**, you can set the port number.
 
@@ -256,23 +332,25 @@ Under **Configuration**, you can set the port number.
 <TabItem value="yaml" label="deploio.yaml">
 
 ```yaml
-# Set the port
+# Set the internal port
 port: 3000
 ```
 
 </TabItem>
 <TabItem value="procfile" label="Procfile">
 
-<!-- TODO: do I even need this? What if I don't have `-p` here and just set it through Deploio? -->
-
-The Procfile can use the `$PORT` runtime environment variable that Deploio automatically sets:
+The Procfile should use the `$PORT` environment variable that Deploio automatically sets:
 
 ```bash
+# Correct: Using $PORT environment variable
 web: bundle exec puma -p $PORT
+
+# Incorrect: Hardcoding a port that might not match Deploio's configuration
+web: bundle exec puma -p 3000
 ```
 
 :::note[Note]
-The `$PORT` environment variable is automatically set by Deploio at runtime. You don't need to configure it manually.
+Always use the `$PORT` environment variable in your Procfile. This ensures your application listens on the port that Deploio expects. If you hardcode a port, it might not match Deploio's configuration and your application might not receive traffic.
 :::
 
 </TabItem>
@@ -298,7 +376,7 @@ nctl update app my-app --replicas=3
 </TabItem>
 <TabItem value="cockpit" label="Cockpit">
 
-Navigate to your Application page and click the **Edit** button. 
+Navigate to your **Application** page and click the **Edit** button.
 
 Under **Configuration**, you can set the number of replicas.
 
@@ -338,7 +416,7 @@ nctl update app my-app --size=standard-2
 </TabItem>
 <TabItem value="cockpit" label="Cockpit">
 
-Navigate to your Application page and click the **Edit** button. 
+Navigate to your **Application** page and click the **Edit** button.
 
 Under **Configuration**, you can select the size from the dropdown menu.
 

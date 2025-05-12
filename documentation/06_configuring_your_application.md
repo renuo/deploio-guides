@@ -54,7 +54,7 @@ You can also use the `edit` button on the top right of the page to edit the appl
 
 ![Edit button demonstration](/img/edit_button.gif)
 
-Here you can **add** deploy jobs, worker jobs, scheduled jobs, as well as the basic configuration for your application (port, replicas, size, basic auth, etc).
+Here you can **add** a deploy job, worker jobs, scheduled jobs, as well as the basic configuration for your application (port, replicas, size, basic auth, etc).
 
 ### 3. deploio.yaml
 
@@ -69,7 +69,7 @@ You can use this file to:
 - [Define default environment variables](#environment-variables)
 - [Set application configuration (e.g. size, port, replicas)](#web-application-configuration)
 - [Enable basic authentication](#basic-authentication)
-- [Set up deployment jobs](#deployment-jobs)
+- [Set up a deploy job](#deploy-job)
 - [Define background jobs (workers)](#worker-jobs)
 - [Define scheduled jobs (cron jobs)](#scheduled-jobs)
 
@@ -436,9 +436,11 @@ Size cannot be configured in the Procfile. Use one of the other methods instead.
 </TabItem>
 </Tabs>
 
-### Deployment Jobs
+### Deploy Job
 
-Deployment jobs are a way to run a command before a new release is deployed. This is useful for running database migrations, or other setup tasks. The deployment will only continue if the job finished successfully.
+A Deploy Job is a way to run a command before a new release is deployed. This is useful for running database migrations, or other setup tasks. The deployment will only continue if the job finished successfully.
+
+#### Configuration
 
 We will see how to configure the extra options using each method, but here is an overview of the options:
 
@@ -454,7 +456,7 @@ We will see how to configure the extra options using each method, but here is an
 <TabItem value="nctl" label="nctl">
 
 ```bash
-# Create a deployment job (you can also run update app with the same command for an existing app)
+# Create a deploy job (you can also run update app with the same command for an existing app)
 nctl create app my-app \
   --deploy-job-name="migrate" \
   --deploy-job-command="rake db:migrate" \
@@ -468,8 +470,6 @@ nctl create app my-app \
 Navigate to your **Application** page and click the **Edit** button.
 
 Under **Jobs**, you can enable a new **Deploy Job**. This requires a command, which will be executed by a bash shell before a new release is deployed. You also need to specify the number of retries and a timeout.
-
-You can view the jobs in the **Jobs** tab, however configuration must be done via the above, or using another method.
 
 </TabItem>
 <TabItem value="yaml" label="deploio.yaml">
@@ -485,7 +485,38 @@ deployJob:
 </TabItem>
 <TabItem value="procfile" label="Procfile">
 
-Deployment jobs cannot be configured in the Procfile. Use one of the other methods instead.
+Deploy job cannot be configured in the Procfile. Use one of the other methods instead.
+
+</TabItem>
+</Tabs>
+
+#### Monitoring
+
+<Tabs>
+<TabItem value="nctl" label="nctl">
+
+If a deploy job fails, the associated release will be set to failed and the previous release will continue to run if there was one to begin with. To see the detailed status of a deploy job you can get the full release:
+
+```bash
+$ nctl get releases my-app -o yaml
+[...]
+status:
+  atProvider:
+    deployJobStatus:
+      exitTime: 2023-07-18T11:01:47Z
+      name: my-app-deploy-job
+      reason: backoffLimitExceeded
+      startTime: 2023-07-18T11:00:58Z
+      status: failed
+    releaseStatus: failure
+```
+
+At the bottom of the release you can see the status and it will show in detail when and how a deploy job failed. In addition to the status, the deploy job's log will be written to the normal app log and can be accessed using the `nctl logs app` command.
+
+</TabItem>
+<TabItem value="cockpit" label="Cockpit">
+
+You can view the **Deploy Job** in the **Jobs** tab. In this tab, you can view the configuration and the status of the job.
 
 </TabItem>
 </Tabs>
@@ -494,30 +525,7 @@ Deployment jobs cannot be configured in the Procfile. Use one of the other metho
 
 Worker jobs are background processes that run alongside your main application using a job system (sometimes called message queue or job queue). They are useful for handling tasks like processing queues, sending emails, or running scheduled tasks. Worker jobs share the app's image and environment but have a different entry point, e.g., for task scheduling.
 
-:::note[Setting up Worker Jobs]
-To set up a worker job, you need to configure both:
-
-- The worker process in your **Procfile** that starts the actual worker server (like Sidekiq, Resque, etc.)
-- The **`workerJobs`** configuration in the application configuration (using the Cockpit, `deploio.yaml`, or `nctl`), that tells Deploio which jobs to run.
-
-For example, for setting up Sidekiq:
-
-```bash
-# Procfile - starts the Sidekiq server
-web: bundle exec puma -C config/puma.rb
-worker: bundle exec sidekiq -e production -C config/sidekiq.yml
-```
-
-```yaml
-# deploio.yaml - configures how Deploio manages the worker
-workerJobs:
-  - name: "sidekiq-worker"
-    command: "bundle exec sidekiq -e production -C config/sidekiq.yml"
-    size: "standard-2"
-```
-
-The `Procfile` starts the worker process, and the `workerJobs` configuration ensures it's properly managed by Deploio (resources, monitoring, restarts, etc.).
-:::
+#### Configuration
 
 We will see how to configure the extra options using each method, but here is an overview of the options:
 
@@ -548,8 +556,6 @@ Navigate to your **Application** page and click the **Edit** button.
 
 Under **Jobs**, you can create multiple **Worker Jobs**. Each job requires a name, a command, and the size of the worker to run the job.
 
-You can view the jobs in the **Jobs** tab, however configuration must be done via the above, or using another method.
-
 </TabItem>
 <TabItem value="yaml" label="deploio.yaml">
 
@@ -563,7 +569,7 @@ workerJobs:
 </TabItem>
 <TabItem value="procfile" label="Procfile">
 
-<!-- TODO: look further into this -->
+You need to define the worker processes in your Procfile. This is separate from the setup of the worker jobs in Deploio.
 
 ```bash
 # Define worker processes
@@ -574,7 +580,43 @@ worker: bundle exec sidekiq
 </TabItem>
 </Tabs>
 
+#### Monitoring
+
+<Tabs>
+<TabItem value="nctl" label="nctl">
+
+The simplest way to view the status of a worker job with `nctl` is to use the `-o stats` command:
+
+```bash
+$ nctl get app my-app -o stats
+```
+
+Additionally, the logs of the worker jobs can be accessed by viewing the app logs using the `nctl logs app` command.
+
+</TabItem>
+<TabItem value="cockpit" label="Cockpit">
+
+You can view the **Worker Jobs** in the **Jobs** tab. In this tab, you can view the configuration and the status of the jobs.
+
+</TabItem>
+</Tabs>
+
 ### Scheduled Jobs
+
+Scheduled jobs are commands that run at regular intervals based on a predefined schedule. They are useful for tasks like database cleanup, sending reports, or any other recurring tasks.
+
+#### Configuration
+
+<!-- TODO: check sizes of workers and defualts -->
+
+We will see how to configure the extra options using each method, but here is an overview of the options:
+
+| Option                      | Description                            | Default | Limits                                                             |
+| --------------------------- | -------------------------------------- | ------- | ------------------------------------------------------------------ |
+| `--scheduled-job-name`      | Name of the scheduled job.             | -       | -                                                                  |
+| `--scheduled-job-command`   | Command to execute for the scheduled job. | -     | -                                                                  |
+| `--scheduled-job-schedule`  | Cron schedule for the job.             | `* * * * *` | -                                                              |
+| `--scheduled-job-size`      | Size of the scheduled job.             | "micro" | See [available sizes](04_configuring_your_database.md#machine-type) |
 
 <Tabs>
 <TabItem value="nctl" label="nctl">
@@ -595,9 +637,7 @@ These are scheduled using cron syntax. You can see more information about the sy
 
 Navigate to your **Application** page and click the **Edit** button.
 
-Under **Jobs**, you can create multiple **Scheduled Jobs**. Each job requires a name, a command, a sheduel, and the size of the worker to run the job. You can also specify the retries and timeout for the job.
-
-You can view the jobs in the **Jobs** tab, however configuration must be done via the above, or using another method.
+Under **Jobs**, you can create multiple **Scheduled Jobs**. Each job requires a name, a command, a schedule, and the size of the worker to run the job. You can also specify the retries and timeout for the job.
 
 </TabItem>
 <TabItem value="yaml" label="deploio.yaml">
@@ -613,9 +653,37 @@ scheduledJobs:
 ```
 
 </TabItem>
-<TabItem value="procfile" label="Procfile">
+</Tabs>
 
-Scheduled jobs cannot be configured in the Procfile. Use one of the other methods instead.
+#### Monitoring
+
+If a scheduled job fails, the associated release will NOT be set to failed and continue running. 
+
+<Tabs>
+<TabItem value="nctl" label="nctl">
+
+To see the detailed status of a scheduled job you can get the full release:
+
+```bash
+$ nctl get releases my-app -o yaml
+[...]
+status:
+  atProvider:
+    scheduledJobStatus:
+    - name: scheduled-1
+      replicaObservation:
+      - replicaName: go-scheduled-scheduled-1-29038220
+        status: succeeded
+```
+
+At the bottom of the release you can see the status and it will show in detail the status of the scheduled job. In addition to the status, the scheduled job's log will be written to the normal app log and can be accessed using the `nctl logs app` command.
+
+</TabItem>
+<TabItem value="cockpit" label="Cockpit">
+
+You can view the **Scheduled Jobs** in the **Jobs** tab. In this tab, you can view the configuration and the status of the jobs.
+
+In addition to the status, the scheduled job's log will be written to the normal app log and can be viewed in the **Logs** tab.
 
 </TabItem>
 </Tabs>

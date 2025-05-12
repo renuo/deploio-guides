@@ -364,12 +364,13 @@ Deployment jobs are a way to run a command before a new release is deployed. Thi
 
 We will see how to configure the extra options using each method, but here is an overview of the options:
 
-| Option | Description | Default | Limits |
-|--------|-------------|---------|---------|
-| `--deploy-job-name` | Name of the deploy job. The deployment will only continue if the job finished successfully. | "release" | - |
-| `--deploy-job-command` | Command to execute before a new release gets deployed. No deploy job will be executed if this is not specified. | - | - |
-| `--deploy-job-retries` | How many times the job will be restarted on failure. | 3 | Max: 5 |
-| `--deploy-job-timeout` | Timeout of the job. | 5m | Min: 1m, Max: 30m |
+
+| Option                 | Description                                                                                                     | Default   | Limits            |
+| ---------------------- | --------------------------------------------------------------------------------------------------------------- | --------- | ----------------- |
+| `--deploy-job-name`    | Name of the deploy job. The deployment will only continue if the job finished successfully.                     | "release" | -                 |
+| `--deploy-job-command` | Command to execute before a new release gets deployed. No deploy job will be executed if this is not specified. | -         | -                 |
+| `--deploy-job-retries` | How many times the job will be restarted on failure.                                                            | 3         | Max: 5            |
+| `--deploy-job-timeout` | Timeout of the job.                                                                                             | 5m        | Min: 1m, Max: 30m |
 
 <Tabs>
 <TabItem value="nctl" label="nctl">
@@ -386,7 +387,7 @@ nctl create app my-app \
 </TabItem>
 <TabItem value="cockpit" label="Cockpit">
 
-Navigate to your Application page and click the **Edit** button. 
+Navigate to your **Application** page and click the **Edit** button.
 
 Under **Jobs**, you can enable a new **Deploy Job**. This requires a command, which will be executed by a bash shell before a new release is deployed. You also need to specify the number of retries and a timeout.
 
@@ -413,15 +414,41 @@ Deployment jobs cannot be configured in the Procfile. Use one of the other metho
 
 ### Worker Jobs
 
-Worker jobs are background processes that run alongside your main application. They are useful for handling tasks like processing queues, sending emails, or running scheduled tasks. Worker jobs share the app's image and environment but have a different entry point, e.g., for task scheduling.
+Worker jobs are background processes that run alongside your main application using a job system (sometimes called message queue or job queue). They are useful for handling tasks like processing queues, sending emails, or running scheduled tasks. Worker jobs share the app's image and environment but have a different entry point, e.g., for task scheduling.
+
+:::note[Setting up Worker Jobs]
+To set up a worker job, you need to configure both:
+
+- The worker process in your **Procfile** that starts the actual worker server (like Sidekiq, Resque, etc.)
+- The **`workerJobs`** configuration in the application configuration (using the Cockpit, `deploio.yaml`, or `nctl`), that tells Deploio which jobs to run.
+
+For example, for setting up Sidekiq:
+
+```bash
+# Procfile - starts the Sidekiq server
+web: bundle exec puma -C config/puma.rb
+worker: bundle exec sidekiq -e production -C config/sidekiq.yml
+```
+
+```yaml
+# deploio.yaml - configures how Deploio manages the worker
+workerJobs:
+  - name: "sidekiq-worker"
+    command: "bundle exec sidekiq -e production -C config/sidekiq.yml"
+    size: "standard-2"
+```
+
+The `Procfile` starts the worker process, and the `workerJobs` configuration ensures it's properly managed by Deploio (resources, monitoring, restarts, etc.).
+:::
 
 We will see how to configure the extra options using each method, but here is an overview of the options:
 
-| Option | Description | Default | Limits |
-|--------|-------------|---------|---------|
-| `--worker-job-name` | Name of the worker job. | - | - |
-| `--worker-job-command` | Command to execute for the worker job. | - | - |
-| `--worker-job-size` | Size of the worker job. | "micro" | See [available sizes](04_configuring_your_database.md#machine-type) |
+
+| Option                 | Description                            | Default | Limits                                                             |
+| ---------------------- | -------------------------------------- | ------- | ------------------------------------------------------------------ |
+| `--worker-job-name`    | Name of the worker job.                | -       | -                                                                  |
+| `--worker-job-command` | Command to execute for the worker job. | -       | -                                                                  |
+| `--worker-job-size`    | Size of the worker job.                | "micro" | See[available sizes](04_configuring_your_database.md#machine-type) |
 
 <!-- TODO: where do we have sizes for workers? maybe not in here? we should add -->
 
@@ -439,7 +466,7 @@ nctl create app my-app \
 </TabItem>
 <TabItem value="cockpit" label="Cockpit">
 
-Navigate to your Application page and click the **Edit** button. 
+Navigate to your **Application** page and click the **Edit** button.
 
 Under **Jobs**, you can create multiple **Worker Jobs**. Each job requires a name, a command, and the size of the worker to run the job.
 
@@ -480,13 +507,15 @@ nctl create app my-app \
   --scheduled-job-command="bundle exec rails runner" \
   --scheduled-job-name=scheduled-1 \
   --scheduled-job-size=micro \
-  --scheduled-job-schedule="* * * * *"    
+  --scheduled-job-schedule="* * * * *"  
 ```
+
+These are scheduled using cron syntax. You can see more information about the syntax [here](https://crontab.guru/).
 
 </TabItem>
 <TabItem value="cockpit" label="Cockpit">
 
-Navigate to your Application page and click the **Edit** button. 
+Navigate to your **Application** page and click the **Edit** button.
 
 Under **Jobs**, you can create multiple **Scheduled Jobs**. Each job requires a name, a command, a sheduel, and the size of the worker to run the job. You can also specify the retries and timeout for the job.
 

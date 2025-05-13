@@ -110,8 +110,14 @@ scheduledJobs:
 
 ### 4. Procfile
 
-:::warning[Procfile Support]
-Deploio only supports the `web` process type in Procfile. We recommend using `deploio.yaml` instead for all process configuration. There can only be one proxied process (which can be multiplied via replicas), but there are no hard limits on the number of worker or scheduled jobs you can define in `deploio.yaml`.
+:::warning[Procfile Limitations]
+Deploio only supports the `web` process type in Procfile. The `worker` and `release` process types are not supported. We strongly recommend using `deploio.yaml` instead, which provides full support for all process types including:
+- Web processes
+- Worker jobs
+- Deploy jobs
+- Scheduled jobs
+
+For local development, you can use `Procfile.dev` to maintain your development environment configuration.
 :::
 
 A Procfile is a simple text file that specifies the commands that should be executed to start your application. Each line in the Procfile follows the format:
@@ -124,6 +130,7 @@ A Procfile is a simple text file that specifies the commands that should be exec
 
 - `web`: The main web process that handles HTTP requests. This is the only process type supported in Procfile.
 - `worker`: Not supported in Procfile. Use `deploio.yaml` to configure worker jobs instead.
+- `release`: Not supported in Procfile. Use `deploio.yaml` to configure deploy jobs instead.
 
 #### Example
 

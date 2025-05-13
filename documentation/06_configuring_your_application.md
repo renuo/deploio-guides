@@ -1,6 +1,10 @@
 ---
 title: Configuring Your Application
 ---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 # Configuring Your Application
 
 Your application isn't just about the code — it's also about how it runs. This section covers the essential configurations that define its behaviour, from environment variables and deployment files, to worker processes and background jobs.
@@ -127,6 +131,8 @@ A Procfile is a simple text file that specifies the commands that should be exec
 web: bundle exec puma -C config/puma.rb
 ```
 
+A number of configuration options use the cron syntax. You can see more information about the syntax [here](https://crontab.guru/).
+
 ## Configuration Topics
 
 ### Process Failure Handling
@@ -154,9 +160,6 @@ Runtime variables are loaded **every time your application boots up**, making th
 These are useful for setting up database connection strings, API keys, and other sensitive information that should not be hard-coded into your application.
 
 #### Configuring Environment Variables
-
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
 
 <Tabs>
 <TabItem value="nctl" label="nctl">
@@ -199,7 +202,7 @@ Here you can add, edit, or delete environment variables, as well as editing in a
 </TabItem>
 <TabItem value="yaml" label="deploio.yaml">
 
-Environment variables can also be configured in the `deploio.yaml` file.
+Environment variables can also be configured in the `deploio.yaml` file. However, the settings specified directly in the application configuration will take precedence over the settings in the `deploio.yaml` file.
 
 ```yaml
 # Build variables
@@ -631,8 +634,6 @@ nctl create app my-app \
   --scheduled-job-schedule="* * * * *"  
 ```
 
-These are scheduled using cron syntax. You can see more information about the syntax [here](https://crontab.guru/).
-
 </TabItem>
 <TabItem value="cockpit" label="Cockpit">
 
@@ -652,6 +653,11 @@ scheduledJobs:
     size: micro
     timeout: 5m0s
 ```
+
+</TabItem>
+<TabItem value="procfile" label="Procfile">
+
+Scheduled jobs cannot be configured in the Procfile. Use one of the other methods instead.
 
 </TabItem>
 </Tabs>

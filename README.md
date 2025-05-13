@@ -42,7 +42,9 @@
 
 - [ ] Fill out **Tools** section
 
-- [X] Add "Pricing" page - is this just information or interactive?
+- [X] Add "Pricing" page
+
+- [ ] Add details within the guides for the different job systems (e.g. QR for Python)
 
 - [ ] GO PUBLIC!
 

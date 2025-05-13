@@ -63,7 +63,7 @@ A Git-tracked configuration file that can be stored alongside your application c
 
 This allows you to have all the configuration in one YAML file, and not have to use the CLI or Cockpit to configure your application.
 
-However, the settings specified directly in the application configuration will take precedence over the settings in the `deploio.yaml` file.
+The `deploio.yaml` file specifies the default values. If you overwrite a setting in the admin GUI or command line, they take precedence over the defaults from the file.
 
 You can use this file to: 
 

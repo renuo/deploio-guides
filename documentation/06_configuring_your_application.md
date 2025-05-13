@@ -105,46 +105,36 @@ scheduledJobs:
 
 ### 4. Procfile
 
-<!-- TODO: do we need more about the Procfile somewhere? See Heroku docs on this: https://devcenter.heroku.com/articles/procfile#procfile-format -->
-
-A **Procfile** in your application's root directory used to declare and configure the processes that make up your application. It tells Deploio how to startup your application.
-
-This was something Heroku introduced, and it has been adopted as somewhat of a standard for expressing what commands are run to start an application.
-
-For Deploio, you can use the **Procfile** to override the otherwise automatically generated `web` entrypoint that will be executed when starting your application.
-
-You can also define worker processes in the Procfile, which will be used to run background jobs.
-
-You can also define scheduled jobs in the Procfile, which will be used to run scheduled jobs.
-
-Or other process like links to Twitter streaming API to collect data for your application.
-
-:::note[Note]
-You can use both `deploio.yaml` and `Procfile` in your application, to configure your application fully within it's codebase. The `deploio.yaml` file is used for application-wide configuration (like environment variables, size, replicas, etc.), while the `Procfile` is used to define the processes that make up your application.
+:::warning[Procfile Support]
+Deploio only supports the `web` process type in Procfile. We recommend using `deploio.yaml` instead for all process configuration. There can only be one proxied process (which can be multiplied via replicas), but there are no hard limits on the number of worker or scheduled jobs you can define in `deploio.yaml`.
 :::
 
-For example, when trying to run a Docusaurus project on Deploio, the following Procfile is needed as by default it would try to start a development server:
+A Procfile is a simple text file that specifies the commands that should be executed to start your application. Each line in the Procfile follows the format:
 
-```bash
-# Procfile
-web: npm run serve -- -p $PORT
+```
+<process type>: <command>
 ```
 
-Another example is a Rails application, where you might want to start the Rails server and a worker:
+#### Process Types
 
-```bash
-# Procfile
+- `web`: The main web process that handles HTTP requests. This is the only process type supported in Procfile.
+- `worker`: Not supported in Procfile. Use `deploio.yaml` to configure worker jobs instead.
+
+#### Example
+
+```
 web: bundle exec puma -C config/puma.rb
-worker: bundle exec sidekiq -C config/sidekiq.yml
 ```
-
-<!-- TODO: can we only have one web process and one worker? or can we have multiple lines with the same prefix? -->
-
-<!-- TODO: are there other process types for production? -->
-
-<!-- TODO: what happens if web or worker fails? is it restarted and how many times until Deploio marks it as failed? -->
 
 ## Configuration Topics
+
+### Process Failure Handling
+
+Deploio automatically handles process failures for both web and worker processes:
+
+- If a process crashes or becomes unreachable on its specified port, Deploio will automatically attempt to restart it
+- A back-off strategy is implemented, which increases the time between restart attempts until it eventually gives up
+- This applies to both web and worker processes
 
 ### Environment Variables
 

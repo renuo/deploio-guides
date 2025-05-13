@@ -228,6 +228,10 @@ There are a number of configuration options for your web application.
 
 Protect non-production environments (like staging) with HTTP Basic Auth, configurable directly in the Cockpit and built in to Deploio.
 
+:::note[Basic Auth Implementation]
+Basic auth credentials are generated and managed by Deploio's controllers. The password is stored as a Kubernetes secret and referenced by the ingress configuration. You cannot set the password manually, but you can rotate it as frequently as needed using the `--change-basic-auth-password` command.
+:::
+
 <Tabs>
 <TabItem value="nctl" label="nctl">
 
@@ -270,12 +274,6 @@ Basic authentication cannot be configured in the Procfile. Use one of the other 
 
 </TabItem>
 </Tabs>
-
-<!-- TODO: can we change the credentials? Maybe via env vars? How are they generated? -->
-
-:::note[Note]
-Basic authentication credentials can not be edited. Deploio automatically generates the credentials to ensure that secure credentials are always used.
-:::
 
 #### Port Configuration
 

@@ -277,31 +277,27 @@ Basic authentication cannot be configured in the Procfile. Use one of the other 
 
 #### Port Configuration
 
-In most cases, you do not need to change the default port that Deploio chooses for your application. The port you configure here tells Deploio which port to expect your application to listen on internally. This port will be injected as the `$PORT` environment variable to your application at runtime.
+Your application needs to expose a TCP/IP port to handle HTTP requests. The port configuration works as follows:
 
-For most frameworks (Ruby, PHP, Node.js, Python), this is handled automatically. For compiled languages, you need to ensure your application listens on the port specified by the `$PORT` environment variable.
+1. **Application Level**:
+   - Your application will use a default port (e.g., in Rails this is port 3000 for Puma or 8080 for the buildpack default)
+   - You can configure this in your application (e.g., in Rails you can set this in `config/puma.rb`)
+   - If configured, the application will use this port
+   - If not configured, the application will use the `PORT` environment variable
 
-<!-- TODO: check the below is correct -->
+2. **Deploio Level**:
+   - You can only configure the `PORT` environment variable
+   - This can be done either via `--port` in nctl or through runtime environment variables in Cockpit
+   - The actual port your application listens on internally is determined by your application's configuration
 
-:::note[How Port Configuration Works]
-When you configure a port in Deploio (via `deploio.yaml`, `nctl`, or Cockpit), two things happen:
+3. **External Access**:
+   - All Deploio applications are accessible externally only on port 443 (HTTPS)
+   - This is handled by Deploio's ingress-nginx layer
+   - The ingress layer routes traffic based on the HTTP host header to the correct internal service
+   - No other external ports are supported
 
-1. Deploio's routing layer is configured to forward traffic to this port
-2. The port value is injected as the `$PORT` environment variable at runtime
-
-Your application must listen on this port to receive traffic. There are two ways to ensure this:
-
-- **Recommended**: Use the `$PORT` environment variable in your Procfile:
-  ```bash
-  web: bundle exec puma -p $PORT
-  ```
-  This ensures your application always listens on the port Deploio expects.
-
-- **Not Recommended**: Hardcode a port in your Procfile:
-  ```bash
-  web: bundle exec puma -p 3000
-  ```
-  This might cause issues if the port doesn't match Deploio's configuration.
+:::note[Port Configuration Best Practices]
+The recommended approach is to let your application use its default port (e.g., 3000 for Rails/Puma) and configure the `PORT` environment variable in Deploio if you need to change it. The internal port configuration is abstracted away from end users, as all external access is handled through HTTPS on port 443.
 :::
 
 <Tabs>
@@ -331,23 +327,6 @@ Under **Configuration**, you can set the port number.
 # Set the internal port
 port: 3000
 ```
-
-</TabItem>
-<TabItem value="procfile" label="Procfile">
-
-The Procfile should use the `$PORT` environment variable that Deploio automatically sets:
-
-```bash
-# Correct: Using $PORT environment variable
-web: bundle exec puma -p $PORT
-
-# Incorrect: Hardcoding a port that might not match Deploio's configuration
-web: bundle exec puma -p 3000
-```
-
-:::note[Note]
-Always use the `$PORT` environment variable in your Procfile. This ensures your application listens on the port that Deploio expects. If you hardcode a port, it might not match Deploio's configuration and your application might not receive traffic.
-:::
 
 </TabItem>
 </Tabs>

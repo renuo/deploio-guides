@@ -37,7 +37,7 @@ The following tabs are available for configuration:
 
 
 | Tab                  | Description                                                                                                                                                                                                                 |
-| ---------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|----------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Git**              | Configure the git repository URL and authentication details for your application                                                                                                                                            |
 | **Hosts**            | Manage deployment hosts and view DNS configuration records (TXT and CNAME) for your domain registrar                                                                                                                        |
 | **Configuration**    | Manage environment variables, build variables, and basic application settings (auth, port, replicas, size). Shows the source of each setting (default or`deploio.yaml`)                                                     |
@@ -105,11 +105,19 @@ scheduledJobs:
 
 ### 4. Procfile
 
-A **Procfile** in your application's root directory used to declare and configure the processes that make up your application.
+<!-- TODO: do we need more about the Procfile somewhere? See Heroku docs on this: https://devcenter.heroku.com/articles/procfile#procfile-format -->
+
+A **Procfile** in your application's root directory used to declare and configure the processes that make up your application. It tells Deploio how to startup your application.
 
 This was something Heroku introduced, and it has been adopted as somewhat of a standard for expressing what commands are run to start an application.
 
 For Deploio, you can use the **Procfile** to override the otherwise automatically generated `web` entrypoint that will be executed when starting your application.
+
+You can also define worker processes in the Procfile, which will be used to run background jobs.
+
+You can also define scheduled jobs in the Procfile, which will be used to run scheduled jobs.
+
+Or other process like links to Twitter streaming API to collect data for your application.
 
 :::note[Note]
 You can use both `deploio.yaml` and `Procfile` in your application, to configure your application fully within it's codebase. The `deploio.yaml` file is used for application-wide configuration (like environment variables, size, replicas, etc.), while the `Procfile` is used to define the processes that make up your application.
@@ -436,21 +444,42 @@ Size cannot be configured in the Procfile. Use one of the other methods instead.
 </TabItem>
 </Tabs>
 
+### Resource Sizing
+
+Each Deploio app, along with its corresponding jobs (for example, deploy or worker job), receives a standard amount of resources (RAM, CPU and Ephemeral Storage) when it is run. These resources are assigned individually and are not shared. If the app's or job's resource usage exceeds its standard limit, Nine reserves the right to terminate the app.
+
+Every replica will get the documented amount of resources. Meaning, the amount of resources is not shared between replicas.
+
+#### Available Sizes
+
+| Size       | Standard RAM | CPU    | Ephemeral Storage |
+|------------|--------------|--------|-------------------|
+| micro      | 256 MiB      | ⅛ Core | 2 GiB             |
+| mini       | 512 MiB      | ¼ Core | 2 GiB             |
+| standard-1 | 1 GiB        | ½ Core | 2 GiB             |
+| standard-2 | 2 GiB        | ¾ Core | 2 GiB             |
+
+Prices for each Deploio instance size can be found on the [pricing page](https://deplo.io/pricing).
+
 ### Deploy Job
 
 A Deploy Job is a way to run a command before a new release is deployed. This is useful for running database migrations, or other setup tasks. The deployment will only continue if the job finished successfully.
+
+:::note[Where Deploy Jobs Run]
+Deploy jobs run on the same server as your application, using the same resources and environment. They are executed during the deployment process, before the new version of your application is started. This means they share the same compute resources (CPU, memory) as defined by your application's size.
+:::
 
 #### Configuration
 
 We will see how to configure the extra options using each method, but here is an overview of the options:
 
 
-| Option                 | Description                                                                                                     | Default   | Limits            |
-| ---------------------- | --------------------------------------------------------------------------------------------------------------- | --------- | ----------------- |
-| `--deploy-job-name`    | Name of the deploy job. The deployment will only continue if the job finished successfully.                     | "release" | -                 |
-| `--deploy-job-command` | Command to execute before a new release gets deployed. No deploy job will be executed if this is not specified. | -         | -                 |
-| `--deploy-job-retries` | How many times the job will be restarted on failure.                                                            | 3         | Max: 5            |
-| `--deploy-job-timeout` | Timeout of the job.                                                                                             | 5m        | Min: 1m, Max: 30m |
+| Option                 | Description                                                                                                     | Default    | Limits            |
+|------------------------|-----------------------------------------------------------------------------------------------------------------|------------|-------------------|
+| `--deploy-job-name`    | Name of the deploy job. The deployment will only continue if the job finished successfully.                     | (required) | -                 |
+| `--deploy-job-command` | Command to execute before a new release gets deployed. No deploy job will be executed if this is not specified. | (required) | -                 |
+| `--deploy-job-retries` | How many times the job will be restarted on failure.                                                            | 3          | Max: 5            |
+| `--deploy-job-timeout` | Timeout of the job.                                                                                             | 5m         | Min: 1m, Max: 30m |
 
 <Tabs>
 <TabItem value="nctl" label="nctl">
@@ -525,18 +554,20 @@ You can view the **Deploy Job** in the **Jobs** tab. In this tab, you can view t
 
 Worker jobs are background processes that run alongside your main application using a job system (sometimes called message queue or job queue). They are useful for handling tasks like processing queues, sending emails, or running scheduled tasks. Worker jobs share the app's image and environment but have a different entry point, e.g., for task scheduling.
 
+:::note[Where Worker Jobs Run]
+Worker jobs run on their own dedicated server, separate from your main application. This means they can be scaled independently and have their own resource allocation. You can configure the size of each worker job to match its resource needs, which can be different from your main application's size. See the [Resource Sizing](#resource-sizing) section for available sizes and their specifications.
+:::
+
 #### Configuration
 
 We will see how to configure the extra options using each method, but here is an overview of the options:
 
 
-| Option                 | Description                            | Default | Limits                                                             |
-| ---------------------- | -------------------------------------- | ------- | ------------------------------------------------------------------ |
-| `--worker-job-name`    | Name of the worker job.                | -       | -                                                                  |
-| `--worker-job-command` | Command to execute for the worker job. | -       | -                                                                  |
-| `--worker-job-size`    | Size of the worker job.                | "micro" | See[available sizes](04_configuring_your_database.md#machine-type) |
-
-<!-- TODO: where do we have sizes for workers? maybe not in here? we should add -->
+| Option                 | Description                            | Default    | Limits                                                      |
+|------------------------|----------------------------------------|------------|-------------------------------------------------------------|
+| `--worker-job-name`    | Name of the worker job.                | (required) | -                                                           |
+| `--worker-job-command` | Command to execute for the worker job. | (required) | -                                                           |
+| `--worker-job-size`    | Size of the worker job.                | "micro"    | See [Resource Sizing](#resource-sizing) for available sizes |
 
 <Tabs>
 <TabItem value="nctl" label="nctl">
@@ -605,18 +636,20 @@ You can view the **Worker Jobs** in the **Jobs** tab. In this tab, you can view 
 
 Scheduled jobs are commands that run at regular intervals based on a predefined schedule. They are useful for tasks like database cleanup, sending reports, or any other recurring tasks.
 
-#### Configuration
+:::note[Where Scheduled Jobs Run]
+Scheduled jobs run on their own dedicated server, similar to worker jobs. Each scheduled job can be configured with its own size to match its resource requirements. The jobs are executed according to their schedule, and each execution runs in an isolated environment to prevent interference with other jobs or your main application. See the [Resource Sizing](#resource-sizing) section for available sizes and their specifications.
+:::
 
-<!-- TODO: check sizes of workers and defualts -->
+#### Configuration
 
 We will see how to configure the extra options using each method, but here is an overview of the options:
 
-| Option                      | Description                            | Default | Limits                                                             |
-| --------------------------- | -------------------------------------- | ------- | ------------------------------------------------------------------ |
-| `--scheduled-job-name`      | Name of the scheduled job.             | -       | -                                                                  |
-| `--scheduled-job-command`   | Command to execute for the scheduled job. | -     | -                                                                  |
-| `--scheduled-job-schedule`  | Cron schedule for the job.             | `* * * * *` | -                                                              |
-| `--scheduled-job-size`      | Size of the scheduled job.             | "micro" | See [available sizes](04_configuring_your_database.md#machine-type) |
+| Option                     | Description                               | Default                    | Limits                                                      |
+|----------------------------|-------------------------------------------|----------------------------|-------------------------------------------------------------|
+| `--scheduled-job-name`     | Name of the scheduled job.                | (required)                 | -                                                           |
+| `--scheduled-job-command`  | Command to execute for the scheduled job. | (required)                 | -                                                           |
+| `--scheduled-job-schedule` | Cron schedule for the job.                | `* * * * *` (every minute) | -                                                           |
+| `--scheduled-job-size`     | Size of the scheduled job.                | "micro"                    | See [Resource Sizing](#resource-sizing) for available sizes |
 
 <Tabs>
 <TabItem value="nctl" label="nctl">

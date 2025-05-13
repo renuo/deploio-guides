@@ -72,8 +72,8 @@ The `deploio.yaml` file specifies the default values. If you overwrite a setting
 You can use this file to: 
 
 - [Define default environment variables](#environment-variables)
-- [Set application configuration (e.g. size, port, replicas)](#web-application-configuration)
 - [Enable basic authentication](#basic-authentication)
+- [Set application configuration (e.g. size, port, replicas)](#web-application-configuration)
 - [Set up a deploy job](#deploy-job)
 - [Define background jobs (workers)](#worker-jobs)
 - [Define scheduled jobs (cron jobs)](#scheduled-jobs)
@@ -231,11 +231,7 @@ Environment variables cannot be configured in the Procfile. Please use one of th
 </TabItem>
 </Tabs>
 
-### Web Application Configuration
-
-There are a number of configuration options for your web application.
-
-#### Basic Authentication
+### Basic Authentication
 
 Protect non-production environments (like staging) with HTTP Basic Auth, configurable directly in the Cockpit and built in to Deploio.
 
@@ -285,6 +281,10 @@ Basic authentication cannot be configured in the Procfile. Use one of the other 
 
 </TabItem>
 </Tabs>
+
+### Web Application Configuration
+
+There are a number of configuration options for your web application.
 
 #### Port Configuration
 
@@ -340,6 +340,11 @@ port: 3000
 ```
 
 </TabItem>
+<TabItem value="procfile" label="Procfile">
+
+Port cannot be configured in the Procfile. Use one of the other methods instead.
+
+</TabItem>
 </Tabs>
 
 #### Replicas
@@ -384,7 +389,7 @@ Replicas cannot be configured in the Procfile. Use one of the other methods inst
 
 #### Size
 
-Configure the compute resources allocated to your application. You can view the available sizes and more information [here](04_configuring_your_database.md#machine-type).
+Configure the compute resources allocated to your application. You can view the available sizes and more information [here](#resource-sizing).
 
 <Tabs>
 <TabItem value="nctl" label="nctl">
@@ -450,7 +455,6 @@ Deploy jobs run on the same server as your application, using the same resources
 #### Configuration
 
 We will see how to configure the extra options using each method, but here is an overview of the options:
-
 
 | Option                 | Description                                                                                                     | Default    | Limits            |
 |------------------------|-----------------------------------------------------------------------------------------------------------------|------------|-------------------|
@@ -526,6 +530,16 @@ At the bottom of the release you can see the status and it will show in detail w
 You can view the **Deploy Job** in the **Jobs** tab. In this tab, you can view the configuration and the status of the job.
 
 </TabItem>
+<TabItem value="yaml" label="deploio.yaml">
+
+Deploy jobs can only be monitored in the Cockpit or via the `nctl` command.
+
+</TabItem>
+<TabItem value="procfile" label="Procfile">
+
+Deploy jobs can only be monitored in the Cockpit or via the `nctl` command.
+
+</TabItem>
 </Tabs>
 
 ### Worker Jobs
@@ -539,7 +553,6 @@ Worker jobs run on their own dedicated server, separate from your main applicati
 #### Configuration
 
 We will see how to configure the extra options using each method, but here is an overview of the options:
-
 
 | Option                 | Description                            | Default    | Limits                                                      |
 |------------------------|----------------------------------------|------------|-------------------------------------------------------------|
@@ -606,6 +619,16 @@ Additionally, the logs of the worker jobs can be accessed by viewing the app log
 <TabItem value="cockpit" label="Cockpit">
 
 You can view the **Worker Jobs** in the **Jobs** tab. In this tab, you can view the configuration and the status of the jobs.
+
+</TabItem>
+<TabItem value="yaml" label="deploio.yaml">
+
+Worker jobs can only be monitored in the Cockpit or via the `nctl` command.
+
+</TabItem>
+<TabItem value="procfile" label="Procfile">
+
+Worker jobs can only be monitored in the Cockpit or via the `nctl` command.
 
 </TabItem>
 </Tabs>
@@ -698,6 +721,16 @@ At the bottom of the release you can see the status and it will show in detail t
 You can view the **Scheduled Jobs** in the **Jobs** tab. In this tab, you can view the configuration and the status of the jobs.
 
 In addition to the status, the scheduled job's log will be written to the normal app log and can be viewed in the **Logs** tab.
+
+</TabItem>
+<TabItem value="yaml" label="deploio.yaml">
+
+Scheduled jobs can only be monitored in the Cockpit or via the `nctl` command.
+
+</TabItem>
+<TabItem value="procfile" label="Procfile">
+
+Scheduled jobs can only be monitored in the Cockpit or via the `nctl` command.
 
 </TabItem>
 </Tabs>

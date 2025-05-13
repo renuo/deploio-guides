@@ -40,9 +40,7 @@ Alternatively, you can specify the project name with the `-p, --project` flag in
 <TabItem value="PostgreSQL">
 ```
 
-To create a database for your Rails application, you can use the `nctl create` command.
-Below, we show a sample command for creating a PostgreSQL database.
-
+To create a postgres database server for your Rails application, you can use the `nctl create` command like this:
 
 ```bash
 nctl create postgres {NAME} \
@@ -54,8 +52,8 @@ nctl create postgres {NAME} \
 
 Further details on the flags can be found in the manual by running `nctl create postgres --help`.
 
-We can now access the server using the **fully-qualified domain name (FQDN)** and generated user and password. 
-We can find this information as follows:
+You can now access the server using the **fully-qualified domain name (FQDN)** and generated user and password. 
+You can find this information as follows:
 
 ```shell-session
 $ nctl get postgres {NAME}
@@ -69,21 +67,27 @@ $ nctl get postgres {NAME} --print-password
 ...password...
 ```
 
-Now we want to create the database on the server. We can run the following command:
+To create a database on the server, create an interactive shell in your web application with:
+
+```bash
+nctl exec application {APP_NAME}
+```
+
+In that shell, run the following command to create the database:
 
 ```bash
 createdb -U dbadmin -h {FQDN} my-database
 ```
 
-You will be prompted to enter the password.
+You will be prompted to define a password.
 
-We can check that this database was created by entering the server using `psql -U dbadmin -h {FQDN} -d postgres` and
-then running the command `\l` to list the databases on the server.
+You can verify that this database was created by logging into the server using `psql -U dbadmin -h {FQDN} -d postgres`
+and then running the command `\l` to list the databases on the server.
 
 ## Configure Your Rails Application
 
 To connect your Rails application to the database, you need to set the `DATABASE_URL` environment variable.
-We can retrieve the value of this environment variable by running:
+You can retrieve the value of this environment variable by running:
 
 ```bash
 nctl get postgres {NAME} --print-connection-string
@@ -91,10 +95,10 @@ nctl get postgres {NAME} --print-connection-string
 
 :::note
 The connection string will look something like this: `postgres://dbadmin:password@{FQDN}`.
-We can append the database name to the end of this string to create the full connection string.
+Append the database name to the end of this string to create the full connection string.
 :::
 
-Thus, we can set the `DATABASE_URL` environment variable as follows:
+To configure the `DATABASE_URL` environment variable in your application, run:
 
 ```bash
 nctl update app {APP_NAME} \
@@ -127,8 +131,7 @@ You can find the currently used version in the YAML output of `nctl get` by sear
 <TabItem value="MySQL">
 ```
 
-To create a database for your Rails application, you can use the `nctl create` command.
-Below, we show a sample command for creating a MySQL database.
+To create a MySQL database server for your Rails application, you can use the `nctl create` command like this:
 
 ```bash
 nctl create mysql {NAME} \
@@ -141,8 +144,8 @@ nctl create mysql {NAME} \
 Further details on the flags can be found in the manual by running `nctl create mysql --help`.
 Note that currently, only MySQL 8 databases are supported.
 
-We can now access the server using the **fully-qualified domain name (FQDN)** and generated user and password.
-We can find this information as follows:
+You can now access the server using the **fully-qualified domain name (FQDN)** and generated user and password.
+You can find this information as follows:
 
 ```shell-session
 $ nctl get mysql {NAME}
@@ -156,27 +159,33 @@ $ nctl get mysql {NAME} --print-password
 ...password...
 ```
 
-Now we want to create the database on the server. We can run the following command to connect to the database:
+To create a database on the server, create an interactive shell in your web application with:
+
+```bash
+nctl exec application {APP_NAME}
+```
+
+In that shell, run the following command to create the database:
 
 ```bash
 mysql -h {FQDN} -u dbadmin -p
 ```
 
 :::warning
-Currently, Deploio supports **MySQL version 8**. If you have mysql version 9 installed on your local machine,
+Currently, Deploio supports **MySQL version 8**. If you have MySQL version 9 installed on your local machine,
 you probably lack the `mysql_native_password` plugin as it has been removed in MySQL 9.
 Hence, you would need to install an older version of the client
 
 (e.g. `brew install mysql-client@8.4` and then `/opt/homebrew/opt/mysql-client@8.4/bin/mysql -h ...` on macOS using Homebrew).
 :::
 
-You will be prompted to enter the password. Once connected, we can create the database:
+You will be prompted to enter the password. Once connected, you can create the database:
 
 ```sql
 CREATE DATABASE my_database;
 ```
 
-To check that the database was created, we can run the command `SHOW DATABASES;`.
+To check that the database was created, you can run the command `SHOW DATABASES;`.
 
 For more setup commands, visit the
 [official MySQL documentation](https://docs.nine.ch/docs/on-demand-databases/on-demand-databases-mysql/#basic-commands).
@@ -184,7 +193,7 @@ For more setup commands, visit the
 ## Configure Your Rails Application
 
 To connect your Rails application to the database, you need to set the `DATABASE_URL` environment variable.
-We can retrieve the value of this environment variable by running:
+You can retrieve the value of this environment variable by running:
 
 ```bash
 nctl get mysql {NAME} --print-connection-string
@@ -192,10 +201,10 @@ nctl get mysql {NAME} --print-connection-string
 
 :::note
 The connection string will look something like this: `mysql://dbadmin:password@{FQDN}`.
-We can append the database name to the end of this string to create the full connection string.
+Append the database name to the end of this string to create the full connection string.
 :::
 
-Thus, we can set the `DATABASE_URL` environment variable as follows:
+Thus, you can set the `DATABASE_URL` environment variable as follows:
 
 ```bash
 nctl update app {APP_NAME} \

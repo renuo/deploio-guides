@@ -4,7 +4,6 @@
  * work well for content-centric websites.
  */
 
-
 /* You can override the default Infima variables here. */
 :root {
   /*Font overrides*/
@@ -92,6 +91,28 @@ article {
 .navbar__item {
   text-transform: uppercase;
   margin: 0 0.25rem;
+}
+
+.navbar__item--white {
+  background-color: white;
+  color: var(--ifm-color-primary);
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.navbar__item--white:hover {
+  background-color: #f5f5f5;
+  color: var(--ifm-color-primary);
+  text-decoration: none;
+}
+
+.navbar__item--last {
+  margin-right: 1rem;
+}
+
+.iconExternalLink_nPIU {
+  display: none;
 }
 
 /*Tables*/

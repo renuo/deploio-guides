@@ -1,6 +1,6 @@
 # TODO:
 
-- [ ] Add dropdowns for the documentation sections on the left - see mockup.
+- [ ] Add dropdowns for the documentation sections on the left... should we have each heading (##) as a separate page within that section? similar layout to the quick guides?
 
 - [X] Add search documentation field at the top of the sections to the left - Daniel on this
 
@@ -8,9 +8,9 @@
 
 - [X] Remove dark mode functionality and button
 
-- [ ] Add 'Jetzt Starten' button. Goes to the signup form.
+- [X] Add 'Jetzt Starten' button. Goes to the signup form.
 
-- [ ] Add 'login' button. Goes to the Cockpit login.
+- [X] Add 'login' button. Goes to the Cockpit login.
 
 - [ ] Redo weird squares in React... I don't like how it's JSX in and md file.
 
@@ -42,9 +42,9 @@
 
 - [ ] Fill out **Tools** section
 
-- [ ] Add details within the guides for the different job systems (e.g. QR for Python)
+- [X] Add "Pricing" page
 
-- [ ] Add "Pricing" page - is this just information or interactive?
+- [ ] Add details within the guides for the different job systems (e.g. QR for Python)
 
 - [ ] GO PUBLIC!
 

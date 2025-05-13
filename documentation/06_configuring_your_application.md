@@ -591,13 +591,7 @@ workerJobs:
 </TabItem>
 <TabItem value="procfile" label="Procfile">
 
-You need to define the worker processes in your Procfile. This is separate from the setup of the worker jobs in Deploio.
-
-```bash
-# Define worker processes
-web: bundle exec puma
-worker: bundle exec sidekiq
-```
+Worker jobs cannot be configured in the Procfile. Use one of the other methods instead.
 
 </TabItem>
 </Tabs>

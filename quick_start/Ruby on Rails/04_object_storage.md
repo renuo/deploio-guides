@@ -79,7 +79,7 @@ deploio:
 You can set the environment variables using the information you retrieved from the Cockpit:
 
 ```bash
-nctl update application {application_name} --env="DEPLOIO_ACCESS_KEY={ACCESS_KEY};DEPLOIO_SECRET_KEY={SECRET_KEY};DEPLOIO_ENDPOINT={API_ENDPOINT};DEPLOIO_BUCKET={BUCKET_NAME}"
+nctl update app {application_name} --env="DEPLOIO_ACCESS_KEY={ACCESS_KEY};DEPLOIO_SECRET_KEY={SECRET_KEY};DEPLOIO_ENDPOINT={API_ENDPOINT};DEPLOIO_BUCKET={BUCKET_NAME}"
 ```
 
 Finally, you can configure Active Storage to use the newly created service by setting the `service` configuration in the

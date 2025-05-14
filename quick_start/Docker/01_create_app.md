@@ -17,7 +17,7 @@ We have a basic Dockerfile app in our [examples repository](https://github.com/n
 You can deploy it with [nctl](https://docs.nine.ch/a/85XH6A9bN2):
 
 ```bash
-nctl create application dockerfile-rust \
+nctl create app dockerfile-rust \
 --git-url=https://github.com/ninech/deploio-examples \
 --git-sub-path=dockerfile/rust \
 --dockerfile

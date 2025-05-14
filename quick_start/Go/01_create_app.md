@@ -18,7 +18,7 @@ We have a basic Go app in our [examples repository](https://github.com/ninech/de
 with `nctl`:
 
 ```bash
-nctl create application go \
+nctl create app go \
   --git-url=https://github.com/ninech/deploio-examples \
   --git-sub-path=go
 ```

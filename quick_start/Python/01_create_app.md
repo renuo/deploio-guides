@@ -21,7 +21,7 @@ Just visit `https://<URL of app>/admin` to access it and use the credentials whi
 Please also define the `SECRET_KEY` which is needed to secure signed data and should be kept secret.
 
 ```bash
-nctl create application django-example \
+nctl create app django-example \
   --git-url=https://github.com/ninech/deploio-examples \
   --git-sub-path=python/django \
   --env=DJANGO_SU_NAME=admin \

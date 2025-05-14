@@ -19,11 +19,11 @@ Some active job backends such as Sidekiq require a key-value store such as Redis
 set up Redis, you can follow the instructions [here](./03_kvs.md).
 :::
 
-To add a worker to a running application, we can use the `nctl update application` command. The following example
+To add a worker to a running application, we can use the `nctl update app` command. The following example
 demonstrates how to add a Sidekiq worker to an application:
 
 ```bash
-nctl update application {application_name} \
+nctl update app {application_name} \
   --worker-job-command="bundle exec sidekiq -C config/sidekiq.yml" \
   --worker-job-name "sidekiq" \
   --worker-job-size micro
@@ -44,10 +44,10 @@ nctl logs {application_name} -t worker_job
 
 ## Removing a Worker
 
-Should you wish to remove a worker from a running application, you can use the `nctl update application` command:
+Should you wish to remove a worker from a running application, you can use the `nctl update app` command:
 
 ```bash
-nctl update application {application_name} --delete-worker-job={worker_job_name}
+nctl update app {application_name} --delete-worker-job={worker_job_name}
 ```
 
 ## Next Steps

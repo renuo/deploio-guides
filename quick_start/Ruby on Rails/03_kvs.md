@@ -23,7 +23,7 @@ In this guide, we will provide a simple example to demonstrate how to attach a k
 Start by creating the key value store with the `create kvs` command:
 
 ```
-nctl create keyvaluestore {application_name}
+nctl create kvs {application_name}
 ```
 
 This creates the on-demand key-value store instance with name `{application_name}` owned by the currently active project.
@@ -42,20 +42,20 @@ using this information.
 To fetch information about the key-value store, including the fully qualified domain name (FQDN), run:
 
 ```shell-session
-$ nctl get keyvaluestore {application_name}
+$ nctl get kvs {application_name}
 PROJECT       NAME                  FQDN                                                    TLS     MEMORY SIZE
 my-project    {application_name}    {application_name}.1234567.keyvaluestore.nineapis.ch    true    1Gi
 
 Retrieve the password for the key-value store:
 
-$ nctl get keyvaluestore {application_name} --print-token
+$ nctl get kvs {application_name} --print-token
 ...password...
 ```
 
 With this information, you can construct and set the `REDIS_URL` and `REDISCLI_AUTH` environment variable as follows:
 
 ```bash
-nctl update application {application_name} --env='REDIS_URL=rediss://:{PASSWORD}@{FQDN};REDISCLI_AUTH={PASSWORD}'
+nctl update app {application_name} --env='REDIS_URL=rediss://:{PASSWORD}@{FQDN};REDISCLI_AUTH={PASSWORD}'
 ```
 
 Note that you need to specify `rediss` as protocol because TLS (transport layer security) is enabled. The `REDIS_URL`

@@ -29,6 +29,10 @@ nctl create app my-app --project my-project \
   --basic-auth
 ```
 
+:::note
+`app` is short for `application`. `nctl` also works if you use the long name `nctl create application my-app ...`.
+:::
+
 ### 2. Cockpit (GUI)
 
 The Deploio Cockpit provides a user-friendly interface for configuring your application.

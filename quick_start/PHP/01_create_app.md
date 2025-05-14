@@ -21,7 +21,7 @@ We have a basic Symfony app in our [examples repository](https://github.com/nine
 You can deploy it with `nctl`:
 
 ```bash
-nctl create application symfony \
+nctl create app symfony \
   --git-url=https://github.com/ninech/deploio-examples \
   --git-sub-path=php/symfony
 ```

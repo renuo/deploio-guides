@@ -53,10 +53,10 @@ For demonstration purposes, we will use our sample Rails application hosted on G
 
 ## Create a Deploio Application
 
-To create an application on Deploio, you can use the `nctl create application` command:
+To create an application on Deploio, you can use the `nctl create app` command:
 
 ```bash
-nctl create application rails \
+nctl create app rails \
   --git-url=https://github.com/ninech/deploio-examples \
   --git-sub-path=ruby/rails-basic \
   --env="SECRET_KEY_BASE=$(rails secret)"

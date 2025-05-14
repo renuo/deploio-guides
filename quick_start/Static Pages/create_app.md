@@ -24,13 +24,13 @@ You can deploy them with `nctl`:
 
 * just a plain `index.html`:
   ```bash
-  nctl create application static-html \
+  nctl create app static-html \
   --git-url=https://github.com/ninech/deploio-examples \
   --git-sub-path=static/html
   ```
 * a frontend react app built with `npm`:
   ```bash
-  nctl create application static-react \
+  nctl create app static-react \
   --git-url=https://github.com/ninech/deploio-examples \
   --git-sub-path=static/react
   ```

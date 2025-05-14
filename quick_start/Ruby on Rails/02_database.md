@@ -70,7 +70,7 @@ $ nctl get postgres {NAME} --print-password
 To create a database on the server, create an interactive shell in your web application with:
 
 ```bash
-nctl exec application {APP_NAME}
+nctl exec app {APP_NAME}
 ```
 
 In that shell, run the following command to create the database:
@@ -162,7 +162,7 @@ $ nctl get mysql {NAME} --print-password
 To create a database on the server, create an interactive shell in your web application with:
 
 ```bash
-nctl exec application {APP_NAME}
+nctl exec app {APP_NAME}
 ```
 
 In that shell, run the following command to create the database:
@@ -252,7 +252,7 @@ This can be done through the [`deploio.yaml`](/documentation/configuring_your_ap
 manually running the migrations:
 
 ```bash
-nctl exec application {APP_NAME} rails db:migrate
+nctl exec app {APP_NAME} rails db:migrate
 ```
 
 If you did not get any errors during the migration, you should now have a healthy connection to your database and be able

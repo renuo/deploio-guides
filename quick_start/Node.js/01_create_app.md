@@ -55,10 +55,10 @@ already selected. However, if you want to switch to a different project, you can
 command.
 :::
 
-To create an application on Deploio, we can use the `nctl create application` command:
+To create an application on Deploio, we can use the `nctl create app` command:
 
 ```bash
-nctl create application nextjs \
+nctl create app nextjs \
   --git-url=https://github.com/ninech/deploio-examples \
   --git-sub-path=nodejs/nextjs \
   --build-env=NODE_ENV="production" \
@@ -105,7 +105,7 @@ build by using the `--build-env` flag when updating your application with `nctl 
 To specify a subdirectory to be used as the root of the app, you can use the `BP_NODE_PROJECT_PATH` build variable.
 
 ```bash
-nctl update application {application_name} \
+nctl update app {application_name} \
   --build-env=BP_NODE_PROJECT_PATH="./node-app"
 ```
 

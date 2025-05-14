@@ -29,16 +29,20 @@ nctl create kvs {application_name} --project {project_name}
 
 This creates the Redis instance with name `{application_name}` within the project space. We now need to retrieve the information for this created instance, and set the environment variables using this information.
 
+:::note
+`kvs` is short for `keyvaluestore`. `nctl` also works if you use the long name `nctl create keyvaluestore my-kvs ...`.
+:::
+
 Firstly, we can get the **FQDN**, and check the other details, by running:
 
 ```
-nctl get keyvaluestore {application_name}
+nctl get kvs {application_name}
 ```
 
 We will also need to get the **password** for the access by running:
 
 ```
-nctl get keyvaluestore {application_name} --print-token
+nctl get kvs {application_name} --print-token
 ```
 
 [//]: # (TODO: is this quite Rails specific? I think this should look more like the nctl kvs section)
@@ -46,7 +50,7 @@ nctl get keyvaluestore {application_name} --print-token
 From this we can construct and set the `REDIS_URL` and `REDISCLI_AUTH` environment variable as follows:
 
 ```
-nctl update application {application_name} --env='REDIS_URL=rediss://:{PASSWORD}@{FQDN};REDISCLI_AUTH={PASSWORD}'
+nctl update app {application_name} --env='REDIS_URL=rediss://:{PASSWORD}@{FQDN};REDISCLI_AUTH={PASSWORD}'
 ```
 
 Note that we are using `rediss` as TLS is enabled.

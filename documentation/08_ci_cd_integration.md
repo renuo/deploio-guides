@@ -49,7 +49,7 @@ We can then set this as the `DEPLOIO_API_TOKEN` on the CI environment.
 To trigger deployments on the CI, we also need to set the `DEPLOIO_PROJECT` and `DEPLOIO_APP_NAME` environment variables on the CI. We can then use the `nctl` CLI to "update" the application with the new git revision.
 
 ```bash
-nctl update application $DEPLOIO_APP_NAME \
+nctl update app $DEPLOIO_APP_NAME \
   --project $DEPLOIO_PROJECT \
   --git-revision=$(git rev-parse HEAD) \ 
   --build-env="RUBY_VERSION=$(cat .ruby-version)" \

@@ -8,7 +8,7 @@ displayed_sidebar: quickStartSidebar
 # Create an Object Storage for your Rails application
 
 <div class="summary">
-Should you require a file upload or a writeable storage, you can use our S3-compatible object storage. 
+Should you require a file upload or a writeable storage, you can use our S3-compatible object storage.
 You can see the pricing [here](https://docs.nine.ch/docs/object-storage/manage-buckets-and-users#pricing).
 </div>
 
@@ -17,7 +17,7 @@ You can see the pricing [here](https://docs.nine.ch/docs/object-storage/manage-b
 Currently, there's no dedicated command to create an object storage instance using `nctl`. However, you can create an
 object storage via the [Cockpit UI](https://cockpit.nine.ch/en/object_storage/storage/buckets/new). Select the desired
 project in the dropdown and specify the location, which ideally is `nine-es34`, the same location as Deploio
-applications.
+applications. For more information about our data center locations, see our [locations documentation](https://docs.nine.ch/docs/managed-kubernetes/nke/nine-kubernetes-engine#locations).
 
 :::info
 Even though the `nctl` CLI does not have a dedicated command for object storage, you can still create it using the

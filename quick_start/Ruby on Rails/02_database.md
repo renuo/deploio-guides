@@ -17,7 +17,7 @@ In this guide, we will show you how to create a database for your Ruby on Rails 
 You can see more information on databases [here](/documentation/configuring_your_database).
 
 Should you wish to migrate an already existing database from elsewhere, you can view this section in the
-documentation [here](/documentation/migrating_from_other_platforms), or read [this blog](/ruby_heroku_migration_guide) which
+documentation [here](/documentation/12_migrating_from_other_platforms), or read [this blog](/ruby_heroku_migration_guide) which
 guides you through migrating a Rails project from Heroku.
 </div>
 
@@ -80,6 +80,10 @@ createdb -U dbadmin -h {FQDN} my-database
 ```
 
 You will be prompted to define a password.
+
+:::note
+Alternatively, you can use `rails db:create` to create the database after setting the `DATABASE_URL` environment variable. This will create the database on the server with the name specified in your `database.yml` configuration. Note that the database server must be created first using `nctl create postgres/mysql` before running `rails db:create`.
+:::
 
 You can verify that this database was created by logging into the server using `psql -U dbadmin -h {FQDN} -d postgres`
 and then running the command `\l` to list the databases on the server.

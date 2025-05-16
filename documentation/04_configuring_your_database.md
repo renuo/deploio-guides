@@ -17,7 +17,7 @@ To access the database, you must set up SSH key authentication. You will need to
 
 You also need to add your IP address to the `--allowed-cidrs` flag. If you wish to allow all IP addresses, you can set this to `0.0.0.0/0`. 
 
-### Common database creation settings
+### Database creation settings (for all database types)
 
 There are a number of configurations we can apply when creating our database. You can see more information on these arguments by running `-h` for the desired database. For example `nctl create mysql -h` for MySQL. 
 
@@ -29,15 +29,15 @@ The name of the instance can be freely chosen, but must be unique. Once created,
 
 #### Location
 
-Depending on available resources, instances can be created in two locations within the "ColoZüri" data center or the "NTT" data center in Rümlang. The location cannot be changed later.
+Depending on available resources, instances can be created in two locations within the "ColoZüri" data center or the "NTT" data center in Rümlang. The location cannot be changed later. If you need to change the location, you will need to perform a database migration. See the [database migration guide](./12_migrating_from_other_platforms.md#retrieving-and-restoring-databases) for more information.
 
 This can be set by the `--location` flag and the default is `cz41`.
 
-#### Machine type
+#### Version
 
-:::note[Note]
-We recommend `nine-db-s` or larger sizings for production workloads.
-:::
+The database version must be selected when creating the instance and cannot be changed later. Available versions and their support periods are listed in the database-specific sections below.
+
+#### Machine type
 
 | Machine Type | Virtual CPU (VCPU) | RAM    | Storage Space | Monthly Fees |
 |--------------|---------------------|--------|---------------|--------------|
@@ -61,7 +61,7 @@ The access restriction can be adjusted at any time. Adjustments are made non-dis
 
 We can set the allowed CIDRs by passing the `--allowed-cidrs={CIDR}` flag.
 
-#### Backup Retention Policy
+#### Backups
 
 The backup retention period in days can be selected between 0 and 365 days by passing the `--keep-daily-backups={X}` flag.
 
@@ -71,19 +71,11 @@ Please note that the storage space requirement increases if the local retention 
 
 For more information about backing up your databases on a daily basis, accessing the backups, and how to create your own backups if needed, see the section about [backups](#backup-and-restore).
 
-#### SSH Public Keys
+#### Accessing backups
 
 Configure the public keys to access the database backups via SSH. The keys can be adjusted at any time.
 
 These can be set via the `--ssh-keys` flag or the ` --ssh-keys-file` flag.
-
-#### Version
-
-You can select your desired version when creating the database instance. The version cannot be adjusted after the instance is created.
-
-You can view the available versions below for your desired database.
-
------
 
 ### Database specific creation settings
 
@@ -143,6 +135,11 @@ Nine provides a variety of extensions that you can activate as needed. The follo
 
 </details>
 
+#### Collations
+
+PostgreSQL uses ICU (International Components for Unicode) collations, which can be customized per database, schema, or column. The default collation is typically `en_US.UTF-8`.
+
+When migrating the database, ensure your application's collation settings are compatible with your target PostgreSQL version. Different versions may handle text sorting and comparison differently, which could affect your application's behavior.
 
 ### Creating the Database
 
@@ -181,6 +178,12 @@ We can check that this database was created by entering the server using `psql -
 
 The connection information (FQDN, user, and password) for your instance can be found in Cockpit under Access Information. The database servers are accessible via their standard ports.
 
+We can also find this information via the `nctl` command line tool:
+
+- **FQDN**: Run `nctl get postgres {DATABASE_NAME}`
+- **User**: Run `nctl get postgres {DATABASE_NAME} --print-user`
+- **Password**: Run `nctl get postgres {DATABASE_NAME} --print-password`
+
 The instance will only accept TLS connections. Depending on the client or library, you may need to explicitly enable TLS.
 
 ```bash
@@ -201,6 +204,12 @@ Creating a new user named `app_prod`:
 ```
 postgres=> CREATE USER app_prod WITH PASSWORD 'strongpassword';
 ```
+
+You can also use the `--pwprompt` flag to be prompted for the password, or the `--interactive` flag to configure the user interactively. Otherwise, the password will be visible in the command and on screen.
+
+You may also want to create a [superuser](https://www.postgresql.org/docs/current/role-attributes.html), which can be done by using the `--superuser` flag or via the interactive prompt.
+
+You can see more information about the flags when creating a user in the [official postgres documentation](https://www.postgresql.org/docs/current/app-createuser.html).
 
 Granting the user `app_prod` privileges to the database `app_prod`:
 
@@ -258,7 +267,13 @@ The charset is customizable. From experience, the default values `utf8mb4_unicod
 
 Before considering customizing these values, please consult the MySQL documentation: [Character Sets and Collations in MySQL](https://dev.mysql.com/doc/refman/8.0/en/charset-mysql.html).
 
-#### Transaction Isolation 
+#### Collations
+
+MySQL 8.0 uses the `utf8mb4_0900_ai_ci` collation by default, which is based on Unicode 9.0.0. This is different from older MySQL versions which use `utf8mb4_unicode_ci` (based on Unicode 4.0.0).
+
+When migrating between MySQL versions, ensure your application's collation settings are compatible with your target MySQL version. You may need to adjust your application's text sorting and comparison behavior accordingly.
+
+#### Transaction Isolation
 
 Nine recommends not making any adjustment to the selected default value unless absolutely necessary due to application requirements.
 
@@ -303,7 +318,7 @@ Please adjust the flags as you need.
 We can now access the server using the FQDN and generated user and password. We can find this information as follows:
 
 - **FQDN**: Run `nctl get mysql {DATABASE_NAME}`
-- **User**: This is always set to `dbadmin` but you can check by running `nctl get mysql {DATABASE_NAME} --print-user`
+- **User**: Run `nctl get mysql {DATABASE_NAME} --print-user`
 - **Password**: Run `nctl get mysql {DATABASE_NAME} --print-password`
 
 Now we want to create the database on the server. We can run the following commands:
@@ -331,13 +346,19 @@ Now we want to create the database on the server. We can run the following comma
 
 The connection information (FQDN, user, and password) for your instance can be found in Cockpit under Access Information. The database servers are accessible via their standard ports.
 
+We can also find this information via the `nctl` command line tool:
+
+- **FQDN**: Run `nctl get mysql {DATABASE_NAME}`
+- **User**: Run `nctl get mysql {DATABASE_NAME} --print-user`
+- **Password**: Run `nctl get mysql {DATABASE_NAME} --print-password`
+
 The instance will only accept TLS connections. Depending on the client or library, you may need to explicitly enable TLS.
 
 The TLS certificate in use is self-signed. In addition to enabling TLS transport encryption, you might need to disable certificate validation.
 
 ```bash
-psql -h FQDN -d postgres -U dbadmin
-# at first you can use the default database 'postgres' to be able to connect.
+mysql -h FQDN -u dbadmin -p
+# You will be prompted to enter the password
 ```
 
 ##### Basic commands

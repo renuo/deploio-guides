@@ -125,7 +125,7 @@ const config = {
           },
           {
             to: '/documentation',
-            label: 'Technical Reference',
+            label: 'Deploio User Guide',
             position: 'right'
           },
           {
@@ -146,9 +146,17 @@ const config = {
             href: 'https://deplo.io/#register',
             label: 'Get Started',
             position: 'right',
-            className: 'navbar__item navbar__item--white navbar__item--last',
             target: '_blank',
-            rel: 'noopener noreferrer'
+            rel: 'noopener noreferrer',
+            className: 'navbar__item navbar__item--white'
+          },
+          {
+            to: 'https://docs.nine.ch/docs/category/deploio-paas/',
+            label: 'Nine Platform Reference',
+            position: 'right',
+            target: '_blank',
+            rel: 'noopener noreferrer',
+            className: 'navbar__item--last'
           }
         ],
       },

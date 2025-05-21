@@ -3,7 +3,6 @@ title: Create a Symfony Application
 description: Learn how to deploy Symfony applications on Deploio
 id: create_symfony_app
 displayed_sidebar: quickStartSidebar
-pagination_prev: null
 ---
 
 ```mdx-code-block
@@ -25,14 +24,15 @@ You can deploy it with `nctl`:
 nctl create app symfony \
   --git-url=https://github.com/ninech/deploio-examples \
   --git-sub-path=php/symfony \
-  --env="APP_SECRET=`echo $RANDOM | md5sum | head -c 16`"
+  --env="APP_SECRET=$()echo $RANDOM | md5sum | head -c 16)" \
+  --build-env=BP_PHP_SERVER=nginx \
   --build-env=BP_PHP_WEB_DIR=public \
   --build-env=BP_COMPOSER_INSTALL_OPTIONS="--ignore-platform-reqs --no-scripts -o"
 ```
 
-### Configure the APP_SECRET
+### Configure the Application Secret
 
-Symfony needs an APP_SECRET variable to be defined to a secret value. This is used for security relevant functionality.
+Symfony needs an `APP_SECRET` variable to be defined to a secret value. This is used for security relevant functionality.
 While it could be read from a `.env` file, it is more secure to set it as an environment variable.
 We set it to an initial value when creating the application. Unless when compromised, the secret should not be changed
 anymore later on, otherwise existing user sessions will become invalid.

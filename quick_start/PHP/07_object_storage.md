@@ -91,6 +91,11 @@ You can set the environment variables using the information you retrieved from t
 nctl update app {application_name} --env="STORAGE_URL=s3://{ACCESS KEY}:{SECRET KEY}@es34.objects.nineapis.ch?region=us-east-1&bucket={NAME}"
 ``` 
 
+:::note
+For S3, a `region` must be specified. Deploio uses the S3 default value of `us-east-1`, even though the servers are in
+Switzerland, operated by Nine.
+:::
+
 ## Next Steps
 
 Do you need **background jobs** for your application? Proceed to the next step.

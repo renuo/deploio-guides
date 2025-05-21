@@ -21,8 +21,6 @@ documentation [here](/documentation/migrating_from_other_platforms), or read [th
 guides you through migrating a Rails project from Heroku.
 </div>
 
-[//]: # (TODO: do I talk about SSH keys etc here or just creating?)
-
 ## Create the database
 
 :::tip
@@ -45,9 +43,7 @@ To create a Postgres database server for your PHP application, you can use the `
 ```bash
 nctl create postgres {NAME} \
   --postgres-version=16 \
-  --machine-type=nine-db-s \
-  --allowed-cidrs="203.0.113.1/32,..." \
-  --ssh-keys-file=my-key.pub
+  --machine-type=nine-db-s
 ```
 
 Further details on the flags can be found in the manual by running `nctl create postgres --help`.
@@ -66,6 +62,24 @@ dbadmin
 $ nctl get postgres {NAME} --print-password
 ...password...
 ```
+
+## Access to the Database
+
+By default, your database is only accessible from applications running in Deploio. If you want to access the database
+from your local machine or some other location, you need to configure network exceptions with the `--allowed-cidrs`
+option. To allow all IPs, you would use the following parameter:
+
+```bash
+nctl update postgres {NAME} --allowed-cidrs="0.0.0.0/0"
+```
+
+To only allow specific IPs, you can give a list of IPs with subnet mask:
+
+```bash
+nctl update postgres {NAME} --allowed-cidrs="203.0.113.1/32,..."
+```
+
+For more information on IP filtering and using an SSH key, see the [Database documentation](/documentation/04_configuring_your_database).
 
 ## Configure Your PHP Application
 
@@ -153,9 +167,7 @@ To create a MySQL database server for your PHP application, you can use the `nct
 ```bash
 nctl create mysql {NAME} \
   --character-set-collation=utf8mb4_unicode_ci \
-  --machine-type=nine-db-s \
-  --allowed-cidrs="203.0.113.1/32,..." \
-  --ssh-keys-file=my-key.pub
+  --machine-type=nine-db-s
 ```
 
 Further details on the flags can be found in the manual by running `nctl create mysql --help`.
@@ -178,6 +190,24 @@ $ nctl get mysql {NAME} --print-password
 
 For more setup commands, visit the
 [Nine MySQL documentation](https://docs.nine.ch/docs/on-demand-databases/on-demand-databases-mysql/#basic-commands).
+
+## Access to the Database
+
+By default, your database is only accessible from applications running in Deploio. If you want to access the database
+from your local machine or some other location, you need to configure network exceptions with the `--allowed-cidrs`
+option. To allow all IPs, you would use the following parameter:
+
+```bash
+nctl update mysql {NAME} --allowed-cidrs="0.0.0.0/0"
+```
+
+To only allow specific IPs, you can give a list of IPs with subnet mask:
+
+```bash
+nctl update mysql {NAME} --allowed-cidrs="203.0.113.1/32,..."
+```
+
+For more information on IP filtering and using an SSH key, see the [Database documentation](/documentation/04_configuring_your_database).
 
 ## Configure Your PHP Application
 

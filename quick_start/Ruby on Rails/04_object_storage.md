@@ -72,9 +72,14 @@ deploio:
   access_key_id: <%= ENV["DEPLOIO_ACCESS_KEY"] %>
   secret_access_key: <%= ENV["DEPLOIO_SECRET_KEY"] %>
   endpoint: <%= ENV["DEPLOIO_ENDPOINT"] %>
-  region: us-east-1 # equal to the default region in AWS since version 2
+  region: us-east-1 # running in Switzerland, operated by Nine.
   bucket: <%= ENV["DEPLOIO_BUCKET"] %>
 ```
+
+:::note
+For S3, a `region` must be specified. Deploio uses the S3 default value of `us-east-1`, even though the servers are in
+Switzerland, operated by Nine.
+:::
 
 You can set the environment variables using the information you retrieved from the Cockpit:
 

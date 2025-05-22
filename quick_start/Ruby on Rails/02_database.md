@@ -79,7 +79,7 @@ In that shell, run the following command to create the database:
 createdb -U dbadmin -h {FQDN} my-database
 ```
 
-You will be prompted to define a password.
+You will be asked for the password.
 
 You can verify that this database was created by logging into the server using `psql -U dbadmin -h {FQDN} -d postgres`
 and then running the command `\l` to list the databases on the server.

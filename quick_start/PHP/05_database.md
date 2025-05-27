@@ -79,7 +79,7 @@ To only allow specific IPs, you can give a list of IPs with subnet mask:
 nctl update postgres {NAME} --allowed-cidrs="203.0.113.1/32,..."
 ```
 
-For more information on IP filtering and using an SSH key, see the [Database documentation](/documentation/04_configuring_your_database).
+For more information on IP filtering and using an SSH key, see the [Database documentation](/documentation/configuring_your_database).
 
 ## Configure Your PHP Application
 

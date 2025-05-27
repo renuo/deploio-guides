@@ -18,9 +18,9 @@ you can deploy any Node.js application with Deploio. In this guide, we will use 
 ## Prerequisites
 
 * This quick start guide assumes you have **installed `nctl` on your computer**. If not, please go through the
-  instructions [here](/documentation#installing-nctl).
+  instructions [here](/documentation/getting_started#installing-nctl).
 * You should also have an **organization and project created**, where you will create the application. If you haven't
-  done this yet, please follow the instructions [here](/documentation#creating-an-account).
+  done this yet, please follow the instructions [here](/documentation/getting_started#creating-an-account).
 * This example also presumes that you are **using a public repository**.
   Should you need to set up access to a private repository, you will need to create an SSH key for security. See more
   details [here](/documentation/code_repository_setup).

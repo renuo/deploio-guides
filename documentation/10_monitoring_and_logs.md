@@ -4,7 +4,9 @@ title: Monitoring and Logs
 
 # Monitoring and Logs
 
-When you are wondering, "how is my application doing?" or "what's going on with my deployment?", you can turn to monitoring and logs to get the answers you need.
+Coming soon 🚧
+
+<!-- When you are wondering, "how is my application doing?" or "what's going on with my deployment?", you can turn to monitoring and logs to get the answers you need.
 
 ## Logs
 
@@ -36,4 +38,4 @@ When you are wondering, "how is my application doing?" or "what's going on with 
 
   - where does it run?
 
-[//]: # (TODO: Should DNS go here??)
+[//]: # (TODO: Should DNS go here??) -->

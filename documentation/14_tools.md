@@ -4,7 +4,9 @@ title: Tools
 
 # Tools
 
-## CLI
+Coming soon 🚧
+
+<!-- ## CLI
 
 Our `nctl` CLI for managing your projects and deployments.
 
@@ -46,4 +48,4 @@ Our GUI for managing your projects and deployments.
 
 :::note[Your choice!]
 Choose the tool that suits your workflow.
-:::
+::: -->

@@ -79,7 +79,7 @@ In that shell, run the following command to create the database:
 createdb -U dbadmin -h {FQDN} my-database
 ```
 
-You will be prompted to define a password.
+You will be asked for the password.
 
 :::note
 Alternatively, you can use `rails db:create` to create the database after setting the `DATABASE_URL` environment variable. This will create the database on the server with the name specified in your `database.yml` configuration. Note that the database server must be created first using `nctl create postgres` before running `rails db:create`. For more details on setting the `DATABASE_URL`, refer to the section below on configuring your Rails application.

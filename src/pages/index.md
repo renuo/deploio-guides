@@ -65,7 +65,7 @@ hide_table_of_contents: true
 
 ---
 
-<h3 style={{ textAlign: 'center', margin: '4rem' }}>Technical Reference</h3>
+<h3 style={{ textAlign: 'center', margin: '4rem' }}>Deploio User Guide</h3>
 
 <div 
   className="tile-grid"

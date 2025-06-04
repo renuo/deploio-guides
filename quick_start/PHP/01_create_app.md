@@ -1,5 +1,5 @@
 ---
-title: Create an Application
+title: Create a PHP Application
 description: Learn how to deploy PHP applications on Deploio
 id: create_app
 displayed_sidebar: quickStartSidebar
@@ -13,143 +13,61 @@ import TabItem from '@theme/TabItem';
 
 # Quick Start Guide for PHP Applications
 
+<div class="summary">
+This guide covers how to deploy a plain PHP application with Deploio.
+It assumes you have a basic understanding of PHP and Git.
+</div>
+
 The Deploio build environment makes use of the [Paketo PHP buildpack](https://paketo.io/docs/reference/php-reference/).
 
-## Example App
+## Prerequisites
 
-We have a basic Symfony app in our [examples repository](https://github.com/ninech/deploio-examples#php).
-You can deploy it with `nctl`:
+* This quick start guide assumes you have **installed `nctl` on your laptop**. If not, please go through the instructions [here](/documentation/getting_started#installing-nctl).
+* You should also have an **organization and project created**, where you will create the application. If you haven't done this yet, please follow the instructions [here](/documentation/getting_started#setting-up-your-first-project).
+* This example also presumes that you are **using a public repository**.
+  Should you need to set up access to a private repository, you will need to create an SSH key for security. See more details [here](/documentation/code_repository_setup).
+
+## Use an Existing PHP Application or Create a New One
+
+If you do not have a PHP application you want to experiment with, we provide a plain PHP app in our [examples repository](https://github.com/ninech/deploio-examples#php).
+
+## Use Git to Store Your Application
+
+Deploio requires your application to be available online in a Git repository, so that it can be cloned and deployed by
+the platform. You can use any Git repository hosting service, such as GitHub, GitLab, or Bitbucket.
+We describe the process of setting up a Git repository [here](/documentation/code_repository_setup).
+For demonstration purposes, we will use our sample PHP application hosted on GitHub.
+
+## Create a Deploio Application
+
+To create an application on Deploio, you can use the `nctl create app` command:
 
 ```bash
-nctl create app symfony \
+nctl create app plain-php \
   --git-url=https://github.com/ninech/deploio-examples \
-  --git-sub-path=php/symfony
+  --git-sub-path=php/plain \
+  --build-env=BP_PHP_WEB_DIR=public \
+  --build-env=BP_COMPOSER_INSTALL_OPTIONS="--ignore-platform-reqs"
 ```
 
-## Using extensions
+Replace the name `plain-php` with any app name best suited for your project.
 
-As already mentioned, we are currently using the [Paketo PHP buildpack](https://paketo.io/docs/reference/php-reference/)
-for providing PHP support. It includes the [Paketo php-dist buildpack](https://github.com/paketo-buildpacks/php-dist)
-which provides the PHP binary distribution. The built PHP binary distribution includes a number of extensions which can
-be used in your PHP application on Deploio. All of them are defined in separate yaml files per PHP version in
-the [Paketo php-dist buildpack](https://github.com/paketo-buildpacks/php-dist/tree/main/dependency/actions/compile/extensions-manifests).
+:::note
+Beyond the `--git-url` argument that specifies what git repository to deploy, you need to specify a couple of `nctl`
+options. We will explain those in the next steps.
+:::
 
-Currently, it is not possible to use extensions that are not defined in the above-mentioned files.
+When you create an application, the Git repository is cloned and Deploio will attempt to detect the application type and
+select the appropriate buildpack.
+In this case, the [Paketo PHP buildpack](https://paketo.io/docs/reference/php-reference/) will be used.
+The buildpack will then attempt to detect the desired PHP version from the `composer.json` in the app source.
 
-It is important to mention that none of the pre-built extensions get loaded by default (due to memory usage
-optimizations). You will either have to load them via requirements in Composer or via custom `*.ini` files. Both
-approaches will be explained in the following sections.
+:::note
+If your application requires **Node.js** either for the build or runtime, a `package.json` file must be present at the root
+of the repository for the Node.js runtime to be installed.
+:::
 
-### Loading extensions via Composer
+## Next Steps
 
-If you are using Composer as a package manager, you can specify extensions to load through the `composer.json` file. For
-example, to load the bz2, curl, and zip extensions you can use the following content:
-
-```json
-{
-  "require": {
-    "php": ">=8.1",
-    "ext-bz2": "*",
-    "ext-curl": "*",
-    "ext-zip": "*"
-  }
-}
-```
-
-This is also documented in
-the [official composer documentation](https://getcomposer.org/doc/articles/composer-platform-dependencies.md#composer-platform-dependencies).
-
-### Loading extensions via custom .ini files
-
-If you are not using Composer, you can load extensions via custom `*.ini` files located at `<APP-ROOT>/.php.ini.d/*.ini`
-in your application source code repository. For example, to load the bz2, curl, and zip extensions you could create a
-file `<APP-ROOT>/.php.ini.d/custom-extensions.ini` with the following content:
-
-```ini
-extension=bz2.so
-extension=curl.so
-extension=zip.so
-```
-
-### Composer Platform requirements
-
-As the build and runtime containers are different on Deploio, you may run into issues where you cannot build a project
-successfully due to platform requirements not being fulfilled by the build-time container. You can ignore these
-requirements using:
-
-```bash
---build-env=BP_COMPOSER_INSTALL_OPTIONS="--ignore-platform-reqs"
-```
-
-which will ignore all build requirements, or you can scope it to specific extensions:
-
-```bash
---build-env=BP_COMPOSER_INSTALL_OPTIONS="--ignore-platform-req=ext-mysqli"
-```
-
-When doing this, you will see from the logs that the buildpack will still validate that the extensions you require are
-available in the runtime image, but the build will no longer fail due to the build container missing extensions.
-
-## Build env considerations
-
-The build process offers a few environment variables to adjust it to your use case. See
-the [how to](https://paketo.io/docs/howto/php/) section of the documentation for all available variables.
-
-### Select a web server
-
-By default, the PHP built-in web server will be used. For production use cases, we recommend using Apache or NGINX:
-
-```mdx-code-block
-<Tabs>
-<TabItem value="PHP Built-in Web Server">
-```
-
-```bash
---build-env=BP_PHP_SERVER=php-server
-```
-
-```mdx-code-block
-</TabItem>
-<TabItem value="Apache HTTPD Web Server">
-```
-
-```bash
---build-env=BP_PHP_SERVER=httpd
-```
-
-```mdx-code-block
-</TabItem>
-<TabItem value="NGINX Web Server">
-```
-
-```bash
---build-env=BP_PHP_SERVER=nginx
-```
-
-```mdx-code-block
-</TabItem>
-</Tabs>
-```
-
-Additionally, if required, the web server can be customized further by
-providing [your own server-specific config file](https://paketo.io/docs/howto/php/#provide-your-own-web-server-configuration-file).
-
-### Configure the web directory
-
-Some frameworks put the `index.php` in a separate directory like `public` instead of the repository root. When the web
-server is HTTPD or NGINX, the web directory defaults to `htdocs`. In any case, you can override the web directory with a
-build env variable.
-
-```bash
---build-env=BP_PHP_WEB_DIR=public
-```
-
-## Symfony
-
-For Symfony to build without failure, the auto-scripts
-currently [have to be disabled](https://github.com/paketo-buildpacks/php/issues/284):
-
-```bash
---build-env=BP_COMPOSER_INSTALL_OPTIONS="--no-scripts -o"
-```
-
+The app should be running by now. In the next couple of steps, we explain the various options used when creating the
+application. Later we will set up a Symfony application and look into how to create databases and other storages.

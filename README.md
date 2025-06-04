@@ -4,7 +4,7 @@
 
 - [X] Add search documentation field at the top of the sections to the left - Daniel on this
 
-- [ ] Add translations (German only?) - maybe now not necessary 
+- [ ] Add translations (German only?) - maybe now not necessary
 
 - [X] Remove dark mode functionality and button
 
@@ -23,6 +23,8 @@
 - [X] Fill out guides for **Code Repository Setups** (GitHub done)
 
 - [X] Fill out "Monitoring for health and performance" in **Configuring your Database** section
+
+- [ ] Add information on MariaDB
 
 - [ ] Fill out "Object Storage" and "Persistent Volumes" in **Other Dependencies** section
 

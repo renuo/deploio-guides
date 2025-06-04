@@ -17,7 +17,7 @@ In this guide, we will show you how to create a database for your Ruby on Rails 
 You can see more information on databases [here](/documentation/configuring_your_database).
 
 Should you wish to migrate an already existing database from elsewhere, you can view this section in the
-documentation [here](/documentation/migrating_from_other_platforms), or read [this blog](/ruby_heroku_migration_guide) which
+documentation [here](/documentation/12_migrating_from_other_platforms), or read [this blog](/ruby_heroku_migration_guide) which
 guides you through migrating a Rails project from Heroku.
 </div>
 
@@ -52,7 +52,7 @@ nctl create postgres {NAME} \
 
 Further details on the flags can be found in the manual by running `nctl create postgres --help`.
 
-You can now access the server using the **fully-qualified domain name (FQDN)** and generated user and password. 
+You can now access the server using the **fully-qualified domain name (FQDN)** and generated user and password.
 You can find this information as follows:
 
 ```shell-session
@@ -80,6 +80,10 @@ createdb -U dbadmin -h {FQDN} my-database
 ```
 
 You will be asked for the password.
+
+:::note
+Alternatively, you can use `rails db:create` to create the database after setting the `DATABASE_URL` environment variable. This will create the database on the server with the name specified in your `database.yml` configuration. Note that the database server must be created first using `nctl create postgres` before running `rails db:create`. For more details on setting the `DATABASE_URL`, refer to the section below on configuring your Rails application.
+:::
 
 You can verify that this database was created by logging into the server using `psql -U dbadmin -h {FQDN} -d postgres`
 and then running the command `\l` to list the databases on the server.
@@ -109,7 +113,7 @@ Where `my-database` is the name of the database you created.
 
 ## Troubleshooting
 
-If you encounter any issues when **connecting to the database**, check that your IP address was correctly added to the 
+If you encounter any issues when **connecting to the database**, check that your IP address was correctly added to the
 allowed CIDRs. You can do this by running:
 
 ```bash
@@ -123,7 +127,7 @@ To add your current IP address, you could use the following command:
 nctl update postgres {NAME} --allowed-cidrs "$(curl -s ipinfo.io/ip)/32"
 ```
 
-Also, ensure that your current **client version is compatible with the database version**. 
+Also, ensure that your current **client version is compatible with the database version**.
 You can find the currently used version in the YAML output of `nctl get` by searching for the `version` field.
 
 ```mdx-code-block
@@ -187,6 +191,10 @@ CREATE DATABASE my_database;
 
 To check that the database was created, you can run the command `SHOW DATABASES;`.
 
+:::note
+Alternatively, you can use `rails db:create` to create the database after setting the `DATABASE_URL` environment variable. This will create the database on the server with the name specified in your `database.yml` configuration. Note that the database server must be created first using `nctl create mysql` before running `rails db:create`. For more details on setting the `DATABASE_URL`, refer to the sectio below on configuring your Rails application.
+:::
+
 For more setup commands, visit the
 [official MySQL documentation](https://docs.nine.ch/docs/on-demand-databases/on-demand-databases-mysql/#basic-commands).
 
@@ -247,8 +255,8 @@ current configuration is appropriate.
 
 ##### Run Migrations
 
-You can now run the migrations on your Rails application to create the tables in the database. 
-This can be done through the [`deploio.yaml`](/documentation/configuring_your_application#3-deploioyaml) file by specifying a deploy job or by
+You can now run the migrations on your Rails application to create the tables in the database.
+This can be done through the [`deploio.yaml`](/documentation/configuring_your_application#deploioyaml) file by specifying a deploy job or by
 manually running the migrations:
 
 ```bash
@@ -260,6 +268,6 @@ to interact with it through your Rails application.
 
 ## Next Steps
 
-Do you need a Redis-compatible **key value store** for your application (e.g. for running Sidekiq)? 
+Do you need a Redis-compatible **key value store** for your application (e.g. for running Sidekiq)?
 Proceed to the next step.
 

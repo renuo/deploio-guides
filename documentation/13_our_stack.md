@@ -4,7 +4,9 @@ title: Our Stack
 
 # Our Stack
 
-Container-based infrastructure.
+Coming soon 🚧
+
+<!-- Container-based infrastructure.
 
 - Safe?
 - Data loss?
@@ -35,4 +37,4 @@ Container-based infrastructure.
 
 Learn more about the robust architecture of Deploio.
 
-[//]: # (TODO: also learn more!! )
+[//]: # (TODO: also learn more!! ) -->

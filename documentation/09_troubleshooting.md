@@ -4,10 +4,11 @@ title: Troubleshooting
 
 # Troubleshooting
 
-Should you have an emergency with your application, we have a few tools and guides to help you get back on track.
+Coming soon 🚧
+
+<!-- Should you have an emergency with your application, we have a few tools and guides to help you get back on track.
 
 [//]: # (TODO: Activity logs here? what actually does this mean)
-[//]: # (TODO: Same with DNS stuff)
 
 ##### Activity logs
 
@@ -34,4 +35,4 @@ Should you have an emergency with your application, we have a few tools and guid
 
   - Comprehensive guides on [docs.nine.ch](https://docs.nine.ch).
   - Call Nine
-  - Join the Slack workspace
+  - Join the Slack workspace -->

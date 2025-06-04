@@ -17,7 +17,7 @@ In this guide, we will show you how to create a database for your Ruby on Rails 
 You can see more information on databases [here](/documentation/configuring_your_database).
 
 Should you wish to migrate an already existing database from elsewhere, you can view this section in the
-documentation [here](/documentation/12_migrating_from_other_platforms), or read [this blog](/ruby_heroku_migration_guide) which
+documentation [here](/documentation/migrating_from_other_platforms), or read [this blog](/ruby_heroku_migration_guide) which
 guides you through migrating a Rails project from Heroku.
 </div>
 

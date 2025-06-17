@@ -84,6 +84,16 @@ article {
   padding: 0.75rem;
 }
 
+/*Navbar styling overrides*/
+
+.navbar {
+  height: auto;
+  }
+
+.navbar__items {
+  display: flex;
+}
+
 .navbar__title {
   font-size: 1.5rem;
 }
@@ -91,6 +101,8 @@ article {
 .navbar__item {
   text-transform: uppercase;
   margin: 0 0.25rem;
+  max-width: 150px;
+  text-align: center;
 }
 
 .navbar__item--white {
@@ -421,3 +433,20 @@ table td {
   justify-content: center;
   align-items: center;
 }
+
+@media (max-width: 1600px) {
+  .navbar__items--right {
+    flex: 0 0 0;
+  }
+
+  .navbar__item {
+    margin: 0;
+  }
+}
+
+@media (max-width: 1100px) {
+  .navbar__brand {
+    display: none;
+  }
+}
+

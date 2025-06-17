@@ -84,19 +84,37 @@ article {
   padding: 0.75rem;
 }
 
+/*Navbar styling overrides*/
+
+.navbar {
+  height: 80px;
+}
+
+.navbar__items {
+  display: flex;
+}
+
+.navbar__items--right {
+  flex: 0 0 0;
+}
+
 .navbar__title {
   font-size: 1.5rem;
 }
 
 .navbar__item {
   text-transform: uppercase;
-  margin: 0 0.25rem;
+  margin: 0 1rem;
+  padding: 0.2rem;
+  max-width: 150px;
+  text-align: center;
+  font-size: 15px;
 }
 
 .navbar__item--white {
   background-color: white;
   color: var(--ifm-color-primary);
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 0.5rem;
   border-radius: 4px;
   transition: all 0.2s ease;
 }
@@ -105,6 +123,14 @@ article {
   background-color: #f5f5f5;
   color: var(--ifm-color-primary);
   text-decoration: none;
+}
+
+@media (min-width: 1100px) {
+  .navbar__item.navbar__item--white {
+    margin: 0 0.25rem;
+
+    padding: 0.5rem 1rem;
+  }
 }
 
 .navbar__item--last {

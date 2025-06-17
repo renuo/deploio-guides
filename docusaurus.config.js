@@ -129,6 +129,14 @@ const config = {
             position: 'right'
           },
           {
+            to: 'https://docs.nine.ch/docs/category/deploio-paas/',
+            label: 'Nine Platform Reference',
+            position: 'right',
+            target: '_blank',
+            rel: 'noopener noreferrer',
+            className: 'navbar__item--last'
+          },
+          {
             href: 'https://deplo.io/pricing',
             label: 'Pricing',
             position: 'right',
@@ -149,14 +157,6 @@ const config = {
             target: '_blank',
             rel: 'noopener noreferrer',
             className: 'navbar__item navbar__item--white'
-          },
-          {
-            to: 'https://docs.nine.ch/docs/category/deploio-paas/',
-            label: 'Nine Platform Reference',
-            position: 'right',
-            target: '_blank',
-            rel: 'noopener noreferrer',
-            className: 'navbar__item--last'
           }
         ],
       },

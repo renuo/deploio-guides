@@ -447,20 +447,3 @@ table td {
   justify-content: center;
   align-items: center;
 }
-
-@media (max-width: 1600px) {
-  .navbar__items--right {
-    flex: 0 0 0;
-  }
-
-  .navbar__item {
-    margin: 0;
-  }
-}
-
-@media (max-width: 1100px) {
-  .navbar__brand {
-    display: none;
-  }
-}
-

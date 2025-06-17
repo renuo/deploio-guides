@@ -14,9 +14,7 @@ If you are using a service that manages DNS and SSL certificates for you (e.g., 
 
 ##### Check the app is running
 
-Deploio provides a "first host" or default URL for your application. This URL can be used initially to check if your application is running. You can find it on the Application page in the Cockpit under the **Hosts** tab. It is the host with the status **"Default Host"**.
-
-You can also find this by running the following command and looking under the HOSTS column:
+Deploio provides a "first host" or default URL for your application. This URL can be used initially to check if your application is running. You can find this by running the following command and looking under the HOSTS column:
 
 ```bash
 nctl auth set-project {PROJECT_NAME}
@@ -26,6 +24,8 @@ nctl get app {APP_NAME}
 :::note
 This will list all hosts for the application. If you have added multiple hosts, the default host will be the URL that ends with "deploio.app".
 :::
+
+Alternatively, you can find the default host on the Application page in the Cockpit under the **Hosts** tab. It is the host with the status **"Default Host"**.
 
 ##### Create the domain
 
@@ -41,17 +41,47 @@ Your service should provide an overview of the DNS records for your domain and a
 
 For Deploio, you will need to add both a CNAME and TXT record.
 
-The **CNAME** record will require a "Name", and we recommend using the domain or subdomain name. The target will be the **default URL** for your application, as discussed [above](#check-the-app-is-running). We also recommend setting the proxy to "DNS only" to ensure there are no connection issues. You can change this to "proxied" later if preferred, but disabling it initially will help ensure any connection issues are not caused by the proxy.
+The **CNAME** record will require a "Name" field, which should match the domain or subdomain you want to use for your application
+. The target will be the **default URL** for your application, as discussed [above](#check-the-app-is-running). If your DNS provider offers proxy settings (like cyon.ch or other providers), we recommend initially setting it to direct DNS routing without proxying to ensure there are no connection issues. You can enable proxying features later if needed, but disabling them initially will help troubleshoot any connection problems.
 
-The **TXT** record will also require a "Name", and we recommend using the domain or subdomain name. The content can be found on the Application page in the Cockpit, under the **Hosts** tab. Copy the **TXT Record Content** and paste it into the TXT record, including the quotation marks. For example:
+The **TXT** record will also require a "Name" field. The content for the TXT record can be found on the Application page in the Cockpit, under the **Hosts** tab. Copy the **TXT Record Content** and paste it into the TXT record, including the quotation marks. For example:
 
 ```txt
 "deploio-site-verification=application-name-abcdef123456"
 ```
 
+:::info
+**SSL and Let's Encrypt**
+
+Once your DNS records are properly configured and verified, Deploio automatically provisions SSL certificates for your domains through Let's Encrypt. The TXT record not only verifies your domain ownership for Deploio but also helps with the domain validation process that Let's Encrypt requires. This automated process ensures your application is secured with HTTPS without any manual certificate management. For more details about SSL certificates, see the [Securing your application with SSL](#securing-your-application-with-ssl) section below.
+:::
+
 ##### Add the host to the application
 
-Once you have added the DNS records, you can add the host to the application by going to the Application page in the Cockpit and clicking on the **Edit** button. Under **Hosts**, you can add as many hosts as you want. These should match the domain and/or subdomain you have configured.
+Once you have added the DNS records, you can add the host to the application. This can be done via `nctl update app {APP_NAME} --hosts="..."`. 
+
+It is important to note that this will replace any existing hosts for the application configuration. Therefore, we would recommend checking the existing configuration, adding any hosts as desired, and updating the application. 
+
+For example, first get the host configuration for the application:
+
+```bash
+nctl get app {APP_NAME} --project {PROJECT_NAME}
+```
+
+The output will look something like this:
+
+```plaintext
+PROJECT           NAME          REPLICAS    WORKERJOBS    HOSTS              UNVERIFIEDHOSTS
+{PROJECT_NAME}    {APP_NAME}    1           0             abc.com,xyz.com    <none>
+```
+
+You can then update the application with the new host configuration:
+
+```bash
+nctl update app {APP_NAME} --hosts="abc.com,xyz.com,newhost.com" --project {PROJECT_NAME}
+```
+
+Alternatively, you can visit the Application page in the **Cockpit** and click on the **Edit** button. Under **Hosts**, you can add as many hosts as you want. These should match the domain and/or subdomain you have configured.
 
 You can then click on the **Update Application** button to save the changes.
 

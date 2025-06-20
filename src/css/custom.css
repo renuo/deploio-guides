@@ -87,7 +87,7 @@ article {
 /*Navbar styling overrides*/
 
 .navbar {
-  height: 80px;
+  height: auto;
 }
 
 .navbar__items {

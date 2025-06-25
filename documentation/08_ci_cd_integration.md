@@ -200,7 +200,7 @@ Once the above has been put in to place, we should see the following process:
 
 ✅ We then trigger the script (in our case a Ruby script) which provides feedback on the release. Once this has completed successfully the CI is finished and we have an updated application running.
 
-## Deployment Strategies
-
-##### Rolling deployments.
-##### Blue/green deployments.
+[//]: # (## Deployment Strategies)
+[//]: # ()
+[//]: # (##### Rolling deployments.)
+[//]: # (##### Blue/green deployments.)

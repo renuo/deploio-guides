@@ -145,32 +145,50 @@ When migrating the database, ensure your application's collation settings are co
 
 Considering the creation settings above, we run the following command to create the database server:
 
-```
+```bash
 nctl create postgres {DATABASE_NAME} \
   --postgres-version={X} \
   --machine-type=nine-db-s \
-  --allowed-cidrs={IP_ADDRESS}/0 \
+  --allowed-cidrs="$(curl -s ipinfo.io/ip)/32" \
   --ssh-keys={PUBLIC_KEY}
 ```
 
-Please adjust the flags as you need.
+Further details on the flags can be found in the manual by running `nctl create postgres --help`.
 
-We can now access the server using the FQDN and generated user and password. We can find this information as follows:
+You can now access the server using the **fully-qualified domain name (FQDN)** and generated user and password.
+You can find this information as follows:
 
-- **FQDN**: Run `nctl get postgres {DATABASE_NAME}`
-- **User**: Run `nctl get postgres {DATABASE_NAME} --print-user`
-- **Password**: Run `nctl get postgres {DATABASE_NAME} --print-password`
+```shell-session
+$ nctl get postgres {DATABASE_NAME}
+PROJECT       NAME               FQDN                                            LOCATION     MACHINE TYPE
+my-project    {DATABASE_NAME}    {DATABASE_NAME}.1234567.postgres.nineapis.ch    nine-cz41    nine-db-s
 
-Now we want to create the database on the server. We can run the following command:
+$ nctl get postgres {DATABASE_NAME} --print-user
+dbadmin
 
-[//]: # (TODO: can we find a way for the user to input the desired name and update the commands?)
+$ nctl get postgres {DATABASE_NAME} --print-password
+...password...
+```
+
+Now we want to create the database on the server. You can do this from your **local machine** (or any environment with access and a whitelisted IP):
+
 ```
 createdb -U dbadmin -h {FQDN} {DATABASE_NAME}
 ```
 
 You will be prompted to enter the password.
 
-We can check that this database was created by entering the server using `psql -U dbadmin -h {FQDN} -d postgres` and then running the command `\l` to list the databases on the server.
+To verify the database was created, connect using psql:
+
+```bash
+psql -U dbadmin -h {FQDN} -d postgres
+```
+
+Then inside the shell list the databases:
+
+```bash
+\l
+```
 
 ### Interacting with databases
 
@@ -305,40 +323,67 @@ Let us know if you need help enabling specific capabilities or configuring advan
 
 Considering the creation settings above, we run the following command to create the database server:
 
-```
+```bash
 nctl create mysql {DATABASE_NAME} \
   --mysql-version={X} \
   --machine-type=nine-db-s \
-  --allowed-cidrs={IP_ADDRESS}/0 \
+  --allowed-cidrs="$(curl -s ipinfo.io/ip)/32"
   --ssh-keys={PUBLIC_KEY}
 ```
 
-Please adjust the flags as you need.
+Further details on the flags can be found in the manual by running `nctl create mysql --help`.
+Note that currently, only MySQL 8 databases are supported.
 
-We can now access the server using the FQDN and generated user and password. We can find this information as follows:
+You can now access the server using the **fully-qualified domain name (FQDN)** and generated user and password.
+You can find this information as follows:
 
-- **FQDN**: Run `nctl get mysql {DATABASE_NAME}`
-- **User**: Run `nctl get mysql {DATABASE_NAME} --print-user`
-- **Password**: Run `nctl get mysql {DATABASE_NAME} --print-password`
+```shell-session
+$ nctl get mysql {NAME}
+PROJECT       NAME      FQDN                                LOCATION     MACHINE TYPE
+my-project    {NAME}    {NAME}.1234567.mysql.nineapis.ch    nine-cz41    nine-db-s
 
-Now we want to create the database on the server. We can run the following commands:
+$ nctl get mysql {NAME} --print-user
+dbadmin
 
-1. **Connect to the server:**
+$ nctl get mysql {NAME} --print-password
+...password...
+```
 
-    ```bash
-    mysql -h {FQDN} -u dbadmin -p
-    ```
-    You will be prompted to enter the password.
+To create a database on the server, you first need to connect to the MySQL server.
 
-2. **Create a new database from the MySQL prompt:**
-    ```sql
-    CREATE DATABASE my_app_db;
-    ```
+First, make sure your IP address is allowed in the instance’s CIDR list:
+```
+nctl update mysql {NAME} --allowed-cidrs "$(curl -s ipinfo.io/ip)/32"
+```
 
-3. **List all databases to confirm:**
-    ```sql
-    SHOW DATABASES;
-    ```
+For this you will need the MySQL client installed (**on your local machine** or any environment with network access and a whitelisted IP), and can run from there:
+
+```bash
+mysql -h {FQDN} -u dbadmin -p
+````
+
+:::warning
+Currently, Deploio supports **MySQL version 8**. If you have MySQL version 9 installed on your local machine,
+you probably lack the `mysql_native_password` plugin as it has been removed in MySQL 9.
+Hence, you would need to install an older version of the client
+
+(e.g. `brew install mysql-client@8.4` and then `/opt/homebrew/opt/mysql-client@8.4/bin/mysql -h ...` on macOS using Homebrew).
+:::
+
+You will be prompted to enter the password. Once connected, you can create the database:
+
+```sql
+CREATE DATABASE my_database;
+```
+
+And you can verify this was created:
+
+```sql
+SHOW DATABASES;
+```
+
+For more setup commands, visit the
+[official MySQL documentation](https://docs.nine.ch/docs/on-demand-databases/on-demand-databases-mysql/#basic-commands).
 
 ### Interacting with databases
 

@@ -40,13 +40,13 @@ Alternatively, you can specify the project name with the `-p, --project` flag in
 <TabItem value="PostgreSQL">
 ```
 
-To create a postgres database server for your Rails application, you can use the `nctl create` command like this:
+To create a Postgres database server for your Rails application, you can use the `nctl create` command like this:
 
 ```bash
 nctl create postgres {NAME} \
   --postgres-version=15 \
   --machine-type=nine-db-s \
-  --allowed-cidrs="203.0.113.1/32,..." \
+  --allowed-cidrs="$(curl -s ipinfo.io/ip)/32"
   --ssh-keys-file=my-key.pub
 ```
 
@@ -67,26 +67,29 @@ $ nctl get postgres {NAME} --print-password
 ...password...
 ```
 
-To create a database on the server, create an interactive shell in your web application with:
+Now we want to create the database on the server. You can do this from your **local machine** (or any environment with access and a whitelisted IP):
 
-```bash
-nctl exec app {APP_NAME}
+```
+createdb -U dbadmin -h {FQDN} {DATABASE_NAME}
 ```
 
-In that shell, run the following command to create the database:
-
-```bash
-createdb -U dbadmin -h {FQDN} my-database
-```
-
-You will be asked for the password.
+You will be prompted to enter the password.
 
 :::note
 Alternatively, you can use `rails db:create` to create the database after setting the `DATABASE_URL` environment variable. This will create the database on the server with the name specified in your `database.yml` configuration. Note that the database server must be created first using `nctl create postgres` before running `rails db:create`. For more details on setting the `DATABASE_URL`, refer to the section below on configuring your Rails application.
 :::
 
-You can verify that this database was created by logging into the server using `psql -U dbadmin -h {FQDN} -d postgres`
-and then running the command `\l` to list the databases on the server.
+To verify the database was created, connect using psql:
+
+```bash
+psql -U dbadmin -h {FQDN} -d postgres
+```
+
+Then inside the shell list the databases:
+
+```bash
+\l
+```
 
 ## Configure Your Rails Application
 
@@ -141,7 +144,7 @@ To create a MySQL database server for your Rails application, you can use the `n
 nctl create mysql {NAME} \
   --character-set-collation=utf8mb4_unicode_ci \
   --machine-type=nine-db-s \
-  --allowed-cidrs="203.0.113.1/32,..." \
+  --allowed-cidrs="$(curl -s ipinfo.io/ip)/32" \
   --ssh-keys-file=my-key.pub
 ```
 
@@ -163,17 +166,18 @@ $ nctl get mysql {NAME} --print-password
 ...password...
 ```
 
-To create a database on the server, create an interactive shell in your web application with:
+To create a database on the server, you first need to connect to the MySQL server.
 
-```bash
-nctl exec app {APP_NAME}
+First, make sure your IP address is allowed in the instance’s CIDR list:
+```
+nctl update mysql {NAME} --allowed-cidrs "$(curl -s ipinfo.io/ip)/32"
 ```
 
-In that shell, run the following command to create the database:
+For this you will need the MySQL client installed (**on your local machine** or any environment with network access and a whitelisted IP), and can run from there:
 
 ```bash
 mysql -h {FQDN} -u dbadmin -p
-```
+````
 
 :::warning
 Currently, Deploio supports **MySQL version 8**. If you have MySQL version 9 installed on your local machine,
@@ -189,7 +193,11 @@ You will be prompted to enter the password. Once connected, you can create the d
 CREATE DATABASE my_database;
 ```
 
-To check that the database was created, you can run the command `SHOW DATABASES;`.
+And you can verify this was created:
+
+```sql
+SHOW DATABASES;
+```
 
 :::note
 Alternatively, you can use `rails db:create` to create the database after setting the `DATABASE_URL` environment variable. This will create the database on the server with the name specified in your `database.yml` configuration. Note that the database server must be created first using `nctl create mysql` before running `rails db:create`. For more details on setting the `DATABASE_URL`, refer to the sectio below on configuring your Rails application.

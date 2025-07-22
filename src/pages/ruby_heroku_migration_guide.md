@@ -256,7 +256,8 @@ We can find this information as follows:
   nctl get postgres main --print-password
   ```
 
-Now, we want to create the database on the server. We can use the `createdb` command to do so:
+
+Now we want to create the database on the server. You can do this from your **local machine** (or any environment with access and a whitelisted IP):
 
 ```
 createdb -U dbadmin \

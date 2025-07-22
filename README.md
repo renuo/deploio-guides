@@ -1,5 +1,7 @@
 # TODO:
 
+- [ ] Work through user feedback in [Google document](https://docs.google.com/document/d/1B7x0N60u1guur8MTOJ3fTz7o52-mHbmTVsquaQC3kso/edit?tab=t.0)
+
 - [ ] Add dropdowns for the documentation sections on the left... should we have each heading (##) as a separate page within that section? similar layout to the quick guides?
 
 - [X] Add search documentation field at the top of the sections to the left - Daniel on this
@@ -78,4 +80,7 @@ This command generates static content into the `build` directory and can be serv
 
 ### Deployment
 
-...
+Deployments happen automatically via [Deploio](https://deplo.io) when changes are pushed to the `main` branch. 
+
+No manual steps are required. You can monitor deployment status and logs in the [Cockpit](https://cockpit.nine.ch/en/renuotest/deploio/apps/renuotest-deploio-documentation/applications/deploio-documentation). Note that this is within the `Renuo Test Org` and you may need to request access.
+

@@ -156,7 +156,7 @@ const config = {
             position: 'right',
             target: '_blank',
             rel: 'noopener noreferrer',
-            className: 'navbar__item navbar__item--white'
+            className: 'navbar__item--white'
           }
         ],
       },

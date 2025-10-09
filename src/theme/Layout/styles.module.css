@@ -1,9 +1,5 @@
 .mainWrapper {
-  margin-left: 300px;
-}
-
-@media (max-width: 996px) {
-  .mainWrapper {
-    margin-left: 0;
-  }
+  display: flex;
+  flex: 1 0 auto;
+  flex-direction: column;
 }

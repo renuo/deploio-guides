@@ -63,8 +63,9 @@ const config = {
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         docs: {
-          path: 'documentation',
-          routeBasePath: 'documentation',
+          path: 'docs',
+          routeBasePath: '/',
+          sidebarPath: require.resolve('./sidebars.js'),
         },
         theme: {
           customCss: './src/css/custom.css',
@@ -76,18 +77,6 @@ const config = {
   markdown: {
     mermaid: true,
   },
-
-  plugins: [
-    [
-      '@docusaurus/plugin-content-docs',
-      {
-        id: 'quickStartDocs',
-        path: 'quick_start',
-        routeBasePath: 'quick_start',
-        sidebarPath: require.resolve('./sidebarsQuickStart.js'),
-      },
-    ],
-  ],
 
   themeConfig:
   /** @type {import('@docusaurus/preset-classic').ThemeConfig} */

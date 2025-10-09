@@ -1,0 +1,80 @@
+---
+title: Welcome to Deploio
+slug: /
+hide_title: true
+---
+
+import Link from '@docusaurus/Link';
+import styles from '../src/css/homepage.module.css';
+
+<div className={styles.homepage}>
+  <section className={styles.heroSection}>
+    <h1 className={styles.heroTitle}>DEPLOIO DEVELOPER DOCUMENTATION</h1>
+    <p className={styles.heroSubtitle}>
+      Welcome to the Deploio documentation. Here you'll find the reference
+      information you need to get started with Deploio quickly.
+    </p>
+  </section>
+
+  <section className={styles.quickStartSection}>
+    <h2 className={styles.sectionTitle}>QUICK START YOUR PROJECT</h2>
+    <div className={styles.techGrid}>
+      <Link to="/quick-start/docker/create_app" className={styles.techCard}>
+        <div className={styles.techCardContent}>
+          <img src="/img/icons/docker.svg" alt="Docker" className={styles.techIcon} />
+          <span className={styles.techName}>Docker</span>
+          <span className={styles.techArrow}>→</span>
+        </div>
+      </Link>
+      <Link to="/quick-start/nodejs/create_app" className={styles.techCard}>
+        <div className={styles.techCardContent}>
+          <img src="/img/icons/nodejs.svg" alt="Node.js" className={styles.techIcon} />
+          <span className={styles.techName}>Node.js</span>
+          <span className={styles.techArrow}>→</span>
+        </div>
+      </Link>
+      <Link to="/quick-start/ruby-on-rails/create_app" className={styles.techCard}>
+        <div className={styles.techCardContent}>
+          <img src="/img/icons/ruby.svg" alt="Ruby" className={styles.techIcon} />
+          <span className={styles.techName}>Ruby</span>
+          <span className={styles.techArrow}>→</span>
+        </div>
+      </Link>
+      <Link to="/quick-start/php/create_app" className={styles.techCard}>
+        <div className={styles.techCardContent}>
+          <img src="/img/icons/php.svg" alt="PHP" className={styles.techIcon} />
+          <span className={styles.techName}>PHP</span>
+          <span className={styles.techArrow}>→</span>
+        </div>
+      </Link>
+      <Link to="/quick-start/go/create_app" className={styles.techCard}>
+        <div className={styles.techCardContent}>
+          <img src="/img/icons/go.svg" alt="Go" className={styles.techIcon} />
+          <span className={styles.techName}>Go</span>
+          <span className={styles.techArrow}>→</span>
+        </div>
+      </Link>
+      <Link to="/quick-start/python/create_app" className={styles.techCard}>
+        <div className={styles.techCardContent}>
+          <img src="/img/icons/python.svg" alt="Python" className={styles.techIcon} />
+          <span className={styles.techName}>Python</span>
+          <span className={styles.techArrow}>→</span>
+        </div>
+      </Link>
+      <Link to="/quick-start/static-pages/create_app" className={styles.techCard}>
+        <div className={styles.techCardContent}>
+          <img src="/img/icons/html.svg" alt="HTML" className={styles.techIcon} />
+          <span className={styles.techName}>HTML</span>
+          <span className={styles.techArrow}>→</span>
+        </div>
+      </Link>
+    </div>
+  </section>
+
+  <section className={styles.questionsSection}>
+    <h2 className={styles.sectionTitle}>ANY QUESTIONS?</h2>
+    <p className={styles.questionsText}>
+      Join our Community on <a href="https://slack.com" target="_blank" rel="noopener noreferrer">Slack</a> or <a href="/contact" rel="noopener noreferrer">get in touch</a>.
+    </p>
+  </section>
+</div>

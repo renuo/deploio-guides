@@ -124,7 +124,7 @@ Remember: Your application consists of two key parts:
   - Persistent Volume Claims (PVCs) for local persistent storage (not yet available)
 :::
 
-The ephemeral nature of the filesystem is by design, ensuring clean application states and proper isolation. To persist data across deployments and container lifecycles, you should use **storage services** — such as [managed databases](/user-guide/configuring_your_database) or [object storage](05_other_dependencies.md#object-storage).
+The ephemeral nature of the filesystem is by design, ensuring clean application states and proper isolation. To persist data across deployments and container lifecycles, you should use **storage services** — such as [managed databases](/user-guide/configuring_your_database) or [object storage](/user-guide/other_dependencies#object-storage).
 
 #### Tenant Separation
 

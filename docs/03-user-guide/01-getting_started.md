@@ -46,7 +46,7 @@ If the organization already exists and you need a new user account, you need to:
 
 - Ask your admin to invite you to the correct organization 
 - Log in using your credentials provided
-- Authenticate `nctl` (see [here](/documentation/01_how_deploio_works.md#nctl))
+- Authenticate `nctl` (see [here](/user-guide/how_deploio_works#nctl))
 
 Once you are set up, you can check your available organizations once logged in on the CLI by running `nctl auth whoami`.
 
@@ -132,4 +132,4 @@ There are a number of blogs and other resources available that can provide more 
 - Store secrets securely using environment variables managed via Cockpit or nctl.
 - Regularly review and update your configurations to ensure they meet the latest security and performance standards.
 - Use staging environments to test your applications before deploying to production.
-- Monitor your applications using the avaiable [tools](/documentation/14_tools.md).
+- Monitor your applications using the avaiable [tools](/user-guide/tools).

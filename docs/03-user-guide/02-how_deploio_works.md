@@ -18,7 +18,7 @@ All you require for deploying an application with Deploio is:
 
 ##### Repo
 
-Tell Deploio where your source code lives — whether it's GitHub, GitLab, or Bitbucket, or even a private git server. You can specify a branch or tag to deploy from, and Deploio will handle fetching the code securely via OAuth or SSH authentication. Check out [Code Repository Setup](/documentation/03_code_repository_setup.md) for more details.
+Tell Deploio where your source code lives — whether it's GitHub, GitLab, or Bitbucket, or even a private git server. You can specify a branch or tag to deploy from, and Deploio will handle fetching the code securely via OAuth or SSH authentication. Check out [Code Repository Setup](/user-guide/code_repository_setup) for more details.
 
 ##### Build
 
@@ -47,7 +47,7 @@ For more details on the infrastructure used to run your app, view the Nine Kuber
 
 Deploio connects to your Git provider (e.g., GitHub, GitLab, Bitbucket) via SSH. It fetches code from your repo and triggers deployments on push or manual triggers. Unlike Heroku, Deploio does not host your Git repo — it uses your existing setup.
 
-See the [Code Repository Setup](03_code_repository_setup.md) page for more detail.
+See the [Code Repository Setup](/user-guide/code_repository_setup) page for more detail.
 
 ##### Build Automation
 

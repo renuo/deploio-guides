@@ -124,7 +124,7 @@ Remember: Your application consists of two key parts:
   - Persistent Volume Claims (PVCs) for local persistent storage (not yet available)
 :::
 
-The ephemeral nature of the filesystem is by design, ensuring clean application states and proper isolation. To persist data across deployments and container lifecycles, you should use **storage services** — such as [managed databases](04_configuring_your_database.md) or [object storage](05_other_dependencies.md#object-storage).
+The ephemeral nature of the filesystem is by design, ensuring clean application states and proper isolation. To persist data across deployments and container lifecycles, you should use **storage services** — such as [managed databases](/user-guide/configuring_your_database) or [object storage](05_other_dependencies.md#object-storage).
 
 #### Tenant Separation
 
@@ -170,7 +170,7 @@ By default:
 - You can scale **vertically** by **increasing CPU and memory limits** for the application
 - Or scale **horizontally** by **increasing the number of replicas** (number of pods running the application)
 
-See [Configuring your Application](06_configuring_your_application.md) for more details on configuring the scaling.
+See [Configuring your Application](/user-guide/configuring_your_application) for more details on configuring the scaling.
 
 Replicas of your app are distributed across multiple nodes in the cluster, maximizing availability and resilience in case of node failures. Kubernetes continuously monitors the health of your containers and will automatically restart or reschedule them if needed.
 

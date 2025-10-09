@@ -108,33 +108,19 @@ const config = {
           src: 'img/light_logo.svg',
         },
         items: [
-          // TODO: disabled until we add translations (if we do)
-          // {
-          //   type: 'localeDropdown',
-          //   position: 'right'
-          // },
-          {
-            to: '/about_deploio',
-            label: 'About Deploio',
-            position: 'right'
-          },
-          {
-            to: '/quick_start',
-            label: 'Quick Start',
-            position: 'right'
-          },
-          {
-            to: '/documentation',
-            label: 'Deploio User Guide',
-            position: 'right'
-          },
           {
             to: 'https://docs.nine.ch/docs/category/deploio-paas/',
-            label: 'Nine Platform Reference',
+            label: 'Nine Platform',
             position: 'right',
             target: '_blank',
-            rel: 'noopener noreferrer',
-            className: 'navbar__item--last'
+            rel: 'noopener noreferrer'
+          },
+          {
+            href: 'https://deplo.io',
+            label: 'Deploio Website',
+            position: 'right',
+            target: '_blank',
+            rel: 'noopener noreferrer'
           },
           {
             href: 'https://deplo.io/pricing',
@@ -175,7 +161,8 @@ const config = {
       },
       docs: {
         sidebar: {
-          autoCollapseCategories: true
+          autoCollapseCategories: false,
+          hideable: false
         }
       }
     }),

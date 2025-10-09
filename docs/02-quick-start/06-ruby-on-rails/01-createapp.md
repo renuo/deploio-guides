@@ -3,6 +3,7 @@ title: Create a Rails Application
 description: Learn how to deploy Ruby on Rails applications with Deploio
 id: create_app
 pagination_prev: null
+pagination_next: quick-start/ruby-on-rails/create_database
 ---
 
 # Create a Rails Application

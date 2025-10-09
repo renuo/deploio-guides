@@ -34,8 +34,8 @@ const sidebars = {
         {
           type: 'category',
           label: 'PHP',
-          link: { type: 'doc', id: 'quick-start/php/create_app' },
           items: [
+            'quick-start/php/create_app',
             'quick-start/php/create_database',
             'quick-start/php/kvs',
             'quick-start/php/object_storage',
@@ -57,8 +57,8 @@ const sidebars = {
         {
           type: 'category',
           label: 'Ruby on Rails',
-          link: { type: 'doc', id: 'quick-start/ruby-on-rails/create_app' },
           items: [
+            'quick-start/ruby-on-rails/create_app',
             'quick-start/ruby-on-rails/create_database',
             'quick-start/ruby-on-rails/kvs',
             'quick-start/ruby-on-rails/object_storage',

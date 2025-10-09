@@ -36,18 +36,13 @@ main {
   max-width: 100% !important;
 }
 
-.DocSearch-Button {
-  width: 100% !important;
+DocSearch {
+  min-width: 250px;
 }
 
 /* ============================================
    SIDEBAR & SEARCH CUSTOMIZATION
    ============================================ */
-
-/* Hide search from navbar, it will be in sidebar */
-.navbar .DocSearch {
-  display: none;
-}
 
 /* Make root-level sidebar items bold */
 .theme-doc-sidebar-item-link-level-1 > .menu__link,

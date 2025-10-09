@@ -3,6 +3,7 @@ title: Create a PHP Application
 description: Learn how to deploy PHP applications on Deploio
 id: create_app
 pagination_prev: null
+pagination_next: quick-start/php/create_database
 ---
 
 ```mdx-code-block

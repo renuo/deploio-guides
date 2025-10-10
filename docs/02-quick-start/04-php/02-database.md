@@ -13,10 +13,10 @@ import TabItem from '@theme/TabItem';
 
 <div class="summary">
 In this guide, we will show you how to create a database for your PHP application using Deploio.
-You can see more information on databases [here](/documentation/configuring_your_database).
+You can see more information on databases [here](/user-guide/configuring_your_database).
 
 Should you wish to migrate an already existing database from elsewhere, you can view this section in the
-documentation [here](/documentation/migrating_from_other_platforms), or read [this blog](/ruby_heroku_migration_guide) which
+documentation [here](/user-guide/migrating_from_other_platforms), or read [this blog](/ruby_heroku_migration_guide) which
 guides you through migrating a Rails project from Heroku.
 </div>
 
@@ -78,7 +78,7 @@ To only allow specific IPs, you can give a list of IPs with subnet mask:
 nctl update postgres {NAME} --allowed-cidrs="203.0.113.1/32,..."
 ```
 
-For more information on IP filtering and using an SSH key, see the [Database documentation](/documentation/configuring_your_database).
+For more information on IP filtering and using an SSH key, see the [Database documentation](/user-guide/configuring_your_database).
 
 ## Configure Your PHP Application
 
@@ -206,7 +206,7 @@ To only allow specific IPs, you can give a list of IPs with subnet mask:
 nctl update mysql {NAME} --allowed-cidrs="203.0.113.1/32,..."
 ```
 
-For more information on IP filtering and using an SSH key, see the [Database documentation](/documentation/configuring_your_database).
+For more information on IP filtering and using an SSH key, see the [Database documentation](/user-guide/configuring_your_database).
 
 ## Configure Your PHP Application
 
@@ -343,7 +343,7 @@ $conn = new mysqli($parameters['host'], $parameters['user'], $parameters['passwo
 
 Doctrine provides the [doctrine/migrations](https://www.doctrine-project.org/projects/doctrine-migrations/en/3.9/index.html)
 package to manage database schema migrations.
-To run the migrations, specify a deploy job in your [`deploio.yaml`](/documentation/configuring_your_application#3-deploioyaml)
+To run the migrations, specify a deploy job in your [`deploio.yaml`](/user-guide/configuring_your_application#deploioyaml)
 or run the migrations manually:
 
 ```bash

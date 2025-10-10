@@ -58,7 +58,7 @@ Use the official Heroku Cloud Native Buildpacks for languages like Node.js, Ruby
 
 Deployments are rolled out through Kubernetes using rolling updates and readiness checks to ensure zero downtimme. Each deployment references a specific container image and configuration version.
 
-Deploy jobs can also be configured to execute before a new release is deployed. The rollout of the release will only continue if the deploy job finished successfully. This can be defined in the `.deploio.yaml`. See more information [here](/documentation/configuring_your_application#3-deploioyaml).
+Deploy jobs can also be configured to execute before a new release is deployed. The rollout of the release will only continue if the deploy job finished successfully. This can be defined in the `.deploio.yaml`. See more information [here](/user-guide/configuring_your_application#deploioyaml).
 
 
 ```mermaid

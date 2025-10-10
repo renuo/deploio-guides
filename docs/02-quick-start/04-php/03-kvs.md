@@ -8,7 +8,7 @@ description: Learn how to create a key value store for your PHP application with
 
 <div class="summary">
 Should you require workers or caching, you can use our Redis-compatible key-value store (KVS). 
-You can see the different sizes available and pricing [here](/documentation/other_dependencies#key-value-store).
+You can see the different sizes available and pricing [here](/user-guide/other_dependencies#key-value-store).
 </div>
 
 ## Create the Key Value Store

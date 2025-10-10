@@ -29,7 +29,7 @@ The name of the instance can be freely chosen, but must be unique. Once created,
 
 #### Location
 
-Depending on available resources, instances can be created in two locations within the "ColoZüri" data center or the "NTT" data center in Rümlang. The location cannot be changed later. If you need to change the location, you will need to perform a database migration. See the [database migration guide](./12_migrating_from_other_platforms.md#retrieving-and-restoring-databases) for more information.
+Depending on available resources, instances can be created in two locations within the "ColoZüri" data center or the "NTT" data center in Rümlang. The location cannot be changed later. If you need to change the location, you will need to perform a database migration. See the [database migration guide](migrating_from_other_platforms#retrieving-and-restoring-databases) for more information.
 
 This can be set by the `--location` flag and the default is `cz41`.
 

@@ -219,7 +219,7 @@ Deploio uses Heroku-compatible buildpacks to automatically detect and build your
 The buildpack system ensures your applications are built consistently and optimally, regardless of the underlying technology stack.
 
 :::tip[Dockerfiles]
-Do you have more granular requirements and need more control over your environment? Don't fret! You can use [**Dockerfile builds**](/quick_start/Docker/create_app) to customize your setup exactly how you want.
+Do you have more granular requirements and need more control over your environment? Don't fret! You can use [**Dockerfile builds**](/quick-start/docker/create_app) to customize your setup exactly how you want.
 :::
 
 ### Docker for containerized deployments

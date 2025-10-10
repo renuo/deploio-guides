@@ -17,12 +17,12 @@ you can deploy any Node.js application with Deploio. In this guide, we will use 
 ## Prerequisites
 
 * This quick start guide assumes you have **installed `nctl` on your computer**. If not, please go through the
-  instructions [here](/documentation/getting_started#installing-nctl).
+  instructions [here](/user-guide/getting_started#installing-nctl).
 * You should also have an **organization and project created**, where you will create the application. If you haven't
-  done this yet, please follow the instructions [here](/documentation/getting_started#creating-an-account).
+  done this yet, please follow the instructions [here](/user-guide/getting_started#creating-an-account).
 * This example also presumes that you are **using a public repository**.
   Should you need to set up access to a private repository, you will need to create an SSH key for security. See more
-  details [here](/documentation/code_repository_setup).
+  details [here](/user-guide/code_repository_setup).
 
 ## Use An Existing Application or Create a New One
 
@@ -42,7 +42,7 @@ we also provide a basic Next.js app in our [examples repository](https://github.
 Deploio requires your application to be **available online** in a Git repository, so that it can be cloned and deployed
 by
 the platform. You can use any Git repository hosting service, such as GitHub, GitLab, or Bitbucket. We describe the
-process of setting up a Git repository [here](/documentation/code_repository_setup). For demonstration purposes, we will
+process of setting up a Git repository [here](/user-guide/code_repository_setup). For demonstration purposes, we will
 use our sample Next.js application hosted on GitHub.
 
 ## Create a Deploio Application
@@ -81,7 +81,7 @@ This requirement stems from an existing upstream issue that cannot be rectified.
 Should your project be stored in a private Git repository, you will need to set up an SSH key that allows Deploio to
 access the repository. Afterwards, you can use the `--git-ssh-private-key` flag or the `--git-ssh-private-key-from-file`
 flag to specify the SSH key to use.
-You can find more information on how to do this [here](/documentation/code_repository_setup).
+You can find more information on how to do this [here](/user-guide/code_repository_setup).
 :::
 
 After creating the application, Deploio will immediately start cloning your application and attempt to build it by

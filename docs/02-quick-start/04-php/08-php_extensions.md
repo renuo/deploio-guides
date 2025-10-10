@@ -19,7 +19,7 @@ which provides the PHP binary distribution. The built PHP binary distribution in
 be used in your PHP application on Deploio. All of them are defined in separate yaml files per PHP version in
 the [Paketo php-dist buildpack](https://github.com/paketo-buildpacks/php-dist/tree/main/dependency/actions/compile/extensions-manifests).
 
-If you need extensions that are not defined in the above-mentioned files, you will need to [provide your own Dockerfile](../Docker/create_app).
+If you need extensions that are not defined in the above-mentioned files, you will need to [provide your own Dockerfile](../docker/create_app).
 
 Be aware that none of the pre-built extensions get loaded by default (due to memory usage optimizations). You have to
 specify the extensions your application needs either in the requirements section of your composer.json or with `*.ini`

@@ -73,7 +73,7 @@ You will need to ensure that you are authorised and logged in to the `nctl` comm
 nctl auth whoami
 ```
 
-You can see more information about setting up the `nctl` command line [here](documentation/getting_started#installing-nctl).
+You can see more information about setting up the `nctl` command line [here](/user-guide/getting_started#installing-nctl).
 
 ## Create Project
 

@@ -1,0 +1,187 @@
+.homepageContainer {
+  min-height: 100vh;
+}
+
+.homepage {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+  overflow-x: hidden;
+}
+
+@media (max-width: 768px) {
+  .homepage {
+    padding: 0.5rem;
+  }
+}
+
+/* Hero Section */
+.heroSection {
+  text-align: center;
+  padding: 3rem 1rem 2rem 1rem;
+}
+
+.heroTitle {
+  font-size: 40px;
+  font-weight: 400;
+  text-transform: uppercase;
+  color: var(--ifm-color-primary);
+  margin-bottom: 1.5rem;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+@media (max-width: 768px) {
+  .heroTitle {
+    font-size: 28px;
+  }
+}
+
+@media (max-width: 480px) {
+  .heroTitle {
+    font-size: 22px;
+  }
+}
+
+.heroSubtitle {
+  font-size: 18px;
+  line-height: 1.6;
+  color: var(--ifm-color-primary);
+  max-width: 700px;
+  margin: 0 auto;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+@media (max-width: 768px) {
+  .heroSubtitle {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .heroSubtitle {
+    font-size: 14px;
+  }
+}
+
+/* Section Titles */
+.sectionTitle {
+  font-size: 32px;
+  font-weight: 400;
+  text-transform: uppercase;
+  color: var(--ifm-color-primary);
+  text-align: center;
+  margin-top: 80px;
+  margin-bottom: 40px;
+}
+
+@media (max-width: 768px) {
+  .sectionTitle {
+    font-size: 24px;
+    margin-top: 40px;
+    margin-bottom: 30px;
+  }
+}
+
+/* Quick Start Section */
+.quickStartSection {
+  padding: 2rem 0;
+}
+
+@media (max-width: 768px) {
+  .quickStartSection {
+    padding: 1rem 0;
+  }
+}
+
+.techGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+@media (max-width: 768px) {
+  .techGrid {
+    grid-template-columns: 1fr;
+    max-width: 100%;
+    gap: 1rem;
+  }
+}
+
+.techCard {
+  background: white;
+  border: 2px solid rgba(20, 29, 80, 0.1);
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: block;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.techCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(20, 29, 80, 0.12);
+  border-color: rgba(20, 29, 80, 0.3);
+  text-decoration: none;
+}
+
+.techCardContent {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1rem;
+}
+
+.techIcon {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+}
+
+.techName {
+  flex-grow: 1;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--ifm-color-primary);
+  text-align: left;
+}
+
+.techArrow {
+  font-size: 20px;
+  color: var(--ifm-color-primary);
+  flex-shrink: 0;
+  opacity: 0.5;
+  transition: all 0.3s ease;
+  margin-left: auto;
+}
+
+.techCard:hover .techArrow {
+  opacity: 1;
+  transform: translateX(4px);
+}
+
+/* Questions Section */
+.questionsSection {
+  text-align: center;
+  padding: 4rem 2rem;
+  margin-bottom: 4rem;
+}
+
+.questionsText {
+  font-size: 18px;
+  color: var(--ifm-color-primary);
+}
+
+.questionsText a {
+  color: #476DCC;
+  text-decoration: underline;
+}
+
+.questionsText a:hover {
+  color: #3558B5;
+}

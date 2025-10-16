@@ -11,7 +11,7 @@
   --ifm-font-size-base: 16px;
   --ifm-line-height-base: 21.6px;
   --ifm-code-font-size: 95%;
-  --ifm-color-primary: #141D50; /* rgb(20, 29, 80) */
+  --ifm-color-primary: #141d50; /* rgb(20, 29, 80) */
   --ifm-color-primary-dark: #121a48;
   --ifm-color-primary-darker: #111944;
   --ifm-color-primary-darkest: #0e1438;
@@ -20,244 +20,64 @@
   --ifm-color-primary-lightest: #1a2668;
 
   /*Background overrides*/
-  --ifm-navbar-background-color: #EAE9E8;
+  --ifm-navbar-background-color: #eae9e8;
 
   /*Menu overrides*/
   --ifm-menu-color-background-active: rgba(20, 29, 80, 0.1);
 }
 
 body {
-  background-color: #EAE9E8;
+  background-color: #eae9e8;
   font-family: Montserrat;
   color: var(--ifm-color-primary);
 }
 
-h1, h2, h3 {
-  font-stretch: extra-expanded;
-  text-transform: uppercase;
-  font-weight: 400;
+main {
+  max-width: 100% !important;
 }
 
-h1 {
-  font-size: 40px;
-  margin-bottom: 1.5rem;
+DocSearch {
+  min-width: 250px;
 }
 
-h2 {
-  font-size: 32px;
-  margin-top: 80px;
-  margin-bottom: 16px;
+/* ============================================
+   SIDEBAR & SEARCH CUSTOMIZATION
+   ============================================ */
+
+/* Make root-level sidebar items bold */
+.theme-doc-sidebar-item-link-level-1 > .menu__link,
+.theme-doc-sidebar-item-category-level-1
+  > .menu__list-item-collapsible
+  > .menu__link {
+  font-weight: bold;
 }
 
-h3 {
-  font-weight: 500;
-  font-size: 24px;
-  margin-top: 56px;
-  margin-bottom: 12px;
+/* ============================================
+   NAVBAR LINK ICONS
+   ============================================ */
+
+/* Hide the default Docusaurus external link SVG icon from all navbar links */
+.navbar__link .iconExternalLink_nPIU,
+.navbar__item .iconExternalLink_nPIU {
+  display: none !important;
 }
 
-h4 {
-  font-weight: 600;
-  font-size: 18px;
-  margin-top: 40px;
+/* Show external link icon only for Nine Platform link using custom SVG */
+.navbar__link[href*="docs.nine.ch"]::after {
+  content: "";
+  display: inline-block;
+  width: 0.75rem;
+  height: 0.75rem;
+  margin-left: 0.3rem;
+  background-image: url("/img/icons/call_made.svg");
+  background-repeat: no-repeat;
+  background-size: contain;
+  vertical-align: middle;
 }
 
-h5 {
-  font-weight: 600;
-  font-size: 16px;
-  margin-top: 40px;
-}
-
-.summary {
-  font-size: 20px;
-  line-height: 27px;
-}
-
-/*This avoids the next/previous documentation page links being blue*/
-
-article {
-  a, a:hover {
-    color: #476DCC;
-  }
-}
-
-.menu {
-  font-weight: 600;
-}
-
-.menu__link {
-  color: var(--ifm-color-primary);
-  padding: 0.75rem;
-}
-
-/*Navbar styling overrides*/
-
-.navbar {
-  height: auto;
-}
-
-.navbar__items {
-  display: flex;
-}
-
-.navbar__items--right {
-  flex: 0 0 0;
-}
-
-.navbar__title {
-  font-size: 1.5rem;
-}
-
-.navbar__item {
-  text-transform: uppercase;
-  margin: 0 1rem;
-  padding: 0.2rem;
-  max-width: 150px;
-  text-align: center;
-  font-size: 15px;
-}
-
-.navbar__item--white {
-  background-color: white;
-  color: var(--ifm-color-primary);
-  padding: 0.5rem 0.5rem;
-  border-radius: 4px;
-  transition: all 0.2s ease;
-}
-
-.navbar__item--white:hover {
-  background-color: #f5f5f5;
-  color: var(--ifm-color-primary);
-  text-decoration: none;
-}
-
-@media (min-width: 1100px) {
-  .navbar__item.navbar__item--white {
-    margin: 0 0.25rem;
-
-    padding: 0.5rem 1rem;
-  }
-}
-
-.navbar__item--last {
-  margin-right: 1rem;
-}
-
-.iconExternalLink_nPIU {
-  display: none;
-}
-
-/*Tables*/
-
-table {
-  --ifm-table-cell-color: none;
-  padding: 0.75rem;
-}
-
-table th {
-  border-bottom: 2px solid var(--ifm-color-primary); /* Thick border for the header */
-  text-align: left;
-  font-weight: 600;
-}
-
-table td {
-  border: 0;
-  border-bottom: 1px solid #ccc; /* Thin borders for rows */
-  font-weight: 400;
-}
-
-/*Alerts*/
-
-.alert {
-  --alert-border-top-color: var(--ifm-color-primary);
-
-  border: 2px 0 0 0 solid var(--alert-border-top-color);
-  border-top: 2px solid var(--alert-border-top-color);
-  --ifm-heading-font-weight: 500;
-  --ifm-h5-font-size: 1.2rem;
-  border-radius: 0;
-  box-shadow: 0 20px 20px 0 #141D501A;
-  padding: 24px 24px 24px 24px;
-  color: var(--ifm-color-primary);
-  margin-top: 1em;
-  margin-bottom: 2em !important;
-}
-
-.alert--success {
-  --ifm-alert-background-color: #F0FAF0;
-  --alert-border-top-color: #003100;
-}
-
-.alert--info {
-  --ifm-alert-background-color: rgb(253, 253, 254);
-  --alert-border-top-color: #193C47;
-}
-
-.alert--warning {
-  --ifm-alert-background-color: #FFFBF0;
-  --alert-border-top-color: #4D3800;
-}
-
-.alert--danger {
-  --ifm-alert-background-color: #FFF2F3;
-  --alert-border-top-color: #4B1113;
-}
-
-/*Alogolia Search model overrides*/
-.DocSearch {
-  --docsearch-modal-width: 800px;
-  --docsearch-text-color: #555A7B;
-  --docsearch-searchbox-background: var(--ifm-color-secondary);
-  --docsearch-searchbox-background: var(--ifm-navbar-background-color);
-  --docsearch-searchbox-focus-background: var(--ifm-navbar-background-color);
-
-  font-family: Montserrat;
-  font-weight: 400;
-}
-
-.DocSearch-Button {
-  border-radius: 0px !important;
-  box-shadow: inset 0 0 0 2px #141D501A;
-}
-
-.DocSearch-Search-Icon {
-  transform: scale(0.8);
-}
-
-/*Homepage*/
-
-.tile-grid {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);  /* 7 columns by default */
-  grid-template-rows: repeat(2, auto);    /* 2 rows by default */
-  gap: 2rem;
-  justify-content: center;
-  width: fit-content;
-  margin: 3rem auto 8rem auto;
-}
-
-@media (max-width: 1280px) {
-  .tile-grid {
-    grid-template-columns: repeat(4, 1fr);  /* On small screens: 4 columns */
-    grid-template-rows: repeat(3, auto);    /* On small screens: 3 rows */
-  }
-}
-
-@media (max-width: 768px) {
-  .tile-grid {
-    grid-template-columns: repeat(3, 1fr);  /* On small screens: 4 columns */
-    grid-template-rows: repeat(4, auto);    /* On small screens: 3 rows */
-  }
-}
-
-@media (max-width: 480px) {
-  .tile-grid {
-    grid-template-columns: repeat(2, 1fr);  /* On small screens: 4 columns */
-    grid-template-rows: repeat(6, auto);    /* On small screens: 3 rows */
-  }
-}
-
-/*Footer*/
+/* ============================================
+   FOOTER WITH BACKGROUND
+   ============================================ */
 
 .footer-wrapper {
   position: relative;
@@ -286,7 +106,7 @@ table td {
       position: relative;
       width: 100%;
       height: 100%;
-      background-image: linear-gradient(to top, #141D50, transparent);
+      background-image: linear-gradient(to top, #141d50, transparent);
     }
   }
 
@@ -443,13 +263,4 @@ table td {
       }
     }
   }
-}
-
-/* Utils */
-
-.centering {
-  display: flex;
-  width: 100%;
-  justify-content: center;
-  align-items: center;
 }

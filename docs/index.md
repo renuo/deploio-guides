@@ -16,42 +16,42 @@ features:
     icon:
       src: /icon/docker.svg
       alt: Docker
-    link: 'docker/guide'
+    link: 'docker/quick-start'
     details: Deploy your Docker app
   - title: Node.js
     icon:
       src: /icon/nodejs.svg
       alt: Node.js
-    link: 'nodejs/guide'
+    link: 'nodejs/quick-start'
     details: Deploy your Node.js app
   - title: Ruby
     icon:
       src: /icon/ruby.svg
       alt: Ruby
-    link: 'ruby/guide'
+    link: 'ruby/quick-start'
     details: Deploy your Ruby on Rails app
   - title: Python
     icon:
       src: /icon/python.svg
       alt: Python
-    link: 'python/guide'
+    link: 'python/quick-start'
     details: Deploy your Python app
   - title: Go
     icon:
       src: /icon/go.svg
       alt: Go
-    link: 'go/guide'
+    link: 'go/quick-start'
     details: Deploy your Go app
   - title: PHP
     icon:
       src: /icon/php.svg
       alt: PHP
-    link: 'php/guide'
+    link: 'php/quick-start'
     details: Deploy your PHP app
   - title: Static Sites
     icon:
       src: /icon/html.svg
       alt: Static Sites
-    link: 'static-sites/guide'
+    link: 'static-sites/quick-start'
     details: Deploy your static sites
 ---

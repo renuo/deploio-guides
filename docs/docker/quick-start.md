@@ -1,3 +1,8 @@
+---
+prev: false
+next: false
+---
+
 # Quick Start Guide for Docker Apps (Beta)
 
 With Dockerfile builds, Deploio can build any app that can be built using a Dockerfile.

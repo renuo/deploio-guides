@@ -1,4 +1,5 @@
 ---
+prev: false
 next:
   text: Database
   link: /ruby/database

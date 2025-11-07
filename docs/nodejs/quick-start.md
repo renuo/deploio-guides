@@ -1,3 +1,8 @@
+---
+prev: false
+next: false
+---
+
 # Quick Start Guide for Node.js Applications
 
 ::: info

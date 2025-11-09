@@ -25,7 +25,7 @@ When migrating your application to Deploio, you'll need to migrate your database
 
 First, you'll need to create a new database instance on Deploio. You can do this using the `nctl` command line tool (or in the Cockpit).
 
-For more details on database configuration options when creating a database, see the [Configuring your Database page](/user-guide/configuring-your-database)
+For more details on database configuration options when creating a database, see the [Configuring your Database page](/user-guide/configuring-your-database.md)
 
 ### 2. Export Data from Source Platform
 
@@ -124,7 +124,7 @@ If you encounter issues during the migration:
 - Check the database logs for any errors
 - Verify that your backup file is not corrupted
 
-For more detailed information about database configuration and management on Deploio, see the [database configuration guide](/user-guide/configuring-your-database)
+For more detailed information about database configuration and management on Deploio, see the [database configuration guide](/user-guide/configuring-your-database.md)
 
 ## Retrieving environment variables
 

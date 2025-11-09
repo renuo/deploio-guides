@@ -10,7 +10,7 @@ next:
 # Create a database for your Rails application
 
 ::: info
-In this guide, we will show you how to create a database for your Ruby on Rails application using Deploio. You can see more information on databases [here](/user-guide/configuring-your-database).
+In this guide, we will show you how to create a database for your Ruby on Rails application using Deploio. You can see more information on databases [here](/user-guide/configuring-your-database.md).
 
 Should you wish to migrate an already existing database from elsewhere, you can view this section in the documentation [here](/user-guide/migrating-from-other-platforms.md).
 :::

@@ -91,7 +91,7 @@ nctl update app $DEPLOIO_APP_NAME \
 The first step in the script adds the `nine.ch` Debian repository to the system, and the second step installs the `nctl`
 CLI. In case you are using a different operating system, you need to adjust the installation command accordingly. You
 can find instructions on how to install the `nctl` CLI in the
-[installation documentation](/user-guide/getting-started#installing-nctl).
+[installation documentation](/user-guide/getting-started.md#installing-nctl).
 
 In the third step, the script authenticates the `nctl` CLI using the API token.
 

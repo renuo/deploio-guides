@@ -11,7 +11,7 @@ next:
 
 ::: info
 Should you require workers or caching, you can use our Redis-compatible key-value store (KVS).
-You can see the different sizes available and pricing [here](/user-guide/other-dependencies#key-value-store).
+You can see the different sizes available and pricing [here](/user-guide/other-dependencies.md#key-value-store).
 :::
 
 ## Create the Key Value Store

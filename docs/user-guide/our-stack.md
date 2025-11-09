@@ -129,7 +129,7 @@ Remember: Your application consists of two key parts:
   - Persistent Volume Claims (PVCs) for local persistent storage (not yet available)
 :::
 
-The ephemeral nature of the filesystem is by design, ensuring clean application states and proper isolation. To persist data across deployments and container lifecycles, you should use **storage services** — such as [managed databases](/user-guide/configuring-your-database) or [object storage](/user-guide/other-dependencies#object-storage).
+The ephemeral nature of the filesystem is by design, ensuring clean application states and proper isolation. To persist data across deployments and container lifecycles, you should use **storage services** — such as [managed databases](/user-guide/configuring-your-database.md) or [object storage](/user-guide/other-dependencies.md#object-storage).
 
 #### Tenant Separation
 
@@ -175,7 +175,7 @@ By default:
 - You can scale **vertically** by **increasing CPU and memory limits** for the application
 - Or scale **horizontally** by **increasing the number of replicas** (number of pods running the application)
 
-See [Configuring your Application](/user-guide/configuring-your-application) for more details on configuring the scaling.
+See [Configuring your Application](/user-guide/configuring-your-application.md) for more details on configuring the scaling.
 
 Replicas of your app are distributed across multiple nodes in the cluster, maximizing availability and resilience in case of node failures. Kubernetes continuously monitors the health of your containers and will automatically restart or reschedule them if needed.
 
@@ -224,7 +224,7 @@ Deploio uses Heroku-compatible buildpacks to automatically detect and build your
 The buildpack system ensures your applications are built consistently and optimally, regardless of the underlying technology stack.
 
 ::: tip Dockerfiles
-Do you have more granular requirements and need more control over your environment? Don't fret! You can use [**Dockerfile builds**](/docker/quick-start) to customize your setup exactly how you want.
+Do you have more granular requirements and need more control over your environment? Don't fret! You can use [**Dockerfile builds**](/docker/quick-start.md) to customize your setup exactly how you want.
 :::
 
 ### Docker for containerized deployments

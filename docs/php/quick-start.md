@@ -16,10 +16,10 @@ The Deploio build environment makes use of the [Paketo PHP buildpack](https://pa
 
 ## Prerequisites
 
-* This quick start guide assumes you have **installed `nctl` on your laptop**. If not, please go through the instructions [here](/user-guide/getting-started#installing-nctl).
-* You should also have an **organization and project created**, where you will create the application. If you haven't done this yet, please follow the instructions [here](/user-guide/getting-started#setting-up-your-first-project).
+* This quick start guide assumes you have **installed `nctl` on your laptop**. If not, please go through the instructions [here](/user-guide/getting-started.md#installing-nctl).
+* You should also have an **organization and project created**, where you will create the application. If you haven't done this yet, please follow the instructions [here](/user-guide/getting-started.md#setting-up-your-first-project).
 * This example also presumes that you are **using a public repository**.
-  Should you need to set up access to a private repository, you will need to create an SSH key for security. See more details [here](/user-guide/code-repository-setup).
+  Should you need to set up access to a private repository, you will need to create an SSH key for security. See more details [here](/user-guide/code-repository-setup.md).
 
 ## Use an Existing PHP Application or Create a New One
 
@@ -29,7 +29,7 @@ If you do not have a PHP application you want to experiment with, we provide a p
 
 Deploio requires your application to be available online in a Git repository, so that it can be cloned and deployed by
 the platform. You can use any Git repository hosting service, such as GitHub, GitLab, or Bitbucket.
-We describe the process of setting up a Git repository [here](/user-guide/code-repository-setup).
+We describe the process of setting up a Git repository [here](/user-guide/code-repository-setup.md).
 For demonstration purposes, we will use our sample PHP application hosted on GitHub.
 
 ## Create a Deploio Application

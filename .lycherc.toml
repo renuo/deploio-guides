@@ -5,13 +5,3 @@ include_fragments = true
 
 # Check both internal and external links
 offline = false
-
-# Exclude paths (for static assets)
-exclude_path = [
-    "/img/",
-]
-
-# Exclude URLs matching these patterns
-exclude = [
-    "dev\\.mysql\\.com",
-]

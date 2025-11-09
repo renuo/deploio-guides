@@ -199,7 +199,7 @@ nctl update app my-app --build-env=NODE_ENV:"production";SENTRY_AUTH_TOKEN:"xyz1
 nctl update app my-app --env=DATABASE_URL:"postgres://user:password@host/db";REDIS_URL:"redis://host";SECRET_KEY_BASE:"abc123"
 ```
 
-If you are coming from Heroku, you can use the script [here](migrating-from-other-platforms#retrieving-environment-variables) to retrieve your environment variables in the format required by Deploio.
+If you are coming from Heroku, you can use the script [here](migrating-from-other-platforms.md#retrieving-environment-variables) to retrieve your environment variables in the format required by Deploio.
 
 == Cockpit
 

@@ -91,7 +91,7 @@ Deploio works with Bitbucket Cloud.
 #### SSH Key Integration
 
 Generate a key pair using the same steps as GitHub.
-To add the deploy key, follow [Bitbucket's SSH access docs](https://support.atlassian.com/bitbucket-cloud/docs/add-an-ssh-key-to-your-bitbucket-cloud-account/).
+To add the deploy key, follow [Bitbucket's SSH access docs](https://support.atlassian.com/bitbucket-cloud/docs/configure-ssh-and-two-step-verification/).
 
 Then provide the private key when creating the app in Cockpit or via `nctl`, as in the GitHub example.
 

@@ -27,9 +27,9 @@ Deploio will regularly check for changes in the specified branch and deploy the 
 Before you begin, you need to have the following:
 
 - A PHP application under version control with Git and a remote repository on GitHub, GitLab, Bitbucket, or any other
-  [Git hosting service](../../user-guide/code-repository-setup)
+  [Git hosting service](/user-guide/code-repository-setup.md)
 - A running Deploio PHP application. If you haven't deployed your PHP application yet, follow
-  the [Create a PHP Application](quick-start) guide.
+  the [Create a PHP Application](quick-start.md) guide.
 - A CI/CD tool like GitHub Actions, GitLab CI/CD, or CircleCI that is able to run bash scripts. Ideally, a CI pipeline
   already exists that executes your tests so that you can make sure your application is correct before deploying it.
 

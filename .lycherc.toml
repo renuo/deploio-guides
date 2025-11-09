@@ -1,28 +1,7 @@
 # Lychee link checker configuration
-# https://lychee.cli.rs/
 
-# Check for broken anchors/fragments in Markdown and HTML
+# Verifica que los anchors (#secciones) existan en los documentos
 include_fragments = true
 
-# Only check internal links (offline mode)
-offline = true
-
-# Output format: detailed, compact, json, markdown
-format = "detailed"
-
-# Exclude patterns (paths containing /img/ are VitePress static assets)
-exclude = [
-    "node_modules",
-    "vendor",
-    ".git",
-    "/img/.*"
-]
-
-# Verbose output
-verbose = true
-
-# Maximum number of retries per link
-max_retries = 2
-
-# Timeout per request in seconds
-timeout = 20
+# Verifica enlaces internos Y externos (no solo internos)
+offline = false

@@ -43,7 +43,7 @@ Once the store has been created, you need to retrieve the connection information
 using this information.
 To fetch information about the key-value store, including the fully qualified domain name (FQDN), run:
 
-```shell-session
+```bash
 $ nctl get kvs {application_name}
 PROJECT       NAME                  FQDN                                                    TLS     MEMORY SIZE
 my-project    {application_name}    {application_name}.1234567.keyvaluestore.nineapis.ch    true    1Gi

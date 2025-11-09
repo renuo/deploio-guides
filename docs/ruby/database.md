@@ -47,7 +47,7 @@ Further details on the flags can be found in the manual by running `nctl create 
 You can now access the server using the **fully-qualified domain name (FQDN)** and generated user and password.
 You can find this information as follows:
 
-```shell-session
+```bash
 $ nctl get postgres {NAME}
 PROJECT       NAME      FQDN                                   LOCATION     MACHINE TYPE
 my-project    {NAME}    {NAME}.1234567.postgres.nineapis.ch    nine-cz41    nine-db-s
@@ -135,7 +135,7 @@ Note that currently, only MySQL 8 databases are supported.
 You can now access the server using the **fully-qualified domain name (FQDN)** and generated user and password.
 You can find this information as follows:
 
-```shell-session
+```bash
 $ nctl get mysql {NAME}
 PROJECT       NAME      FQDN                                LOCATION     MACHINE TYPE
 my-project    {NAME}    {NAME}.1234567.mysql.nineapis.ch    nine-cz41    nine-db-s

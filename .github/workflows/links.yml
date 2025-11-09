@@ -1,0 +1,25 @@
+name: Check Links
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  linkChecker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Link Checker
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: >-
+            --root-dir docs
+            --exclude 'dev\.mysql\.com'
+            --exclude '/img/'
+            --verbose
+            docs/
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}

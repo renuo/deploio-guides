@@ -89,7 +89,7 @@ We have used the [FURPS](https://en.wikipedia.org/wiki/FURPS) model to evaluate 
 - **Access Controls**: Access management via account permissions set at Organisation level
 - **Familiar Tools**: Manage security through `nctl` and standard Kubernetes commands via `kubectl`
 - **Unified Interface**: Single platform (Deploio Cockpit) for monitoring via a GUI
-- **Documentation**: [Quick start guides](/quick_start) available for different technologies, as well as general documentation of both Deploio and [Nine products](https://docs.nine.ch/)
+- **Documentation**: Quick start guides (see sidebar) available for different technologies, as well as general documentation of both Deploio and [Nine products](https://docs.nine.ch/)
 
 ##### Reliability
 - **Kubernetes Backed**: Built on Kubernetes for high availability and reliability
@@ -129,7 +129,7 @@ Remember: Your application consists of two key parts:
   - Persistent Volume Claims (PVCs) for local persistent storage (not yet available)
 :::
 
-The ephemeral nature of the filesystem is by design, ensuring clean application states and proper isolation. To persist data across deployments and container lifecycles, you should use **storage services** — such as [managed databases](/user-guide/configuring_your_database) or [object storage](/user-guide/other_dependencies#object-storage).
+The ephemeral nature of the filesystem is by design, ensuring clean application states and proper isolation. To persist data across deployments and container lifecycles, you should use **storage services** — such as [managed databases](/user-guide/configuring-your-database) or [object storage](/user-guide/other-dependencies#object-storage).
 
 #### Tenant Separation
 
@@ -175,7 +175,7 @@ By default:
 - You can scale **vertically** by **increasing CPU and memory limits** for the application
 - Or scale **horizontally** by **increasing the number of replicas** (number of pods running the application)
 
-See [Configuring your Application](/user-guide/configuring_your_application) for more details on configuring the scaling.
+See [Configuring your Application](/user-guide/configuring-your-application) for more details on configuring the scaling.
 
 Replicas of your app are distributed across multiple nodes in the cluster, maximizing availability and resilience in case of node failures. Kubernetes continuously monitors the health of your containers and will automatically restart or reschedule them if needed.
 
@@ -224,7 +224,7 @@ Deploio uses Heroku-compatible buildpacks to automatically detect and build your
 The buildpack system ensures your applications are built consistently and optimally, regardless of the underlying technology stack.
 
 ::: tip Dockerfiles
-Do you have more granular requirements and need more control over your environment? Don't fret! You can use [**Dockerfile builds**](/quick-start/docker/create_app) to customize your setup exactly how you want.
+Do you have more granular requirements and need more control over your environment? Don't fret! You can use [**Dockerfile builds**](/docker/quick-start) to customize your setup exactly how you want.
 :::
 
 ### Docker for containerized deployments

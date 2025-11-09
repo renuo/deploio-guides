@@ -27,9 +27,9 @@ Deploio will regularly check for changes in the specified branch and deploy the 
 Before you begin, you need to have the following:
 
 - A PHP application under version control with Git and a remote repository on GitHub, GitLab, Bitbucket, or any other
-  [Git hosting service](../../user-guide/code_repository_setup)
+  [Git hosting service](../../user-guide/code-repository-setup)
 - A running Deploio PHP application. If you haven't deployed your PHP application yet, follow
-  the [Create a PHP Application](create_app) guide.
+  the [Create a PHP Application](quick-start) guide.
 - A CI/CD tool like GitHub Actions, GitLab CI/CD, or CircleCI that is able to run bash scripts. Ideally, a CI pipeline
   already exists that executes your tests so that you can make sure your application is correct before deploying it.
 
@@ -91,7 +91,7 @@ nctl update app $DEPLOIO_APP_NAME \
 The first step in the script adds the `nine.ch` Debian repository to the system, and the second step installs the `nctl`
 CLI. In case you are using a different operating system, you need to adjust the installation command accordingly. You
 can find instructions on how to install the `nctl` CLI in the
-[installation documentation](/user-guide/getting_started#installing-nctl).
+[installation documentation](/user-guide/getting-started#installing-nctl).
 
 In the third step, the script authenticates the `nctl` CLI using the API token.
 
@@ -117,7 +117,7 @@ flaws:
 
 To circumvent these issues, you might want to add a check that waits for the deployment to finish and then check its
 status. A more sophisticated approach including an example of a status check script in Ruby can be found in
-our [blog post on how to migrate a Rails application from Heroku to Deploio](/ruby_heroku_migration_guide#configure-ci).
+.
 This Ruby script can be adapted for your preferred language and setup.
 
 ### Troubleshooting

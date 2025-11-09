@@ -10,9 +10,9 @@ next:
 # Create a database for your Rails application
 
 ::: info
-In this guide, we will show you how to create a database for your Ruby on Rails application using Deploio. You can see more information on databases [here](/user-guide/configuring_your_database).
+In this guide, we will show you how to create a database for your Ruby on Rails application using Deploio. You can see more information on databases [here](/user-guide/configuring-your-database).
 
-Should you wish to migrate an already existing database from elsewhere, you can view this section in the documentation [here](/user-guide/migrating_from_other_platforms), or read [this blog](/ruby_heroku_migration_guide) which guides you through migrating a Rails project from Heroku.
+Should you wish to migrate an already existing database from elsewhere, you can view this section in the documentation [here](/user-guide/migrating-from-other-platforms).
 :::
 
 [//]: # (TODO: do I talk about SSH keys etc here or just creating?)
@@ -223,7 +223,7 @@ current configuration is appropriate.
 ##### Run Migrations
 
 You can now run the migrations on your Rails application to create the tables in the database.
-This can be done through the [`deploio.yaml`](/user-guide/configuring_your_application#deploioyaml) file by specifying a deploy job or by
+This can be done through the [`deploio.yaml`](/user-guide/configuring-your-application#deploioyaml) file by specifying a deploy job or by
 manually running the migrations:
 
 ```bash

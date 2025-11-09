@@ -50,7 +50,7 @@ If the organization already exists and you need a new user account, you need to:
 
 - Ask your admin to invite you to the correct organization
 - Log in using your credentials provided
-- Authenticate `nctl` (see [here](/user-guide/how_deploio_works#nctl))
+- Authenticate `nctl` (see [here](/introduction/how-deploio-works#nctl))
 
 Once you are set up, you can check your available organizations once logged in on the CLI by running `nctl auth whoami`.
 
@@ -94,7 +94,7 @@ You can see an explanation of the configuration levels [here](https://docs.nine.
 
 There are a number of blogs and other resources available that can provide more information and use cases for Deploio. Please see a list below:
 
-- <a href="/ruby_heroku_migration_guide" target="_blank">Learn how to migrate a Rails app from Heroku to Deploio</a>
+
 
 ##### Quick start guides
 

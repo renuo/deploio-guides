@@ -23,9 +23,9 @@ Deploio will regularly check for changes in the specified branch and deploy the 
 Before you begin, you need to have the following:
 
 - A Rails application under version control with Git and a remote repository on GitHub, GitLab, Bitbucket, or any other
-  [Git hosting service](../../user-guide/code_repository_setup)
+  [Git hosting service](../../user-guide/code-repository-setup)
 - A running Deploio Rails application. If you haven't deployed your Rails application yet, follow
-  the [Create a Rails Application](create_app) guide.
+  the [Create a Rails Application](quick-start) guide.
 - A CI/CD tool like GitHub Actions, GitLab CI/CD, or CircleCI that is able to run bash scripts. Ideally, a CI pipeline
   already exists that executes your tests so that you can make sure your application is correct before deploying it.
 
@@ -110,7 +110,7 @@ flaws:
 
 To circumvent these issues, you might want to add a check that waits for the deployment to finish and then check its
 status. A more sophisticated approach including an example of a status check script in Ruby can be found in
-our [blog post on how to migrate a Rails application from Heroku to Deploio](/ruby_heroku_migration_guide#configure-ci). This Ruby script can be adapted for your preferred language and setup.
+This Ruby script can be adapted for your preferred language and setup.
 
 ### Troubleshooting
 

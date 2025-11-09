@@ -34,7 +34,7 @@ When creating a new application in the Cockpit or via the nctl CLI, you will nee
 
    > ⚠️ Your PAT acts like a password — do not share or expose it.
 
-You can view more details about creating the application in our [quick start guides](/quick_start).
+You can view more details about creating the application for creating applications.
 
 ##### SSH Key Integration
 
@@ -72,7 +72,7 @@ You can view more details about creating the application in our [quick start gui
 
    > ⚠️ Ensure the key is unquoted — quotation marks around the private key must be removed before use.
 
-You can view more details about creating the application in our [quick start guides](/quick_start).
+You can view more details about creating the application for creating applications.
 
 ### GitLab
 

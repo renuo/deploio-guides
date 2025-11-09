@@ -13,10 +13,10 @@ This guide covers how to deploy a Ruby on Rails application with Deploio. It ass
 
 ## Prerequisites
 
-* This quick start guide assumes you have **installed `nctl` on your laptop**. If not, please go through the instructions [here](/user-guide/getting_started#installing-nctl).
-* You should also have an **organization and project created**, where you will create the application. If you haven't done this yet, please follow the instructions [here](/user-guide/getting_started#setting-up-your-first-project).
+* This quick start guide assumes you have **installed `nctl` on your laptop**. If not, please go through the instructions [here](/user-guide/getting-started#installing-nctl).
+* You should also have an **organization and project created**, where you will create the application. If you haven't done this yet, please follow the instructions [here](/user-guide/getting-started#setting-up-your-first-project).
 * This example also presumes that you are **using a public repository**.
-  Should you need to set up access to a private repository, you will need to create an SSH key for security. See more details [here](/user-guide/code_repository_setup).
+  Should you need to set up access to a private repository, you will need to create an SSH key for security. See more details [here](/user-guide/code-repository-setup).
 * A locally running version of Ruby, Rubygems, Bundler, and Rails
 
 ## Use an Existing Rails Application or Create a New One
@@ -44,7 +44,7 @@ bundle lock --add-platform x86_64-linux --add-platform ruby
 
 Deploio requires your application to be available online in a Git repository, so that it can be cloned and deployed by
 the platform. You can use any Git repository hosting service, such as GitHub, GitLab, or Bitbucket.
-We describe the process of setting up a Git repository [here](/user-guide/code_repository_setup).
+We describe the process of setting up a Git repository [here](/user-guide/code-repository-setup).
 For demonstration purposes, we will use our sample Rails application hosted on GitHub.
 
 ## Create a Deploio Application

@@ -172,7 +172,7 @@ To check that the database was created, you can run the command `SHOW DATABASES;
 > **Alternative:** You can use `rails db:create` to create the database after setting the `DATABASE_URL` environment variable. This will create the database on the server with the name specified in your `database.yml` configuration. Note that the database server must be created first using `nctl create mysql` before running `rails db:create`. For more details on setting the `DATABASE_URL`, refer to the section below on configuring your Rails application.
 
 For more setup commands, visit the
-[official MySQL documentation](https://docs.nine.ch/docs/on-demand-databases/on-demand-databases-mysql/#basic-commands).
+[official MySQL documentation](https://docs.nine.ch/docs/on-demand-databases/on-demand-databases-mysql/).
 
 ### Configure Your Rails Application
 

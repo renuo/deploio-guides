@@ -176,7 +176,7 @@ $ nctl get mysql {NAME} --print-password
 ```
 
 For more setup commands, visit the
-[Nine MySQL documentation](https://docs.nine.ch/docs/on-demand-databases/on-demand-databases-mysql/#basic-commands).
+[Nine MySQL documentation](https://docs.nine.ch/docs/on-demand-databases/on-demand-databases-mysql/).
 
 ## Access to the Database
 

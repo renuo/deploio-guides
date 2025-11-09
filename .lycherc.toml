@@ -1,10 +1,17 @@
 # Lychee link checker configuration
 
-# Verifica que los anchors (#secciones) existan en los documentos
+# Check that anchors/fragments exist in documents
 include_fragments = true
 
-# Verifica enlaces internos Y externos (no solo internos)
+# Check both internal and external links
 offline = false
 
-# Excluir URLs que bloquean bots (devuelven 403 pero funcionan en navegador)
-exclude = ['dev.mysql.com']
+# Exclude paths (for static assets)
+exclude_path = [
+    "/img/",
+]
+
+# Exclude URLs matching these patterns
+exclude = [
+    "dev\\.mysql\\.com",
+]

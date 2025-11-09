@@ -504,7 +504,7 @@ Useful commands:
 
 ### Backup and Restore
 
-See [Backup Retention Policy section](#backup-retention-policy) for configuration options.
+See [Number of backups kept section](#number-of-backups-kept) for configuration options.
 
 Nine backs up the databases daily between 01:00 and 02:00. These backups are kept locally for 10 days (configurable) and on a remote backup system for seven days.
 

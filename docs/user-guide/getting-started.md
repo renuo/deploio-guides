@@ -86,7 +86,7 @@ A `Project` is the logical container to group applications within. Each project 
 
 An `Application` is the actual deployment unit. It can be a web application, a microservice, or any other deployable unit. Each application is associated with a specific project and inherits the default configuration from the project unless specified otherwise.
 
-You can see an explanation of the configuration levels [here](https://docs.nine.ch/docs/deplo-io/configuration/deploio-configuration-layers).
+You can see an explanation of the configuration levels [here](https://docs.nine.ch/docs/deplo-io/configuration/deploio-configuration-layers/).
 
 ## Useful resources
 

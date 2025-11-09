@@ -36,7 +36,7 @@ be selected using a
 ## Multiple Binaries
 
 The build process will build all main packages that it detects in the project. If you have multiple main packages, you
-might need to define the desired app entrypoint with a [`Procfile`](https://docs.nine.ch/docs/deplo-io/configuration/deploio-procfile).
+might need to define the desired app entrypoint with a [`Procfile`](https://docs.nine.ch/docs/deplo-io/configuration/deploio-procfile/).
 For example, if your `main.go` file rests in a directory called `server`, the `Procfile` should look like this:
 
 ```yaml

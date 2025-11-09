@@ -64,7 +64,7 @@ Note that you need to specify `rediss` as protocol because TLS (transport layer 
 can then be used in your application to connect to the key-value store.
 
 You can read more about configuration of the KVS instance in more detail in
-the [documentation](https://docs.nine.ch/docs/on-demand-databases/on-demand-key-value-store).
+the [documentation](https://docs.nine.ch/docs/on-demand-databases/on-demand-key-value-store/).
 
 ## Using the Key Value Store in your PHP Application
 

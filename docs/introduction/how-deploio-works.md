@@ -19,7 +19,7 @@ All you require for deploying an application with Deploio is:
 
 ##### Repo
 
-Tell Deploio where your source code lives — whether it's GitHub, GitLab, or Bitbucket, or even a private git server. You can specify a branch or tag to deploy from, and Deploio will handle fetching the code securely via OAuth or SSH authentication. Check out [Code Repository Setup](/user-guide/code-repository-setup) for more details.
+Tell Deploio where your source code lives — whether it's GitHub, GitLab, or Bitbucket, or even a private git server. You can specify a branch or tag to deploy from, and Deploio will handle fetching the code securely via OAuth or SSH authentication. Check out [Code Repository Setup](/user-guide/code-repository-setup.md) for more details.
 
 ##### Build
 
@@ -40,7 +40,7 @@ Apps are exposed to the internet via k8 ingress controllers. Other services are 
 While Deploio runs on a scalable Kubernetes infrastructure, your apps don’t autoscale by default. Most apps can live comfortably with vertical scaling — predictable, easy to manage, and fully under your control via code, CI/CD, or manually in the Cockpit. You probably don’t need horizontal scaling, but if you do, We’ve got you. Because we run on real Kubernetes, and we know how to scale things properly. Do you?
 
 
-For more details on the infrastructure used to run your app, view the Nine Kubernetes Engine documentation [here](https://docs.nine.ch/docs/managed-kubernetes/nke/nine-kubernetes-engine).
+For more details on the infrastructure used to run your app, view the Nine Kubernetes Engine documentation [here](https://docs.nine.ch/docs/managed-kubernetes/nke/nine-kubernetes-engine/).
 
 ## Workflow
 
@@ -48,7 +48,7 @@ For more details on the infrastructure used to run your app, view the Nine Kuber
 
 Deploio connects to your Git provider (e.g., GitHub, GitLab, Bitbucket) via SSH. It fetches code from your repo and triggers deployments on push or manual triggers. Unlike Heroku, Deploio does not host your Git repo — it uses your existing setup.
 
-See the [Code Repository Setup](/user-guide/code-repository-setup) page for more detail.
+See the [Code Repository Setup](/user-guide/code-repository-setup.md) page for more detail.
 
 ##### Build Automation
 
@@ -59,7 +59,7 @@ Use the official Heroku Cloud Native Buildpacks for languages like Node.js, Ruby
 
 Deployments are rolled out through Kubernetes using rolling updates and readiness checks to ensure zero downtimme. Each deployment references a specific container image and configuration version.
 
-Deploy jobs can also be configured to execute before a new release is deployed. The rollout of the release will only continue if the deploy job finished successfully. This can be defined in the `.deploio.yaml`. See more information [here](/user-guide/configuring-your-application#deploioyaml).
+Deploy jobs can also be configured to execute before a new release is deployed. The rollout of the release will only continue if the deploy job finished successfully. This can be defined in the `.deploio.yaml`. See more information [here](/user-guide/configuring-your-application.md#deploioyaml).
 
 
 ```mermaid

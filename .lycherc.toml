@@ -5,3 +5,6 @@ include_fragments = true
 
 # Verifica enlaces internos Y externos (no solo internos)
 offline = false
+
+# Excluir URLs que bloquean bots (devuelven 403 pero funcionan en navegador)
+exclude = ['dev.mysql.com']

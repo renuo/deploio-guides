@@ -13,7 +13,7 @@ next:
 
 #### Redis for caching or task queues
 
-Should you require workers or caching, you can use Redis as a key-value store. You can see the different sizes available and pricing [here](https://docs.nine.ch/docs/on-demand-databases/on-demand-key-value-store).
+Should you require workers or caching, you can use Redis as a key-value store. You can see the different sizes available and pricing [here](https://docs.nine.ch/docs/on-demand-databases/on-demand-key-value-store/).
 
 [//]: # (TODO: should we move all that across to here? I'm confused as to whether those docs will remain...)
 

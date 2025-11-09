@@ -1,10 +1,10 @@
 ---
 prev:
   text: Configuring Your Application
-  link: /user-guides/configuring-your-application
+  link: /user-guide/configuring-your-application
 next:
   text: CI/CD Integration
-  link: /user-guides/ci-cd-integration
+  link: /user-guide/ci-cd-integration
 ---
 
 # Network & Deployment

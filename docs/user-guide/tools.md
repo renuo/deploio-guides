@@ -1,7 +1,7 @@
 ---
 prev:
   text: Our Stack
-  link: /user-guides/our-stack
+  link: /user-guide/our-stack
 next: false
 ---
 

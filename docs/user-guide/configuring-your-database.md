@@ -1,11 +1,11 @@
 ---
 prev:
   text: Code Repository Setup
-  link: /user-guides/code-repository-setup
+  link: /user-guide/code-repository-setup
 
 next:
   text: Other dependecies
-  link: /user-guides/other-dependencies
+  link: /user-guide/other-dependencies
 ---
 
 # Configuring your Database

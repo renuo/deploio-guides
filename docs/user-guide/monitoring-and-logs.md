@@ -1,10 +1,10 @@
 ---
 prev:
   text: Troubleshooting
-  link: /user-guides/troubleshooting
+  link: /user-guide/troubleshooting
 next:
   text: Security
-  link: /user-guides/security
+  link: /user-guide/security
 ---
 
 # Monitoring and Logs

@@ -1,10 +1,10 @@
 ---
 prev:
   text: Other dependecies
-  link: /user-guides/other-dependencies
+  link: /user-guide/other-dependencies
 next:
   text: Network & Deployment
-  link: /user-guides/network-and-deployment
+  link: /user-guide/network-and-deployment
 ---
 
 # Configuring Your Application

@@ -1,10 +1,10 @@
 ---
 prev:
   text: Configuring Your Database
-  link: /user-guides/configuring-your-database
+  link: /user-guide/configuring-your-database
 next:
   text: Configuring Your Application
-  link: /user-guides/configuring-your-application
+  link: /user-guide/configuring-your-application
 ---
 
 # Other Dependencies

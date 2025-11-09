@@ -4,7 +4,7 @@ prev:
   link: /introduction/how-deploio-works
 next:
   text: Code Repository Setup
-  link: /user-guides/code-repository-setup
+  link: /user-guide/code-repository-setup
 ---
 
 # Getting Started

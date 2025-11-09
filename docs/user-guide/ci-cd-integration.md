@@ -1,11 +1,11 @@
 ---
 prev:
   text: Network & Deployment
-  link: /user-guides/network-and-deployment
+  link: /user-guide/network-and-deployment
 
 next:
   text: Troubleshooting
-  link: /user-guides/troubleshooting
+  link: /user-guide/troubleshooting
 ---
 
 # CI/CD Integration

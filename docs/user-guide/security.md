@@ -1,10 +1,10 @@
 ---
 prev:
   text: Monitoring and Logs
-  link: /user-guides/monitoring-and-logs
+  link: /user-guide/monitoring-and-logs
 next:
   text: Migrating from other platforms
-  link: /user-guides/migrating-from-other-platforms
+  link: /user-guide/migrating-from-other-platforms
 ---
 
 # Security

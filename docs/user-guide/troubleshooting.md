@@ -1,10 +1,10 @@
 ---
 prev:
   text: CI/CD Integration
-  link: /user-guides/ci-cd-integration
+  link: /user-guide/ci-cd-integration
 next:
   text: Monitoring and Logs
-  link: /user-guides/monitoring-and-logs
+  link: /user-guide/monitoring-and-logs
 ---
 
 # Troubleshooting

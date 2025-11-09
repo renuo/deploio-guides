@@ -1,10 +1,10 @@
 ---
 prev:
   text: Getting Started
-  link: /user-guides/getting-started
+  link: /user-guide/getting-started
 next:
   text: Configuring Your Database
-  link: /user-guides/configuring-your-database
+  link: /user-guide/configuring-your-database
 ---
 
 # Code Repository Setup

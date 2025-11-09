@@ -11,8 +11,21 @@ export default withMermaid(
     head: [
       ["link", { rel: "icon", href: "/icon/logo.svg" }],
       ["link", { rel: "preconnect", href: "https://fonts.googleapis.com" }],
-      ["link", { rel: "preconnect", href: "https://fonts.gstatic.com", crossorigin: "" }],
-      ["link", { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" }]
+      [
+        "link",
+        {
+          rel: "preconnect",
+          href: "https://fonts.gstatic.com",
+          crossorigin: "",
+        },
+      ],
+      [
+        "link",
+        {
+          rel: "stylesheet",
+          href: "https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap",
+        },
+      ],
     ],
     markdown: {
       config(md) {
@@ -44,54 +57,54 @@ export default withMermaid(
           text: "User Guides",
           collapsed: false,
           items: [
-            { text: "Getting Started", link: "/user-guides/getting-started" },
+            { text: "Getting Started", link: "/user-guide/getting-started" },
             {
               text: "Code Repository Setup",
-              link: "/user-guides/code-repository-setup",
+              link: "/user-guide/code-repository-setup",
             },
             {
               text: "Configuring Your Database",
-              link: "/user-guides/configuring-your-database",
+              link: "/user-guide/configuring-your-database",
             },
             {
               text: "Other dependecies",
-              link: "/user-guides/other-dependencies",
+              link: "/user-guide/other-dependencies",
             },
             {
               text: "Configuring Your Application",
-              link: "/user-guides/configuring-your-application",
+              link: "/user-guide/configuring-your-application",
             },
             {
               text: "Network & Deployment",
-              link: "/user-guides/network-and-deployment",
+              link: "/user-guide/network-and-deployment",
             },
             {
               text: "CI/CD Integration",
-              link: "/user-guides/ci-cd-integration",
+              link: "/user-guide/ci-cd-integration",
             },
             {
               text: "Troubleshooting",
-              link: "/user-guides/troubleshooting",
+              link: "/user-guide/troubleshooting",
             },
             {
               text: "Monitoring and Logs",
-              link: "/user-guides/monitoring-and-logs",
+              link: "/user-guide/monitoring-and-logs",
             },
             {
               text: "Security",
-              link: "/user-guides/security",
+              link: "/user-guide/security",
             },
             {
               text: "Migrating from other platforms",
-              link: "/user-guides/migrating-from-other-platforms",
+              link: "/user-guide/migrating-from-other-platforms",
             },
             {
               text: "Our stack",
-              link: "/user-guides/our-stack",
+              link: "/user-guide/our-stack",
             },
             {
               text: "Tools",
-              link: "/user-guides/tools",
+              link: "/user-guide/tools",
             },
           ],
         },

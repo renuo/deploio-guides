@@ -1,10 +1,10 @@
 ---
 prev:
   text: Security
-  link: /user-guides/security
+  link: /user-guide/security
 next:
   text: Our Stack
-  link: /user-guides/our-stack
+  link: /user-guide/our-stack
 ---
 
 # Migrating from Other Platforms

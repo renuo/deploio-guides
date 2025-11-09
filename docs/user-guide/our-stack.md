@@ -1,10 +1,10 @@
 ---
 prev:
   text: Migrating from other platforms
-  link: /user-guides/migrating-from-other-platforms
+  link: /user-guide/migrating-from-other-platforms
 next:
   text: Tools
-  link: /user-guides/tools
+  link: /user-guide/tools
 ---
 
 # Our Stack

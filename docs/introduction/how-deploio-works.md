@@ -4,7 +4,7 @@ prev:
   link: /introduction/about-deploio
 next:
   text: Getting Started
-  link: /user-guides/getting-started
+  link: /user-guide/getting-started
 ---
 
 # How Deploio Works

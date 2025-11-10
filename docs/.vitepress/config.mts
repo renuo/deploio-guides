@@ -169,7 +169,10 @@ export default withMermaid(
         {
           text: "Static pages",
           collapsed: true,
-          items: [{ text: "Quick start", link: "/static-pages/quick-start" }],
+          items: [
+            { text: "Quick start", link: "/static-pages/quick-start" },
+            { text: "Static Site Generators", link: "/static-pages/static-site-generators" },
+          ],
         },
       ],
     },

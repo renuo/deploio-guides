@@ -52,6 +52,6 @@ features:
     icon:
       src: /icon/html.svg
       alt: Static Sites
-    link: 'static-sites/quick-start'
+    link: 'static-pages/quick-start'
     details: Deploy your static sites
 ---

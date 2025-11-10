@@ -1,12 +1,18 @@
 ---
 prev: false
-next: false
+next:
+  text: Static Site Generators
+  link: /static-pages/static-site-generators.md
 ---
 
 # Quick Start Guide for Static Sites
 
 If you have a site with purely static content,
 Deploio makes use of a combination of buildpacks to deploy a web server to serve your static files.
+
+::: info
+If you're using a **static site generator** like VitePress, Docusaurus, Gatsby, or Astro, see the [Static Site Generators guide](/static-pages/static-site-generators.md) instead.
+:::
 
 Static sites are detected by looking for these files in your git repo:
 

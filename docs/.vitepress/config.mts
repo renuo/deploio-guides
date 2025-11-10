@@ -39,6 +39,11 @@ export default withMermaid(
       nav: [
         { text: "Home", link: "/" },
         { text: "Docs", link: "/introduction/about-deploio" },
+        { text: "Nine Platform", link: "https://docs.nine.ch/docs/category/deploio-paas/", target: "_blank" },
+        { text: "Deploio Website", link: "https://deplo.io", target: "_blank" },
+        { text: "Pricing", link: "https://deplo.io/pricing", target: "_blank" },
+        { text: "Login", link: "https://cockpit.nine.ch/de/session/new?origin=%2F", target: "_blank" },
+        { text: "Get Started", link: "https://deplo.io/#register", target: "_blank" },
       ],
 
       sidebar: [
@@ -166,10 +171,6 @@ export default withMermaid(
           collapsed: true,
           items: [{ text: "Quick start", link: "/static-pages/quick-start" }],
         },
-      ],
-
-      socialLinks: [
-        { icon: "github", link: "https://github.com/vuejs/vitepress" },
       ],
     },
     mermaid: {

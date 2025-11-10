@@ -171,10 +171,6 @@ export default withMermaid(
       socialLinks: [
         { icon: "github", link: "https://github.com/vuejs/vitepress" },
       ],
-      footer: {
-        message: "Released under the MIT License.",
-        copyright: "Copyright © 2022-present, Nine & Renuo",
-      },
     },
     mermaid: {
       // refer https://mermaid.js.org/config/setup/modules/mermaidAPI.html#mermaidapi-configuration-defaults for options

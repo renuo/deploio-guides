@@ -1,3 +1,7 @@
 :root {
   --vp-font-family-base: "Montserrat", sans-serif;
 }
+
+.VPFooter {
+  display: none;
+}

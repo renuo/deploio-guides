@@ -1,7 +1,7 @@
 .footer-content {
     background-color: var(--vp-c-bg-soft);
     border-top: 1px solid var(--vp-c-divider);
-    margin-top: 96px;
+    margin-top: 64px;
     position: relative;
     z-index: 26;
 }
@@ -9,21 +9,27 @@
 .footer {
     max-width: 1152px;
     margin: 0 auto;
-    padding: 48px 24px;
+    padding: 32px 24px;
 }
 
 .certificates-wrapper {
     display: flex;
-    gap: 24px;
+    gap: 16px;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    margin-bottom: 48px;
+    margin-top: 24px;
 }
 
 .certificates-wrapper img {
-    height: 60px;
+    height: 48px;
     width: auto;
+}
+
+@media (min-width: 768px) {
+    .certificates-wrapper {
+        justify-content: flex-start;
+    }
 }
 
 html:not(.dark) .certificates-wrapper img {
@@ -34,19 +40,32 @@ html:not(.dark) .certificates-wrapper img {
     display: grid;
     grid-template-columns: 1fr;
     gap: 32px;
-    margin-bottom: 32px;
+    margin-bottom: 24px;
 }
 
 @media (min-width: 768px) {
     .footer-links-wrapper {
         grid-template-columns: 2fr 1fr;
+        gap: 48px;
+    }
+}
+
+.footer-right-section {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+@media (min-width: 768px) {
+    .footer-right-section {
+        gap: 0;
     }
 }
 
 .footer-columns-wrapper {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 32px;
+    gap: 24px;
 }
 
 @media (min-width: 640px) {
@@ -58,7 +77,7 @@ html:not(.dark) .certificates-wrapper img {
 .footer-column {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 12px;
 }
 
 .footer-column-title {
@@ -98,12 +117,12 @@ html:not(.dark) .certificates-wrapper img {
 .footer-service {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 12px;
 }
 
 .service-links {
     display: flex;
-    gap: 24px;
+    gap: 16px;
     align-items: center;
     flex-wrap: wrap;
 }
@@ -117,17 +136,15 @@ html:not(.dark) .service-logo {
     filter: invert(1) hue-rotate(180deg);
 }
 
-.footer-socials-wrapper {
+.swiss-made-section {
     display: flex;
-    gap: 16px;
-    align-items: center;
     justify-content: center;
-    flex-wrap: wrap;
+    align-items: center;
     padding: 24px 0;
 }
 
 .swiss-made-software img {
-    height: 48px;
+    height: 40px;
     width: auto;
 }
 
@@ -139,7 +156,16 @@ html:not(.dark) .swiss-made-software img {
     display: flex;
     gap: 16px;
     align-items: center;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 24px;
+}
+
+@media (min-width: 768px) {
+    .socials-group {
+        justify-content: flex-start;
+        flex-wrap: nowrap;
+    }
 }
 
 .socials img {
@@ -157,7 +183,7 @@ html:not(.dark) .socials img {
 }
 
 .copyright-border-wrapper {
-    margin: 24px 0;
+    margin: 16px 0;
 }
 
 .copyright-border-wrapper hr {

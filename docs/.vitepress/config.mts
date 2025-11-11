@@ -35,6 +35,12 @@ export default withMermaid(
     themeConfig: {
       search: { provider: "local" },
       logo: "/icon/logo.svg",
+      socialLinks: [
+        { icon: "facebook", link: "https://www.facebook.com/deploioch/" },
+        { icon: "instagram", link: "https://www.instagram.com/deploio/" },
+        { icon: "linkedin", link: "https://linkedin.com/company/deploio" },
+        { icon: "x", link: "https://www.twitter.com/deplo_io" },
+      ],
       // https://vitepress.dev/reference/default-theme-config
       nav: [
         { text: "Home", link: "/" },

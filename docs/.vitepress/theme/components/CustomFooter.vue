@@ -1,100 +1,85 @@
 <template>
     <div class="footer-content">
         <footer class="footer container">
-            <div class="certificates-wrapper">
-                <img
-                    src="/img/iso_9001:2015_certification.png"
-                    alt="ISO 9001:2015 certification"
-                />
-                <img
-                    src="/img/iso_27001:2022_certification.png"
-                    alt="ISO 27001:2022 certification"
-                />
-                <img
-                    src="/img/co2_neutral_certification.png"
-                    alt="CO2 neutral certification"
-                />
-            </div>
+            <div class="footer-links-wrapper">
+                <div class="footer-columns-wrapper">
+                    <nav class="footer-column">
+                        <h3 class="footer-column-title">Support</h3>
+                        <ul class="footer-links">
+                            <li>
+                                <a
+                                    href="https://status.nine.ch/"
+                                    target="_blank"
+                                    class="footer-link"
+                                    >Status</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://docs.nine.ch/docs/category/deploio-paas/"
+                                    target="_blank"
+                                    class="footer-link"
+                                    >Documentation</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://join.slack.com/t/deploiocommunity/shared_invite/zt-20tb3k93m-O4NEUs0RjZYGQNQoih8zkA"
+                                    target="_blank"
+                                    class="footer-link"
+                                    >Slack Community</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://github.com/ninech/deploio-examples"
+                                    target="_blank"
+                                    class="footer-link"
+                                    >GitHub Examples</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="/pricing"
+                                    target="_blank"
+                                    class="footer-link"
+                                    >Pricing</a
+                                >
+                            </li>
+                        </ul>
+                    </nav>
 
-            <div>
-                <div class="footer-links-wrapper">
-                    <div class="footer-columns-wrapper">
-                        <nav class="footer-column">
-                            <h3 class="footer-column-title">Support</h3>
-                            <ul class="footer-links">
-                                <li>
-                                    <a
-                                        href="https://status.nine.ch/"
-                                        target="_blank"
-                                        class="footer-link"
-                                        >Status</a
-                                    >
-                                </li>
-                                <li>
-                                    <a
-                                        href="https://docs.nine.ch/docs/category/deploio-paas/"
-                                        target="_blank"
-                                        class="footer-link"
-                                        >Documentation</a
-                                    >
-                                </li>
-                                <li>
-                                    <a
-                                        href="https://join.slack.com/t/deploiocommunity/shared_invite/zt-20tb3k93m-O4NEUs0RjZYGQNQoih8zkA"
-                                        target="_blank"
-                                        class="footer-link"
-                                        >Slack Community</a
-                                    >
-                                </li>
-                                <li>
-                                    <a
-                                        href="https://github.com/ninech/deploio-examples"
-                                        target="_blank"
-                                        class="footer-link"
-                                        >GitHub Examples</a
-                                    >
-                                </li>
-                                <li>
-                                    <a
-                                        href="/pricing"
-                                        target="_blank"
-                                        class="footer-link"
-                                        >Pricing</a
-                                    >
-                                </li>
-                            </ul>
-                        </nav>
+                    <nav class="footer-column">
+                        <h3 class="footer-column-title">Contact</h3>
+                        <ul class="footer-links">
+                            <li>
+                                <p class="footer-link-text">
+                                    Nine Internet Solutions AG<br />
+                                    Badenerstrasse 47<br />
+                                    8004 Zürich, Schweiz
+                                </p>
+                            </li>
+                            <li>
+                                <a
+                                    href="mailto:info@nine.ch"
+                                    target="_blank"
+                                    class="footer-link"
+                                    >info@nine.ch</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="tel:+41446374040"
+                                    target="_blank"
+                                    class="footer-link"
+                                    >+41 44 637 40 40</a
+                                >
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
 
-                        <nav class="footer-column">
-                            <h3 class="footer-column-title">Contact</h3>
-                            <ul class="footer-links">
-                                <li>
-                                    <p class="footer-link-text">
-                                        Nine Internet Solutions AG<br />
-                                        Badenerstrasse 47<br />
-                                        8004 Zürich, Schweiz
-                                    </p>
-                                </li>
-                                <li>
-                                    <a
-                                        href="mailto:info@nine.ch"
-                                        target="_blank"
-                                        class="footer-link"
-                                        >info@nine.ch</a
-                                    >
-                                </li>
-                                <li>
-                                    <a
-                                        href="tel:+41446374040"
-                                        target="_blank"
-                                        class="footer-link"
-                                        >+41 44 637 40 40</a
-                                    >
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
-
+                <div class="footer-right-section">
                     <nav class="footer-service">
                         <h3 class="footer-column-title">A Service By</h3>
                         <div class="service-links">
@@ -122,18 +107,22 @@
                             </a>
                         </div>
                     </nav>
-                </div>
 
-                <div class="footer-socials-wrapper">
-                    <a
-                        class="swiss-made-software"
-                        href="https://www.swissmadesoftware.org/home.html"
-                    >
+                    <div class="certificates-wrapper">
                         <img
-                            src="/img/swiss_made_software_and_hosting.png"
-                            alt="swiss made software + hosting"
+                            src="/img/iso_9001:2015_certification.png"
+                            alt="ISO 9001:2015 certification"
                         />
-                    </a>
+                        <img
+                            src="/img/iso_27001:2022_certification.png"
+                            alt="ISO 27001:2022 certification"
+                        />
+                        <img
+                            src="/img/co2_neutral_certification.png"
+                            alt="CO2 neutral certification"
+                        />
+                    </div>
+
                     <div class="socials-group">
                         <a
                             class="socials"
@@ -192,29 +181,41 @@
                         </a>
                     </div>
                 </div>
-
-                <div class="copyright-border-wrapper">
-                    <hr />
-                </div>
-
-                <nav class="copyright-wrapper">
-                    <p>Copyright © 2025 Nine Internet Solutions AG</p>
-                    <a
-                        href="https://docs.nine.ch/de/docs/legal-documents/general-terms-and-conditions"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        Terms &amp; Conditions
-                    </a>
-                    <a
-                        href="https://www.nine.ch/de/privacy-policy"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        Privacy Policy
-                    </a>
-                </nav>
             </div>
+
+            <div class="swiss-made-section">
+                <a
+                    class="swiss-made-software"
+                    href="https://www.swissmadesoftware.org/home.html"
+                >
+                    <img
+                        src="/img/swiss_made_software_and_hosting.png"
+                        alt="swiss made software + hosting"
+                    />
+                </a>
+            </div>
+
+            <div class="copyright-border-wrapper">
+                <hr />
+            </div>
+
+            <nav class="copyright-wrapper">
+                <p>Copyright © 2025 Nine Internet Solutions AG</p>
+                <a
+                    href="https://docs.nine.ch/de/docs/legal-documents/general-terms-and-conditions"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    Terms &amp; Conditions
+                </a>
+                <a
+                    href="https://www.nine.ch/de/privacy-policy"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    Privacy Policy
+                </a>
+            </nav>
         </footer>
     </div>
 </template>

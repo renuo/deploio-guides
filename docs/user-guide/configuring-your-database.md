@@ -18,6 +18,12 @@ To access the database, you must set up SSH key authentication. You will need to
 
 You also need to add your IP address to the `--allowed-cidrs` flag. If you wish to allow all IP addresses, you can set this to `0.0.0.0/0`.
 
+After setting up the SSH key, you can get the FQDN and password of the database using the cli: `nctl get postgres {DATABASE_NAME}` and `nctl get postgres {DATABASE_NAME} --print-password`, which can be used to connect to the database:
+
+```bash
+ssh -i {path-to-private-key} dbadmin@{FQDN}
+```
+
 ### Database creation settings (for all database types)
 
 There are a number of configurations we can apply when creating our database. You can see more information on these arguments by running `-h` for the desired database. For example `nctl create mysql -h` for MySQL.

@@ -20,31 +20,6 @@ object storage via the [Cockpit UI](https://cockpit.nine.ch/en/object_storage/st
 project in the dropdown and specify the location, which ideally is `nine-es34`, the same location as Deploio
 applications. For more information about our data center locations, see our [locations documentation](https://docs.nine.ch/docs/managed-kubernetes/nke/nine-kubernetes-engine#locations).
 
-::: info
-Even though the `nctl` CLI does not have a dedicated command for object storage, you can still create it using the
-`nctl apply` command:
-<details>
-<summary>Example</summary>
-
-Using a resource definition like the example below,
-you can create an object storage instance using the `nctl apply -f bucket.yaml` command
-and delete it using `nctl delete -f bucket.yaml`, respectively.
-
-```yaml title="bucket.yaml"
-apiVersion: storage.nine.ch/v1alpha1
-kind: Bucket
-metadata:
-  name: example
-  namespace: <project>
-spec:
-  forProvider:
-    location: nine-es34
-    storageTier: standard
-```
-
-</details>
-:::
-
 ## Retrieve Object Storage Information
 
 After creating the object storage, you can view the access information by navigating to the details page of the newly
@@ -70,8 +45,8 @@ deploio:
   service: S3
   access_key_id: <%= ENV["DEPLOIO_ACCESS_KEY"] %>
   secret_access_key: <%= ENV["DEPLOIO_SECRET_KEY"] %>
-  endpoint: <%= ENV["DEPLOIO_ENDPOINT"] %>
-  region: us-east-1 # running in Switzerland, operated by Nine.
+  endpoint: <%= ENV["DEPLOIO_ENDPOINT"] %> # e.g. `https://es34.objects.nineapis.ch`
+  region: us-east-1 # running in Switzerland
   bucket: <%= ENV["DEPLOIO_BUCKET"] %>
 ```
 
@@ -91,6 +66,58 @@ production environment:
 
 ```ruby title="config/environments/production.rb"
 config.active_storage.service = :deploio
+```
+
+### Custom Hostnames
+
+To use custom hostnames for buckets, you first have to open your bucket in the Cockpit UI.
+Then, edit the custom hostnames and verify them via TXT record.
+
+Next, create an Active Storage service in Rails:
+
+```ruby title="lib/active_storage/service/deploio_s3_service.rb"
+require "active_storage/service/s3_service"
+
+module ActiveStorage
+  class Service
+    class DeploioS3Service < ActiveStorage::Service::S3Service
+      def initialize(host: nil, **)
+        @host = host
+        super(**)
+      end
+
+      def url(...)
+        @host.blank? ? super : custom_host(super)
+      end
+
+      def url_for_direct_upload(...)
+        @host.blank? ? super : custom_host(super)
+      end
+
+      private
+
+      def custom_host(uri)
+        uri = URI.parse(uri)
+        uri.host = @host
+        uri.to_s
+      end
+    end
+  end
+end
+```
+
+Finally, change the config to use the new service:
+
+```diff title="config/storage.yml"
+deploio:
+- service: S3
++ service: DeploioS3
+  access_key_id: <%= ENV["DEPLOIO_ACCESS_KEY"] %>
+  secret_access_key: <%= ENV["DEPLOIO_SECRET_KEY"] %>
+  endpoint: <%= ENV["DEPLOIO_ENDPOINT"] %> # e.g. `https://es34.objects.nineapis.ch`
+  region: us-east-1 # running in Switzerland
+  bucket: <%= ENV["DEPLOIO_BUCKET"] %>
++ host: <%= ENV["DEPLOIO_HOST"] %> # e.g. `assets.example.com`
 ```
 
 ## Next Steps

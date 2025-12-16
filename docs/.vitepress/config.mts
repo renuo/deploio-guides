@@ -6,7 +6,7 @@ import { tabsMarkdownPlugin } from "vitepress-plugin-tabs";
 //
 export default withMermaid(
   defineConfig({
-    title: "Deploio Docs",
+    title: "Deploio Guides",
     description: "Deploy and manage apps easily",
     head: [
       ["link", { rel: "icon", href: "/icon/logo.svg" }],
@@ -39,13 +39,13 @@ export default withMermaid(
         { icon: "facebook", link: "https://www.facebook.com/deploioch/" },
         { icon: "instagram", link: "https://www.instagram.com/deploio/" },
         { icon: "linkedin", link: "https://linkedin.com/company/deploio" },
-        { icon: "x", link: "https://www.twitter.com/deplo_io" },
+        { icon: "x", link: "https://x.com/deplo_io" },
       ],
       // https://vitepress.dev/reference/default-theme-config
       nav: [
         { text: "Home", link: "/" },
         { text: "Docs", link: "/introduction/about-deploio" },
-        { text: "Nine Platform", link: "https://docs.nine.ch/docs/category/deploio-paas/", target: "_blank" },
+        { text: "Reference", link: "https://docs.nine.ch/docs/category/deploio-paas/", target: "_blank" },
         { text: "Deploio Website", link: "https://deplo.io", target: "_blank" },
         { text: "Pricing", link: "https://deplo.io/pricing", target: "_blank" },
         { text: "Login", link: "https://cockpit.nine.ch/de/session/new?origin=%2F", target: "_blank" },

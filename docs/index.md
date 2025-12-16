@@ -3,8 +3,8 @@
 layout: home
 
 hero:
-  name: "Deploio Docs"
-  text: "Deploy and manage apps easily"
+  name: Deploio Guides
+  text: Deploy and manage apps easily"
   tagline: Developer documentation for Deploio. Learn how to monitor and scale your applications effortlessly with step-by-step guides and detailed API references.
   actions:
     - theme: brand

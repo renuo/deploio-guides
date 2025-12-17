@@ -15,55 +15,37 @@ You can see the pricing [here](https://docs.nine.ch/docs/object-storage/manage-b
 
 ## Setup Object Storage
 
-Currently, there's no dedicated command to create an object storage instance using `nctl`. However, you can create an
-object storage via the [Cockpit UI](https://cockpit.nine.ch/en/object_storage/storage/buckets/new). Select the desired
-project in the dropdown and specify the location, which ideally is `nine-es34`, the same location as Deploio
-applications. For more information about our data center locations, see our [locations documentation](https://docs.nine.ch/docs/managed-kubernetes/nke/nine-kubernetes-engine#locations).
+You can create a bucket via `nctl create bucket --location=nine-es34 {BUCKET_NAME}`.
+Ideally, the location is `nine-es34`, which is the same as Deploio's.
+For more information about our data center locations, see our
+[locations documentation](https://docs.nine.ch/docs/managed-kubernetes/nke/nine-kubernetes-engine#locations).
 
-::: info
-Even though the `nctl` CLI does not have a dedicated command for object storage, you can still create it using the
-`nctl apply` command:
-<details>
-<summary>Example</summary>
+In order to access the created bucket, you must first create a **bucket user**.
+This user must be created in the same location as the bucket.
+You can do this by running the following:
 
-Using a resource definition like the example below,
-you can create an object storage instance using the `nctl apply -f bucket.yaml` command
-and delete it using `nctl delete -f bucket.yaml`, respectively.
-
-```yaml title="bucket.yaml"
-apiVersion: storage.nine.ch/v1alpha1
-kind: Bucket
-metadata:
-  name: example
-  namespace: <project>
-spec:
-  forProvider:
-    location: nine-es34
-    storageTier: standard
+```sh
+nctl create bucketuser --location=nine-es34 {BUCKETUSER_NAME}
 ```
 
-</details>
-:::
+After creating the user, you can retrieve the access key and secret key:
 
-## Retrieve Object Storage Information
+```sh
+nctl get bucketuser {BUCKETUSER_NAME} --print-credentials
+```
 
-After creating the object storage, you can view the access information by navigating to the details page of the newly
-created **bucket**.
+And set the environment variables using the information you retrieved:
 
-![Object Storage Panel](/img/object_storage_panel.png)
+```sh
+nctl update app {APP_NAME} --env="DEPLOIO_ACCESS_KEY={ACCESS_KEY};DEPLOIO_SECRET_KEY={SECRET_KEY};DEPLOIO_ENDPOINT={API_ENDPOINT};DEPLOIO_BUCKET={BUCKET_NAME}"
+```
 
-However, to interact with the created object storage, you need to create a **bucket user**. You can do this by
-navigating to the "Bucket Users" tab in the Cockpit. The user needs to reside in the same location as the bucket. After
-creating the user, you can retrieve the access key and secret key by clicking on "Show" in the "Credentials" row.
-
-![Bucket User Panel](/img/bucket_user_panel.png)
-
-![Bucket User Credentials](/img/bucket_user_credentials.png)
+The Deploio endpoint should be `https://es34.objects.nineapis.ch`.
 
 ## Configure Active Storage
 
-To use the object storage in your Rails application, you need to configure Active Storage. You can do this by
-configuring a new service in the `config/storage.yml` file:
+To use the bucket in your Rails application, you need to configure Active Storage.
+You can do this by configuring a new service in the `config/storage.yml` file:
 
 ```yaml title="config/storage.yml"
 deploio:
@@ -71,7 +53,7 @@ deploio:
   access_key_id: <%= ENV["DEPLOIO_ACCESS_KEY"] %>
   secret_access_key: <%= ENV["DEPLOIO_SECRET_KEY"] %>
   endpoint: <%= ENV["DEPLOIO_ENDPOINT"] %>
-  region: us-east-1 # running in Switzerland, operated by Nine.
+  region: us-east-1 # fake; running in Switzerland, operated by Nine
   bucket: <%= ENV["DEPLOIO_BUCKET"] %>
 ```
 
@@ -80,17 +62,77 @@ For S3, a `region` must be specified. Deploio uses the S3 default value of `us-e
 Switzerland, operated by Nine.
 :::
 
-You can set the environment variables using the information you retrieved from the Cockpit:
-
-```bash
-nctl update app {application_name} --env="DEPLOIO_ACCESS_KEY={ACCESS_KEY};DEPLOIO_SECRET_KEY={SECRET_KEY};DEPLOIO_ENDPOINT={API_ENDPOINT};DEPLOIO_BUCKET={BUCKET_NAME}"
-```
-
-Finally, you can configure Active Storage to use the newly created service by setting the `service` configuration in the
+You can configure Active Storage to use the newly created service by setting the `service` configuration in the
 production environment:
 
 ```ruby title="config/environments/production.rb"
 config.active_storage.service = :deploio
+```
+
+### Custom Hostnames
+
+Without a custom hostname, assets served via Active Storage redirect to
+`{BUCKET_NAME}.es34.objects.nineapis.ch`. If you want to use your own domain,
+you can do so by configuring a custom hostname.
+
+First, run these two commands to create the hostname and to set it as environment variable.
+
+```sh
+nctl update bucket {BUCKET_NAME} --custom-hostnames={HOSTNAME}
+nctl update app {APP_NAME} --env="DEPLOIO_HOST={HOSTNAME}"
+```
+
+Next, open your bucket in your browser in the Cockpit UI and scroll down to the Custom Hostnames section.
+There, you can copy the TXT record and CNAME target and add them to your domain's DNS.
+
+After the TXT verification is complete, create an Active Storage service in Rails
+in `lib/active_storage/service/deploio_s3_service.rb`:
+
+```ruby title="lib/active_storage/service/deploio_s3_service.rb"
+require "active_storage/service/s3_service"
+
+module ActiveStorage
+  class Service
+    class DeploioS3Service < ActiveStorage::Service::S3Service
+      DEFAULT_REGION = "us-east-1" # fake; running in Switzerland, operated by Nine
+
+      def initialize(host: nil, region: DEFAULT_REGION, **)
+        @host = host
+        super(region:, **)
+      end
+
+      def url(...)
+        @host.blank? ? super : custom_host(super)
+      end
+
+      def url_for_direct_upload(...)
+        @host.blank? ? super : custom_host(super)
+      end
+
+      private
+
+      def custom_host(uri)
+        uri = URI.parse(uri)
+        uri.host = @host
+        uri.to_s
+      end
+    end
+  end
+end
+```
+
+Finally, change the config to use the new service:
+
+```diff title="config/storage.yml"
+deploio:
+- service: S3
++ service: DeploioS3
+  access_key_id: <%= ENV["DEPLOIO_ACCESS_KEY"] %>
+  secret_access_key: <%= ENV["DEPLOIO_SECRET_KEY"] %>
+  endpoint: <%= ENV["DEPLOIO_ENDPOINT"] %>
+- region: us-east-1 # fake; running in Switzerland, operated by Nine
+  bucket: <%= ENV["DEPLOIO_BUCKET"] %>
++ host: <%= ENV["DEPLOIO_HOST"] %>
 ```
 
 ## Next Steps

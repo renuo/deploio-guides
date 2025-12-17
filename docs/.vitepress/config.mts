@@ -44,14 +44,12 @@ export default withMermaid(
       // https://vitepress.dev/reference/default-theme-config
       nav: [
         { text: "Home", link: "/" },
-        { text: "Docs", link: "/introduction/about-deploio" },
+        { text: "About", link: "/introduction/about-deploio" },
         { text: "Reference", link: "https://docs.nine.ch/docs/category/deploio-paas/", target: "_blank" },
         { text: "Deploio Website", link: "https://deplo.io", target: "_blank" },
         { text: "Pricing", link: "https://deplo.io/pricing", target: "_blank" },
-        { text: "Login", link: "https://cockpit.nine.ch/de/session/new?origin=%2F", target: "_blank" },
-        { text: "Get Started", link: "https://deplo.io/#register", target: "_blank" },
+        { text: "Login", link: "https://cockpit.nine.ch/en/session/new?origin=deploio", target: "_blank" },
       ],
-
       sidebar: [
         {
           text: "Introduction",

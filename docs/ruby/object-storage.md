@@ -193,6 +193,9 @@ For signed URLs to pass-through, we need to tell Active Storage
 to replace the host part of the generated and signed URL with your custom host.
 The proxy will pick it up and replace the custom host with the Deploio S3 host.
 The Nutanix S3 service can then verify the complete URL including signature.
+
+If you want to know more about the how this works, have a look at the lightning talk
+["Deploio S3"](https://docs.google.com/presentation/d/1o5LMgcUcVqqZlIQ5mCWJkD9CvYGFML6V7sQxMFkV6wg/edit?slide=id.g3b1e491c942_0_0#slide=id.g3b1e491c942_0_0).
 :::
 
 To support signed URLs with custom hostnames, you currently need to register

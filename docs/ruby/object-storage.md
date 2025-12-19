@@ -24,7 +24,7 @@ or [bring your own server hardware](https://nine.ch/de/products/colocation/) ins
 
 You can use Amazon S3 together with Deploio as you would on any other hoster.
 First you set up the bucket on the third-party service (e.g. [Swiss Backup by Informaniak](https://docs.infomaniak.cloud/object_storage/s3/)).
-Then you follow the official [Rails Guides on S3 serivce configuration](https://guides.rubyonrails.org/active_storage_overview.html#s3-service-amazon-s3-and-s3-compatible-apis).
+Then you follow the official [Rails Guides on S3 service configuration](https://guides.rubyonrails.org/active_storage_overview.html#s3-service-amazon-s3-and-s3-compatible-apis).
 
 ## S3 Service by Nine
 
@@ -68,7 +68,7 @@ nctl update app {APP_NAME} --env="\
   S3_BUCKET={BUCKET_NAME}"
 ```
 
-### Configure Active Storage
+## Configure Active Storage
 
 To use the bucket in your Rails application, you need to configure Active Storage.
 You can do this by configuring a new service in the `config/storage.yml` file:
@@ -96,7 +96,7 @@ config.active_storage.service = :deploio
 ```
 
 If you want to try it locally, you can also configure it in `development.rb` temporarily.
-Then you would test in the `rails concole` that file upload and download works like this:
+Then you would test in the `rails console` that file upload and download works like this:
 
 ```rb
 blob = ActiveStorage::Blob.create_and_upload!(

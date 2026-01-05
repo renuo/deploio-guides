@@ -21,6 +21,16 @@ Coming soon 🚧
 
 ##### TLS with Let's Encrypt certificates
 
+Deploio automatically issues [Let's Encrypt](https://letsencrypt.org/) for you.
+Simply prove domain ownership with a verification TXT record and a CNAME.
+
+##### Custom TLS certificates
+
+**Deploio doesn't support custom TLS certificates.**
+The times of custom certificates for the browsable public web are over.
+The big system software providers agreed on [shortening the certificate lifecycle to 47 days
+by at least the year 2029](https://www.digicert.com/blog/tls-certificate-lifetimes-will-officially-reduce-to-47-days).
+
 ##### IP allowlists for access control
 
 ##### HTTP only

@@ -1,0 +1,10 @@
+#!/bin/bash
+
+set -euo pipefail
+npm install
+
+# check if lychee command exists
+if ! command -v lychee &> /dev/null; then
+  echo "lychee command not found. Please install it (see https://github.com/lycheeverse/lychee) and try again."
+  exit 1
+fi

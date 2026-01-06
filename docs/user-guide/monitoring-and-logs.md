@@ -39,6 +39,11 @@ Coming soon 🚧
 
   - See what's live and when.
 
+#### Metrics in Cockpit
+
+#### Metrics in your own Grafana Dashboard
+
+
 ##### DNS
 
   - where does it run?

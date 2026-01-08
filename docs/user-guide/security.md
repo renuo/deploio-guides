@@ -28,6 +28,12 @@ Coming soon 🚧
   - and only one port
   - the rest is not proxied
 
+##### Outgoing Traffic (egress)
+
+Deploio apps are internet facing and can access the internet without any restrictions:
+ * We don't screen or block outgoing traffic at all.
+ * You have all the freedom you want, but you're also very much responsible for the code you deploy.
+
 ##### Backups
 
   - Retention time

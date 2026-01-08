@@ -21,7 +21,7 @@ Coming soon 🚧
 
 ##### TLS with Let's Encrypt certificates
 
-Deploio automatically issues [Let's Encrypt](https://letsencrypt.org/) for you.
+Deploio automatically issues [Let's Encrypt](https://letsencrypt.org/) certificates for you.
 Simply prove domain ownership with a verification TXT record and a CNAME.
 
 ##### Custom TLS certificates

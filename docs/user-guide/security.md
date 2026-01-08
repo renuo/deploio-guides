@@ -30,10 +30,9 @@ Coming soon 🚧
 
 ##### Egress Traffic
 
-Deploio apps are internet facing.
-They can access the internet.
-We don't screen or block outgoing traffic at all.
-You have all the freedom you want, but you're also very much responsible for the code you deploy.
+Deploio apps are internet facing and can access the internet without any restrictions:
+ * We don't screen or block outgoing traffic at all.
+ * You have all the freedom you want, but you're also very much responsible for the code you deploy.
 
 ##### Backups
 

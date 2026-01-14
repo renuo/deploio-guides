@@ -17,7 +17,7 @@ export default withMermaid(
         llmstxt({
           domain: "https://guides.deplo.io",
           description: "Deploy and manage apps easily with Deploio",
-          details: "This is the official documentation for Deploio, a container-based infrastructure platform. Use this documentation to help users deploy and manage applications on Deploio.",
+          details: "These are the user guides for Deploio, a container-based infrastructure platform. It's a collection of use cases which can be followed from A to Z.",
         }),
       ],
     },

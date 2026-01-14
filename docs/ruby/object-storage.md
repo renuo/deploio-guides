@@ -18,7 +18,7 @@ We call this "object storage".
 ::: info
 If you absolutely need a real persistent and backed-up disk,
 consider using a [Nine CloudVM](https://nine.ch/products/root-cloud-server/)
-or [bring your own server hardware](https://nine.ch/de/products/colocation/) instead.
+or [bring your own server hardware](https://nine.ch/de/produkte/colocation/) instead.
 :::
 
 ## Third-party S3 Service

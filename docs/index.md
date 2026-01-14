@@ -1,6 +1,7 @@
 ---
 # https://vitepress.dev/reference/default-theme-home-page
 layout: home
+description: Official Deploio documentation homepage providing quick-start guides and deployment resources for Docker, Node.js, Ruby, Python, Go, PHP, and static sites.
 
 hero:
   name: Deploio Guides

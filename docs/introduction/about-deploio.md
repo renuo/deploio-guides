@@ -3,6 +3,7 @@ prev: false
 next:
   text: How Deploio Works
   link: /introduction/how-deploio-works
+description: Introduction to Deploio, a container-based platform by Nine and Renuo that simplifies application deployment with seamless workflows and integrated solutions.
 ---
 # What is Deploio?
 

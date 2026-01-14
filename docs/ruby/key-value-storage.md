@@ -5,6 +5,7 @@ prev:
 next:
   text: Object storage
   link: /ruby/object-storage
+description: Guide for setting up Redis-compatible key-value stores for Rails applications to support caching and background job systems like Sidekiq.
 ---
 
 # Create a Key Value Store for your Ruby on Rails application

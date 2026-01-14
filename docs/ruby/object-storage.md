@@ -5,6 +5,7 @@ prev:
 next:
   text: Background jobs
   link: /ruby/background-jobs
+description: Complete guide for configuring Active Storage with S3-compatible object storage on Deploio including Nine S3 buckets, custom hostnames, and signed URLs.
 ---
 # Active Storage for Deploio
 

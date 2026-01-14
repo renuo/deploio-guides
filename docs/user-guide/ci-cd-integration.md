@@ -6,6 +6,7 @@ prev:
 next:
   text: Troubleshooting
   link: /user-guide/troubleshooting
+description: Instructions for automating deployments using nctl CLI in CI/CD pipelines with API service accounts, deployment triggers, and status feedback scripts.
 ---
 
 # CI/CD Integration

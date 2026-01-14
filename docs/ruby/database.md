@@ -5,6 +5,7 @@ prev:
 next:
   text: Key/Value storage
   link: /ruby/key-value-storage
+description: Instructions for creating and configuring PostgreSQL or MySQL databases for Rails applications including connection setup, migrations, and troubleshooting.
 ---
 
 # Create a database for your Rails application

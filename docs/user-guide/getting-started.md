@@ -5,6 +5,7 @@ prev:
 next:
   text: Code Repository Setup
   link: /user-guide/code-repository-setup
+description: Complete guide for getting started with Deploio including nctl CLI installation, account setup, project creation, and best practices to avoid common pitfalls.
 ---
 
 # Getting Started

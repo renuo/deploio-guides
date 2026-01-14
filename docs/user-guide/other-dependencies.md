@@ -5,6 +5,7 @@ prev:
 next:
   text: Configuring Your Application
   link: /user-guide/configuring-your-application
+description: Guide for setting up Redis-compatible key-value stores, object storage, and persistent volumes as dependencies for Deploio applications.
 ---
 
 # Other Dependencies

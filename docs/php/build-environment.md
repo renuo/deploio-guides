@@ -5,6 +5,7 @@ prev:
 next:
   text: Extensions
   link: /php/extensions
+description: Configuration guide for PHP build environment including web directory setup and web server selection (PHP built-in, Apache HTTPD, or NGINX).
 ---
 
 # Build Environment

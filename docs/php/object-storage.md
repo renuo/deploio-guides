@@ -5,6 +5,7 @@ prev:
 next:
   text: Background jobs
   link: /php/background-jobs
+description: Guide for configuring S3-compatible object storage for PHP applications using Flysystem for file uploads and persistent storage needs.
 ---
 
 # Create an Object Storage for your PHP application

@@ -3,6 +3,7 @@ prev:
   text: Background jobs
   link: /ruby/background-jobs
 next: false
+description: Guide for setting up continuous deployment pipelines for Rails applications using API service accounts, nctl CLI automation, and deployment status monitoring.
 ---
 
 # Configure the CD for Your Rails Application

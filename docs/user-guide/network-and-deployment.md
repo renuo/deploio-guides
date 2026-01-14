@@ -5,6 +5,7 @@ prev:
 next:
   text: CI/CD Integration
   link: /user-guide/ci-cd-integration
+description: Guide for setting up custom domains with DNS records (CNAME and TXT) and configuring automatic SSL certificates via Let's Encrypt on Deploio.
 ---
 
 # Network & Deployment

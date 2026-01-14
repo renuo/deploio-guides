@@ -5,6 +5,7 @@ prev:
 next:
   text: Continuous Deployment
   link: /php/continuous-deployment
+description: Instructions for adding background worker jobs to PHP applications for Symfony Scheduler or Messenger with worker creation, log monitoring, and removal.
 ---
 
 # Setup Background Jobs for your PHP application

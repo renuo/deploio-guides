@@ -3,6 +3,7 @@ prev:
   text: Extensions
   link: /php/extensions
 next: false
+description: Guide for deploying Symfony applications on Deploio with configurations for APP_SECRET, web directory, and Composer platform requirements.
 ---
 
 # Setting up a Symfony Application

@@ -5,6 +5,7 @@ prev:
 next:
   text: Our Stack
   link: /user-guide/our-stack
+description: Migration guide for moving applications to Deploio from Heroku and other platforms including database exports, environment variables, DNS updates, and CI/CD adaptation.
 ---
 
 # Migrating from Other Platforms

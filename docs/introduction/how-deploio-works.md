@@ -5,6 +5,7 @@ prev:
 next:
   text: Getting Started
   link: /user-guide/getting-started
+description: Explains the repo-build-release process, workflow, and key concepts including projects, deployments, Cockpit, and nctl CLI in Deploio's Kubernetes infrastructure.
 ---
 
 # How Deploio Works

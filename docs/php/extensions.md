@@ -5,6 +5,7 @@ prev:
 next:
   text: Symfony
   link: /php/symfony
+description: Instructions for loading PHP extensions using Composer requirements or custom .ini files with the Paketo buildpack's pre-built extension support.
 ---
 
 # Using Extensions

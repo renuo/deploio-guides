@@ -1,6 +1,7 @@
 ---
 prev: false
 next: false
+description: Quick start guide for deploying Go applications on Deploio using the Heroku Go buildpack with Go Modules and version detection from go.mod.
 ---
 
 # Quick Start Guide for Go Applications

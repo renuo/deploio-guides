@@ -3,6 +3,7 @@ prev: false
 next:
   text: Database
   link: /ruby/database
+description: Step-by-step guide for deploying Ruby on Rails applications on Deploio using Heroku buildpacks with nctl CLI and Git repositories.
 ---
 
 # Create a Rails Application

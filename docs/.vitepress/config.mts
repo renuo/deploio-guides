@@ -8,6 +8,9 @@ export default withMermaid(
   defineConfig({
     title: "Deploio Guides",
     description: "Deploy and manage apps easily",
+    sitemap: {
+      hostname: "https://guides.deplo.io",
+    },
     head: [
       ["link", { rel: "icon", href: "/icon/logo.svg" }],
       ["link", { rel: "preconnect", href: "https://fonts.googleapis.com" }],

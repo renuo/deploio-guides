@@ -1,6 +1,7 @@
 import { defineConfig } from "vitepress";
 import { withMermaid } from "vitepress-plugin-mermaid";
 import { tabsMarkdownPlugin } from "vitepress-plugin-tabs";
+import llmstxt from "vitepress-plugin-llms";
 
 // https://vitepress.dev/reference/site-config
 //
@@ -10,6 +11,15 @@ export default withMermaid(
     description: "Deploy and manage apps easily",
     sitemap: {
       hostname: "https://guides.deplo.io",
+    },
+    vite: {
+      plugins: [
+        llmstxt({
+          domain: "https://guides.deplo.io",
+          description: "Deploy and manage apps easily with Deploio",
+          details: "These are the user guides for Deploio, a container-based infrastructure platform. It's a collection of use cases which can be followed from A to Z.",
+        }),
+      ],
     },
     head: [
       ["link", { rel: "icon", href: "/icon/logo.svg" }],

@@ -3,6 +3,7 @@ prev: false
 next:
   text: Static Site Generators
   link: /static-pages/static-site-generators.md
+description: Quick start guide for deploying static sites with pure HTML or NPM-based frontends on Deploio with automatic web server configuration and build directory setup.
 ---
 
 # Quick Start Guide for Static Sites

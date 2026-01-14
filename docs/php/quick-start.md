@@ -3,6 +3,7 @@ prev: false
 next:
   text: Database
   link: /php/database
+description: Quick start guide for deploying plain PHP applications on Deploio using the Paketo PHP buildpack with configuration for web directories and Composer options.
 ---
 
 # Quick Start Guide for PHP Applications

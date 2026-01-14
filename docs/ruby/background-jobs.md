@@ -5,6 +5,7 @@ prev:
 next:
   text: Continuous Deployment
   link: /ruby/continuous-deployment
+description: Instructions for adding background worker jobs to Rails applications for Sidekiq, Good Job, or Delayed Job with worker creation, monitoring, and removal.
 ---
 
 # Setup Background Jobs for your Rails application

@@ -5,6 +5,7 @@ prev:
 next:
   text: Key/Value storage
   link: /php/key-value-storage
+description: Instructions for creating and configuring PostgreSQL or MySQL databases for PHP applications including Doctrine integration, migrations, and connection troubleshooting.
 ---
 
 # Create a Database for Your PHP Application

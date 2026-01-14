@@ -5,6 +5,7 @@ prev:
 next:
   text: Build environment
   link: /php/build-environment
+description: Guide for setting up continuous deployment pipelines for PHP applications using API service accounts, nctl CLI automation, and deployment status monitoring.
 ---
 
 # Configure the CD for Your PHP Application

@@ -1,6 +1,7 @@
 ---
 prev: false
 next: false
+description: Quick start guide for deploying applications using custom Dockerfiles on Deploio with build context configuration, build arguments, and best practices for image optimization.
 ---
 
 # Quick Start Guide for Docker Apps (Beta)

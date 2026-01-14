@@ -5,6 +5,7 @@ prev:
 next:
   text: Network & Deployment
   link: /user-guide/network-and-deployment
+description: Complete reference for configuring applications on Deploio including environment variables, deploio.yaml, Procfile, worker jobs, deploy jobs, and resource sizing.
 ---
 
 # Configuring Your Application

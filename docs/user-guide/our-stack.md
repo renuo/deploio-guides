@@ -5,6 +5,7 @@ prev:
 next:
   text: Tools
   link: /user-guide/tools
+description: Overview of Deploio's technology stack including Nutanix infrastructure, Kubernetes orchestration, Swiss hosting (AS29691), Docker containers, and Heroku buildpacks.
 ---
 
 # Our Stack

@@ -1,6 +1,7 @@
 ---
 prev: false
 next: false
+description: Quick start guide for deploying Python Django applications on Deploio using the Paketo Python buildpack with WSGI configuration and environment setup.
 ---
 
 # Quick Start Guide for Python Applications

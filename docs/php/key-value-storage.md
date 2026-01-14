@@ -5,6 +5,7 @@ prev:
 next:
   text: Object storage
   link: /php/object-storage
+description: Guide for setting up Redis-compatible key-value stores for PHP applications supporting caching and Symfony configurations with TLS connections.
 ---
 
 # Create a Key Value Store for your PHP application

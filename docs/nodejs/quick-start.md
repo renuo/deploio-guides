@@ -1,6 +1,7 @@
 ---
 prev: false
 next: false
+description: Quick start guide for deploying Node.js applications including Next.js on Deploio using the Paketo Node.js buildpack with npm/yarn build support.
 ---
 
 # Quick Start Guide for Node.js Applications

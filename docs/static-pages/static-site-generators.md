@@ -3,6 +3,7 @@ prev:
   text: Quick Start
   link: /static-pages/quick-start.md
 next: false
+description: Comprehensive guide for deploying static site generators like VitePress, Docusaurus, Gatsby, and Astro on Deploio with build script configuration and output directory setup.
 ---
 
 # Deploying Static Site Generators

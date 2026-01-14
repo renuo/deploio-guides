@@ -5,6 +5,7 @@ prev:
 next:
   text: Background jobs
   link: /ruby/background-jobs
+description: Complete guide for configuring Active Storage with S3-compatible object storage on Deploio including Nine S3 buckets, custom hostnames, and signed URLs.
 ---
 # Active Storage for Deploio
 
@@ -17,7 +18,7 @@ We call this "object storage".
 ::: info
 If you absolutely need a real persistent and backed-up disk,
 consider using a [Nine CloudVM](https://nine.ch/products/root-cloud-server/)
-or [bring your own server hardware](https://nine.ch/de/products/colocation/) instead.
+or [bring your own server hardware](https://nine.ch/de/produkte/colocation/) instead.
 :::
 
 ## Third-party S3 Service

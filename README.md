@@ -1,6 +1,6 @@
-# Deploio Documentation
+# Deploio Guides
 
-Official documentation for Deploio, a container-based infrastructure platform by [Nine](https://nine.ch) and [Renuo AG](https://www.renuo.ch).
+Official guides for Deploio, a container-based infrastructure platform by [Nine](https://nine.ch) and [Renuo AG](https://www.renuo.ch).
 
 ## Development
 

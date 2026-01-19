@@ -48,6 +48,10 @@ export default withMermaid(
     themeConfig: {
       search: { provider: "local" },
       logo: "/icon/logo.svg",
+      editLink: {
+        pattern: "https://github.com/renuo/deploio-guides/edit/main/docs/:path",
+        text: "Edit this page on GitHub",
+      },
       socialLinks: [
         { icon: "facebook", link: "https://www.facebook.com/deploioch/" },
         { icon: "instagram", link: "https://www.instagram.com/deploio/" },

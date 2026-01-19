@@ -63,6 +63,9 @@ export default withMermaid(
         { text: "Pricing", link: "https://deplo.io/pricing", target: "_blank" },
         { text: "Login", link: "https://cockpit.nine.ch/en/session/new?origin=deploio", target: "_blank" },
       ],
+      outline: {
+        level: [2, 3],
+      },
       sidebar: [
         {
           text: "Introduction",

@@ -5,8 +5,8 @@ Official guides for Deploio, a container-based infrastructure platform by [Nine]
 ## Development
 
 ```bash
-# Install dependencies
-npm install
+# Setup
+bin/setup
 
 # Start development server
 npm run docs:dev

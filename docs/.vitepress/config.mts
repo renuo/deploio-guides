@@ -45,6 +45,7 @@ export default withMermaid(
         md.use(tabsMarkdownPlugin);
       },
     },
+    lastUpdated: true,
     themeConfig: {
       search: { provider: "local" },
       logo: "/icon/logo.svg",

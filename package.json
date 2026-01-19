@@ -1,5 +1,5 @@
 {
-  "name": "deploio-documentation",
+  "name": "deploio-guides",
   "scripts": {
     "build": "vitepress build docs",
     "docs:dev": "vitepress dev docs",

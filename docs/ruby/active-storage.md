@@ -7,7 +7,8 @@ next:
   link: /ruby/background-jobs
 description: Complete guide for configuring Active Storage with S3-compatible object storage on Deploio including Nine S3 buckets, custom hostnames, and signed URLs.
 ---
-# Active Storage for Deploio
+
+# Active Storage on Deploio
 
 Deploio doesn't give you a disk to store files permanently.
 It's because real hard disk storage is difficult to scale horizontally.

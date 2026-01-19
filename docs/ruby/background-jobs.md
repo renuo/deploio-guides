@@ -1,7 +1,7 @@
 ---
 prev:
-  text: Object storage
-  link: /ruby/object-storage
+  text: Active Storage
+  link: /ruby/active-storage
 next:
   text: Continuous Deployment
   link: /ruby/continuous-deployment

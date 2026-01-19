@@ -141,7 +141,7 @@ export default withMermaid(
             { text: "Quick start", link: "/ruby/quick-start" },
             { text: "Database", link: "/ruby/database" },
             { text: "Key/Value storage", link: "/ruby/key-value-storage" },
-            { text: "Object storage", link: "/ruby/object-storage" },
+            { text: "Active Storage", link: "/ruby/active-storage" },
             { text: "Background jobs", link: "/ruby/background-jobs" },
             {
               text: "Continuous Deployment",

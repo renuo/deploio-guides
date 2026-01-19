@@ -3,8 +3,8 @@ prev:
   text: Database
   link: /ruby/database
 next:
-  text: Object storage
-  link: /ruby/object-storage
+  text: Active Storage
+  link: /ruby/active-storage
 description: Guide for setting up Redis-compatible key-value stores for Rails applications to support caching and background job systems like Sidekiq.
 ---
 

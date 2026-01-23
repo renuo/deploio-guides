@@ -53,7 +53,15 @@ You can do this by running the following:
 nctl create bucketuser --location=nine-es34 {BUCKETUSER_NAME}
 ```
 
-After creating the user, you can retrieve the access key and secret key:
+Additionally, you need to grant the bucket user permission to access the bucket.
+
+```sh
+nctl update bucket {BUCKET_NAME} \
+  --permissions reader={BUCKETUSER_NAME} \
+  --permissions writer={BUCKETUSER_NAME}
+```
+
+After configuring the bucket user, you can retrieve the access key and secret key:
 
 ```sh
 nctl get bucketuser {BUCKETUSER_NAME} --print-credentials

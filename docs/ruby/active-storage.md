@@ -105,7 +105,7 @@ Accordingly, we need to install the gem, before being able to use the new servic
 gem "aws-sdk-s3"
 ```
 
-To use the newly created Deploio service, set the [`config.active_storage.service`](https://edgeapi.rubyonrails.org/classes/ActiveStorage/Service.html)
+To use the newly created Deploio service, set the [`config.active_storage.service`](https://api.rubyonrails.org/classes/ActiveStorage/Service.html)
 configuration in the production environment:
 
 ```ruby title="config/environments/production.rb"

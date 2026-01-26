@@ -98,7 +98,14 @@ For S3, a `region` must be specified. Deploio uses the S3 default value of `us-e
 Switzerland, operated by Nine.
 :::
 
-To use the newly created service, set the [`config.active_storage.service`](https://edgeapi.rubyonrails.org/classes/ActiveStorage/Service.html)
+The underlying ActiveStorage service (`ActiveStorage::Service::S3Service`) uses the [AWS SDK for Ruby](https://github.com/aws/aws-sdk-ruby).
+Accordingly, we need to install the gem, before being able to use the new service:
+
+```ruby title="Gemfile"
+gem "aws-sdk-s3"
+```
+
+To use the newly created Deploio service, set the [`config.active_storage.service`](https://api.rubyonrails.org/classes/ActiveStorage/Service.html)
 configuration in the production environment:
 
 ```ruby title="config/environments/production.rb"

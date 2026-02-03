@@ -4,7 +4,7 @@ prev:
   link: /user-guide/code-repository-setup
 
 next:
-  text: Other dependecies
+  text: Other dependencies
   link: /user-guide/other-dependencies
 description: Comprehensive guide for creating and managing PostgreSQL and MySQL databases on Deploio including configuration, backups, monitoring, and troubleshooting.
 ---

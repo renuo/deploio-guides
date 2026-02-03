@@ -9,3 +9,9 @@ if ! command -v lychee &> /dev/null; then
   echo "lychee command not found. Please install it (see https://github.com/lycheeverse/lychee) and try again."
   exit 1
 fi
+
+# check if typos command exists
+if ! command -v typos &> /dev/null; then
+  echo "typos command not found. Please install it (see hhttps://github.com/crate-ci/typos#install) and try again."
+  exit 1
+fi

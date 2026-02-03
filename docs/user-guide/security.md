@@ -52,7 +52,7 @@ Deploio apps are internet facing and can access the internet without any restric
 
 ##### Known issues:
 
-  - MySQL connection is unencrypted
+  - MySQL TLS certificate is self-signed and doesn't match the hostname.
   - Anything else?
 
 ## Best Practices

@@ -203,7 +203,7 @@ https://assets.example.com/9etnjjbujcqk7vm8tqzvsj2q8cpj
 
 ::: info
 Underlying Deploio technology (Nutanix) doesn't support custom hostnames on its own.
-Therefore Deploio has a leightweight proxy in place relaying your custom host to
+Therefore Deploio has a lightweight proxy in place relaying your custom host to
 `es34.objects.nineapis.ch`.
 
 For signed URLs to pass-through, we need to tell Active Storage

@@ -111,7 +111,7 @@ There are a number of blogs and other resources available that can provide more 
 [//]: # (TODO: As above... any videos?!)
 [//]: # (We have also posted tutorial videos showing how Deploio works. Please view these [here]&#40;#&#41;)
 
-## Avoid commom pitfalls
+## Avoid common pitfalls
 
 - If you are **using Node in your application**, you need:
   - A `package.json` in the root of the project
@@ -137,4 +137,4 @@ There are a number of blogs and other resources available that can provide more 
 - Store secrets securely using environment variables managed via Cockpit or nctl.
 - Regularly review and update your configurations to ensure they meet the latest security and performance standards.
 - Use staging environments to test your applications before deploying to production.
-- Monitor your applications using the avaiable [tools](/user-guide/tools.md).
+- Monitor your applications using the available [tools](/user-guide/tools.md).

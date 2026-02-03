@@ -1,6 +1,6 @@
 ---
 prev:
-  text: Other dependecies
+  text: Other dependencies
   link: /user-guide/other-dependencies
 next:
   text: Network & Deployment

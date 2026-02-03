@@ -44,7 +44,7 @@ Deploio apps are internet facing and can access the internet without any restric
 
 ##### Docker images
 
-  - It's your responsiblity
+  - It's your responsibility
 
 ##### Buildpacks
 

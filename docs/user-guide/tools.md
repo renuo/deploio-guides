@@ -36,6 +36,8 @@ Our REST API for managing your projects and deployments.
 
 ##### Create your own GUI
 
+##### Create your own CLI, e.g.: https://github.com/renuo/deploio-cli
+
 ## GUI (Cockpit)
 
 Our GUI for managing your projects and deployments.

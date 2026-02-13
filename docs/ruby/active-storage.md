@@ -10,7 +10,7 @@ description: Complete guide for configuring Active Storage with S3-compatible ob
 
 # Active Storage on Deploio
 
-Deploio doesn't give you a disk to store files permanently.
+**Deploio doesn't give you a disk to store files permanently.**
 It's because real hard disk storage is difficult to scale horizontally.
 So the [12factor](https://12factor.net/backing-services) industry best practice
 has been for quite some time to use cloud storage, most famously Amazon S3.
@@ -22,10 +22,11 @@ consider using a [Nine CloudVM](https://nine.ch/products/root-cloud-server/)
 or [bring your own server hardware](https://nine.ch/de/produkte/colocation/) instead.
 :::
 
-## Third-party S3 Service
+## Amazon and Others
 
 You can use Amazon S3 together with Deploio as you would on any other hoster.
-First you set up the bucket on the third-party service (e.g. [Swiss Backup by Informaniak](https://docs.infomaniak.cloud/object_storage/s3/)).
+First you set up the bucket on the third-party service
+(e.g. [AWS S3](https://aws.amazon.com/s3/) or [Swiss Backup by Informaniak](https://docs.infomaniak.cloud/object_storage/s3/)).
 Then you follow the official [Rails Guides on S3 service configuration](https://guides.rubyonrails.org/active_storage_overview.html#s3-service-amazon-s3-and-s3-compatible-apis).
 
 ## S3 Service by Nine
@@ -154,8 +155,9 @@ practical reasons:
 * **Performance**: there should be a CDN in front of your assets but TLS should still be end-to-end.
   So you need to be in control of DNS to provide the Let's Encrypt challenge.
 
-Per default Rails serves the assets from the default bucket host, which is `{BUCKET_NAME}.es34.objects.nineapis.ch`.
-So we need to configure a custom bucket hostname:
+Per default Rails serves the assets only from the default bucket host,
+which is `{BUCKET_NAME}.es34.objects.nineapis.ch`.
+So we need to add a custom bucket hostname:
 
 ```sh
 nctl update bucket {BUCKET_NAME} --custom-hostnames={S3_BUCKET_HOST}
@@ -192,12 +194,20 @@ status:
     endpoint: es34.objects.nineapis.ch
 ```
 
-If you're going to use custom hostnames only for **public** buckets, you can stop here.
 Your assets should be reachable now under names like
 
 ```text
 https://assets.example.com/9etnjjbujcqk7vm8tqzvsj2q8cpj
 ```
+
+but it's not clear yet how Active Storage can serve these URLs.
+
+If you're using [Proxy Mode](https://guides.rubyonrails.org/active_storage_overview.html#putting-a-cdn-in-front-of-active-storage)
+and **public** buckets only, then you can generate `cdn_image_url` helpers for your frontend and you're done.
+
+If you're using the default [Redirect Mode](https://guides.rubyonrails.org/active_storage_overview.html#redirect-mode)
+then you'd best follow along with the next section, which is simpler and even supports
+signed URLs for your custom host names.
 
 #### Signed URLs
 

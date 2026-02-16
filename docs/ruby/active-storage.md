@@ -155,7 +155,7 @@ practical reasons:
 * **Performance**: there should be a CDN in front of your assets but TLS should still be end-to-end.
   So you need to be in control of DNS to provide the Let's Encrypt challenge.
 
-Per default Rails serves the assets only from the default bucket host,
+Per default, Rails serves the assets only from the default bucket host,
 which is `{BUCKET_NAME}.es34.objects.nineapis.ch`.
 So we need to add a custom bucket hostname:
 

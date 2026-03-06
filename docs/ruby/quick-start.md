@@ -16,8 +16,6 @@ This guide covers how to deploy a Ruby on Rails application with Deploio. It ass
 
 * This quick start guide assumes you have **installed `nctl` on your laptop**. If not, please go through the instructions [here](/user-guide/getting-started.md#installing-nctl).
 * You should also have an **organization and project created**, where you will create the application. If you haven't done this yet, please follow the instructions [here](/user-guide/getting-started.md#setting-up-your-first-project).
-* This example also presumes that you are **using a public repository**.
-  Should you need to set up access to a private repository, you will need to create an SSH key for security. See more details [here](/user-guide/code-repository-setup.md).
 * A locally running version of Ruby, Rubygems, Bundler, and Rails
 
 ## Use an Existing Rails Application or Create a New One
@@ -33,13 +31,12 @@ which you can also choose as a starting point.
 Right now, Deploio does not support SQLite databases. You will need to use PostgreSQL or MySQL if you wish to persist data. This can be configured by passing the `--database` flag to the `rails new` command with either `postgresql` or `mysql`.
 :::
 
-After configuring your Rails application and attaching a database, you can proceed to deploy it with Deploio.
-Add the `x86_64-linux` and `ruby` platforms to your Gemfile, to ensure that the correct gems are installed.
+Add the `x86_64-linux` and `ruby` platforms to your Gemfile, to ensure that the correct gems are installed on the platform:
 
 ```shell
 cd myapp
 bundle lock --add-platform x86_64-linux --add-platform ruby
-````
+```
 
 ## Use Git to Store Your Application
 
@@ -48,22 +45,41 @@ the platform. You can use any Git repository hosting service, such as GitHub, Gi
 We describe the process of setting up a Git repository [here](/user-guide/code-repository-setup.md).
 For demonstration purposes, we will use our sample Rails application hosted on GitHub.
 
+::: info
+This example presumes that you are **using a public repository**.
+Should you need to set up access to a private repository, you will need to create an SSH key for security. See more details [here](/user-guide/code-repository-setup.md).
+:::
+
 ## Create a Deploio Application
 
-To create an application on Deploio, you can use the `nctl create app` command:
+At Renuo, we use the following naming convention for new projects:
+
+| | Example value |
+|---|---|
+| project name | `gifcoins2` |
+| staging app name | `develop` |
+| production app name | `main` |
+
+Each project contains two apps, one for staging and one for production. For example, the staging app is created with `nctl create app develop --project=gifcoins2` and accessed via `nctl exec app develop --project=gifcoins2`.
+
+::: warning
+The app name you choose **cannot be changed later**.
+:::
+
+::: info
+The following app creation command requires the [Rails CLI](https://guides.rubyonrails.org/command_line.html) to generate `SECRET_KEY_BASE`. If you don't have it, any long random string will do (127+ chars), e.g. `openssl rand -hex 64` or `head -c 64 /dev/urandom | xxd -p -c 0`.
+:::
+
+Replace `MY_RAILS_APP_NAME` with your chosen app name and run:
 
 ```bash
-nctl create app rails \
+nctl create app MY_RAILS_APP_NAME \
   --git-url=https://github.com/ninech/deploio-examples \
   --git-sub-path=ruby/rails-basic \
   --env="SECRET_KEY_BASE=$(rails secret)"
 ```
 
-Replace the name `rails` with any app name best suited for your project.
-
-::: info
-This requires the [Rails CLI](https://guides.rubyonrails.org/command_line.html) to be installed for the `SECRET_KEY_BASE`. If you don't have it, any long random string will do (127+ chars), e.g. `openssl rand -hex 64` or `head -c 64 /dev/urandom | xxd -p -c 0`.
-:::
+You can pass multiple environment variables by separating them with `;`. Run `nctl create app --help` to see all available options.
 
 When you create an application, the Git repository is cloned and Deploio will attempt to detect the application type and
 select the appropriate buildpack.
@@ -78,6 +94,16 @@ If your application requires **Node.js** either for the build or runtime, a `pac
 ## Next Steps
 
 The app should be running by now.
-However, if you are migrating an existing application or just created a new one that requires a database, chances are
-high that the current setup will not work.
-In this case, you will need to set up a **database**, which is described in the next step.
+If your application requires a database, it will likely fail at this point because the database connection is not yet configured. You can check your app configuration with:
+
+```bash
+nctl get app MY_RAILS_APP_NAME --project=MY_PROJECT_NAME -o yaml
+```
+
+You can also open an interactive shell to inspect or debug:
+
+```bash
+nctl exec app MY_RAILS_APP_NAME --project=MY_PROJECT_NAME
+```
+
+The next step is to set up a [**database**](/ruby/database) for your application.

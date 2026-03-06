@@ -106,4 +106,4 @@ You can also open an interactive shell to inspect or debug:
 nctl exec app MY_RAILS_APP_NAME --project=MY_PROJECT_NAME
 ```
 
-The next step is to set up a [**database**](/ruby/database) for your application.
+The next step is to set up a [**database**](/ruby/database.md) for your application.

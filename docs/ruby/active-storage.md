@@ -79,6 +79,20 @@ nctl update app {APP_NAME} --env="\
   S3_BUCKET={BUCKET_NAME}"
 ```
 
+### CORS
+
+Active Storage supports uploading files directly from the client to the bucket. To make the direct uploads work,
+you need to [configure CORS](https://guides.rubyonrails.org/active_storage_overview.html#cross-origin-resource-sharing-cors-configuration) 
+on the bucket.
+
+```sh
+nctl update bucket {BUCKET_NAME} \
+  --cors origins={APP_HOST} \
+  --cors allowed-headers=Content-Type,Content-MD5,Content-Disposition \
+  --cors response-headers=Content-Type,Content-MD5,Content-Disposition,ETag \
+  --cors max-age=3600
+```
+
 ## Configure Active Storage
 
 To use the bucket in your Rails application, you need to configure Active Storage.

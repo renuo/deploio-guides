@@ -200,7 +200,7 @@
             </div>
 
             <nav class="copyright-wrapper">
-                <p>Copyright © 2025 Nine Internet Solutions AG</p>
+                <p>Copyright © 2025- Nine Internet Solutions AG</p>
                 <a
                     href="https://docs.nine.ch/de/docs/legal-documents/general-terms-and-conditions"
                     target="_blank"

@@ -22,7 +22,9 @@ Coming soon 🚧
 ##### TLS with Let's Encrypt certificates
 
 Deploio automatically issues [Let's Encrypt](https://letsencrypt.org/) certificates for you.
-Simply prove domain ownership with a verification TXT record and a CNAME.
+Simply prove domain ownership with a verification `TXT` record or a `CNAME`. 
+You can read more in the
+[docs about custom domain name setup](https://docs.nine.ch/docs/deplo-io/configuration/deploio-custom-hosts/)
 
 ##### Custom TLS certificates
 

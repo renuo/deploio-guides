@@ -21,6 +21,21 @@ Coming soon 🚧
 
 ##### TLS with Let's Encrypt certificates
 
+Deploio automatically issues [Let's Encrypt](https://letsencrypt.org/) certificates for you.
+Simply prove domain ownership with a verification `TXT` record or a `CNAME`. 
+You can read more in the
+[docs about custom domain name setup](https://docs.nine.ch/docs/deplo-io/configuration/deploio-custom-hosts/)
+
+##### Custom TLS certificates
+
+**Deploio doesn't support custom TLS certificates.**
+The times of custom certificates for the browsable public web are over.
+The big system software providers agreed on [shortening the certificate lifecycle to 47 days
+by at least the year 2029](https://www.digicert.com/blog/tls-certificate-lifetimes-will-officially-reduce-to-47-days).
+
+Currently only Let's Encrypt is supported. If you need another provider
+which can automatically issue certificates, please reach out to support@nine.ch.
+
 ##### IP allowlists for access control
 
 ##### HTTP only

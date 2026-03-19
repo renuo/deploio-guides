@@ -18,7 +18,7 @@ This guide helps you get up and running with **Deploio**, from installing the CL
 
 📄 **Read the full nctl API docs [here](https://docs.nine.ch/api/)**
 
-### Step-by-step setup:
+### Step-by-step setup
 
 1. Download and install `nctl`. Various methods of installation are detailed on the [Github page](https://github.com/ninech/nctl#setup).
 

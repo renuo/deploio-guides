@@ -40,7 +40,7 @@
                             </li>
                             <li>
                                 <a
-                                    href="/pricing"
+                                    href="https://deplo.io/en/pricing"
                                     target="_blank"
                                     class="footer-link"
                                     >Pricing</a

@@ -28,8 +28,6 @@ Deploio automatically builds your application using the [Heroku Buildpack](https
 
 ##### Release
 
-[//]: # (TODO: CHECK - can releases be rolled back via nctl?)
-
 After a successful build, your application is released. The release includes the build artifact, configuration settings, and environment variables. Releases are immutable, versioned, ~~and can be rolled back if needed~~. Deploio also manages secrets and sensitive data securely, differentiating between build and release environment variables, ensuring that they are not exposed to your running app.
 
 ##### Run

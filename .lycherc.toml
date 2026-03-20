@@ -5,3 +5,6 @@ include_fragments = true
 
 # Check both internal and external links
 offline = false
+
+# Exclude specific URLs from checking
+exclude = ["https://vite.dev"]

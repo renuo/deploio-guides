@@ -82,7 +82,7 @@ nctl update app {APP_NAME} --env="\
 ### CORS
 
 Active Storage supports uploading files directly from the client to the bucket. To make the direct uploads work,
-you need to [configure CORS](https://guides.rubyonrails.org/active_storage_overview.html#cross-origin-resource-sharing-cors-configuration) 
+you need to [configure CORS](https://guides.rubyonrails.org/active_storage_overview.html#cross-origin-resource-sharing-cors-configuration)
 on the bucket.
 
 ```sh
@@ -147,7 +147,7 @@ puts blob.url
 ### Public Access
 
 Notice that per default you will receive a signed URL because Rails assumes that S3 buckets
-are not publicly accessible. You can change this by creating a public Deploio S3 bucket 
+are not publicly accessible. You can change this by creating a public Deploio S3 bucket
 
 ```sh
 nctl create bucket --location=nine-es34 {BUCKET_NAME} --public-read
@@ -164,7 +164,8 @@ to the Active Storage configuration. Your URLs will then be accessible like this
 
 For production apps you might want to hide the fact that assets are hosted on Nine S3. This often has the two
 practical reasons:
-* **Appearance**: all URLs should only point to your app, e.g. www.example.com and assets.example.com for brand
+
+* **Appearance**: all URLs should only point to your app, e.g. <www.example.com> and assets.example.com for brand
   and reputation reasons.
 * **Performance**: there should be a CDN in front of your assets but TLS should still be end-to-end.
   So you need to be in control of DNS to provide the Let's Encrypt challenge.
@@ -181,6 +182,7 @@ nctl update app {APP_NAME} --env="S3_BUCKET_HOST={S3_BUCKET_HOST}"
 Deploio needs to verify that you really own a domain name before
 it will accept HTTP traffic to your custom host on their side.
 So you need to add two DNS records at your DNS provider:
+
 * `CNAME` for your domain to `es34.objects.nineapis.ch`
 * `TXT` for record for ownership verification
 

@@ -19,12 +19,11 @@ If this is sufficient, the application can remain with this setup pointing to a 
 
 Otherwise, we can automate deployments using scripts and integrate deployments with CI/CD pipelines.
 
-##### Install `nctl` in CI pipelines.
+##### Install `nctl` in CI pipelines
 
 We will need to configure the CI process to install and authenticate the `nctl` CLI.
 
 For this, we will need to set the `NCTL_API_TOKEN` variable and `NCTL_ORGANIZATION` variable on the CI environment. We can use the API Service Account (ASA) to create a token. See the next section for instructions on this.
-
 
 Once this is done, we can install and authenticate `nctl` as below.
 
@@ -33,7 +32,7 @@ sudo apt-get update && sudo apt-get install nctl
 nctl auth login
 ```
 
-##### Issue tokens for secure deployment automation.
+##### Issue tokens for secure deployment automation
 
 For extra security, we should create a token for the CI to use. This token can be created using the API Service Account (ASA) and can be used to authenticate the `nctl` CLI.
 
@@ -51,7 +50,7 @@ nctl get apiserviceaccount {token_name} --print-token
 
 We can then set this as the `DEPLOIO_API_TOKEN` on the CI environment.
 
-##### Trigger deployments on code (ref) updates.
+##### Trigger deployments on code (ref) updates
 
 To trigger deployments on the CI, we also need to set the `DEPLOIO_PROJECT` and `DEPLOIO_APP_NAME` environment variables on the CI. We can then use the `nctl` CLI to "update" the application with the new git revision.
 

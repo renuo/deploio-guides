@@ -26,12 +26,15 @@ We have two static sites in our [examples repository](https://github.com/ninech/
 You can deploy them with `nctl`:
 
 * just a plain `index.html`:
+
   ```bash
   nctl create app static-html \
   --git-url=https://github.com/ninech/deploio-examples \
   --git-sub-path=static/html
   ```
+
 * a frontend react app built with `npm`:
+
   ```bash
   nctl create app static-react \
   --git-url=https://github.com/ninech/deploio-examples \
@@ -48,8 +51,6 @@ So per default Deploio serves your app from `/workspace/build`.
 
 [Vite](https://vite.dev/) for example builds into `dist`.
 So you need to set `BP_STATIC_WEBROOT=dist` which ends up in `/workspace/dist` being served by Deploio's _nginx_.
-
-
 
 ## NPM Frontend
 

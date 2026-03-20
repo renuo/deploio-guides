@@ -52,7 +52,6 @@ By default, the PHP built-in web server will be used. For production use cases, 
 Additionally, if required, the web server can be customized further by
 providing [your own server-specific config file](https://paketo.io/docs/howto/php/#provide-your-own-web-server-configuration-file).
 
-
 ## Next Steps
 
 In the next step, we will set up a Symfony project and then configure various storage options for it.

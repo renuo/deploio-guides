@@ -64,6 +64,7 @@ Check your framework's documentation to confirm the output directory.
 ### VitePress
 
 **package.json:**
+
 ```json
 {
   "scripts": {
@@ -73,6 +74,7 @@ Check your framework's documentation to confirm the output directory.
 ```
 
 **Build Environment Variable:**
+
 ```
 BP_STATIC_WEBROOT=docs/.vitepress/dist
 ```
@@ -80,6 +82,7 @@ BP_STATIC_WEBROOT=docs/.vitepress/dist
 ### Docusaurus
 
 **package.json:**
+
 ```json
 {
   "scripts": {
@@ -89,6 +92,7 @@ BP_STATIC_WEBROOT=docs/.vitepress/dist
 ```
 
 **Build Environment Variable:**
+
 ```
 BP_STATIC_WEBROOT=build
 ```
@@ -100,6 +104,7 @@ Docusaurus uses `build` as the default, which matches Deploio's default `BP_STAT
 ### Gatsby
 
 **package.json:**
+
 ```json
 {
   "scripts": {
@@ -109,6 +114,7 @@ Docusaurus uses `build` as the default, which matches Deploio's default `BP_STAT
 ```
 
 **Build Environment Variable:**
+
 ```
 BP_STATIC_WEBROOT=public
 ```
@@ -116,6 +122,7 @@ BP_STATIC_WEBROOT=public
 ### Astro
 
 **package.json:**
+
 ```json
 {
   "scripts": {
@@ -125,6 +132,7 @@ BP_STATIC_WEBROOT=public
 ```
 
 **Build Environment Variable:**
+
 ```
 BP_STATIC_WEBROOT=dist
 ```
@@ -142,6 +150,7 @@ BP_STATIC_WEBROOT=dist
 **Problem:** Site deploys successfully but shows 404 errors.
 
 **Causes:**
+
 - `BP_STATIC_WEBROOT` is pointing to the wrong directory
 - `BP_STATIC_WEBROOT` is not set
 

@@ -58,15 +58,14 @@ Note that we are using `rediss` as TLS is enabled.
 
 ## Object Storage
 
-##### For static files and assets.
+##### For static files and assets
 
 - ...
 
 ## Persistent Volumes
 
-##### Define usage limits for disk storage.
+##### Define usage limits for disk storage
 
 - ...
-
 
 Explore more advanced configurations for your dependencies.

@@ -90,6 +90,7 @@ nctl get postgres {NAME} --print-connection-string
 > `postgres://dbadmin:password@{FQDN}/my-database?version={VERSION}&charset=utf8`.
 >
 > If you are not sure about the database version, you find the version in the GUI or in the full service definition:
+>
 > ```bash
 > nctl get postgres {NAME} --output=yaml | grep version
 > ```
@@ -313,10 +314,12 @@ nctl update app {APP_NAME} \
 ```
 
 In PHP, you then `json_decode` the variable:
+
 ```php
 $parameters = json_decode(getenv('DATABASE'), true, JSON_THROW_ON_ERROR);
 $conn = new mysqli($parameters['host'], $parameters['user'], $parameters['password'], $parameters['dbname']);
 ```
+
 :::
 
 ### Run Migrations

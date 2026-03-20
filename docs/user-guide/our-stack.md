@@ -15,16 +15,18 @@ description: Overview of Deploio's technology stack including Nutanix infrastruc
 Deploio is born from a partnership of two established Swiss technology companies:
 
 ### Nine (Founded 1999)
+
 - Decades of Swiss hosting expertise
 - Operates Swiss-based datacenters
 - Deep infrastructure and cloud engineering experience
 
 ### Renuo (Founded 2011)
+
 - Platform-as-a-Service specialists
 - Years of Heroku power-user experience (plus testing a number of alternatives)
 - Expert application deployment knowledge
 
-##### Together, they bring Swiss quality, reliability, and technical excellence to Deploio.
+##### Together, they bring Swiss quality, reliability, and technical excellence to Deploio
 
 ## The Technology Stack
 
@@ -82,22 +84,26 @@ Below explains how this infrastructure impacts key operational considerations.
 We have used the [FURPS](https://en.wikipedia.org/wiki/FURPS) model to evaluate the safety and reliability of Deploio's infrastructure:
 
 ##### Functionality
+
 - **Swiss Infrastructure**: Operated under Nine's [AS29691](#swiss-infrastructure-as29691) infrastructure
 - **Physical Security**: Enterprise-grade data center security measures
 - **Encrypted Communication**: Secure data transmission protocols
 
 ##### Usability
+
 - **Access Controls**: Access management via account permissions set at Organisation level
 - **Familiar Tools**: Manage security through `nctl` and standard Kubernetes commands via `kubectl`
 - **Unified Interface**: Single platform (Deploio Cockpit) for monitoring via a GUI
 - **Documentation**: Quick start guides (see sidebar) available for different technologies, as well as general documentation of both Deploio and [Nine products](https://docs.nine.ch/)
 
 ##### Reliability
+
 - **Kubernetes Backed**: Built on Kubernetes for high availability and reliability
 - **Automated Recovery**: Self-healing infrastructure
 - **Backup Systems**: Automated backup procedures
 
 ##### Performance
+
 - **Low-latency**: Minimal impact on application performance
 - **Fast CLI Operations**: Quick deployments and updates via `nctl`
 - **Efficient Container Orchestration**: Kubernetes-powered scheduling, scaling and management
@@ -105,6 +111,7 @@ We have used the [FURPS](https://en.wikipedia.org/wiki/FURPS) model to evaluate 
 - **Zero-downtime Deployments**: Rolling updates without service interruption
 
 ##### Supportability
+
 - **Management Options**: Maintain your applications easily through either `nctl` CLI or Deploio Cockpit GUI
 - **Standardized Infrastructure**: Built on enterprise-grade Kubernetes for consistent operations and management
 - **Flexible Testing**: Create and manage multiple staging environments for thorough testing
@@ -122,6 +129,7 @@ Your application runs in containers with an **ephemeral filesystem**, meaning **
 **Your Application = Code (Git) + Runtime Data**
 
 Remember: Your application consists of two key parts:
+
 - **Code**: Version controlled in Git
 - **Runtime Data**: Must be stored in persistent services like:
   - Databases for structured data
@@ -139,29 +147,31 @@ Applications on Deploio run in containers, which are isolated at the process, fi
 Deploio organizes resources in a clear three-level structure:
 
 1. **Organisation**
-  - Your contract relationship with Nine
-  - The top-level entity that contains all your projects
-  - Manages billing and access control
 
-2. **Projects**
-  - Equivalent to a Kubernetes namespace (1:1 mapping)
-  - Logical grouping of related resources
-  - Provides isolation between different applications or environments
+- Your contract relationship with Nine
+- The top-level entity that contains all your projects
+- Manages billing and access control
 
-3. **Resources**
-  - The actual components you deploy and pay for:
+1. **Projects**
 
-    - Applications
-    - Databases
-    - S3 storage
-    - And other services...
+- Equivalent to a Kubernetes namespace (1:1 mapping)
+- Logical grouping of related resources
+- Provides isolation between different applications or environments
+
+1. **Resources**
+
+- The actual components you deploy and pay for:
+
+  - Applications
+  - Databases
+  - S3 storage
+  - And other services...
 
 ::: info Summary
 Each resource belongs to a project, and each project belongs to your organization, creating a clear and manageable hierarchy for your deployments.
 :::
 
 However, from an infrastructure perspective, the isolation happens at the **Kubernetes namespace and container level**:
-
 
 - Each project runs in a separate Kubernetes namespace
 - Each container has its own isolated runtime environment

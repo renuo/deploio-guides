@@ -27,9 +27,11 @@ When creating a new application in the Cockpit or via the nctl CLI, you will nee
 2. In Cockpit:
 
    - Set the **Git URL** to your repo, e.g.
+
      ```
      https://github.com/your-org/your-repo.git
      ```
+
    - Enter the **Username**: your GitHub username
    - Enter the **Password**: your GitHub PAT
 
@@ -44,6 +46,7 @@ You can view more details about creating the application for creating applicatio
    ```bash
    ssh-keygen -t ed25519 -C "deploio-access"
    ```
+
    Save it somewhere like `~/.ssh/deploio_id_ed25519`. Alternatively, you can use a tool like 1Password to generate and store the key securely.
 
 2. **Add the public key to GitHub**
@@ -53,6 +56,7 @@ You can view more details about creating the application for creating applicatio
      Only read access is required.
 
    - Or via the CLI:
+
      ```bash
      gh repo deploy-key add \
        --repo your-org/your-repo \

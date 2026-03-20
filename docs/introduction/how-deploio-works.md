@@ -9,11 +9,13 @@ description: Explains the repo-build-release process, workflow, and key concepts
 ---
 
 # How Deploio Works
+
 In this section, you'll learn how Deploio works, from the repo, build, release process to the workflow and glossary of key terms.
 
 ## Repo, Build, Release Process
 
 All you require for deploying an application with Deploio is:
+
 - a git repository with the application codebase
 - a laptop or PC for installing `nctl` and deploying the application 💻
 - a domain to point to your application 🌐
@@ -40,7 +42,6 @@ Apps are exposed to the internet via k8 ingress controllers. Other services are 
 
 While Deploio runs on a scalable Kubernetes infrastructure, your apps don’t autoscale by default. Most apps can live comfortably with vertical scaling — predictable, easy to manage, and fully under your control via code, CI/CD, or manually in the Cockpit. You probably don’t need horizontal scaling, but if you do, We’ve got you. Because we run on real Kubernetes, and we know how to scale things properly. Do you?
 
-
 For more details on the infrastructure used to run your app, view the Nine Kubernetes Engine documentation [here](https://docs.nine.ch/docs/managed-kubernetes/nke/nine-kubernetes-engine/).
 
 ## Workflow
@@ -55,13 +56,11 @@ See the [Code Repository Setup](/user-guide/code-repository-setup.md) page for m
 
 Use the official Heroku Cloud Native Buildpacks for languages like Node.js, Ruby, Python, and Go — or define a custom Dockerfile. Builds are cached to speed things up. Configuration isn’t limited to environment variables: Deploio uses a **hierarchical system** that lets you define defaults at the company or project level easily, and override them per app — either in the code or directly in the Cockpit.
 
-
 ##### Deployment
 
 Deployments are rolled out through Kubernetes using rolling updates and readiness checks to ensure zero downtimme. Each deployment references a specific container image and configuration version.
 
 Deploy jobs can also be configured to execute before a new release is deployed. The rollout of the release will only continue if the deploy job finished successfully. This can be defined in the `.deploio.yaml`. See more information [here](/user-guide/configuring-your-application.md#deploioyaml).
-
 
 ```mermaid
 flowchart TD
@@ -101,7 +100,6 @@ It is typical that a Project will have an Application running for each environme
 ##### Deployment
 
 The act of **bringing your code to the web**: build and ship a specific state of your code, config, and environment — made live under a domain. Fully reproducible. Fully auditable.
-
 
 ##### Cockpit
 

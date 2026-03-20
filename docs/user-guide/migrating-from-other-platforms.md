@@ -53,6 +53,7 @@ mysqldump -h {SOURCE_HOST} -u {USERNAME} -p {DATABASE_NAME} > backup.sql
 Some platforms provide their own tools for database exports:
 
 **Heroku Example:**
+
 ```bash
 # Capture a backup
 heroku pg:backups:capture -a {APP_NAME}
@@ -62,6 +63,7 @@ heroku pg:backups:download -a {APP_NAME}
 ```
 
 **AWS RDS Example:**
+
 ```bash
 # Using AWS CLI to create a snapshot
 aws rds create-db-snapshot \
@@ -86,6 +88,7 @@ pg_restore \
 
 ::: info
 The `--no-owner` and `--no-acl` flags are important when restoring to Deploio:
+
 - `--no-owner`: Ensures all objects are owned by the user performing the restore (dbadmin) rather than the original owner
 - `--no-acl`: Prevents the restoration of access control lists (ACLs) from the source database, which might cause issues with access to the database.
 :::
@@ -134,6 +137,7 @@ Below is an example of a shell script that you can use for retrieving environmen
 In the below example, you would need to replace the `heroku_project` variable with your project name. The output will be a list of environment variables from the project which can then be passed when creating the application using the `nctl` command line. The [Heroku cli](https://devcenter.heroku.com/articles/heroku-cli) and [`jq` command line utility](https://jqlang.github.io/jq/) have to be installed.
 
 `env-migration.sh`:
+
 ```shell
 set -e
 
@@ -219,5 +223,3 @@ On the other hand, should you wish to integrate the deployment process to the CI
 ## How to guides
 
 Please see a list below of "how to" guides for migrating to Deploio:
-
-

@@ -18,21 +18,24 @@ This guide helps you get up and running with **Deploio**, from installing the CL
 
 📄 **Read the full nctl API docs [here](https://docs.nine.ch/api/)**
 
-#### Step-by-step setup:
+#### Step-by-step setup
 
 1. Download and install `nctl`. Various methods of installation are detailed on the [Github page](https://github.com/ninech/nctl#setup).
 
 2. Login to the API (providing you have an account) using:
+
 ```bash
 nctl auth login
 ```
 
-3. Check you are authenticated and have access to the API:
+1. Check you are authenticated and have access to the API:
+
 ```bash
 nctl auth whoami
 ```
 
-4. View your available projects:
+1. View your available projects:
+
 ```bash
 nctl get all
 ```
@@ -95,8 +98,6 @@ You can see an explanation of the configuration levels [here](https://docs.nine.
 
 There are a number of blogs and other resources available that can provide more information and use cases for Deploio. Please see a list below:
 
-
-
 ##### Quick start guides
 
 🚧 Under construction 🚧
@@ -125,7 +126,7 @@ There are a number of blogs and other resources available that can provide more 
   `nctl auth set-project my-project`
 
 - Otherwise, you can specifically **set the project as a flag**. For example:
-  `nctl get configs --project=org-my-project `
+  `nctl get configs --project=org-my-project`
 
 - Projects are **prefixed with your organization name**. For example `my-project` within `org` can be referred to as `org-my-project`.
 

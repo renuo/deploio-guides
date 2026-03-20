@@ -56,7 +56,6 @@ The database version must be selected when creating the instance and cannot be c
 | nine-db-xl   | 8                   | 24 GB  | 20 GB         | CHF 201      |
 | nine-db-xxl  | 10                  | 32 GB  | 20 GB         | CHF 253      |
 
-
 Additional storage space per 10 GB: CHF 1.50 per month.
 
 Machine types can be changed after creation. After an adjustment, the database instance will be restarted and will be unavailable for a few minutes.
@@ -83,7 +82,7 @@ For more information about backing up your databases on a daily basis, accessing
 
 Configure the public keys to access the database backups via SSH. The keys can be adjusted at any time.
 
-These can be set via the `--ssh-keys` flag or the ` --ssh-keys-file` flag.
+These can be set via the `--ssh-keys` flag or the `--ssh-keys-file` flag.
 
 ### Database specific creation settings
 
@@ -93,7 +92,6 @@ These can be set via the `--ssh-keys` flag or the ` --ssh-keys-file` flag.
 #### Versions available
 
 In the following table you can find the support period of each PostgreSQL version:
-
 
 | PostgreSQL Version | Support End       |
 |--------------------|-------------------|
@@ -170,6 +168,7 @@ We can now access the server using the FQDN and generated user and password. We 
 Now we want to create the database on the server. We can run the following command:
 
 [//]: # (TODO: can we find a way for the user to input the desired name and update the commands?)
+
 ```
 createdb -U dbadmin -h {FQDN} {DATABASE_NAME}
 ```
@@ -295,6 +294,7 @@ MySQL does not support extensions in the same way as PostgreSQL (via `CREATE EXT
 You don’t need to enable these manually — they are either available by default or configurable at runtime (via SQL or server settings).
 
 > To inspect available plugins on your instance, you can run:
+>
 > ```sql
 > SHOW PLUGINS;
 > ```
@@ -328,14 +328,17 @@ Now we want to create the database on the server. We can run the following comma
     ```bash
     mysql -h {FQDN} -u dbadmin -p
     ```
+
     You will be prompted to enter the password.
 
 2. **Create a new database from the MySQL prompt:**
+
     ```sql
     CREATE DATABASE my_app_db;
     ```
 
 3. **List all databases to confirm:**
+
     ```sql
     SHOW DATABASES;
     ```
@@ -481,16 +484,19 @@ mysql -u dbadmin -p -h {FQDN}
 Useful commands:
 
 - View active queries:
+
   ```sql
   SHOW PROCESSLIST;
   ```
 
 - View general performance stats:
+
   ```sql
   SHOW GLOBAL STATUS;
   ```
 
 - Check uptime, queries per second, open connections:
+
   ```sql
   SHOW STATUS LIKE 'Uptime';
   SHOW STATUS LIKE 'Threads_connected';

@@ -74,7 +74,6 @@ which will ignore all build requirements, or you can scope it to specific extens
 When doing this, you will see from the logs that the buildpack still validates that the extensions you require are
 available in the runtime image, but the build will no longer fail due to the build container missing extensions.
 
-
 ## Next Steps
 
 In the next step, we will look at some more options to configure how your application needs to be run.

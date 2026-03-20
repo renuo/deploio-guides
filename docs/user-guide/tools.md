@@ -9,6 +9,7 @@ next: false
 
 In this guide, we'll introduce you to the tools that you can use to manage your Deploio resources. This section is
 divided into two categories:
+
 - Official tools (actively maintained by Deploio)
 - Community tools (created and maintained by the community)
 
@@ -16,11 +17,11 @@ divided into two categories:
 
 ### CLI
 
-Our [nctl CLI]((https://github.com/ninech/nctl) seamlessly integrates Deploio into your workflows. You can use it to manage applications, databases,
-and more from the command line. Follow [the Getting Started guide](/user-guide/getting-started.md#installing-nctl) 
+Our [nctl CLI]((<https://github.com/ninech/nctl>) seamlessly integrates Deploio into your workflows. You can use it to manage applications, databases,
+and more from the command line. Follow [the Getting Started guide](/user-guide/getting-started.md#installing-nctl)
 to set it up.
 
-Compared to the [Deploio GUI](#gui-cockpit), the CLI interface is more feature-complete and allows you to 
+Compared to the [Deploio GUI](#gui-cockpit), the CLI interface is more feature-complete and allows you to
 automate your workflows. In addition, the interface is more stable, making it a great choice for power users.
 
 ### API
@@ -30,7 +31,7 @@ programmatic interface, you can of course also call the API directly.
 
 #### Using kubectl
 
-Nine's API is based on Kubernetes, meaning that you can use `kubectl` to manage your Deploio applications as well. 
+Nine's API is based on Kubernetes, meaning that you can use `kubectl` to manage your Deploio applications as well.
 This is especially useful if you're already familiar with Kubernetes and want to use its powerful features.
 Have a look at [this example](https://docs.nine.ch/api/#section/Introduction/Creating-a-resource-with-curl) showing
 how an object storage bucket can be created using `kubectl`.
@@ -42,7 +43,7 @@ for managing your Deploio resources. Have a look at the [API documentation](http
 
 ### GUI (Cockpit)
 
-The [Deploio cockpit](https://cockpit.nine.ch) is a web-based interface that allows you to manage your Deploio resources. 
+The [Deploio cockpit](https://cockpit.nine.ch) is a web-based interface that allows you to manage your Deploio resources.
 It's built on top of the Nine Self Service API and provides a simple and intuitive user interface. It's ideal for quick
 tasks or when automation isn't required.
 

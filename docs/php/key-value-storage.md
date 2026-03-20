@@ -94,6 +94,7 @@ In PHP, you then `json_decode` the variable, and create a [PHPRedis](https://git
 $parameters = json_decode(getenv('KEYVALUE'), true, JSON_THROW_ON_ERROR);
 $redis = new Redis($parameters);
 ```
+
 :::
 
 ## Next Steps

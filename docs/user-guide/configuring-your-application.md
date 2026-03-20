@@ -46,7 +46,6 @@ The following tabs are available for configuration:
 
 #### Application Tabs
 
-
 | Tab                  | Description                                                                                                                                                                                                                 |
 |----------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Git**              | Configure the git repository URL and authentication details for your application                                                                                                                                            |
@@ -119,6 +118,7 @@ scheduledJobs:
 
 ::: warning Procfile Limitations
 Deploio only supports the `web` process type in Procfile. The `worker` and `release` process types are not supported. We strongly recommend using `deploio.yaml` instead, which provides full support for all process types including:
+
 - Web processes
 - Worker jobs
 - Deploy jobs
@@ -579,7 +579,7 @@ Worker jobs cannot be configured in the Procfile. Use one of the other methods i
 The simplest way to view the status of a worker job with `nctl` is to use the `-o stats` command:
 
 ```bash
-$ nctl get app my-app -o stats
+nctl get app my-app -o stats
 ```
 
 Additionally, the logs of the worker jobs can be accessed by viewing the app logs using the `nctl logs app` command.

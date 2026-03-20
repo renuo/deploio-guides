@@ -17,7 +17,6 @@ Coming soon 🚧
 
 [//]: # (TODO: check this - nctl log always just show stdout?)
 
-
 ##### nctl logs
 
 - View logs via `nctl logs` (stdout)
@@ -44,7 +43,6 @@ Coming soon 🚧
 #### Metrics in Cockpit
 
 #### Metrics in your own Grafana Dashboard
-
 
 ##### DNS
 

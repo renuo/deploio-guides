@@ -59,7 +59,7 @@ In case you want to rollback to a previous revision, you can use the following c
 nctl update app {application_name} --project {project_name} --git-revision={git_revision}
 ```
 
-## K8
+## Kubernetes
 
 In case you want to reproduce an issue with a certain build, you can use the following commands to pull the corresponding 
 image and run it locally with Docker:
@@ -78,7 +78,7 @@ You can also see the full configuration of the build by running:
 nctl get builds {build_name} --application-name {application_name} --project {project_name} --output json
 ```
 
-### Deploio system status
+## Deploio system status
 
 We provide further information about the status of our system and services on our [status page](https://status.nine.ch/).
 

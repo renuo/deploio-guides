@@ -32,7 +32,7 @@ nctl create app my-app --project my-project \
   --basic-auth
 ```
 
-:::note
+::: info
 `app` is short for `application`. `nctl` also works if you use the long name `nctl create application my-app ...`.
 :::
 
@@ -52,11 +52,11 @@ The following tabs are available for configuration:
 | **Git**              | Configure the git repository URL and authentication details for your application                                                                                                                                            |
 | **Hosts**            | Manage deployment hosts and view DNS configuration records (TXT and CNAME) for your domain registrar                                                                                                                        |
 | **Configuration**    | Manage environment variables, build variables, and basic application settings (auth, port, replicas, size). Shows the source of each setting (default or`deploio.yaml`)                                                     |
-| **Static Egress**    | Configure static IP addresses for outbound traffic.[Learn more about static egress](https://docs.nine.ch/docs/managed-kubernetes/nke/static-egress-nke/)                                                                     |
+| **Static Egress**    | Configure static IP addresses for outbound traffic.[Learn more about static egress](https://docs.nine.ch/docs/managed-kubernetes/nke/static-egress-nke/)                                                                    |
 | **Jobs**             | View worker and scheduled jobs. For configuration, use[CLI or deploio.yaml](#worker-jobs)                                                                                                                                   |
 | **Dockerfile Build** | View build options for Dockerfile-based applications. Configure using`--dockerfile-path` and `--dockerfile-build-context` flags. [Learn more about Dockerfile builds](https://docs.nine.ch/docs/deplo-io/dockerfile-build/) |
-|
 | **Logs**             | Access real-time application logs                                                                                                                                                                                           |
+| **Metrics**          | Access real-time application metrics (memory & CPU usage)                                                                                                                                                                   |
 | **Builds**           | Monitor build status and history                                                                                                                                                                                            |
 | **Releases**         | Track application releases and their status                                                                                                                                                                                 |
 
@@ -70,7 +70,8 @@ Here you can **add** a deploy job, worker jobs, scheduled jobs, as well as the b
 
 ### 3. deploio.yaml
 
-A Git-tracked configuration file that can be stored alongside your application code. It can be stored alongside your application code, and will be read by the build system when building the application.
+A Git-tracked configuration file that can be stored alongside your application code. It can be stored alongside your application code.
+It will be read by the build system when building the application.
 
 This allows you to have all the configuration in one YAML file, and not have to use the CLI or Cockpit to configure your application.
 
@@ -88,7 +89,7 @@ You can use this file to:
 Below is an example of a `deploio.yaml` file. You can see an up-to-date list of fields that can be used in the [API docs](https://docs.nine.ch/api/#tag/ProjectConfig/operation/createAppsNineChV1alpha1NamespacedProjectConfig).
 
 ```yaml
-# Application size (micro, mini, standard-1, standard-2)
+# Application size (micro, mini, standard-1, standard-2, standard-4)
 size: micro
 # Port the app is listening on.
 port: 8080
@@ -422,12 +423,13 @@ Every replica will get the documented amount of resources. Meaning, the amount o
 
 #### Available Sizes
 
-| Size       | Standard RAM | CPU    | Ephemeral Storage |
-|------------|--------------|--------|-------------------|
-| micro      | 256 MiB      | ⅛ Core | 2 GiB             |
-| mini       | 512 MiB      | ¼ Core | 2 GiB             |
-| standard-1 | 1 GiB        | ½ Core | 2 GiB             |
-| standard-2 | 2 GiB        | ¾ Core | 2 GiB             |
+| Size       | Standard RAM | CPU     | Ephemeral Storage |
+|------------|--------------|---------|-------------------|
+| micro      | 256 MiB      | ⅛ Core  | 2 GiB             |
+| mini       | 512 MiB      | ¼ Core  | 2 GiB             |
+| standard-1 | 1 GiB        | ½ Core  | 2 GiB             |
+| standard-2 | 2 GiB        | ¾ Core  | 2 GiB             |
+| standard-4 | 4 GiB        | 1 ½ Core | 2 GiB             |
 
 Prices for each Deploio instance size can be found on the [pricing page](https://deplo.io/pricing).
 

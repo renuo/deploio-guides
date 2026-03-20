@@ -42,14 +42,14 @@ history.
 
 ### Access
 
-[This guide](./configuring-your-database.html#interacting-with-databases-1) describes how you can access a database
+[This guide](./configuring-your-database.md#interacting-with-databases-1) describes how you can access a database
 directly from your local machine. In case you receive a connection error, make sure that your local IP address is
-allow-listed in the database configuration. See the [Configuring your database](./configuring-your-database.html#protecting-database-access)
+allow-listed in the database configuration. See the [Configuring your database](./configuring-your-database.md#protecting-database-access)
 guide for more information.
 
 ### Backups
 
-See the [Database Backups](./configuring-your-database.html#backup-and-restore) guide for instructions on how to create 
+See the [Database Backups](./configuring-your-database.md#backup-and-restore) guide for instructions on how to create 
 and restore database backups.
 
 ## Rollback deployments

@@ -10,18 +10,6 @@ description: Complete guide for configuring Active Storage with S3-compatible ob
 
 # Active Storage on Deploio
 
-**Deploio doesn't give you a disk to store files permanently.**
-It's because real hard disk storage is difficult to scale horizontally.
-So the [12factor](https://12factor.net/backing-services) industry best practice
-has been for quite some time to use cloud storage, most famously Amazon S3.
-We call this "object storage".
-
-::: info
-If you absolutely need a real persistent and backed-up disk,
-consider using a [Nine CloudVM](https://nine.ch/products/root-cloud-server/)
-or [bring your own server hardware](https://nine.ch/de/produkte/colocation/) instead.
-:::
-
 ## Amazon and Others
 
 You can use Amazon S3 together with Deploio as you would on any other hoster.

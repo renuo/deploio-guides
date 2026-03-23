@@ -10,6 +10,9 @@ description: Guide for setting up Redis-compatible key-value stores, object stor
 
 # Other Dependencies
 
+This guide covers how to setup a Redis-compatible key-value store, S3-compatible object storage and OpenSearch.
+These dependencies can be used for caching, task queues, storing static files and assets or for search functionality.
+
 ## Key-Value Store
 
 #### Redis for caching or task queues
@@ -46,8 +49,6 @@ We will also need to get the **password** for the access by running:
 nctl get kvs {application_name} --print-token
 ```
 
-[//]: # (TODO: is this quite Rails specific? I think this should look more like the nctl kvs section)
-
 From this we can construct and set the `REDIS_URL` and `REDISCLI_AUTH` environment variable as follows:
 
 ```
@@ -58,15 +59,41 @@ Note that we are using `rediss` as TLS is enabled.
 
 ## Object Storage
 
-##### For static files and assets.
+**Deploio doesn't give you a disk to store files permanently.**
+It's because real hard disk storage is difficult to scale horizontally.
+So the [12factor](https://12factor.net/backing-services) industry best practice
+has been for quite some time to use cloud storage, most famously Amazon S3.
+We call this "object storage".
 
-- ...
+::: info
+If you absolutely need a real persistent and backed-up disk,
+consider using a [Nine CloudVM](https://nine.ch/products/root-cloud-server/)
+or [bring your own server hardware](https://nine.ch/de/produkte/colocation/) instead.
+:::
 
-## Persistent Volumes
+#### Setup bucket and user
 
-##### Define usage limits for disk storage.
+Following command creates a bucket named `{bucket_name}` in the project space:
+```
+nctl create bucket {bucket_name} --project {project_name} --location nine-es34
+```
 
-- ...
+Nine has has multiple [datacenter locations](https://docs.nine.ch/docs/managed-kubernetes/nke/nine-kubernetes-engine#locations).
+`nine-es34` is the default for Deploio.
 
+In order to access the bucket, we need to create user with access to it.
 
-Explore more advanced configurations for your dependencies.
+```
+nctl create bucketuser --location=nine-es34 {bucketuser_name}
+```
+
+Afterwards you can retrieve the access key and secret key for this user by running
+```
+nctl get bucketuser {bucketuser_name} --print-credentials
+```
+
+#### Connecting
+
+The created bucket is S3-compatible, meaning you can use any S3 client to connect your applicaiton to it, 
+such as the AWS CLI or the `boto3` Python library. In addition, if you want to connect manually to the bucket, we've
+documented a list of possible tools and their required configuration in this [guide](https://docs.nine.ch/docs/object-storage/object-storage-client-tools).

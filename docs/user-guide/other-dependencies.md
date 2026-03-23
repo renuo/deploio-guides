@@ -10,7 +10,7 @@ description: Guide for setting up Redis-compatible key-value stores, object stor
 
 # Other Dependencies
 
-This guide covers how to setup a Redis-compatible key-value store, S3-compatible object storage and OpenSearch.
+This guide covers how to setup a Redis-compatible key-value store and S3-compatible object storage
 These dependencies can be used for caching, task queues, storing static files and assets or for search functionality.
 
 ## Key-Value Store

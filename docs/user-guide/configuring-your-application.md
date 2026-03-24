@@ -56,7 +56,7 @@ The following tabs are available for configuration:
 | **Jobs**             | View worker and scheduled jobs. For configuration, use[CLI or deploio.yaml](#worker-jobs)                                                                                                                                   |
 | **Dockerfile Build** | View build options for Dockerfile-based applications. Configure using`--dockerfile-path` and `--dockerfile-build-context` flags. [Learn more about Dockerfile builds](https://docs.nine.ch/docs/deplo-io/dockerfile-build/) |
 | **Logs**             | Access real-time application logs                                                                                                                                                                                           |
-| **Metrics**          | Access real-time application metrics (memory & CPU usage)                                                                                                                                                                   |
+| **Metrics**          | Access app container metrics (memory & CPU usage)                                                                                                                                                                   |
 | **Builds**           | Monitor build status and history                                                                                                                                                                                            |
 | **Releases**         | Track application releases and their status                                                                                                                                                                                 |
 

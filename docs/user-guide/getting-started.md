@@ -100,7 +100,7 @@ to see the full list.
 
 ### Videos
 
-Under [this Youtube playlist](https://youtube.com/playlist?list=PLlOLIwramZLMHkeEYWAt82VwuQdB0b6P-&si=q3pIbiDH7GKbvuSn)
+Under [this Youtube playlist](https://youtube.com/playlist?list=PLlOLIwramZLMHkeEYWAt82VwuQdB0b6P-)
 you can find a list of demos and behind-the-scenes insights into Deploio. 
 
 ## Avoid common pitfalls

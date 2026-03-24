@@ -18,7 +18,7 @@ This guide helps you get up and running with **Deploio**, from installing the CL
 
 📄 **Read the full nctl API docs [here](https://docs.nine.ch/api/)**
 
-#### Step-by-step setup:
+### Step-by-step setup
 
 1. Download and install `nctl`. Various methods of installation are detailed on the [Github page](https://github.com/ninech/nctl#setup).
 
@@ -39,9 +39,7 @@ nctl get all
 
 ## Creating an account
 
-##### Setting up access within an organization
-
-[//]: # (TODO: I'm not so sure actually on how to do this - ask somebody who has done this? Samuel? Or do I have to contact Nine in this case too?)
+### Setting up access within an organization
 
 Accounts in Deploio are tied to your **Customer Account** (or `organization`). When logging in via nctl, your identity and permissions reflect what’s configured in the Cockpit for your organization.
 
@@ -55,15 +53,11 @@ If the organization already exists and you need a new user account, you need to:
 
 Once you are set up, you can check your available organizations once logged in on the CLI by running `nctl auth whoami`.
 
-##### Setting up a new user or organization
+### Setting up a new user or organization
 
 If you do not have an organization setup and wish to do so, you should contact Nine directly. There is a contact form and details at [Deplo.io](https://deplo.io/).
 
-[//]: # (TODO: Surely we can also make an account not tied to an organization? idk)
-
 Should you wish to create an individual user, you can do so on the [Cockpit registration page](https://cockpit.nine.ch/de/signup?).
-
-[//]: # (TODO: what about via nctl? is this possible?)
 
 ## Setting up your first project
 
@@ -91,25 +85,23 @@ You can see an explanation of the configuration levels [here](https://docs.nine.
 
 ## Useful resources
 
-##### Blogs
+### Blogs
 
-There are a number of blogs and other resources available that can provide more information and use cases for Deploio. Please see a list below:
+There are a number of blogs and other resources available that can provide more information and use cases for Deploio. 
+Please see a list below:
+- [Nine blog](https://nine.ch/de/blog/)
+- [Deploio success story](https://deplo.io/en/success_story)
+- [Case studies](https://nine.ch/en/products/deploio/#casestudies)
 
+### Quick start guides
 
+We provide quick-start guides for various programming languages and frameworks. Head over to the [landing page](https://guides.deplo.io/)
+to see the full list.
 
-##### Quick start guides
+### Videos
 
-🚧 Under construction 🚧
-
-[//]: # (TODO: do we have any quick start guides? We have the migrating to Heroku blog but anything like this could be added to a new section)
-[//]: # (We have quick start guides for a number of technologies. Please see them [here]&#40;/quick_start&#41;)
-
-##### Videos
-
-🚧 Under construction 🚧
-
-[//]: # (TODO: As above... any videos?!)
-[//]: # (We have also posted tutorial videos showing how Deploio works. Please view these [here]&#40;#&#41;)
+Under [this Youtube playlist](https://youtube.com/playlist?list=PLlOLIwramZLMHkeEYWAt82VwuQdB0b6P-)
+you can find a list of demos and behind-the-scenes insights into Deploio. 
 
 ## Avoid common pitfalls
 
@@ -137,4 +129,4 @@ There are a number of blogs and other resources available that can provide more 
 - Store secrets securely using environment variables managed via Cockpit or nctl.
 - Regularly review and update your configurations to ensure they meet the latest security and performance standards.
 - Use staging environments to test your applications before deploying to production.
-- Monitor your applications using the available [tools](/user-guide/tools.md).
+- Monitor your applications using the available [monitoring tools](/user-guide/monitoring-and-logs.md).

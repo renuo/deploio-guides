@@ -70,6 +70,14 @@ In case you want to rollback to a previous revision, you can use the following c
 nctl update app {application_name} --project {project_name} --git-revision={git_revision}
 ```
 
+If you're not sure which revision was live, you can find out by looking at release and build information:
+```bash
+nctl get releases
+nctl get build {build_name} -o yaml | grep revision
+```
+
+For rolling back to the previous release you would choose the build of the most recent "superseded" release.
+
 ## Kubernetes
 
 In case you want to reproduce an issue with a certain build, you can use the following commands to pull the corresponding 

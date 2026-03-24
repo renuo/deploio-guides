@@ -14,7 +14,7 @@ Should you have an issue with your application, we have a few tools and guides t
 ## Logs
 
 If you want to debug a runtime error, you could start by looking at the latest logs of your application.
-This can be done by running the following command:
+Use the following command:
 
 ```bash
 nctl logs app {application_name} --project {project_name} --follow

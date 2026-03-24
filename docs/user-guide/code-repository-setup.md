@@ -111,6 +111,10 @@ If you're using a custom Git server (e.g., Gitea, Gitolite, bare Git over SSH):
 
 ## Repository Access
 
+Once you have successfully connected your git repository, Deploio starts polling every minute for new changes, unless
+your git revision points to a specific commit hash. In that case, Deploio will not poll at all (as the hash is
+not going to change).
+
 #### 🔐 Private Repositories
 
 - Require an SSH key to authenticate.

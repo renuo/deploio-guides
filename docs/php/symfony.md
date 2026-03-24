@@ -13,13 +13,14 @@ will install a Symfony application. This allows us to demonstrate the various st
 
 ## Example App
 
-We have a basic Symfony app in our [examples repository](https://github.com/ninech/deploio-examples#php).
+We have a basic Symfony app in our [examples repository](https://github.com/ninech/deploio-examples/tree/main/heroku-stack#php).
 You can deploy it with `nctl`:
 
 ```bash
 nctl create app symfony \
   --git-url=https://github.com/ninech/deploio-examples \
-  --git-sub-path=php/symfony \
+  --git-sub-path=heroku-stack/php/symfony \
+  --buildpack-stack=heroku \
   --env="APP_SECRET=$()echo $RANDOM | md5sum | head -c 16)" \
   --build-env=BP_PHP_SERVER=nginx \
   --build-env=BP_PHP_WEB_DIR=public \

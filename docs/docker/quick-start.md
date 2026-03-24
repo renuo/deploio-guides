@@ -10,7 +10,7 @@ With Dockerfile builds, Deploio can build any app that can be built using a Dock
 
 ## Example App
 
-We have a basic Dockerfile app in our [examples repository](https://github.com/ninech/deploio-examples#dockerfile).
+We have a basic Dockerfile app in our [examples repository](https://github.com/ninech/deploio-examples/tree/main/dockerfile).
 You can deploy it with [nctl](https://docs.nine.ch/a/85XH6A9bN2/):
 
 ```bash

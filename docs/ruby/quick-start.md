@@ -24,7 +24,7 @@ In case you don't have a Rails application yet, you can create one using the Rai
 We recommend following the
 [official Rails guide](https://guides.rubyonrails.org/getting_started.html#creating-your-first-rails-app)
 to create a new Rails application.
-We also have a basic Rails app in our [examples repository](https://github.com/ninech/deploio-examples#ruby-on-rails),
+We also have a basic Rails app in our [examples repository](https://github.com/ninech/deploio-examples/tree/main/heroku-stack#ruby-on-rails),
 which you can also choose as a starting point.
 
 ::: warning
@@ -75,7 +75,8 @@ Replace `MY_RAILS_APP_NAME` with your chosen app name and run:
 ```bash
 nctl create app MY_RAILS_APP_NAME \
   --git-url=https://github.com/ninech/deploio-examples \
-  --git-sub-path=ruby/rails-basic \
+  --git-sub-path=heroku-stack/ruby/rails-basic \
+  --buildpack-stack=heroku \
   --env="SECRET_KEY_BASE=$(rails secret)"
 ```
 

@@ -22,20 +22,21 @@ Static sites are detected by looking for these files in your git repo:
 
 ## Example Apps
 
-We have two static sites in our [examples repository](https://github.com/ninech/deploio-examples#static).
+We have two static sites in our [examples repository](https://github.com/ninech/deploio-examples/tree/main/paketo-stack/#static).
 You can deploy them with `nctl`:
 
 * just a plain `index.html`:
   ```bash
   nctl create app static-html \
   --git-url=https://github.com/ninech/deploio-examples \
-  --git-sub-path=static/html
+  --git-sub-path=paketo-stack/static/html
   ```
 * a frontend react app built with `npm`:
   ```bash
   nctl create app static-react \
   --git-url=https://github.com/ninech/deploio-examples \
-  --git-sub-path=static/react
+  --git-sub-path=heroku-stack/static/react
+  --buildpack-stack=heroku # notice that we use Heroku buildpacks here
   ```
 
 ## Web server root

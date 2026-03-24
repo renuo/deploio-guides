@@ -11,13 +11,13 @@ the [Heroku Go Cloud Native Buildpack](https://github.com/heroku/buildpacks-go/)
 
 ## Example App
 
-We have a basic Go app in our [examples repository](https://github.com/ninech/deploio-examples#go). You can deploy it
+We have a basic Go app in our [examples repository](https://github.com/ninech/deploio-examples/tree/main/paketo#go). You can deploy it
 with `nctl`:
 
 ```bash
 nctl create app go \
   --git-url=https://github.com/ninech/deploio-examples \
-  --git-sub-path=go
+  --git-sub-path=paketo-stack/go
 ```
 
 ## App Requirements

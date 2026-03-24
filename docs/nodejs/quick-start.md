@@ -31,7 +31,7 @@ In case you don't have a Next.js application yet, you can create one using the N
 We recommend following the [official Next.js guide](https://nextjs.org/docs/app/getting-started/installation) to create
 a new Next.js application.
 If you want to learn the process,
-we also provide a basic Next.js app in our [examples repository](https://github.com/ninech/deploio-examples#nodejs).
+we also provide a basic Next.js app in our [examples repository](https://github.com/ninech/deploio-examples/tree/main/heroku-stack#nodejs).
 
 ## Use Git to Store Your Application
 
@@ -55,7 +55,8 @@ To create an application on Deploio, we can use the `nctl create app` command:
 ```bash
 nctl create app nextjs \
   --git-url=https://github.com/ninech/deploio-examples \
-  --git-sub-path=nodejs/nextjs \
+  --git-sub-path=heroku-stack/nodejs/nextjs \
+  --buildpack-stack=heroku \
   --build-env=NODE_ENV="production" \
   --env=NODE_ENV="production"
 ```

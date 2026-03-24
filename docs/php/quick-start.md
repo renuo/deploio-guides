@@ -24,7 +24,7 @@ The Deploio build environment makes use of the [Paketo PHP buildpack](https://pa
 
 ## Use an Existing PHP Application or Create a New One
 
-If you do not have a PHP application you want to experiment with, we provide a plain PHP app in our [examples repository](https://github.com/ninech/deploio-examples#php).
+If you do not have a PHP application you want to experiment with, we provide a plain PHP app in our [examples repository](https://github.com/ninech/deploio-examples/tree/main/heroku-stack#php).
 
 ## Use Git to Store Your Application
 
@@ -40,7 +40,8 @@ To create an application on Deploio, you can use the `nctl create app` command:
 ```bash
 nctl create app plain-php \
   --git-url=https://github.com/ninech/deploio-examples \
-  --git-sub-path=php/plain \
+  --git-sub-path=heroku-stack/php/plain \
+  --buildpack-stack=heroku \
   --build-env=BP_PHP_WEB_DIR=public \
   --build-env=BP_COMPOSER_INSTALL_OPTIONS="--ignore-platform-reqs"
 ```

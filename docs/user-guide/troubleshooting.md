@@ -24,10 +24,21 @@ See the [Monitoring and Logs](./monitoring-and-logs.md) section for more informa
 
 ## Where does it run?
 
-Following command prints the DNS target of the application, which is the URL where your application is running.
+To find out under which domain name your app is reachable,
+you can print a list of verified and unverified hosts:
+
+```bash
+nctl get app {application_name} --project {project_name}
+```
+
+If you see entries as "unverified", you need to configure your DNS server.
+Therefore you can print the DNS target configuration:
+
 ```bash
 nctl get app {application_name} --project {project_name} --dns
 ```
+
+The technical reference has more [details about custom hostname configuration](https://docs.nine.ch/a/myshbw3EY1).
 
 ## Which revision is live?
 

@@ -13,7 +13,7 @@ Should you have an issue with your application, we have a few tools and guides t
 
 ## Logs
 
-In case you want to debug a runtime error, you could start for example by looking at the latest logs of your application.
+If you want to debug a runtime error, you could start by looking at the latest logs of your application.
 This can be done by running the following command:
 
 ```bash

@@ -81,7 +81,7 @@ For rolling back to the previous release you would choose the build of the most 
 ## Kubernetes
 
 In case you want to reproduce an issue with a certain build, you can use the following commands to pull the corresponding 
-image and run it locally with Docker:
+image and run it locally with Docker or podman:
 
 1. List builds
 ```bash

@@ -46,7 +46,7 @@ the build environment variable `BP_STATIC_WEBROOT=<directory>`.
 `BP_STATIC_WEBROOT` defaults to `build`.
 So per default Deploio serves your app from `/workspace/build`.
 
-[Vite](https://vite.dev/) for example builds into `dist`.
+[Vite](https://vite.dev) for example builds into `dist`.
 So you need to set `BP_STATIC_WEBROOT=dist` which ends up in `/workspace/dist` being served by Deploio's _nginx_.
 
 

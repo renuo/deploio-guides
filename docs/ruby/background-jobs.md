@@ -42,7 +42,7 @@ The worker's logs are aggregated with the application logs. You can view the all
 If you wish to only view the logs for the worker, you can filter the logs using the `-t, --type` flag:
 
 ```bash
-nctl logs {application_name} -t worker_job
+nctl logs app {application_name} -t worker_job
 ```
 
 ## Removing a Worker

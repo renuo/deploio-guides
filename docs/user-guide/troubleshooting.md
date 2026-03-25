@@ -17,7 +17,7 @@ If you want to debug a runtime error, you could start by looking at the latest l
 Use the following command:
 
 ```bash
-nctl logs app {application_name} --project {project_name} --follow
+nctl logs app {application_name} --follow
 ```
 
 See the [Monitoring and Logs](./monitoring-and-logs.md) section for more information.
@@ -28,14 +28,14 @@ To find out under which domain name your app is reachable,
 you can print a list of verified and unverified hosts:
 
 ```bash
-nctl get app {application_name} --project {project_name}
+nctl get app {application_name}
 ```
 
 If you see entries as "unverified", you need to configure your DNS server.
 Therefore you can print the DNS target configuration:
 
 ```bash
-nctl get app {application_name} --project {project_name} --dns
+nctl get app {application_name} --dns
 ```
 
 The technical reference has more [details about custom hostname configuration](https://docs.nine.ch/a/myshbw3EY1).
@@ -43,7 +43,7 @@ The technical reference has more [details about custom hostname configuration](h
 ## Which revision is live?
 
 ```bash
-nctl get app {application_name} --project {project_name} --output yaml | grep revision
+nctl get app {application_name} --output yaml | grep revision
 ```
 
 Prints the revision of the latest deployment. Use this revision to find the corresponding git commit in the git 
@@ -67,7 +67,7 @@ and restore database backups.
 
 In case you want to rollback to a previous revision, you can use the following command:
 ```bash
-nctl update app {application_name} --project {project_name} --git-revision={git_revision}
+nctl update app {application_name} --git-revision={git_revision}
 ```
 
 If you're not sure which revision was live, you can find out by looking at release and build information:
@@ -85,16 +85,16 @@ image and run it locally with Docker or podman:
 
 1. List builds
 ```bash
-nctl get builds --application-name {application_name} --project {project_name}
+nctl get builds --application-name {application_name}
 ```
 2. Pull image for a specific build
 ```bash
-nctl get builds {build_name} --application-name {application_name} --project {project_name} --pull-image
+nctl get builds {build_name} --application-name {application_name} --pull-image
 ```
 
 You can also see the full configuration of the build by running:
 ```bash
-nctl get builds {build_name} --application-name {application_name} --project {project_name} --output json
+nctl get builds {build_name} --application-name {application_name} --output json
 ```
 
 ## Deploio system status

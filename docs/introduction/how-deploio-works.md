@@ -31,8 +31,8 @@ Deploio automatically builds your application using the [Heroku Buildpack](https
 After a successful build, your application is released. The release includes the build artifact, configuration settings, 
 and environment variables. Releases are immutable and versioned.
 Deploio also manages secrets and sensitive data securely, differentiating between build and release environment variables.
-Build ENV variables are not exposed to the running app, while release ENV variables are available to 
-the running application.
+While release ENV variables are exposed to the running application, build ENV variables are only available during the 
+build process and are not included in the final release.
 
 ##### Run
 

@@ -104,7 +104,7 @@ export default withMermaid(
               link: "/user-guide/configuring-your-database",
             },
             {
-              text: "Other dependecies",
+              text: "Other dependencies",
               link: "/user-guide/other-dependencies",
             },
             {

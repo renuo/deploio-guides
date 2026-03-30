@@ -3,8 +3,8 @@ prev:
   text: About Deploio
   link: /introduction/about-deploio
 next:
-  text: Getting Started
-  link: /user-guide/getting-started
+  text: Our Stack
+  link: /introduction/our-stack
 description: Explains the repo-build-release process, workflow, and key concepts including projects, deployments, Cockpit, and nctl CLI in Deploio's Kubernetes infrastructure.
 ---
 

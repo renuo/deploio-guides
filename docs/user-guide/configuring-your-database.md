@@ -1,7 +1,7 @@
 ---
 prev:
-  text: Code Repository Setup
-  link: /user-guide/code-repository-setup
+  text: Configuring Your Application
+  link: /user-guide/configuring-your-application
 
 next:
   text: Other dependencies

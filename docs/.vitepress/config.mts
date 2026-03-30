@@ -80,6 +80,10 @@ export default withMermaid(
               text: "How Deploio Works",
               link: "/introduction/how-deploio-works",
             },
+            {
+              text: "Our stack",
+              link: "/introduction/our-stack",
+            },
           ],
         },
         {
@@ -92,16 +96,16 @@ export default withMermaid(
               link: "/user-guide/code-repository-setup",
             },
             {
+              text: "Configuring Your Application",
+              link: "/user-guide/configuring-your-application",
+            },
+            {
               text: "Configuring Your Database",
               link: "/user-guide/configuring-your-database",
             },
             {
               text: "Other dependecies",
               link: "/user-guide/other-dependencies",
-            },
-            {
-              text: "Configuring Your Application",
-              link: "/user-guide/configuring-your-application",
             },
             {
               text: "Network & Deployment",
@@ -112,10 +116,6 @@ export default withMermaid(
               link: "/user-guide/ci-cd-integration",
             },
             {
-              text: "Troubleshooting",
-              link: "/user-guide/troubleshooting",
-            },
-            {
               text: "Monitoring and Logs",
               link: "/user-guide/monitoring-and-logs",
             },
@@ -124,16 +124,16 @@ export default withMermaid(
               link: "/user-guide/security",
             },
             {
-              text: "Migrating from other platforms",
-              link: "/user-guide/migrating-from-other-platforms",
-            },
-            {
-              text: "Our stack",
-              link: "/user-guide/our-stack",
+              text: "Troubleshooting",
+              link: "/user-guide/troubleshooting",
             },
             {
               text: "Tools",
               link: "/user-guide/tools",
+            },
+            {
+              text: "Migrating from other platforms",
+              link: "/user-guide/migrating-from-other-platforms",
             },
           ],
         },

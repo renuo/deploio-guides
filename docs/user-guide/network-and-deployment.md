@@ -1,7 +1,7 @@
 ---
 prev:
-  text: Configuring Your Application
-  link: /user-guide/configuring-your-application
+  text: Other dependecies
+  link: /user-guide/other-dependencies
 next:
   text: CI/CD Integration
   link: /user-guide/ci-cd-integration

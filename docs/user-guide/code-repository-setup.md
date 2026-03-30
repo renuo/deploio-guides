@@ -3,8 +3,8 @@ prev:
   text: Getting Started
   link: /user-guide/getting-started
 next:
-  text: Configuring Your Database
-  link: /user-guide/configuring-your-database
+  text: Configuring Your Application
+  link: /user-guide/configuring-your-application
 description: Instructions for connecting Git repositories to Deploio using SSH keys or HTTPS for GitHub, GitLab, Bitbucket, and private Git servers.
 ---
 

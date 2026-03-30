@@ -1,7 +1,7 @@
 ---
 prev:
-  text: Troubleshooting
-  link: /user-guide/troubleshooting
+  text: CI/CD Integration
+  link: /user-guide/ci-cd-integration
 next:
   text: Security
   link: /user-guide/security

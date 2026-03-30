@@ -4,8 +4,8 @@ prev:
   link: /user-guide/network-and-deployment
 
 next:
-  text: Troubleshooting
-  link: /user-guide/troubleshooting
+  text: Monitoring and Logs
+  link: /user-guide/monitoring-and-logs
 description: Instructions for automating deployments using nctl CLI in CI/CD pipelines with API service accounts, deployment triggers, and status feedback scripts.
 ---
 

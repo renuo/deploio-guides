@@ -1,10 +1,10 @@
 ---
 prev:
-  text: Other dependencies
-  link: /user-guide/other-dependencies
+  text: Code Repository Setup
+  link: /user-guide/code-repository-setup
 next:
-  text: Network & Deployment
-  link: /user-guide/network-and-deployment
+  text: Configuring Your Database
+  link: /user-guide/configuring-your-database
 description: Complete reference for configuring applications on Deploio including environment variables, deploio.yaml, Procfile, worker jobs, deploy jobs, and resource sizing.
 ---
 

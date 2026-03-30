@@ -94,6 +94,6 @@ nctl get bucketuser {bucketuser_name} --print-credentials
 
 #### Connecting
 
-The created bucket is S3-compatible, meaning you can use any S3 client to connect your applicaiton to it, 
+The created bucket is S3-compatible, meaning you can use any S3 client to connect your application to it, 
 such as the AWS CLI or the `boto3` Python library. In addition, if you want to connect manually to the bucket, we've
 documented a list of possible tools and their required configuration in this [guide](https://docs.nine.ch/docs/object-storage/object-storage-client-tools).

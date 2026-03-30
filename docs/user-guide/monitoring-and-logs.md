@@ -133,6 +133,19 @@ nctl get app {application_name} --output yaml | grep revision
 
 The Cockpit web interface provides a Metrics tab for each application, displaying memory and CPU usage over time.
 
+### Metrics of running replica
+
+Next to using `nctl` or the Cockpit, you can also just connect to the running replica directly and use tool like
+`free` to check the memory usage e.g.:
+
+```bash
+# Init shell session
+nctl exec app {application_name} bash
+
+# Print memory usage
+free -m
+```
+
 ### Metrics in your own Grafana Dashboard
 
 Grafana offers you the possibility to set up your own dashboard to monitor your applications. In order to provision

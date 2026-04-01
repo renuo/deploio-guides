@@ -3,8 +3,8 @@ prev:
   text: Configuring Your Database
   link: /user-guide/configuring-your-database
 next:
-  text: Configuring Your Application
-  link: /user-guide/configuring-your-application
+  text: Network & Deployment
+  link: /user-guide/network-and-deployment
 description: Guide for setting up Redis-compatible key-value stores, object storage, and persistent volumes as dependencies for Deploio applications.
 ---
 

@@ -3,8 +3,8 @@ prev:
   text: Monitoring and Logs
   link: /user-guide/monitoring-and-logs
 next:
-  text: Migrating from other platforms
-  link: /user-guide/migrating-from-other-platforms
+  text: Troubleshooting
+  link: /user-guide/troubleshooting
 ---
 
 # Security

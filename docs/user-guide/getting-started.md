@@ -1,7 +1,7 @@
 ---
 prev:
-  text: How Deploio Works
-  link: /introduction/how-deploio-works
+  text: Our Stack
+  link: /introduction/our-stack
 next:
   text: Code Repository Setup
   link: /user-guide/code-repository-setup

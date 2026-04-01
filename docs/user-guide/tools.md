@@ -1,8 +1,10 @@
 ---
 prev:
-  text: Our Stack
-  link: /user-guide/our-stack
-next: false
+  text: Troubleshooting
+  link: /user-guide/troubleshooting
+next:
+  text: Migrating from other platforms
+  link: /user-guide/migrating-from-other-platforms
 ---
 
 # Tools

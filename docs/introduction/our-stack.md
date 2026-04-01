@@ -1,10 +1,10 @@
 ---
 prev:
-  text: Migrating from other platforms
-  link: /user-guide/migrating-from-other-platforms
+  text: How Deploio Works
+  link: /introduction/how-deploio-works
 next:
-  text: Tools
-  link: /user-guide/tools
+  text: Getting Started
+  link: /user-guide/getting-started
 description: Overview of Deploio's technology stack including Nutanix infrastructure, Kubernetes orchestration, Swiss hosting (AS29691), Docker containers, and Heroku buildpacks.
 ---
 

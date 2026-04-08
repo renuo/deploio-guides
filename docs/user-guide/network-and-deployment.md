@@ -120,9 +120,13 @@ Please also keep in mind that Let's Encrypt favors IPv6 DNS entries over IPv4 on
 
 ## Static egress IP
 
-In case you need to ensure that outgoing traffic from your application always comes from the same IP address, we
-provide the option to configure a static egress IP address. The same IP address will also be used for worker and 
-scheduled jobs.
+We provide the option to configure a static egress IP address.
+This ensures that outgoing traffic from your Deploio application always comes from the same IP address.
+The same IP address will also be used for worker and scheduled jobs.
+
+::: info Why?
+For example if your app talks to an on-site backend which is guarded by a firewall
+allowing only traffic from specific IP addresses.
 
 In order to configure a static egress IP, follow these instructions:
 

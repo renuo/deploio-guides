@@ -153,7 +153,8 @@ Once the configuration is applied, all egress traffic will come from the same IP
 running the following command:
 
 ```bash
-kubectl --context nineapis.ch get staticegress my-deploio-static-egress -n <NAME OF PROJECT> -o yaml
+kubectl --context nineapis.ch get staticegress my-deploio-static-egress \
+        -n <NAME OF PROJECT> -o yaml
 ```
 
 See the [Nine Technical Reference](https://docs.nine.ch/docs/managed-kubernetes/nke/static-egress-nke/?client=kubectl#details)

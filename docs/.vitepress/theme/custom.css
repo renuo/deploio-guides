@@ -149,3 +149,22 @@ h1, h2, h3, h4, h5, h6 {
   background-color: var(--vp-c-bg-hover);
 }
 
+/* Remove border-radius on all other 'boxes' */
+
+.vp-doc .custom-block div[class*='language-'], 
+.vp-block, 
+.custom-block, 
+.plugin-tabs, 
+.plugin-tabs .plugin-tabs--content div[class*='language-']
+{
+  border-radius: 0px;
+} 
+
+@media (min-width: 640px) {
+  .vp-doc div[class*='language-'],
+  .vp-block {
+    border-radius: 0;
+  }
+}
+
+/* @media (max-width: 639px) {

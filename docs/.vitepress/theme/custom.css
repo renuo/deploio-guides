@@ -65,6 +65,17 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 16px;
 }
 
+/* Search */
+
+button.DocSearch-Button, 
+.VPLocalSearchBox div.shell,
+.VPLocalSearchBox form.search-bar,
+.VPLocalSearchBox a.result
+{
+  border-radius: 0px;
+}
+
+
 /* Home Hero  */
 
 .VPHero .name {

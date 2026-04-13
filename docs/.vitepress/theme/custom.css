@@ -75,7 +75,6 @@ button.DocSearch-Button,
   border-radius: 0px;
 }
 
-
 /* Home Hero  */
 
 .VPHero .name {
@@ -178,4 +177,8 @@ button.DocSearch-Button,
   }
 }
 
-/* @media (max-width: 639px) {
+/* Nested Lists */
+
+.vp-doc ol:has(ul) > li + li{
+  margin-top: 24px; 
+}

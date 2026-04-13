@@ -7,6 +7,7 @@
 
   --vp-c-brand-soft: rgba(20, 29, 80, 0.1);
 
+  --vp-c-bg-hover: #E2E2E3;
   
   --vp-c-text-heading: var(--vp-c-brand-1);
 }
@@ -15,6 +16,8 @@
   --vp-c-brand-1: #6482c4;
   --vp-c-brand-2: #4a68a8;
   --vp-c-brand-3: #35508e;
+
+  --vp-c-bg-hover: #292B33;
 }
 
 .VPFooter {
@@ -121,3 +124,28 @@ h1, h2, h3, h4, h5, h6 {
       padding-bottom: 80px;
   }
 }
+
+/* Feature Box */
+
+.VPFeatures .VPFeature {
+  border-radius: 0;
+  border: 0;
+}
+
+.VPFeature.link:hover{
+  border: 0;
+  background-color: var(--vp-c-bg-hover);
+}
+
+/* Pager-Links */
+
+.VPLink.link.pager-link {
+  border-radius: 0;
+  border: 0;
+  background-color: var(--vp-c-bg-soft);
+}
+
+.VPLink.link.pager-link:hover {
+  background-color: var(--vp-c-bg-hover);
+}
+

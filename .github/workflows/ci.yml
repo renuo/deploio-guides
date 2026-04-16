@@ -18,6 +18,8 @@ jobs:
           args: >-
             --root-dir ${{ github.workspace }}/docs
             --exclude 'dev\.mysql\.com'
+            --exclude 'vitepress.dev'
+            --exclude 'symfony.com'
             --exclude '/img/'
             --verbose
             docs/

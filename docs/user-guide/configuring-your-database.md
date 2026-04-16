@@ -27,7 +27,9 @@ more information on the available databases [here](https://nine.ch/products/data
 
 ### Protecting Database Access
 
-All database instances only accept TLS-encrypted connections. Depending on the client or library, you may need to explicitly enable TLS. The TLS certificate is self-signed, so you may also need to disable certificate hostname validation.
+All database instances only accept TLS-encrypted connections. Depending on the client or library, you may need to 
+explicitly enable TLS. The TLS certificate is self-signed, so you may also need to disable certificate hostname validation.
+See the [technical reference](https://docs.nine.ch/docs/on-demand-services/mysql/economy#tls) for more details.
 
 For **Business** tier instances, you must set up SSH key authentication to access the database server directly. Pass the public key via the `--ssh-keys` flag when creating the database.
 In addition, you can restrict access by IP address using the `--allowed-cidrs` flag. Access from Nine's Kubernetes products (NKE, GKE) and Deploio is already enabled by default.

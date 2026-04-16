@@ -19,7 +19,7 @@ more information on the available databases [here](https://nine.ch/products/data
 |                            | Economy                                 | Business                       |
 |----------------------------|-----------------------------------------|--------------------------------|
 | **Best for**               | Development, testing, low-traffic sites | High-traffic sites             |
-| **Resources**              | Shared, multi-tenant                    | Dedicated instance             |
+| **Resources**              | Multi-tenant                            | Dedicated instance             |
 | **Storage**                | Up to 10 GB                             | 20 GB+ (auto-expanding)        |
 | **Databases per instance** | 1                                       | Multiple                       |
 | **Custom configuration**   | No                                      | Limited                        |
@@ -120,7 +120,7 @@ To restore a PostgreSQL Economy backup:
 nctl get bucket
 ```
 2. Get the S3 credentials for the bucket user with the same name as the bucket
-```
+```bash
 nctl get bucketuser {backup_bucket_name} --print-credentials
 ```
 
@@ -249,7 +249,7 @@ Nine provides a variety of extensions that you can activate as needed. The follo
 
 #### Collations
 
-PostgreSQL uses ICU (International Components for Unicode) collations, which can be customized per database, schema, or column. The default collation is typically `en_US.UTF-8`.
+PostgreSQL uses ICU (International Components for Unicode) collations, which can be customized per database, schema, or column. The default collation is typically `C.UTF-8`.
 
 When migrating the database, ensure your application's collation settings are compatible with your target PostgreSQL version. Different versions may handle text sorting and comparison differently, which could affect your application's behavior.
 

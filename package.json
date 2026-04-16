@@ -6,7 +6,8 @@
     "docs:build": "vitepress build docs",
     "docs:preview": "vitepress preview docs",
     "check-links": "lychee --root-dir $(pwd)/docs --exclude 'dev\\.mysql\\.com' --exclude '/img/' docs/",
-    "check-typos": "typos docs/"
+    "check-typos": "typos docs/",
+    "check-markdown": "markdownlint 'docs/**/*.md'"
   },
   "devDependencies": {
     "mermaid": "^11.12.1",

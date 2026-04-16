@@ -139,3 +139,8 @@ All containers have a **2 GiB ephemeral storage limit**. If your application exc
 Deploio managed databases (MySQL, PostgreSQL, MariaDB) include **automated daily backups** with a defined retention period. You can manage backups through `nctl` or the Cockpit.
 
 Application containers themselves are **stateless** — there is nothing to back up. Your code lives in Git, your configuration in Deploio, and your data in managed databases or object storage.
+
+## Encryption
+
+All of our disks in virtual environments are encrypted at rest. This includes object storage, database disks and
+ephemeral storage for application containers. Data in transit is encrypted using TLS.

@@ -148,6 +148,25 @@ web: bundle exec puma -C config/puma.rb
 
 A number of configuration options use the cron syntax. You can see more information about the syntax [here](https://crontab.guru/).
 
+### 5. project.toml
+
+Deploio supports the [`project.toml`](https://buildpacks.io/docs/for-app-developers/how-to/build-inputs/use-project-toml/) file to configure buildpacks. This file is part of the Cloud Native Buildpacks specification and allows you to control which files are included or excluded during the build process.
+
+This is useful when your repository contains files that would cause Deploio to auto-detect an unwanted buildpack. For example, if Node.js is only used for development purposes (linting, formatting) but not in production, you can exclude `package.json` and `package-lock.json` to prevent Deploio from adding the Node.js buildpack:
+
+```toml
+[_]
+schema-version = "0.2"
+
+[io.buildpacks]
+exclude = [
+  "/package-lock.json",
+  "/package.json",
+]
+```
+
+See the [Cloud Native Buildpacks documentation](https://buildpacks.io/docs/for-app-developers/how-to/build-inputs/use-project-toml/) for the full list of available options.
+
 ## Configuration Topics
 
 ### Process Failure Handling

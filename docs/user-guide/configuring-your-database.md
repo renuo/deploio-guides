@@ -6,30 +6,133 @@ prev:
 next:
   text: Other dependencies
   link: /user-guide/other-dependencies
-description: Comprehensive guide for creating and managing PostgreSQL and MySQL databases on Deploio including configuration, backups, monitoring, and troubleshooting.
+description: Comprehensive guide for creating and managing PostgreSQL and MySQL databases on Deploio including Economy and Business tiers, configuration, backups, monitoring, and troubleshooting.
 ---
 
 # Configuring your Database
 
-Deploio supports a variety of databases, including MySQL, MariaDB and PostgreSQL. You can find more information on the different databases available [here](https://nine.ch/products/databases/) and information about pricing [here](#machine-type).
+Deploio supports MySQL and PostgreSQL databases across two tiers, each designed for different use cases. You can find 
+more information on the available databases [here](https://nine.ch/products/databases/) and technical reference on [docs.nine.ch](https://docs.nine.ch/docs/on-demand-services/).
+
+### Choosing a tier
+
+|                            | Economy                                 | Business                       |
+|----------------------------|-----------------------------------------|--------------------------------|
+| **Best for**               | Development, testing, low-traffic sites | High-traffic sites             |
+| **Resources**              | Shared, multi-tenant                    | Dedicated instance             |
+| **Storage**                | Up to 10 GB                             | 20 GB+ (auto-expanding)        |
+| **Databases per instance** | 1                                       | Multiple                       |
+| **Custom configuration**   | No                                      | Limited                        |
+| **Backups**                | Daily (S3 storage)                      | Daily (configurable retention) |
 
 ### Protecting Database Access
 
-To access the database, you must set up SSH key authentication. You will need to pass the public key to the `--ssh-keys` flag when creating the database and use the private key to gain access.
+All database instances only accept TLS-encrypted connections. Depending on the client or library, you may need to explicitly enable TLS. The TLS certificate is self-signed, so you may also need to disable certificate hostname validation.
 
-You also need to add your IP address to the `--allowed-cidrs` flag. If you wish to allow all IP addresses, you can set this to `0.0.0.0/0`.
+For **Business** tier instances, you must set up SSH key authentication to access the database server directly. Pass the public key via the `--ssh-keys` flag when creating the database.
+In addition, you can restrict access by IP address using the `--allowed-cidrs` flag. Access from Nine's Kubernetes products (NKE, GKE) and Deploio is already enabled by default.
 
-After setting up the SSH key, you can get the FQDN and password of the database using the cli: `nctl get postgres {DATABASE_NAME}` and `nctl get postgres {DATABASE_NAME} --print-password`, which can be used to connect to the database:
+## Economy tier
+
+Databases in the Economy tier run in a logically separated tenant on a shared, multi-tenant environment managed by Nine 
+— ideal for development, testing, and low-traffic applications. They start fast, making them a good fit for automated testing pipelines e.g..
+
+> :warning: The Economy tier is currently in **Beta**. Breaking changes may still occur.
+
+#### Packages
+
+The package is automatically selected based on the current database size. Storage is capped at 10 GB — if you need more, 
+migrate to a Business tier instance. Migration is at the moment not automated, but we're working on smoothening this
+process.
+
+| Package | Max Storage | Max Connections |
+|---------|-------------|-----------------|
+| S       | 1 GB        | 20              |
+| M       | 5 GB        | 20              |
+| L       | 10 GB       | 20              |
+
+#### Limitations
+
+- One database per instance (the database name matches the username)
+- No dedicated resources — runs on shared infrastructure
+- No custom configuration options (e.g. no extensions, no SQL mode tuning)
+- No SSH access to the instance
+- Storage cannot exceed 10 GB
+
+### Creating an Economy database
+
+:::tabs key:db
+== PostgreSQL
 
 ```bash
-ssh -i {path-to-private-key} dbadmin@{FQDN}
+nctl create postgresdatabase {DATABASE_NAME}
 ```
 
-### Database creation settings (for all database types)
+Optional flags:
 
-There are a number of configurations we can apply when creating our database. You can see more information on these arguments by running `-h` for the desired database. For example `nctl create mysql -h` for MySQL.
+- `--collation` — Set the collation (default: `C.UTF-8`)
+- `--location` — Set the data center location
 
-Below, we note a few important configuration options.
+Retrieve connection details:
+
+- **FQDN**: `nctl get postgresdatabase {DATABASE_NAME}`
+- **User**: `nctl get postgresdatabase {DATABASE_NAME} --print-user`
+- **Password**: `nctl get postgresdatabase {DATABASE_NAME} --print-password`
+
+Connect to your database:
+
+```bash
+psql --host={FQDN} --dbname={USER} --username={USER}
+```
+
+== MySQL
+
+```bash
+nctl create mysqldatabase {DATABASE_NAME}
+```
+
+Optional flags:
+
+- `--character-set` — Set the character set (default: `utf8mb4_unicode_ci` / `utf8mb4`)
+- `--location` — Set the data center location
+
+Retrieve connection details:
+
+- **FQDN**: `nctl get mysqldatabase {DATABASE_NAME}`
+- **User**: `nctl get mysqldatabase {DATABASE_NAME} --print-user`
+- **Password**: `nctl get mysqldatabase {DATABASE_NAME} --print-password`
+
+Connect to your database:
+
+```bash
+mysql -h {FQDN} -u {USER} -p
+```
+
+:::
+
+### Backups
+
+Backups are created daily and stored in S3-compatible object storage. 
+
+To restore a PostgreSQL Economy backup:
+1. Find the corresponding bucket for your database backup
+```bash
+nctl get bucket
+```
+2. Get the S3 credentials for the bucket user with the same name as the bucket
+```
+nctl get bucketuser {backup_bucket_name} --print-credentials
+```
+
+3. Download the backup using any S3-compatible client tool, e.g. `awscli`, see the [Nine technical reference](https://docs.nine.ch/docs/on-demand-services/postgresql/economy#backups) for more details
+
+## Business tier
+
+Business databases provide dedicated, isolated instances with their own resources — ideal for high-traffic sites. You get full user and database management, configurable backups, and automatic storage expansion.
+
+### Database creation settings
+
+There are a number of configurations you can apply when creating a Business database. Run `-h` for details, e.g. `nctl create mysql -h`.
 
 #### Name
 
@@ -37,9 +140,14 @@ The name of the instance can be freely chosen, but must be unique. Once created,
 
 #### Location
 
-Depending on available resources, instances can be created in two locations within the "ColoZüri" data center or the "NTT" data center in Rümlang. The location cannot be changed later. If you need to change the location, you will need to perform a database migration. See the [database migration guide](migrating-from-other-platforms.md#retrieving-and-restoring-databases) for more information.
+Instances can be created in the following data center locations:
 
-This can be set by the `--location` flag and the default is `cz41`.
+| Location | Data Center |
+|----------|-------------|
+| `nine-cz42` | ColoZüri 4.2, Altstetten, Zürich |
+| `nine-es34` | NTT Zürich 1, Rümlang |
+
+The location cannot be changed after creation.
 
 #### Version
 
@@ -55,7 +163,6 @@ The database version must be selected when creating the instance and cannot be c
 | nine-db-l    | 6                   | 16 GB  | 20 GB         | CHF 149      |
 | nine-db-xl   | 8                   | 24 GB  | 20 GB         | CHF 201      |
 | nine-db-xxl  | 10                  | 32 GB  | 20 GB         | CHF 253      |
-
 
 Additional storage space per 10 GB: CHF 1.50 per month.
 
@@ -83,7 +190,7 @@ For more information about backing up your databases on a daily basis, accessing
 
 Configure the public keys to access the database backups via SSH. The keys can be adjusted at any time.
 
-These can be set via the `--ssh-keys` flag or the ` --ssh-keys-file` flag.
+These can be set via the `--ssh-keys` flag or the `--ssh-keys-file` flag.
 
 ### Database specific creation settings
 
@@ -94,13 +201,11 @@ These can be set via the `--ssh-keys` flag or the ` --ssh-keys-file` flag.
 
 In the following table you can find the support period of each PostgreSQL version:
 
-
 | PostgreSQL Version | Support End       |
 |--------------------|-------------------|
+| 17                 | November 08, 2029 |
 | 16                 | November 09, 2028 |
 | 15                 | November 11, 2027 |
-| 14                 | November 12, 2026 |
-| 13                 | November 13, 2025 |
 
 #### Extensions
 
@@ -138,6 +243,7 @@ Nine provides a variety of extensions that you can activate as needed. The follo
 - tsm_system_rows
 - unaccent
 - uuid-ossp
+- vector
 
 </details>
 
@@ -169,7 +275,6 @@ We can now access the server using the FQDN and generated user and password. We 
 
 Now we want to create the database on the server. We can run the following command:
 
-[//]: # (TODO: can we find a way for the user to input the desired name and update the commands?)
 ```
 createdb -U dbadmin -h {FQDN} {DATABASE_NAME}
 ```
@@ -292,7 +397,7 @@ Oracle provides documentation and FAQ about SQL Modes in the following articles:
 
 MySQL does not support extensions in the same way as PostgreSQL (via `CREATE EXTENSION`). However, many advanced features are either built into the core engine or available via optional server plugins.
 
-You don’t need to enable these manually — they are either available by default or configurable at runtime (via SQL or server settings).
+You don't need to enable these manually — they are either available by default or configurable at runtime (via SQL or server settings).
 
 > To inspect available plugins on your instance, you can run:
 > ```sql
@@ -415,7 +520,7 @@ Use the official MySQL documentation for additional info about <a href="https://
 
 ### Monitoring for health and performance
 
-Deploio database instances run on Nine’s managed infrastructure. Nine monitors basic infrastructure-level availability, however you are responsible for observing database-level performance and load.
+Deploio database instances run on Nine's managed infrastructure. Nine monitors basic infrastructure-level availability, however you are responsible for observing database-level performance and load.
 
 You can view the current status of the system [here](https://status.nine.ch/).
 
@@ -511,13 +616,9 @@ Useful commands:
 
 ### Backup and Restore
 
-See [Number of backups kept section](#number-of-backups-kept) for configuration options.
+Nine backs up Business databases daily between 02:00 and 03:00 UTC. These backups are kept locally for 10 days (configurable) and on a remote backup system for seven days.
 
-Nine backs up the databases daily between 01:00 and 02:00. These backups are kept locally for 10 days (configurable) and on a remote backup system for seven days.
-
-[//]: # (TODO: can we explain the remote backup system? what is it? Ask Nine for more info)
-
-Backups are stored in the `/home/dbadmin/backup directory`. All backups are versioned in directories with the following time scheme (example, exact timestamp will vary): `2022-11-18-0134`.
+Backups are stored in the `/home/dbadmin/backup` directory. All backups are versioned in directories with the following time scheme (example, exact timestamp will vary): `2022-11-18-0134`.
 
 `/home/dbadmin/backup/latest` always points to the latest backup.
 

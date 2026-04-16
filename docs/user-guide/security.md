@@ -18,7 +18,8 @@ All external access to Deploio applications is exclusively via **HTTPS on port 4
 
 Deploio automatically provisions [Let's Encrypt](https://letsencrypt.org/) certificates for every application — both the default `deploio.app` domain and any custom hostnames you add.
 
-Certificates are issued using the **HTTP-01 challenge type**, which means all your custom hostnames must have DNS pointing to Deploio infrastructure before a certificate can be issued. For full setup instructions, see [Network & Deployment](/user-guide/network-and-deployment#securing-your-application-with-ssl).
+Certificates are issued using the **HTTP-01 challenge type**, which means all your custom hostnames must have DNS pointing 
+to Deploio infrastructure before a certificate can be issued. For full setup instructions, see [Network & Deployment](/user-guide/network-and-deployment.md#securing-your-application-with-ssl).
 
 ::: warning IPv6
 Let's Encrypt favors IPv6 (AAAA) DNS records over IPv4. Since Deploio does not currently support IPv6, remove any AAAA records for your custom hostnames when migrating to Deploio — otherwise certificate issuance may fail.
@@ -53,7 +54,7 @@ You can also enable basic auth at the **project level** to protect all applicati
 nctl create config --basic-auth -p my-project
 ```
 
-For full configuration options (including `deploio.yaml` and Cockpit), see [Configuring Your Application — Basic Authentication](/user-guide/configuring-your-application#basic-authentication).
+For full configuration options (including `deploio.yaml` and Cockpit), see [Configuring Your Application — Basic Authentication](/user-guide/configuring-your-application.md#basic-authentication).
 
 ### User access permissions
 
@@ -74,7 +75,7 @@ nctl create app my-app \
 **Build variables** (`--build-env`) are only available during the build phase and should be used for tools
 like Webpacker or asset precompilation. Never put runtime secrets in build variables — they may be embedded in the image.
 
-For full details, see [Configuring Your Application — Environment Variables](/user-guide/configuring-your-application#environment-variables).
+For full details, see [Configuring Your Application — Environment Variables](/user-guide/configuring-your-application.md#environment-variables).
 
 ## Repository Access
 
@@ -85,7 +86,7 @@ We recommend the following best practices for repository access:
 - Use one deploy key per application
 - Rotate keys periodically
 
-For platform-specific setup (GitHub, GitLab, Bitbucket), see [Code Repository Setup](/user-guide/code-repository-setup).
+For platform-specific setup (GitHub, GitLab, Bitbucket), see [Code Repository Setup](/user-guide/code-repository-setup.md).
 
 ## Network Security
 

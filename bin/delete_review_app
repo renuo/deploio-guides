@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+set -e
+
+BRANCH_NAME="${1:-$(git branch --show-current)}"
+
+case "$BRANCH_NAME" in
+  main|master|develop) echo "Skipping delete for branch $BRANCH_NAME"; exit 0 ;;
+esac
+
+UNIQUE_SUFFIX=$(echo -n "$BRANCH_NAME" | sha1sum | cut -c1-8)
+REVIEW_APP_NAME="review-app-${UNIQUE_SUFFIX}"
+
+echo "Deleting $REVIEW_APP_NAME for branch $BRANCH_NAME..."
+
+nctl delete app "$REVIEW_APP_NAME" -p "$DEPLOIO_PROJECT" --force --wait || true
+
+echo "Deleted $REVIEW_APP_NAME"

@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+
+set -e
+
+BRANCH_NAME="${1:-$(git branch --show-current)}"
+
+case "$BRANCH_NAME" in
+  main|master|develop) echo "Skipping deploy for branch $BRANCH_NAME"; exit 0 ;;
+esac
+
+UNIQUE_SUFFIX=$(echo -n "$BRANCH_NAME" | sha1sum | cut -c1-8)
+REVIEW_APP_NAME="review-app-${UNIQUE_SUFFIX}"
+
+echo "Deploying $REVIEW_APP_NAME for branch $BRANCH_NAME..."
+
+# Copy App if missing
+echo "Checking App..."
+nctl get app "$REVIEW_APP_NAME" -p "$DEPLOIO_PROJECT" >/dev/null 2>&1 || \
+nctl copy app "$DEPLOIO_TEMPLATE_APP" -p "$DEPLOIO_PROJECT" --start --target-name="$REVIEW_APP_NAME"
+
+# Set git revision and ENVs
+echo "Updating App..."
+nctl update app "$REVIEW_APP_NAME" -p "$DEPLOIO_PROJECT" \
+  --git-revision="${BRANCH_NAME}" \
+  --skip-repo-access-check \
+  $ENV_FLAGS
+
+# Output app URL
+APP_URL=$(nctl get app "$REVIEW_APP_NAME" -p "$DEPLOIO_PROJECT" -o json | jq -r '.status.atProvider.defaultURLs[0] // empty')
+echo "app-name=$REVIEW_APP_NAME"
+if [ -n "$APP_URL" ]; then
+  echo "app-url=$APP_URL"
+fi
+
+# Wait for release to succeed
+echo "Waiting for release..."
+for i in $(seq 1 60); do
+  STATUS=$(nctl get releases -a "$REVIEW_APP_NAME" -p "$DEPLOIO_PROJECT" -o json | jq -r '.[0].status.atProvider.releaseStatus // empty')
+  case "$STATUS" in
+    available|superseded) echo "release-status=success"; exit 0 ;;
+    failed)               echo "release-status=error"; exit 1 ;;
+  esac
+  sleep 5
+done
+echo "release-status=error"
+exit 1

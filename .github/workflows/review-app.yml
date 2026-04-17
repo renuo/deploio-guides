@@ -1,0 +1,99 @@
+name: Review App
+
+on:
+  pull_request:
+    types: [opened, closed]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    if: github.event.action != 'closed'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install nctl
+        run: |
+          echo 'deb [trusted=yes] https://repo.nine.ch/deb/ /' | sudo tee /etc/apt/sources.list.d/repo.nine.ch.list
+          sudo apt-get update -qqo Dir::Etc::sourcelist=/etc/apt/sources.list.d/repo.nine.ch.list
+          sudo apt-get install -qq nctl
+
+      - name: Authenticate nctl
+        run: nctl auth login --api-client-id=${{ secrets.NCTL_API_CLIENT_ID }} --api-client-secret=${{ secrets.NCTL_API_CLIENT_SECRET }} --organization=${{ secrets.NCTL_ORGANIZATION }}
+
+      - name: Create deployment
+        id: deployment
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          DEPLOYMENT_ID=$(gh api repos/${{ github.repository }}/deployments \
+            --input - --jq '.id' \
+            <<< '{"ref":"${{ github.head_ref || github.ref_name }}","environment":"review-app","auto_merge":false,"required_contexts":[]}')
+          echo "id=$DEPLOYMENT_ID" >> "$GITHUB_OUTPUT"
+
+          gh api repos/${{ github.repository }}/deployments/$DEPLOYMENT_ID/statuses \
+            -f state=pending \
+            -f description="Deploying review app..."
+
+      - name: Deploy review app
+        id: deploy
+        env:
+          DEPLOIO_PROJECT: renuotest-deploio-documentation
+          DEPLOIO_TEMPLATE_APP: deploio-documentation
+        run: |
+          OUTPUT=$(bin/deploy_review_app "${{ github.head_ref || github.ref_name }}")
+          echo "$OUTPUT"
+          echo "$OUTPUT" | grep "^app-url=" >> "$GITHUB_OUTPUT" || true
+          echo "$OUTPUT" | grep "^app-name=" >> "$GITHUB_OUTPUT" || true
+
+      - name: Deployment success
+        if: success()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh api repos/${{ github.repository }}/deployments/${{ steps.deployment.outputs.id }}/statuses \
+            -f state=success \
+            -f environment_url="${{ steps.deploy.outputs.app-url }}" \
+            -f description="Review app deployed"
+
+      - name: Deployment error
+        if: failure() && steps.deployment.outputs.id
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh api repos/${{ github.repository }}/deployments/${{ steps.deployment.outputs.id }}/statuses \
+            -f state=error \
+            -f description="Review app deployment failed"
+
+  cleanup:
+    if: github.event.action == 'closed'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install nctl
+        run: |
+          echo 'deb [trusted=yes] https://repo.nine.ch/deb/ /' | sudo tee /etc/apt/sources.list.d/repo.nine.ch.list
+          sudo apt-get update -qqo Dir::Etc::sourcelist=/etc/apt/sources.list.d/repo.nine.ch.list
+          sudo apt-get install -qq nctl
+
+      - name: Authenticate nctl
+        run: nctl auth login --api-client-id=${{ secrets.NCTL_API_CLIENT_ID }} --api-client-secret=${{ secrets.NCTL_API_CLIENT_SECRET }} --organization=${{ secrets.NCTL_ORGANIZATION }}
+
+      - name: Delete review app
+        env:
+          DEPLOIO_PROJECT: renuotest-deploio-documentation
+        run: bin/delete_review_app "${{ github.head_ref || github.ref_name }}"
+
+      - name: Deactivate deployment
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          DEPLOYMENT_ID=$(gh api "repos/${{ github.repository }}/deployments?ref=${{ github.head_ref || github.ref_name }}&environment=review-app" \
+            --jq '.[0].id' 2>/dev/null || true)
+
+          if [ -n "$DEPLOYMENT_ID" ] && [ "$DEPLOYMENT_ID" != "null" ]; then
+            gh api repos/${{ github.repository }}/deployments/$DEPLOYMENT_ID/statuses \
+              -f state=inactive \
+              -f description="Review app deleted"
+          fi

@@ -2,7 +2,7 @@ name: Review App
 
 on:
   pull_request:
-    types: [opened, ready_for_review, closed]
+    types: [closed]
   workflow_dispatch:
 
 jobs:

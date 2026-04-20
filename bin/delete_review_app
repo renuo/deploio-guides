@@ -11,8 +11,13 @@ esac
 UNIQUE_SUFFIX=$(echo -n "$BRANCH_NAME" | sha1sum | cut -c1-8)
 REVIEW_APP_NAME="review-app-${UNIQUE_SUFFIX}"
 
+if ! nctl get app "$REVIEW_APP_NAME" -p "$DEPLOIO_PROJECT" &>/dev/null; then
+  echo "No app named $REVIEW_APP_NAME found, nothing to delete."
+  exit 0
+fi
+
 echo "Deleting $REVIEW_APP_NAME for branch $BRANCH_NAME..."
 
-nctl delete app "$REVIEW_APP_NAME" -p "$DEPLOIO_PROJECT" --force --wait || true
+nctl delete app "$REVIEW_APP_NAME" -p "$DEPLOIO_PROJECT" --force --wait
 
 echo "Deleted $REVIEW_APP_NAME"

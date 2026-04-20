@@ -52,12 +52,6 @@ export default withMermaid(
         pattern: "https://github.com/renuo/deploio-guides/edit/main/docs/:path",
         text: "Edit this page on GitHub",
       },
-      socialLinks: [
-        { icon: "facebook", link: "https://www.facebook.com/deploioch/" },
-        { icon: "instagram", link: "https://www.instagram.com/deploio/" },
-        { icon: "linkedin", link: "https://linkedin.com/company/deploio" },
-        { icon: "x", link: "https://x.com/deplo_io" },
-      ],
       // https://vitepress.dev/reference/default-theme-config
       nav: [
         { text: "Home", link: "/" },
@@ -66,6 +60,15 @@ export default withMermaid(
         { text: "Deploio Website", link: "https://deplo.io", target: "_blank" },
         { text: "Pricing", link: "https://deplo.io/pricing", target: "_blank" },
         { text: "Login", link: "https://cockpit.nine.ch/en/session/new?origin=deploio", target: "_blank" },
+        { 
+          component: 'VPButton',
+          props: {
+            type: 'medium',
+            text: 'Get Started',
+            href: 'https://cockpit.nine.ch/en/signup?origin=deploio',
+            target: "_blank" 
+           } 
+        }
       ],
       outline: {
         level: [2, 3],

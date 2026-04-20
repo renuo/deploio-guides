@@ -102,6 +102,55 @@ h1, h2, h3, h4, h5, h6 {
   content: "";
 }
 
+/* NavBar Responsive Behaviour */
+
+@media (min-width: 768px) {
+  .VPNav .VPNavBarMenu {
+    display: none;
+  }
+}
+
+@media (min-width: 1280px) {
+  .VPNav .VPNavBarMenu {
+    display: flex;
+  }
+}
+
+@media (min-width: 768px) {
+  .VPNav .VPNavBarExtra {
+    display: none;
+  }
+}
+
+@media (min-width: 768px) {
+  .VPNav .VPNavBarHamburger {
+    display: flex;
+  }
+} 
+
+@media (min-width: 1280px) {
+  .VPNav .VPNavBarHamburger {
+    display: none;
+  }
+} 
+
+@media (min-width: 768px) {
+  .VPNav .VPNavScreen {
+    display: flex;
+  }
+}
+
+@media (min-width: 1280px) {
+  .VPNav .VPNavScreen {
+    display: none;
+  }
+}
+
+@media (min-width: 768px) {
+  .VPNavScreen .container {
+    width: 100%;
+  }
+}
 
 /* Search */
 
@@ -220,3 +269,8 @@ button.DocSearch-Button,
 .vp-doc ol:has(ul) > li + li{
   margin-top: 24px; 
 }
+
+
+
+
+

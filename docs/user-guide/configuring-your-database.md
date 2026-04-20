@@ -11,8 +11,8 @@ description: Comprehensive guide for creating and managing PostgreSQL and MySQL 
 
 # Configuring your Database
 
-Deploio supports MySQL and PostgreSQL databases across two tiers, each designed for different use cases. You can find 
-more information on the available databases [here](https://nine.ch/products/databases/) and technical reference on [docs.nine.ch](https://docs.nine.ch/docs/on-demand-services/).
+Deploio offers managed MySQL and PostgreSQL databases across two tiers, each designed for different use cases.
+For more information visit the [database product page](https://nine.ch/products/databases/) or the [technical reference](https://docs.nine.ch/docs/on-demand-services/).
 
 ### Choosing a tier
 

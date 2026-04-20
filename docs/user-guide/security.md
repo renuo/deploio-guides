@@ -12,7 +12,7 @@ description: Overview of Deploio's security model including TLS, access control,
 
 ## TLS
 
-All external access to Deploio applications is exclusively via **HTTPS on port 443**. No other external ports are supported.
+All external access to Deploio applications is exclusively incoming via **HTTPS on port 443**. No other inbound ports are supported.
 
 ### Automatic Let's Encrypt certificates
 

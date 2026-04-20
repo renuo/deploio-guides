@@ -155,7 +155,7 @@ Considering the creation settings above, we run the following command to create 
 nctl create postgres {DATABASE_NAME} \
   --postgres-version={X} \
   --machine-type=nine-db-s \
-  --allowed-cidrs={IP_ADDRESS}/0 \
+  --allowed-cidrs=0.0.0.0/0 # all IP ranges \
   --ssh-keys={PUBLIC_KEY}
 ```
 

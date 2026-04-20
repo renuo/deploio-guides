@@ -19,7 +19,7 @@ All external access to Deploio applications is exclusively incoming via **HTTPS 
 Deploio automatically provisions [Let's Encrypt](https://letsencrypt.org/) certificates for every application — for both the default `*.deploio.app` domain and any custom hostnames added by you.
 
 Certificates are issued using the **HTTP-01 challenge type**, which means all your custom hostnames must have DNS pointing 
-to Deploio infrastructure before a certificate can be issued. For full setup instructions, see [Network & Deployment](/user-guide/network-and-deployment.md#securing-your-application-with-ssl).
+to Deploio infrastructure before a certificate can be issued for them. For full setup instructions, see [Network & Deployment](/user-guide/network-and-deployment.md#securing-your-application-with-ssl).
 
 ::: warning IPv6
 Let's Encrypt favors IPv6 (AAAA) DNS records over IPv4. Since Deploio does not currently support IPv6, remove any AAAA records for your custom hostnames when migrating to Deploio — otherwise certificate issuance may fail.

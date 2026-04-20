@@ -289,6 +289,11 @@ deploio:
 + host: <%= ENV["S3_BUCKET_HOST"] %>
 ```
 
+### Example App
+
+We also provide an example app that has Active Storage configured to work with Nine S3 buckets. See the [examples repository](
+https://github.com/ninech/deploio-examples/tree/main#ruby-on-rails-with-activestorage) for more details.
+
 ## Next Steps
 
 Do you need **background jobs** for your application? Proceed to the next step.

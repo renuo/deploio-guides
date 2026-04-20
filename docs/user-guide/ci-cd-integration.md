@@ -25,96 +25,38 @@ Before setting up CI/CD, you'll need:
 
 ### Linters and tests
 
-The following yaml file shows an example CI pipeline with Semaphore. In this example, it runs linters and tests. 
-In case, all jobs pass, the specified promotion pipeline is triggered. See [Auto-promote after tests](#auto-promote-after-tests) 
-for details on how to setup the promotion pipeline.
+The following workflow shows an example CI pipeline with GitHub Actions. It runs linting and tests in parallel.
+If all jobs pass, the deployment job is triggered. See [Continuous Deployment](#continuous-deployment) for details 
+on how to setup the deployment step.
 
 ```yaml
-version: v1.0
-name: <project_name>
+name: CI
 
-agent:
-  machine:
-    type: e2-standard-2
-    os_image: ubuntu2204
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
 
-auto_cancel:
-  running:
-    when: 'true'
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install dependencies
+        run: npm ci
+      - name: Run linters
+        run: npm run lint
 
-fail_fast:
-  cancel:
-    when: branch != 'main'
-
-global_job_config:
-  secrets:
-    - name: <project_name>
-
-  prologue:
-    commands:
-      - checkout --use-cache
-      - source .semaphore/bin/cache_restore rails
-      - bundle config set deployment 'true'
-      - bundle config set path 'vendor/bundle'
-      - bundle install -j 4
-      - nvm install
-      - yarn install --cache-folder ~/.cache/yarn
-      - bundle exec rails assets:precompile
-
-blocks:
-  - name: cache
-    dependencies: []
-    execution_time_limit:
-      minutes: 10
-    task:
-      jobs:
-        - name: cache
-          commands:
-            - source .semaphore/bin/cache_store rails
-
-  - name: linting
-    dependencies: [cache]
-    execution_time_limit:
-      minutes: 5
-    task:
-      jobs:
-        - name: linting
-          commands:
-            - bin/fastcheck
-
-  - name: tests
-    dependencies: [cache]
-    execution_time_limit:
-      minutes: 10
-    task:
-      env_vars:
-        - name: DATABASE_URL
-          value: postgresql://postgres@localhost/test?encoding=utf8
-        - name: RAILS_ENV
-          value: test
-      prologue:
-        commands:
-          - sem-service start postgres
-          - bundle exec rails db:create db:schema:load
-      jobs:
-        - name: tests
-          commands:
-            - bin/check
-      epilogue:
-        on_fail:
-          commands:
-            - mkdir -p log coverage tmp/screenshots tmp/capybara
-            - artifact push job log
-            - artifact push job tmp/screenshots
-            - artifact push job tmp/capybara
-            - zip -r coverage-$SEMAPHORE_GIT_SHA coverage/
-            - artifact push job coverage-$SEMAPHORE_GIT_SHA.zip
-
-promotions:
-  - name: develop
-    pipeline_file: develop-deploy.yml
-    auto_promote:
-      when: result = 'passed' and branch = 'develop'
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install dependencies
+        run: npm ci
+      - name: Run tests
+        run: npm test
 ```
 
 ### Review Apps

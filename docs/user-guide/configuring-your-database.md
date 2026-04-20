@@ -39,7 +39,12 @@ In addition, you can restrict access by IP address using the `--allowed-cidrs` f
 Databases in the Economy tier run in a logically separated tenant on a shared, multi-tenant environment managed by Nine 
 — ideal for development, testing, and low-traffic applications. They start fast, making them a good fit for automated testing pipelines e.g..
 
-> :warning: The Economy tier is currently in **Beta**. Breaking changes may still occur.
+
+::: info Manual Backup Restore
+The Economy tier is still missing a one-click backup restore feature.
+You currently need to open a [support ticket with Nine](support@nine.ch) for restore.
+We'll make this as easy as a button-click soon.
+:::
 
 #### Packages
 

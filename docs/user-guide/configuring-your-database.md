@@ -144,7 +144,7 @@ Business databases provide dedicated, isolated instances with their own resource
 
 ### Database creation settings
 
-There are a number of configurations you can apply when creating a Business database. Run `-h` for details, e.g. `nctl create mysql -h`.
+There are a number of configurations you can apply when creating a Business database. Run `--help` for details, e.g. `nctl create mysql --help`.
 
 #### Name
 

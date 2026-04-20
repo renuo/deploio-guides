@@ -44,7 +44,12 @@ Databases in the Economy tier run in a logically separated tenant on a shared, m
 #### Packages
 
 The package is automatically selected based on the current database size. Storage is capped at 10 GB — if you need more, 
-migrate to a Business tier instance. Migration is at the moment not automated, but we're working on smoothening this
+migrate to a Business tier instance.
+
+::: info Manual Work
+Migration from Economy to Business is a manual step currently.
+We're make this as easy as a button-click soon.
+:::
 process.
 
 | Package | Max Storage | Max Connections |

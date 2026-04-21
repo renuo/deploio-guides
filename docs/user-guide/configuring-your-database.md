@@ -42,7 +42,7 @@ Databases in the Economy tier run in a logically separated tenant on a shared, m
 
 ::: info Manual Backup Restore
 The Economy tier is still missing a one-click backup restore feature.
-You currently need to open a [support ticket with Nine](support@nine.ch) for restore.
+You currently need to open a [support ticket with Nine](mailto:support@nine.ch) for restore.
 We'll make this as easy as a button-click soon.
 :::
 

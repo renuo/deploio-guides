@@ -11,7 +11,7 @@ description: Instructions for automating deployments using nctl CLI in CI/CD pip
 
 # CI/CD Integration
 
-This guide explains how you can setup a CI/CD pipeline to automate deployments. We'll provide examples for GitHub actions
+This guide explains how you can setup a CI/CD pipeline to automate deployments. We'll provide examples for GitHub Actions
 and Semaphore. Furthermore, we explain how you could setup review apps.
 
 ## Prerequisites

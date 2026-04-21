@@ -19,15 +19,14 @@ and Semaphore. Furthermore, we explain how you could setup review apps.
 Before setting up CI/CD, you'll need:
 
 - An existing Deploio application linked to a Git repository
-- An API Service Account (ASA) for authentication (see [Issue tokens for secure deployment automation](#issue-tokens-for-secure-deployment-automation))
+- An API Service Account (ASA) for authentication (see [here](#create-an-api-service-account))
 
 ## Continuous Integration
 
 ### Linters and tests
 
 The following workflow shows an example CI pipeline with GitHub Actions. It runs linting and tests in parallel.
-If all jobs pass, the deployment job is triggered. See [Continuous Deployment](#continuous-deployment) for details 
-on how to setup the deployment step.
+See [Continuous Deployment](#continuous-deployment) for details on how to setup the deployment step.
 
 ```yaml
 name: CI
@@ -81,7 +80,7 @@ sequenceDiagram
     Dev->>CI: Open pull request
     CI->>Depl: Copy template app (if missing)
     CI->>Depl: Create accessories (DB, etc.) (if missing)
-    CI->>Depl: Set app git revision & ENV variables
+    CI->>Depl: Set review app git revision & ENV variables
     Depl-->>Dev: Review app URL
 
     Note over Dev, Depl: Cleanup (on PR close/merge)
@@ -176,14 +175,14 @@ echo "Deleted $REVIEW_APP_NAME"
 ::: info
 You might be wondering why we force delete the resources here. This is in place to skip the deletion confirmation. The `--force`
 flag still respects the deletion protection mechanism on your main app. You could limit the risk by enabling deletion protection
-on your production environments.
+for your production environments.
 :::
 
 #### GitHub Actions
 
 To automate the review app creation, you could setup e.g. a GitHub Actions workflow. The following workflow
 runs automatically as soon as you open a PR, mark it ready for review or close it. In addition, it can also be triggered 
-manually in the Actions tab. Once the latest release of the review app is successful, it will mark the deployment in your
+manually in the Actions tab. Once the latest release of the review app is successful, it will display the deployment in your
 pull request.
 
 ```yaml

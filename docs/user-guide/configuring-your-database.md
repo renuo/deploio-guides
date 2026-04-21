@@ -67,7 +67,7 @@ process.
 
 - One database per instance (the database name matches the username)
 - No dedicated resources — runs on shared infrastructure
-- No custom configuration options (e.g. no extensions, no SQL mode tuning)
+- No custom configuration options (e.g. no IP allowlist)
 - No SSH access to the instance
 - Storage cannot exceed 10 GB
 
@@ -182,7 +182,8 @@ Machine types can be changed after creation. After an adjustment, the database i
 
 #### Allowed IP addresses
 
-IPv4 addresses and address ranges from which connections to the service can be established. Access from our Kubernetes products NKE (Nine Kubernetes Engine) and GKE (Google's Kubernetes Engine), as well as from deplo.io, is already enabled.
+IPv4 addresses and address ranges from which connections to the service can be established. 
+Access from our Kubernetes products NKE (Nine Kubernetes Engine) and GKE (Google's Kubernetes Engine), as well as from deplo.io, is already enabled.
 
 The access restriction can be adjusted at any time. Adjustments are made non-disruptively moments after the form is submitted.
 

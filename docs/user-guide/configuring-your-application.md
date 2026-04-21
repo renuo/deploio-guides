@@ -150,7 +150,7 @@ A number of configuration options use the cron syntax. You can see more informat
 
 ### 5. project.toml
 
-Deploio supports the [`project.toml`](https://buildpacks.io/docs/for-app-developers/how-to/build-inputs/use-project-toml/) file to configure buildpacks. This file is part of the Cloud Native Buildpacks specification and allows you to control which files are included or excluded during the build process.
+Deploio supports the [`project.toml`](https://buildpacks.io/docs/for-app-developers/how-to/build-inputs/use-project-toml/) file to configure buildpacks (both the _Paketo_ and _Heroku_ ones). This file is part of the Cloud Native Buildpacks specification and allows you to control which files are included or excluded during the build process.
 
 This is useful when your repository contains files that would cause Deploio to auto-detect an unwanted buildpack. For example, if Node.js is only used for development purposes (linting, formatting) but not in production, you can exclude `package.json` and `package-lock.json` to prevent Deploio from adding the Node.js buildpack:
 

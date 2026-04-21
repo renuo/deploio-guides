@@ -48,9 +48,11 @@ To fetch information about the key-value store, including the fully qualified do
 $ nctl get kvs {application_name}
 PROJECT       NAME                  FQDN                                                    TLS     MEMORY SIZE
 my-project    {application_name}    {application_name}.1234567.keyvaluestore.nineapis.ch    true    1Gi
+```
 
 Retrieve the password for the key-value store:
 
+```bash
 $ nctl get kvs {application_name} --print-token
 ...password...
 ```

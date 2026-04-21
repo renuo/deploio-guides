@@ -51,10 +51,10 @@ The following tabs are available for configuration:
 |----------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Git**              | Configure the git repository URL and authentication details for your application                                                                                                                                            |
 | **Hosts**            | Manage deployment hosts and view DNS configuration records (TXT and CNAME) for your domain registrar                                                                                                                        |
-| **Configuration**    | Manage environment variables, build variables, and basic application settings (auth, port, replicas, size). Shows the source of each setting (default or`deploio.yaml`)                                                     |
+| **Configuration**    | Manage environment variables, build variables, and basic application settings (auth, port, replicas, size). Shows the source of each setting (default or `.deploio.yaml`)                                                     |
 | **Static Egress**    | Configure static IP addresses for outbound traffic.[Learn more about static egress](https://docs.nine.ch/docs/managed-kubernetes/nke/static-egress-nke/)                                                                    |
-| **Jobs**             | View worker and scheduled jobs. For configuration, use[CLI or deploio.yaml](#worker-jobs)                                                                                                                                   |
-| **Dockerfile Build** | View build options for Dockerfile-based applications. Configure using`--dockerfile-path` and `--dockerfile-build-context` flags. [Learn more about Dockerfile builds](https://docs.nine.ch/docs/deplo-io/dockerfile-build/) |
+| **Jobs**             | View worker and scheduled jobs. For configuration, use [CLI or deploio.yaml](#worker-jobs)                                                                                                                                   |
+| **Dockerfile Build** | View build options for Dockerfile-based applications. Configure using `--dockerfile-path` and `--dockerfile-build-context` flags. [Learn more about Dockerfile builds](https://docs.nine.ch/docs/deplo-io/dockerfile-build/) |
 | **Logs**             | Access real-time application logs                                                                                                                                                                                           |
 | **Metrics**          | Access app container metrics (memory & CPU usage)                                                                                                                                                                   |
 | **Builds**           | Monitor build status and history                                                                                                                                                                                            |
@@ -68,14 +68,14 @@ You can also use the `edit` button on the top right of the page to edit the appl
 
 Here you can **add** a deploy job, worker jobs, scheduled jobs, as well as the basic configuration for your application (port, replicas, size, basic auth, etc).
 
-### 3. deploio.yaml
+### 3. `.deploio.yaml`
 
-A Git-tracked configuration file that can be stored alongside your application code. It can be stored alongside your application code.
+A Git-tracked configuration file that can be stored alongside your application code.
 It will be read by the build system when building the application.
 
 This allows you to have all the configuration in one YAML file, and not have to use the CLI or Cockpit to configure your application.
 
-The `deploio.yaml` file specifies the default values. If you overwrite a setting in the admin GUI or command line, they take precedence over the defaults from the file.
+The `.deploio.yaml` file specifies the default values. If you overwrite a setting in the admin GUI or command line, they take precedence over the defaults from the file.
 
 You can use this file to:
 
@@ -86,7 +86,7 @@ You can use this file to:
 - [Define background jobs (workers)](#worker-jobs)
 - [Define scheduled jobs (cron jobs)](#scheduled-jobs)
 
-Below is an example of a `deploio.yaml` file. You can see an up-to-date list of fields that can be used in the [API docs](https://docs.nine.ch/api/#tag/ProjectConfig/operation/createAppsNineChV1alpha1NamespacedProjectConfig).
+Below is an example of a `.deploio.yaml` file. You can see an up-to-date list of fields that can be used in the [API docs](https://docs.nine.ch/api/#tag/ProjectConfig/operation/createAppsNineChV1alpha1NamespacedProjectConfig).
 
 ```yaml
 # Application size (micro, mini, standard-1, standard-2, standard-4)
@@ -119,7 +119,7 @@ scheduledJobs:
 ### 4. Procfile
 
 ::: warning Procfile Limitations
-Deploio only supports the `web` process type in Procfile. The `worker` and `release` process types are not supported. We strongly recommend using `deploio.yaml` instead, which provides full support for all process types including:
+Deploio only supports the `web` process type in Procfile. The `worker` and `release` process types are not supported. We strongly recommend using `.deploio.yaml` instead, which provides full support for all process types including:
 - Web processes
 - Worker jobs
 - Deploy jobs
@@ -137,8 +137,8 @@ A Procfile is a simple text file that specifies the commands that should be exec
 #### Process Types
 
 - `web`: The main web process that handles HTTP requests. This is the only process type supported in Procfile.
-- `worker`: Not supported in Procfile. Use `deploio.yaml` to configure worker jobs instead.
-- `release`: Not supported in Procfile. Use `deploio.yaml` to configure deploy jobs instead.
+- `worker`: Not supported in Procfile. Use `.deploio.yaml` to configure worker jobs instead.
+- `release`: Not supported in Procfile. Use `.deploio.yaml` to configure deploy jobs instead.
 
 #### Example
 
@@ -179,7 +179,7 @@ Deploio automatically handles process failures for both web and worker processes
 
 ### Environment Variables
 
-Environment variables allow you to customize your application's behavior between environments (e.g. development, staging production) without changing code.
+Environment variables allow you to customize your application's behavior between environments (e.g. development, staging, production) without changing code.
 
 #### Build Variables
 
@@ -230,11 +230,11 @@ You can navigate to your **Application** page, and then either click on the **Co
 
 In both cases, the environment variables are split into two sections: **Environment Variables** and **Build Environment Variables**.
 
-Here you can add, edit, or delete environment variables, as well as editing in a yaml format.
+Here you can add, edit, or delete environment variables, as well as edit in a YAML format.
 
-== deploio.yaml
+== .deploio.yaml
 
-Environment variables can also be configured in the `deploio.yaml` file. However, the settings specified directly in the application configuration will take precedence over the settings in the `deploio.yaml` file.
+Environment variables can also be configured in the `.deploio.yaml` file. However, the settings specified directly in the application configuration will take precedence over the settings in the `.deploio.yaml` file.
 
 ```yaml
 # Build variables
@@ -286,9 +286,9 @@ Under **Configuration**, you can enable/disable basic authentication.
 
 Once enabled, you can also get the credentials by clicking the **Show** button on the **Application** page.
 
-== deploio.yaml
+== .deploio.yaml
 
-As noted previously, any configuration set in the Cockpit or `nctl` will take precedence over the configuration in `deploio.yaml`.
+As noted previously, any configuration set in the Cockpit or `nctl` will take precedence over the configuration in `.deploio.yaml`.
 
 ```yaml
 # Enable basic authentication
@@ -349,7 +349,7 @@ Navigate to your **Application** page and click the **Edit** button.
 
 Under **Configuration**, you can set the port number.
 
-== deploio.yaml
+== .deploio.yaml
 
 ```yaml
 # Set the internal port
@@ -385,7 +385,7 @@ Navigate to your **Application** page and click the **Edit** button.
 
 Under **Configuration**, you can set the number of replicas.
 
-== deploio.yaml
+== .deploio.yaml
 
 ```yaml
 # Set the number of replicas
@@ -421,7 +421,7 @@ Navigate to your **Application** page and click the **Edit** button.
 
 Under **Configuration**, you can select the size from the dropdown menu.
 
-== deploio.yaml
+== .deploio.yaml
 
 ```yaml
 # Set the size
@@ -489,7 +489,7 @@ Navigate to your **Application** page and click the **Edit** button.
 
 Under **Jobs**, you can enable a new **Deploy Job**. This requires a command, which will be executed by a bash shell before a new release is deployed. You also need to specify the number of retries and a timeout.
 
-== deploio.yaml
+== .deploio.yaml
 
 ```yaml
 deployJob:
@@ -532,7 +532,7 @@ At the bottom of the release you can see the status and it will show in detail w
 
 You can view the **Deploy Job** in the **Jobs** tab. In this tab, you can view the configuration and the status of the job.
 
-== deploio.yaml
+== .deploio.yaml
 
 Deploy jobs can only be monitored in the Cockpit or via the `nctl` command.
 
@@ -577,7 +577,7 @@ Navigate to your **Application** page and click the **Edit** button.
 
 Under **Jobs**, you can create multiple **Worker Jobs**. Each job requires a name, a command, and the size of the worker to run the job.
 
-== deploio.yaml
+== .deploio.yaml
 
 ```yaml
 workerJobs:
@@ -609,7 +609,7 @@ Additionally, the logs of the worker jobs can be accessed by viewing the app log
 
 You can view the **Worker Jobs** in the **Jobs** tab. In this tab, you can view the configuration and the status of the jobs.
 
-== deploio.yaml
+== .deploio.yaml
 
 Worker jobs can only be monitored in the Cockpit or via the `nctl` command.
 
@@ -656,7 +656,7 @@ Navigate to your **Application** page and click the **Edit** button.
 
 Under **Jobs**, you can create multiple **Scheduled Jobs**. Each job requires a name, a command, a schedule, and the size of the worker to run the job. You can also specify the retries and timeout for the job.
 
-== deploio.yaml
+== .deploio.yaml
 
 ```yaml
 scheduledJobs:
@@ -703,7 +703,7 @@ You can view the **Scheduled Jobs** in the **Jobs** tab. In this tab, you can vi
 
 In addition to the status, the scheduled job's log will be written to the normal app log and can be viewed in the **Logs** tab.
 
-== deploio.yaml
+== .deploio.yaml
 
 Scheduled jobs can only be monitored in the Cockpit or via the `nctl` command.
 

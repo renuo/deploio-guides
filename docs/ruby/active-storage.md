@@ -182,7 +182,7 @@ Deploio needs to verify that you really own a domain name before
 it will accept HTTP traffic to your custom host on their side.
 So you need to add two DNS records at your DNS provider:
 * `CNAME` for your domain to `es34.objects.nineapis.ch`
-* `TXT` for record for ownership verification
+* `TXT` record for ownership verification
 
 The verification record can be retrieved via `nctl`:
 
@@ -235,7 +235,7 @@ to replace the host part of the generated and signed URL with your custom host.
 The proxy will pick it up and replace the custom host with the Deploio S3 host.
 The Nutanix S3 service can then verify the complete URL including signature.
 
-If you want to know more about the how this works, have a look at the lightning talk
+If you want to know more about how this works, have a look at the lightning talk
 ["Deploio S3"](https://docs.google.com/presentation/d/1o5LMgcUcVqqZlIQ5mCWJkD9CvYGFML6V7sQxMFkV6wg/edit?slide=id.g3b1e491c942_0_0#slide=id.g3b1e491c942_0_0).
 :::
 

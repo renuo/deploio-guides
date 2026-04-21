@@ -27,7 +27,7 @@ For more information visit the [database product page](https://nine.ch/products/
 
 ### Protecting Database Access
 
-All database instances only accept TLS-encrypted connections. Depending on the client or library, you may need to 
+All database instances only accept TLS-encrypted connections. Depending on the client or library, you may need to
 explicitly enable TLS. The TLS certificate is self-signed, so you may also need to disable certificate hostname validation.
 See the [technical reference](https://docs.nine.ch/docs/on-demand-services/mysql/economy#tls) for more details.
 
@@ -36,8 +36,8 @@ In addition, you can restrict access by IP address using the `--allowed-cidrs` f
 
 ## Economy tier
 
-Databases in the Economy tier run in a logically separated tenant on a shared, multi-tenant environment managed by Nine 
-— ideal for development, testing, and low-traffic applications. They start fast, making them a good fit for automated testing pipelines e.g..
+Databases in the Economy tier run in a logically separated tenant on a shared, multi-tenant environment managed by Nine
+— ideal for development, testing, and low-traffic applications. They start fast, making them a good fit for automated testing pipelines e.g.
 
 
 ::: info Manual Backup Restore
@@ -48,14 +48,13 @@ We'll make this as easy as a button-click soon.
 
 #### Packages
 
-The package is automatically selected based on the current database size. Storage is capped at 10 GB — if you need more, 
+The package is automatically selected based on the current database size. Storage is capped at 10 GB — if you need more,
 migrate to a Business tier instance.
 
 ::: info Manual Work
 Migration from Economy to Business is a manual step currently.
-We're make this as easy as a button-click soon.
+We'll make this as easy as a button-click soon.
 :::
-process.
 
 | Package | Max Storage | Max Connections |
 |---------|-------------|-----------------|
@@ -90,11 +89,12 @@ Retrieve connection details:
 - **FQDN**: `nctl get postgresdatabase {DATABASE_NAME}`
 - **User**: `nctl get postgresdatabase {DATABASE_NAME} --print-user`
 - **Password**: `nctl get postgresdatabase {DATABASE_NAME} --print-password`
+- **Connection string**: `nctl get postgresdatabase {DATABASE_NAME} --print-connection-string`
 
 Connect to your database:
 
 ```bash
-psql --host={FQDN} --dbname={USER} --username={USER}
+psql -d "$(nctl get postgresdatabase {DATABASE_NAME} --print-connection-string)"
 ```
 
 == MySQL
@@ -124,7 +124,7 @@ mysql -h {FQDN} -u {USER} -p
 
 ### Backups
 
-Backups are created daily and stored in S3-compatible object storage. 
+Backups are created daily and stored in S3-compatible object storage.
 
 To restore a PostgreSQL Economy backup:
 1. Find the corresponding bucket for your database backup
@@ -182,7 +182,7 @@ Machine types can be changed after creation. After an adjustment, the database i
 
 #### Allowed IP addresses
 
-IPv4 addresses and address ranges from which connections to the service can be established. 
+IPv4 addresses and address ranges from which connections to the service can be established.
 Access from our Kubernetes products NKE (Nine Kubernetes Engine) and GKE (Google's Kubernetes Engine), as well as from deplo.io, is already enabled.
 
 The access restriction can be adjusted at any time. Adjustments are made non-disruptively moments after the form is submitted.
@@ -539,7 +539,7 @@ You can view the current status of the system [here](https://status.nine.ch/).
 
 Nine monitors the instance with a monitoring system 24x7. In the event of a malfunction, an (on-call) technician from Nine is automatically alerted and restores proper operation as quickly as possible.
 
-You can also view the current status of a database via the Cockpit, as well as information such as version, backup retention policy and "Allowed IP Addresses". This information can help when trying to assess and connection issues.
+You can also view the current status of a database via the Cockpit, as well as information such as version, backup retention policy and "Allowed IP Addresses". This information can help when trying to assess connection issues.
 
 > ⚠️ Resource saturation (e.g., full CPU/memory/disk) is **not considered a malfunction**. You are responsible for monitoring performance and scaling your instance as needed.
 >
@@ -659,6 +659,14 @@ dbadmin@managedvirtualmachine-xxxxxxx:~ $ sudo nine-mysql-backup
 ```
 
 :::
+
+##### Downloading a backup to your local machine
+
+To download a backup to your local machine, you can, for example, use `rsync`:
+
+```bash
+rsync -v dbadmin@{FQDN}:~/backup/postgresql/latest/customer/{DATABASE_NAME}/{DATABASE_NAME}.zst ./backup.zst
+```
 
 ##### Storage requirements of the backups
 

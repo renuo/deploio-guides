@@ -38,7 +38,7 @@ equivalent of the instance types for the application. The available sizes can be
 
 ## Observing a Worker
 
-The worker's logs are aggregated with the application logs. You can view the all the logs using the `nctl logs` command.
+The worker's logs are aggregated with the application logs. You can view all the logs using the `nctl logs` command.
 If you wish to only view the logs for the worker, you can filter the logs using the `-t, --type` flag:
 
 ```bash

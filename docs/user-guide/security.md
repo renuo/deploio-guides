@@ -10,6 +10,8 @@ description: Overview of Deploio's security model including TLS, access control,
 
 # Security
 
+Deploio is made for the internet. We assume the same of your application. If your security model does not allow unfirewalled HTTP access to port 443 from all over the world, then Deploio is probably not for you.
+
 ## TLS
 
 All external access to Deploio applications is exclusively incoming via **HTTPS on port 443**. No other inbound ports are supported.

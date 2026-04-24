@@ -48,10 +48,6 @@ export default withMermaid(
     themeConfig: {
       search: { provider: "local" },
       logo: "/icon/logo.svg",
-      editLink: {
-        pattern: "https://github.com/renuo/deploio-guides/edit/main/docs/:path",
-        text: "Edit this page on GitHub",
-      },
       // https://vitepress.dev/reference/default-theme-config
       nav: [
         { text: "Home", link: "/" },

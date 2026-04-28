@@ -107,7 +107,7 @@ Should you have any other questions or issues, please reach out to us via the fo
 
 ### Slack Community
 
-We do have an official [Deploio Slack community](https://join.slack.com/t/deploiocommunity/shared_invite/zt-20tb3k93m-O4NEUs0RjZYGQNQoih8zkA).
+We do have an official [Deploio Slack community](https://join.slack.com/t/deploiocommunity/shared_invite/zt-3wcpoa6ud-UfQ8JCns6FLe0HLp7s4JdQ).
 We'll try to answer your questions as soon as possible.
 
 ### Contact

@@ -30,9 +30,9 @@ We recommend the following best practices for repository access:
 For platform-specific setup (GitHub, GitLab, Bitbucket), see [Code Repository Setup](/user-guide/code-repository-setup.md).
 
 ::: info Source of Truth
-
 Contrariwise to other PaaS providers, operators don't need access to the source code.
 Code is always pulled by Deploio from a central place. You always know where the deployed code came from.
+:::
 
 ## Secrets
 

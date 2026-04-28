@@ -24,7 +24,7 @@
                             </li>
                             <li>
                                 <a
-                                    href="https://join.slack.com/t/deploiocommunity/shared_invite/zt-20tb3k93m-O4NEUs0RjZYGQNQoih8zkA"
+                                    href="https://join.slack.com/t/deploiocommunity/shared_invite/zt-3wcpoa6ud-UfQ8JCns6FLe0HLp7s4JdQ"
                                     target="_blank"
                                     class="footer-link"
                                     >Slack Community</a

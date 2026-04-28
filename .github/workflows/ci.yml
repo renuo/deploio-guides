@@ -20,6 +20,7 @@ jobs:
             --exclude 'dev\.mysql\.com'
             --exclude 'vitepress.dev'
             --exclude 'symfony.com'
+            --exclude 'join\.slack\.com'
             --exclude '/img/'
             --verbose
             docs/

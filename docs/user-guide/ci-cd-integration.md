@@ -399,10 +399,6 @@ nctl update app $DEPLOIO_APP_NAME \
   --skip-repo-access-check
 ```
 
-::: info
-The `--skip-repo-access-check` flag skips the repository access check during the update. This is useful in CI environments where `nctl` doesn't have direct access to the Git repository.
-:::
-
 #### Poll build and release status
 
 After triggering a deployment, you can poll Deploio for the build and release status. This lets your CI pipeline report whether the deployment succeeded or failed.

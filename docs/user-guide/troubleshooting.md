@@ -46,7 +46,7 @@ The technical reference has more [details about custom hostname configuration](h
 nctl get app {application_name} --output yaml | grep revision
 ```
 
-Prints the revision of the latest deployment. Use this revision to find the corresponding git commit in the git 
+Prints the revision of the latest deployment. Use this revision to find the corresponding git commit in the git
 history.
 
 ## Database
@@ -60,7 +60,7 @@ guide for more information.
 
 ### Backups
 
-See the [Database Backups](./configuring-your-database.md#backup-and-restore) guide for instructions on how to create 
+See the [Database Backups](./configuring-your-database.md#backup-and-restore) guide for instructions on how to create
 and restore database backups.
 
 ## Rollback deployments
@@ -80,7 +80,7 @@ For rolling back to the previous release you would choose the build of the most 
 
 ## Kubernetes
 
-In case you want to reproduce an issue with a certain build, you can use the following commands to pull the corresponding 
+In case you want to reproduce an issue with a certain build, you can use the following commands to pull the corresponding
 image and run it locally with Docker or podman:
 
 1. List builds

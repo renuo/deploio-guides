@@ -20,19 +20,22 @@ This guide helps you get up and running with **Deploio**, from installing the CL
 
 ### Step-by-step setup
 
-1. Download and install `nctl`. Various methods of installation are detailed on the [Github page](https://github.com/ninech/nctl#setup).
+1. Download and install `nctl`. Various methods of installation are detailed on the [GitHub page](https://github.com/ninech/nctl#installation).
 
-2. Login to the API (providing you have an account) using:
+2. Log in to the API (provided you have an account) using:
+
 ```bash
 nctl auth login
 ```
 
 3. Check you are authenticated and have access to the API:
+
 ```bash
 nctl auth whoami
 ```
 
 4. View your available projects:
+
 ```bash
 nctl get all
 ```
@@ -49,13 +52,13 @@ If the organization already exists and you need a new user account, you need to:
 
 - Ask your admin to invite you to the correct organization
 - Log in using your credentials provided
-- Authenticate `nctl` (see [here](/introduction/how-deploio-works.md#nctl))
+- Authenticate `nctl` using `nctl auth login` (see [here](/introduction/how-deploio-works.md#nctl))
 
 Once you are set up, you can check your available organizations once logged in on the CLI by running `nctl auth whoami`.
 
 ### Setting up a new user or organization
 
-If you do not have an organization setup and wish to do so, you should contact Nine directly. There is a contact form and details at [Deplo.io](https://deplo.io/).
+If you do not have an organization set up and wish to do so, you should contact Nine directly. There is a contact form and details at [Deplo.io](https://deplo.io/).
 
 Should you wish to create an individual user, you can do so on the [Cockpit registration page](https://cockpit.nine.ch/de/signup?).
 
@@ -87,7 +90,7 @@ You can see an explanation of the configuration levels [here](https://docs.nine.
 
 ### Blogs
 
-There are a number of blogs and other resources available that can provide more information and use cases for Deploio. 
+There are a number of blogs and other resources available that can provide more information and use cases for Deploio.
 Please see a list below:
 - [Nine blog](https://nine.ch/de/blog/)
 - [Deploio success story](https://deplo.io/en/success_story)
@@ -100,8 +103,8 @@ to see the full list.
 
 ### Videos
 
-Under [this Youtube playlist](https://youtube.com/playlist?list=PLlOLIwramZLMHkeEYWAt82VwuQdB0b6P-)
-you can find a list of demos and behind-the-scenes insights into Deploio. 
+Under [this YouTube playlist](https://youtube.com/playlist?list=PLlOLIwramZLMHkeEYWAt82VwuQdB0b6P-)
+you can find a list of demos and behind-the-scenes insights into Deploio.
 
 ## Avoid common pitfalls
 

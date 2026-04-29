@@ -12,6 +12,9 @@ description: Guide for configuring S3-compatible object storage for PHP applicat
 
 ::: info
 Should you require a file upload or a writeable storage, you can use our S3-compatible object storage.
+You can use Amazon S3 together with Deploio as you would with any other hosting provider.
+If you wish to have a persistent, S3 compatible storage that also runs on Nine's infrastructure
+and is directly connected to Deploio, you can use our S3-compatible object storage.
 You can see the pricing [here](https://docs.nine.ch/docs/object-storage/manage-buckets-and-users#pricing).
 :::
 
@@ -68,7 +71,7 @@ You will need the access key and the secret key, the user name is not used on th
 
 ## Configure your PHP Application
 
-S3 can not be mounted as a local filesystem, so you need a client to let PHP interact with S3. In the example
+S3 cannot be mounted as a local filesystem, so you need a client to let PHP interact with S3. In the example
 application, we use [Flysystem](https://flysystem.thephpleague.com/docs/) with the
 [S3 plugin](https://flysystem.thephpleague.com/docs/adapter/aws-s3-v3/) (which itself uses the AWS SDK for PHP).
 The `league/flysystem-bundle` does not support specifying the connection as DSN, therefore we added

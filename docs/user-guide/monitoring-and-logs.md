@@ -11,7 +11,7 @@ next:
 
 ## Logs
 
-Your application's stdout and stderr output is captured by Deploio and can be accessed either in the Cockpit or 
+Your application's stdout and stderr output is captured by Deploio and can be accessed either in the Cockpit or
 with `nctl`.
 
 ### Viewing Application Logs
@@ -34,9 +34,18 @@ To follow live logs, use `--follow`:
 nctl logs app {application_name} --follow
 ```
 
+::: info
+To have a more structured and highlighted output,
+you can easily use third-party tools like, for example, [`tailspin`](https://github.com/bensadeh/tailspin):
+
+```bash
+nctl logs app {application_name} --output json | tspin
+```
+:::
+
 ### Filtering Logs
 
-Deploio captures logs from different sources. You can filter by type (e.g. deploy or worker jobs) 
+Deploio captures logs from different sources. You can filter by type (e.g. deploy or worker jobs)
 using the `--type` flag:
 
 ```bash

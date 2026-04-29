@@ -10,7 +10,7 @@ description: Guide for setting up Redis-compatible key-value stores, object stor
 
 # Other Dependencies
 
-This guide covers how to setup a Redis-compatible key-value store and S3-compatible object storage
+This guide covers how to set up a Redis-compatible key-value store and S3-compatible object storage.
 These dependencies can be used for caching, task queues or to store static files and assets.
 
 ## Key-Value Store
@@ -25,7 +25,7 @@ Due to [licence changes](https://redis.io/blog/what-redis-license-change-means-f
 
 #### Creating the Key-Value Store
 
-Firstly, we create the key value store by running the `create kvs` command:
+Firstly, we create the key-value store by running the `create kvs` command:
 
 ```
 nctl create kvs {application_name} --project {project_name}
@@ -49,7 +49,7 @@ We will also need to get the **password** for the access by running:
 nctl get kvs {application_name} --print-token
 ```
 
-From this we can construct and set the `REDIS_URL` and `REDISCLI_AUTH` environment variable as follows:
+From this we can construct and set the `REDIS_URL` and `REDISCLI_AUTH` environment variables as follows:
 
 ```
 nctl update app {application_name} --env='REDIS_URL=rediss://:{PASSWORD}@{FQDN};REDISCLI_AUTH={PASSWORD}'
@@ -78,10 +78,10 @@ Following command creates a bucket named `{bucket_name}` in the project space:
 nctl create bucket {bucket_name} --project {project_name} --location nine-es34
 ```
 
-Nine has has multiple [datacenter locations](https://docs.nine.ch/docs/managed-kubernetes/nke/nine-kubernetes-engine#locations).
+Nine has multiple [datacenter locations](https://docs.nine.ch/docs/managed-kubernetes/nke/nine-kubernetes-engine#locations).
 `nine-es34` is the default for Deploio.
 
-In order to access the bucket, we need to create user with access to it.
+In order to access the bucket, we need to create a user with access to it.
 
 ```
 nctl create bucketuser --location=nine-es34 {bucketuser_name}

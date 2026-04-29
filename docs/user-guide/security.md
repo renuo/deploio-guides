@@ -15,7 +15,7 @@ Deploio is made for the internet. We assume the same of your application. If you
 ### Organisation access
 
 Access to Deploio is managed per organisation. You can invite users with specific roles (Administrator, Cockpit Access, Technical Contact)
-to control who can view and manage your projects and applications. See the [Getting started guide](/user-guide/getting-started.md##setting-up-access-within-an-organization) for
+to control who can view and manage your projects and applications. See the [Getting started guide](/user-guide/getting-started.md#setting-up-access-within-an-organization) for
 details on user management.
 
 ## Repository access
@@ -36,7 +36,7 @@ Code is always pulled by Deploio from a central place. You always know where the
 
 ## Secrets
 
-We recommend to store sensitive configuration — database URLs, API keys, credentials — as **runtime environment variables**. These are loaded at boot and are not baked into your container image.
+We recommend storing sensitive configuration — database URLs, API keys, credentials — as **runtime environment variables**. These are loaded at boot and are not baked into your container image.
 
 ```bash
 nctl create app my-app \
@@ -83,13 +83,13 @@ Deploio only proxies **HTTP traffic on a single port**. All external access is H
 
 Your application sits behind a **TLS-termination proxy** that sets the following headers:
 
-| Header | Description                                                                                                                                                              |
-|--------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `X-Forwarded-Proto` | Whether the original connection was HTTP or HTTPS                                                                                                                        |
-| `X-Forwarded-Host` | The original domain visited                                                                                                                                              |
-| `X-Forwarded-For` / `X-Real-Ip` | The client's IP address                                                                                                                                                  |
-| `X-Forwarded-Port` | The original request port                                                                                                                                                |
-| `X-Original-Forwarded-For` | Contains the value of the X-Forwarded-For header set by a proxy in front of Deploio. This value should only be trusted if the proxy in front of Deploio can be trusted.  |
+| Header                           | Description                                                                                                                                                             |
+|----------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `X-Forwarded-Proto`              | Whether the original connection was HTTP or HTTPS                                                                                                                       |
+| `X-Forwarded-Host`               | The original domain visited                                                                                                                                             |
+| `X-Forwarded-For` / `X-Real-Ip`  | The client's IP address                                                                                                                                                 |
+| `X-Forwarded-Port`               | The original request port                                                                                                                                               |
+| `X-Original-Forwarded-For`       | Contains the value of the X-Forwarded-For header set by a proxy in front of Deploio. This value should only be trusted if the proxy in front of Deploio can be trusted. |
 
 ::: warning
 Deploio does not add security headers like `Content-Security-Policy`, `Strict-Transport-Security`, or `X-Frame-Options`. Your application must set these itself.
@@ -109,7 +109,7 @@ All external access to Deploio applications is exclusively incoming via **HTTPS 
 
 Deploio automatically provisions [Let's Encrypt](https://letsencrypt.org/) certificates for every application — for both the default `*.deploio.app` domain and any custom hostnames added by you.
 
-Certificates are issued using the **HTTP-01 challenge type**, which means all your custom hostnames must have DNS pointing 
+Certificates are issued using the **HTTP-01 challenge type**, which means all your custom hostnames must have DNS pointing
 to Deploio infrastructure before a certificate can be issued for them. For full setup instructions, see [Network & Deployment](/user-guide/network-and-deployment.md#securing-your-application-with-ssl).
 
 ::: warning IPv6

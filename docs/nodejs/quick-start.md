@@ -63,7 +63,7 @@ nctl create app nextjs \
 This command creates a new application on Deploio using
 the [Node.js buildpack](https://paketo.io/docs/reference/nodejs-reference/). The `--git-url` flag specifies the URL of
 the Git repository where the application is stored. The optional `--git-sub-path` flag specifies the subdirectory in the
-Git repository where the application is located. Finally, the `--env` flag and `--build-env` flag sets the `NODE_ENV`
+Git repository where the application is located. Finally, the `--env` flag and `--build-env` flag set the `NODE_ENV`
 environment variable to `production`.
 
 ::: warning

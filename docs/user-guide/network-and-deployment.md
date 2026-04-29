@@ -12,7 +12,7 @@ description: Guide for setting up custom domains with DNS records (CNAME and TXT
 
 Once your application is built and running, the next step is making it accessible to the world.
 
-This section focuses on the external-facing aspects - domains, security, static IPs and deployment configuration - that 
+This section focuses on the external-facing aspects - domains, security, static IPs and deployment configuration - that
 allow users to connect to your app. In this section, you will learn how to configure how your app is seen and secured on the web.
 
 ## Setting up a custom domain
@@ -48,8 +48,8 @@ Your service should provide an overview of the DNS records for your domain and a
 
 For Deploio, you will need to add both a CNAME and TXT record.
 
-The **CNAME** record will require a "Name" field, which should match the domain or subdomain you want to use for your application
-. The target will be the **default URL** for your application, as discussed [above](#check-the-app-is-running). If your DNS provider offers proxy settings (like cyon.ch or other providers), we recommend initially setting it to direct DNS routing without proxying to ensure there are no connection issues. You can enable proxying features later if needed, but disabling them initially will help troubleshoot any connection problems.
+The **CNAME** record will require a "Name" field, which should match the domain or subdomain you want to use for your application.
+The target will be the **default URL** for your application, as discussed [above](#check-the-app-is-running). If your DNS provider offers proxy settings (like cyon.ch or other providers), we recommend initially setting it to direct DNS routing without proxying to ensure there are no connection issues. You can enable proxying features later if needed, but disabling them initially will help troubleshoot any connection problems.
 
 The **TXT** record will also require a "Name" field. The content for the TXT record can be found on the Application page in the Cockpit, under the **Hosts** tab. Copy the **TXT Record Content** and paste it into the TXT record, including the quotation marks. For example:
 
@@ -125,8 +125,9 @@ This ensures that outgoing traffic from your Deploio application always comes fr
 The same IP address will also be used for worker and scheduled jobs.
 
 ::: info Why?
-For example if your app talks to an on-site backend which is guarded by a firewall
+For example if your app talks to an on-premises backend which is guarded by a firewall
 allowing only traffic from specific IP addresses.
+:::
 
 In order to configure a static egress IP, follow these instructions:
 

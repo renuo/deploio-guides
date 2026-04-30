@@ -79,7 +79,7 @@ You will be asked for the password.
 You can verify that this database was created by logging into the server using `psql -U dbadmin -h {FQDN} -d postgres`
 and then running the command `\l` to list the databases on the server.
 
-### Configure Your Rails Application
+### Connecting in Rails
 
 To connect your Rails application to the database, you need to set the `DATABASE_URL` environment variable.
 You can retrieve the value of this environment variable by running:
@@ -175,7 +175,7 @@ To check that the database was created, you can run the command `SHOW DATABASES;
 For more setup commands, visit the
 [official MySQL documentation](https://docs.nine.ch/docs/on-demand-databases/on-demand-databases-mysql/).
 
-### Configure Your Rails Application
+### Connecting in Rails
 
 To connect your Rails application to the database, you need to set the `DATABASE_URL` environment variable.
 You can retrieve the value of this environment variable by running:

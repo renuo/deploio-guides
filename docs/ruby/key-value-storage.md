@@ -38,7 +38,7 @@ the associated uncertainty about the future development of Redis, Deploio will s
 alternative as a replacement soon.
 :::
 
-## Configuring the Key Value Store in your Rails Application
+## Connecting in Rails
 
 Once the store has been created, you need to retrieve the connection information, and set the environment variables
 using this information.

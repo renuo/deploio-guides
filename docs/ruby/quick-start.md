@@ -83,9 +83,7 @@ You can pass multiple environment variables by separating them with `;`. Run `nc
 
 When you create an application, the Git repository is cloned and Deploio will attempt to detect the application type and
 select the appropriate buildpack.
-In this case, the Heroku Ruby buildpack will be used.
-The buildpack will then attempt to detect the desired ruby version from the `Gemfile.lock` in the app source.
-The full behavior of the buildpack is [documented here](https://github.com/heroku/buildpacks-ruby/blob/c8cdfd0be3a61f7b50d36cae12ec3d22f8068afc/docs/application_contract.md).
+In this case, the Paketo Ruby buildpack will be used. The buildpack will then attempt to detect the desired ruby version from the `Gemfile.lock` in the app source.
 
 ::: info
 If your application requires **Node.js** either for the build or runtime, a `package.json` file must be present at the root of the repository for the Node.js runtime to be installed.

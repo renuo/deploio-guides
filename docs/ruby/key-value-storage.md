@@ -11,8 +11,8 @@ description: Guide for setting up Redis-compatible key-value stores for Rails ap
 # Create a Key Value Store for your Ruby on Rails application
 
 ::: info
-Should you require workers or caching, you can use our Redis-compatible key-value store (KVS).
-You can see the different sizes available and pricing [here](/user-guide/other-dependencies.md#key-value-store).
+Are you using Sidekiq? Or ActionCable with Redis? Deploio offers a managed Redis-compatible key-value store.
+This guide describes how you can set it up. You can see the different tiers and pricing [here](/user-guide/other-dependencies.md#key-value-store).
 :::
 
 ## Create the Key Value Store
@@ -22,15 +22,14 @@ Before you create resources, ensure that the project you want to create the reso
 running `nctl auth set-project {project_name}`.
 :::
 
-In this guide, we will provide a simple example to demonstrate how to attach a key value store to your application.
-Start by creating the key value store with the `create kvs` command:
+Create the key value store with the `create kvs` command:
 
-```
-nctl create kvs {application_name}
+```bash
+nctl create kvs {KVS_NAME}
 ```
 
-This creates the on-demand key-value store instance with name `{application_name}` owned by the currently active project.
-The created store supports the latest API of Redis (Version 7).
+This creates a key-value store owned by the currently active project.
+The key-value store supports the Redis 7 API.
 
 ::: info
 Due to [license changes](https://redis.io/blog/what-redis-license-change-means-for-our-managed-service-providers/) and
@@ -38,36 +37,96 @@ the associated uncertainty about the future development of Redis, Deploio will s
 alternative as a replacement soon.
 :::
 
-## Connecting in Rails
+## Set the Environment Variable
 
-Once the store has been created, you need to retrieve the connection information, and set the environment variables
-using this information.
-To fetch information about the key-value store, including the fully qualified domain name (FQDN), run:
+Retrieve the connection details for your store:
 
 ```bash
-$ nctl get kvs {application_name}
-PROJECT       NAME                  FQDN                                                    TLS     MEMORY SIZE
-my-project    {application_name}    {application_name}.1234567.keyvaluestore.nineapis.ch    true    1Gi
-```
+$ nctl get kvs {KVS_NAME}
+PROJECT       NAME         FQDN                                              TLS     MEMORY SIZE
+my-project    {KVS_NAME}   {KVS_NAME}.keyvaluestore.nineapis.ch      true    1Gi
 
-Retrieve the password for the key-value store:
-
-```bash
-$ nctl get kvs {application_name} --print-token
+$ nctl get kvs {KVS_NAME} --print-token
 ...password...
 ```
 
-With this information, you can construct and set the `REDIS_URL` and `REDISCLI_AUTH` environment variable as follows:
+Set the `REDIS_URL` environment variable on your application. Note the `rediss://` protocol (double s) — TLS is
+enabled on all KVS instances:
 
 ```bash
-nctl update app {application_name} --env='REDIS_URL=rediss://:{PASSWORD}@{FQDN};REDISCLI_AUTH={PASSWORD}'
+nctl update app {APP_NAME} \
+  --env="REDIS_URL=rediss://:{PASSWORD}@{PUBLIC FQDN};REDISCLI_AUTH={PASSWORD}"
 ```
 
-Note that you need to specify `rediss` as protocol because TLS (transport layer security) is enabled. The `REDIS_URL`
-can then be used in your application to connect to the key-value store.
+## Configure Rails
 
-You can read more about configuration of the KVS instance in more detail in
-the [documentation](https://docs.nine.ch/docs/on-demand-databases/on-demand-key-value-store/).
+Add the `redis` gem to your `Gemfile` if it's not already present:
+
+```ruby
+gem "redis"
+```
+
+Deploio KVS instances use self-signed TLS certificates. You need to disable certificate
+verification in every Redis connection by passing `ssl_params`.
+
+### Sidekiq
+
+If you're using Sidekiq, configure it to use `REDIS_URL`. Create or update
+`config/initializers/sidekiq.rb`:
+
+```ruby
+Sidekiq.configure_server do |config|
+  config.redis = { url: ENV["REDIS_URL"], ssl_params: { verify_mode: OpenSSL::SSL::VERIFY_NONE } }
+end
+
+Sidekiq.configure_client do |config|
+  config.redis = { url: ENV["REDIS_URL"], ssl_params: { verify_mode: OpenSSL::SSL::VERIFY_NONE } }
+end
+```
+
+Then add a worker for Sidekiq as described in the [Background Jobs guide](./background-jobs.md):
+
+```bash
+nctl update app {APP_NAME} \
+  --worker-job-command="bundle exec sidekiq -C config/sidekiq.yml" \
+  --worker-job-name "sidekiq" \
+  --worker-job-size micro
+```
+
+### ActionCable
+
+To use ActionCable with Redis, update `config/cable.yml`:
+
+```yaml
+production:
+  adapter: redis
+  url: <%= ENV["REDIS_URL"] %>
+  ssl_params:
+    verify_mode: <%= OpenSSL::SSL::VERIFY_NONE %>
+```
+
+### Cache Store
+
+To use Redis as the Rails cache store, add the following to `config/environments/production.rb`:
+
+```ruby
+config.cache_store = :redis_cache_store, { url: ENV["REDIS_URL"], ssl_params: { verify_mode: OpenSSL::SSL::VERIFY_NONE } }
+```
+
+## Verify the Connection
+
+You can verify that your application can reach the key-value store by running a quick check
+via `nctl exec`:
+
+```bash
+nctl exec app {APP_NAME} -- bundle exec rails runner \
+  "r = Redis.new(url: ENV['REDIS_URL'], ssl_params: { verify_mode: OpenSSL::SSL::VERIFY_NONE }); r.set('ping', 'pong'); puts r.get('ping')"
+```
+
+If the connection is working, this prints `pong`.
+
+You can read more about KVS configuration in the
+[technical reference](https://docs.nine.ch/docs/on-demand-databases/on-demand-key-value-store/).
 
 ## Next Steps
 

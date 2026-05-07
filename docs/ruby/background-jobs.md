@@ -17,7 +17,7 @@ This guide will show you how to set it up on Deploio.
 == Solid Queue
 
 [Solid Queue](https://github.com/rails/solid_queue) is the default Active Job backend since Rails 8.
-It stores jobs in your existing PostgreSQL database, so you don't necessarily need a separate Redis instance.
+It stores jobs in your existing PostgreSQL database, so you don't need a Redis instance for it.
 
 ### Setup
 

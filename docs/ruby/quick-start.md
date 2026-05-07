@@ -52,20 +52,6 @@ Should you need to set up access to a private repository, you will need to creat
 
 ## Create Deploio app
 
-At Renuo, we use the following naming convention for new projects:
-
-| | Example value |
-|---|---|
-| project name | `gifcoins2` |
-| staging app name | `develop` |
-| production app name | `main` |
-
-Each project contains two apps, one for staging and one for production. For example, the staging app is created with `nctl create app develop --project=gifcoins2` and accessed via `nctl exec app develop --project=gifcoins2`.
-
-::: warning
-The app name you choose **cannot be changed later**.
-:::
-
 ::: info
 The following app creation command requires the [Rails CLI](https://guides.rubyonrails.org/command_line.html) to generate `SECRET_KEY_BASE`. If you don't have it, any long random string will do (127+ chars), e.g. `openssl rand -hex 64` or `head -c 64 /dev/urandom | xxd -p -c 0`.
 :::
@@ -91,7 +77,19 @@ If your application requires **Node.js** either for the build or runtime, a `pac
 
 ## Next Steps
 
-The app should be running by now.
+The app should be running by now. You can check the status as follows.
+
+```bash
+nctl get app MY_RAILS_APP_NAME --project=MY_PROJECT_NAME
+```
+
+The output includes a **HOSTS** column with your app's default URL (ending in `.deploio.app`). You can verify the app
+is responding by opening that URL in your browser or by running:
+
+```bash
+curl -i https://MY_RAILS_APP_NAME-xxxxxx.deploio.app
+```
+
 If your application requires a database, it will likely fail at this point because the database connection is not yet configured. You can check your app configuration with:
 
 ```bash

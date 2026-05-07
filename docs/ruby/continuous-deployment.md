@@ -23,7 +23,8 @@ nctl update app {APP_NAME} --git-revision=main
 ```
 
 No CI/CD setup is required. This is a good option for staging environments or projects that don't
-need a CI pipeline.
+need a CI pipeline. It might also be an acceptable option if you work with
+dedicated release branches where you don't run your tests again.
 
 ::: warning
 With polling, Deploio might deploy every push to the git branch. This would start the deployment process
@@ -111,7 +112,7 @@ The deploy script above is minimal and has some limitations:
 - It terminates immediately after updating the git revision, before the deploy finishes.
 
 ::: info
-A blocking mode for `nctl update app` is on the roadmap. Once available, the command will wait until
+A blocking mode for `nctl update app` is on the roadmap. Once available, the command can wait until
 the deployment finishes and exit with a non-zero status on failure, removing the need for a separate
 status check.
 :::

@@ -10,7 +10,7 @@ description: Instructions for adding background worker jobs to Rails application
 
 # Setup Background Jobs for your Rails application
 
-Are you using SolidQueue, GoodJob or Sidekiq as your background job backend?
+Are you using Solid Queue, GoodJob or Sidekiq as your background job backend?
 This guide will show you how to set it up on Deploio. 
 
 :::tabs key:job-backend

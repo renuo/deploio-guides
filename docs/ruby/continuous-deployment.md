@@ -23,16 +23,17 @@ nctl update app {APP_NAME} --git-revision=main
 ```
 
 No CI/CD setup is required. This is a good option for staging environments or projects that don't
-have a CI pipeline yet.
+need a CI pipeline.
 
 ::: warning
-With branch tracking, Deploio deploys every push to the branch. This would start the deployment process
-immediately, before your tests have passed.
+With polling, Deploio deploys every push to the branch. This would start the deployment process
+immediately, before your tests have passed. Consider the next option, if you want to delay the deployment until your 
+checks pass.
 :::
 
 ## Option 2: CI/CD Pipeline
 
-In this approach, your CI pipeline runs tests first and then triggers a deploy by updating the
+With this approach, your CI pipeline can run checks first and then trigger a deployment by updating the
 application's git revision to a specific commit SHA. This gives you full control over what gets
 deployed.
 

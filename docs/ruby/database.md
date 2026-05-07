@@ -54,7 +54,7 @@ Retrieve the connection details:
 
 ```bash
 $ nctl get postgresdatabase {NAME} --print-connection-string
-postgres://user:password@{NAME}.1234567.postgres.nineapis.ch/{NAME}
+postgres://user:password@{NAME}.postgres.nineapis.ch/{NAME}
 ```
 
 Set the `DATABASE_URL` environment variable:
@@ -83,7 +83,7 @@ Retrieve the connection details:
 ```bash
 $ nctl get postgres {NAME}
 PROJECT       NAME      FQDN                                   LOCATION     MACHINE TYPE
-my-project    {NAME}    {NAME}.1234567.postgres.nineapis.ch    nine-cz41    nine-db-xs
+my-project    {NAME}    {NAME}.postgres.nineapis.ch    nine-cz41    nine-db-xs
 
 $ nctl get postgres {NAME} --print-user
 dbadmin

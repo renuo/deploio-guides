@@ -58,6 +58,10 @@ The following app creation command requires the [Rails CLI](https://guides.rubyo
 
 Replace `MY_RAILS_APP_NAME` with your chosen app name and run:
 
+::: warning
+The app name you choose **cannot be changed later**.
+:::
+
 ```bash
 nctl create app MY_RAILS_APP_NAME \
   --git-url=https://github.com/ninech/deploio-examples \

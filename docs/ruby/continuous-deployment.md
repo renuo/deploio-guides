@@ -26,7 +26,7 @@ No CI/CD setup is required. This is a good option for staging environments or pr
 need a CI pipeline.
 
 ::: warning
-With polling, Deploio deploys every push to the branch. This would start the deployment process
+With polling, Deploio might deploy every push to the git branch. This would start the deployment process
 immediately, before your tests have passed. Consider the next option, if you want to delay the deployment until your 
 checks pass.
 :::

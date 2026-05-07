@@ -6,31 +6,45 @@ next: false
 description: Guide for setting up continuous deployment pipelines for Rails applications using API service accounts, nctl CLI automation, and deployment status monitoring.
 ---
 
-# Configure the CD for Your Rails Application
+# Configure Continuous Deployment for Your Rails Application
 
-::: info
-Modern application workflows typically involve some sort of continuous integration and continuous deployment (CI/CD) process. This guide will help you set up a continuous deployment pipeline for your Rails application, independent of the CI/CD tool you choose.
+There are two ways to automatically deploy your Rails application on Deploio:
+
+1. **Polling** — Deploio polls your repository for changes (every minute) and deploys automatically.
+2. **CI/CD pipeline** — Your CI pipeline tells Deploio to deploy a specific commit after tests pass.
+
+## Option 1: Polling
+
+This is the simplest approach. Point your application at a branch, and Deploio will regularly check
+for new commits and redeploy when it detects changes:
+
+```bash
+nctl update app {APP_NAME} --git-revision=main
+```
+
+No CI/CD setup is required. This is a good option for staging environments or projects that don't
+have a CI pipeline yet.
+
+::: warning
+With branch tracking, Deploio deploys every push to the branch. This would start the deployment process
+immediately, before your tests have passed.
 :::
 
-::: tip Preliminary Information
-If you do not intend to have a CI pipeline and still want to have your application deployed automatically, you can
-specify a branch to pull from using the `nctl` api
-(`nctl update app {application_name} --git-revision=my-branch`).
-Deploio will regularly check for changes in the specified branch and deploy the application if changes are detected.
-:::
+## Option 2: CI/CD Pipeline
 
-## Prerequisites
+In this approach, your CI pipeline runs tests first and then triggers a deploy by updating the
+application's git revision to a specific commit SHA. This gives you full control over what gets
+deployed.
 
-Before you begin, you need to have the following:
+### Prerequisites
 
-- A Rails application under version control with Git and a remote repository on GitHub, GitLab, Bitbucket, or any other
+- A Rails application under version control with a remote repository on GitHub, GitLab, Bitbucket, or any other
   [Git hosting service](/user-guide/code-repository-setup.md)
-- A running Deploio Rails application. If you haven't deployed your Rails application yet, follow
-  the [Create a Rails Application](quick-start.md) guide.
-- A CI/CD tool like GitHub Actions, GitLab CI/CD, or CircleCI that is able to run bash scripts. Ideally, a CI pipeline
-  already exists that executes your tests so that you can make sure your application is correct before deploying it.
+- A running Deploio Rails application. If you haven't deployed yet, follow
+  the [Quick Start guide](quick-start.md).
+- A CI/CD tool like GitHub Actions, GitLab CI/CD, or CircleCI
 
-## Create a Service Account
+### Create a Service Account
 
 ::: tip
 Before you create resources, ensure that the project you want to create the resources in is selected by
@@ -38,40 +52,34 @@ running `nctl auth set-project {project_name}`. Alternatively, you can specify t
 `--project` flag.
 :::
 
-To avoid having to store your personal credentials in your CI/CD pipeline, you should create an API service
-account (ASA) that only has permissions within a project. You can create a new service account using the `nctl` CLI:
+To avoid storing your personal credentials in your CI/CD pipeline, create an API service
+account (ASA) that only has permissions within a project:
 
 ```bash
-nctl create apiserviceaccount {asa_name}
+nctl create apiserviceaccount {ASA_NAME}
 ```
 
-After the service account is created, you will be able to query the service account's credentials using the following
-command:
+Retrieve the token:
 
 ```bash
-nctl get apiserviceaccounts {asa_name} --print-token
+nctl get apiserviceaccounts {ASA_NAME} --print-token
 ```
 
-## Configure the CD Pipeline
+### Configure CI/CD Environment Variables
 
-Since the CD pipeline is highly dependent on the platform you are using, we will provide a general example of how you
-can configure the CD pipeline.
+Set the following environment variables in your CI/CD tool:
 
-### Prerequisites
-
-To be able to run the deploy script, the following environment variables need to be set:
-
-- `DEPLOIO_APP_NAME`: The name of the Rails application in Deploio.
+- `DEPLOIO_APP_NAME`: The name of your application in Deploio.
 - `DEPLOIO_PROJECT`: The name of the project in Deploio.
-- `NCTL_API_TOKEN`: The API token of the service account you created in the previous step.
-- `NCTL_ORGANIZATION`: The organization name in Deploio.
+- `NCTL_API_TOKEN`: The API token from the service account above.
+- `NCTL_ORGANIZATION`: Your organization name in Deploio.
 
-The latter two environment variables are used to authenticate the `nctl` CLI. Since the API token is sensitive, it is
-recommended to **store it as a secret** in your CI/CD tool.
+`NCTL_API_TOKEN` and `NCTL_ORGANIZATION` are used to authenticate the `nctl` CLI.
+Since the API token is sensitive, **store it as a secret** in your CI/CD tool.
 
 ### Deploy Script
 
-The following script can be used in any CI/CD tool that is based on Debian/Ubuntu
+The following script can be used in any CI/CD tool that runs on Debian/Ubuntu:
 
 ```bash
 echo "deb [trusted=yes] https://repo.nine.ch/deb/ /" | sudo tee /etc/apt/sources.list.d/repo.nine.ch.list
@@ -83,40 +91,42 @@ nctl update app $DEPLOIO_APP_NAME \
   --skip-repo-access-check
 ```
 
-The first step in the script adds the `nine.ch` Debian repository to the system, and the second step installs the `nctl` CLI. In case you are using a different operating system, you need to
-adjust the installation command accordingly. You can find instructions on how to install the `nctl` CLI in
-the [CLI documentation](https://github.com/ninech/nctl?tab=readme-ov-file#setup).
+The script installs the `nctl` CLI, authenticates using the API token, and updates the git revision
+to the current commit. This tells Deploio to fetch and build that exact commit.
 
-In the third step, the script authenticates the `nctl` CLI using the API token.
-
-Finally, the script updates the git-revision of the application and thus tells Deploio to fetch the latest version of
-your application from your specified git repository.
+If you are using a different operating system, adjust the installation step accordingly. See the
+[nctl setup instructions](https://github.com/ninech/nctl?tab=readme-ov-file#setup).
 
 ::: warning
-In this example, we are using the git revision of the current commit to deploy the application. This works in most
-cases, but you might want to adjust this to your needs. For example, in a production environment, you might want to
-ensure that the deployment can only be updated from a specific branch or tag.
+This example deploys the current commit. In a production environment, you may want to restrict
+deployments to a specific branch or tag.
 :::
 
 ### Caveats
 
-The script provided above is a rather basic example of how you can deploy your Rails application and thus has some
-flaws:
+The deploy script above is minimal and has some limitations:
 
-- It does not check if the deployment was successful and thus CD might fail silently.
-- It immediately terminates after the git revision was updated. This might be a problem if you want to run additional
-  commands after the deployment was successful.
+- It does not check if the deployment was successful — CD might fail silently.
+- It terminates immediately after updating the git revision, before the deploy finishes.
 
-[//]: # (TODO: There are plans to add the functionality into `nctl` to block the update command until the deployment is finished.)
+::: info
+A blocking mode for `nctl update app` is on the roadmap. Once available, the command will wait until
+the deployment finishes and exit with a non-zero status on failure, removing the need for a separate
+status check.
+:::
 
-To circumvent these issues, you might want to add a check that waits for the deployment to finish and then check its
-status. A more sophisticated approach including an example of a status check script in Ruby can be found
-[here](/user-guide/ci-cd-integration.md#deployment-feedback-on-the-ci).
-This Ruby script can be adapted for your preferred language and setup.
+In the meantime, for a more robust setup that waits for the deployment to finish and checks its
+status, see the [deployment feedback guide](/user-guide/ci-cd-integration.md#deployment-feedback-on-the-ci),
+which includes an example status check script in Ruby.
 
 ### Troubleshooting
 
-If you encounter issues when running the `nctl auth login` command such as it running indefinitely, most likely the
-`NCTL_API_TOKEN` is not set correctly. Ensure that the token is set correctly and that it is available to the script.
-Also, double check that the service account was created within the correct project and that the project is set correctly
-in the `DEPLOIO_PROJECT` environment variable.
+If `nctl auth login` runs indefinitely, the `NCTL_API_TOKEN` is most likely not set correctly.
+Ensure that the token is available to the script and that the service account was created within the
+correct project.
+
+## Next Steps
+
+Now that your application is live and deploying automatically, you'll want to keep an eye on it.
+Head over to the [Monitoring and Logs](/user-guide/monitoring-and-logs.md) guide to learn how to
+observe your application's logs and metrics.

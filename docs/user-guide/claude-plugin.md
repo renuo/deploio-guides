@@ -10,24 +10,21 @@ description: Deploy and manage Deploio apps using plain English in Claude Code. 
 
 # Claude Code Plugin
 
-The **deploio-claude-plugin** lets you deploy and manage your apps on Deploio through plain-language prompts in [Claude Code](https://claude.ai/code). No need to memorise `nctl` commands. Just describe what you want and Claude handles the rest.
+The **deploio-claude-plugin** adds Deploio skills to [Claude Code](https://claude.ai/code). Instead of looking up `nctl`
+commands, you describe what you want:
 
 ```
 Deploy my Rails app to Deploio
-```
-
-```
 My app is throwing 503s, what's wrong?
-```
-
-```
 Add a PostgreSQL database and wire it up
+Set up GitHub Actions to deploy on push
 ```
 
-Claude Code picks the right skill automatically, confirms its plan with you, and runs `nctl` on your behalf. Destructive operations always require explicit confirmation.
+Claude picks the right skill, explains what it will do, and runs `nctl` on your behalf. Destructive operations always
+require explicit confirmation.
 
 ::: info Community tool
-This plugin is created and maintained by [Renuo](https://renuo.ch). Source code is available on [GitHub](https://github.com/renuo/deploio-claude-plugin).
+Created and maintained by [Renuo](https://renuo.ch). Source on [GitHub](https://github.com/renuo/deploio-claude-plugin).
 :::
 
 ## Prerequisites
@@ -55,7 +52,8 @@ Run this from your project directory (or anywhere for a global install):
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/renuo/deploio-claude-plugin/main/install.sh)"
 ```
 
-The installer asks whether to install **globally** (`~/.claude/`) or **per-project** (`./.claude/`). For non-interactive use:
+The installer asks whether to install **globally** (`~/.claude/`) or **per-project** (`./.claude/`). For non-interactive
+use:
 
 ```bash
 DEPLOIO_INSTALL_SCOPE=global /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/renuo/deploio-claude-plugin/main/install.sh)"
@@ -73,23 +71,22 @@ DEPLOIO_INSTALL_SCOPE=project /bin/bash -c "$(curl -fsSL https://raw.githubuserc
 
 ## Skills
 
-The plugin installs five skills that Claude selects automatically from your prompt. You never need to invoke them by name.
+Five skills are installed. Claude selects the right one based on what you ask.
 
-| Skill | What it does | Example triggers |
-|---|---|---|
-| **deploio-deploy** | First-time deployment from a git repo to a live HTTPS URL | "Deploy my app", "Host on Deploio", "Create a Deploio app" |
-| **deploio-manage** | Day-to-day operations on running apps | "Scale to 3 replicas", "Add env var", "Tail the logs", "Roll back" |
-| **deploio-debug** | Autonomous diagnosis: pulls logs, inspects releases, proposes a fix | "App is throwing 503s", "Deploy failing", "Why is my app crashing?" |
-| **deploio-provision** | Provision backing services (databases, Redis, object storage) and wire them to your app | "Add Postgres", "I need Redis", "Set up S3 storage" |
-| **deploio-ci-cd** | Generate CI/CD pipeline config and a Deploio service account | "Set up GitHub Actions", "Auto-deploy on push", "Add a staging environment" |
+| Skill                 | What it covers                                                |
+|-----------------------|---------------------------------------------------------------|
+| **deploio-deploy**    | First-time deployment from a git repo to a live HTTPS URL     |
+| **deploio-manage**    | Day-to-day operations on running apps                         |
+| **deploio-debug**     | Diagnosing and fixing crashes, failed deployments, and errors |
+| **deploio-provision** | Provisioning databases, Redis, and object storage             |
+| **deploio-ci-cd**     | Setting up automated deployment pipelines                     |
 
 ### First deploy: `deploio-deploy`
 
-Detects your framework automatically and configures sensible defaults. Presents a plan card before touching anything.
+Detects your framework, sets sensible defaults, and shows you a plan before touching anything.
 
 Supported frameworks: **Rails, Node.js, Django, Flask/FastAPI, PHP/Laravel, Go, Docker**
 
-Example prompts:
 ```
 Deploy my Rails app to Deploio
 Host my Next.js app on Deploio
@@ -97,7 +94,8 @@ Host my Next.js app on Deploio
 
 ### Day-to-day management: `deploio-manage`
 
-Covers everything once your app is running. Infers your app name and project from the git remote before asking.
+Handles everything on a running app. Picks up your app name and project from the git remote so you don't have to specify
+them.
 
 ```
 Scale my app to 3 replicas
@@ -112,10 +110,10 @@ Restart the app
 
 ### Debugging: `deploio-debug`
 
-Runs a parallel investigation across build logs, release history, and runtime stats without waiting for you to describe symptoms in detail. Reports a plain-language diagnosis and offers to apply the fix directly.
+Fetches build logs, release history, and runtime stats in parallel, then tells you what went wrong and offers to fix it.
 
 ```
-My app keeps crashing after the latest deploy
+My app crashed after the latest deploy
 Getting 503 bad gateway errors
 Build is failing, what's wrong?
 App is using too much memory
@@ -123,30 +121,32 @@ App is using too much memory
 
 ### Backing services: `deploio-provision`
 
-Creates the service, extracts credentials, and injects the correct environment variables into your app. Verifies connectivity after wiring.
+Creates the service, extracts credentials, and sets the right environment variables on your app.
 
-| Service | Injected env var(s) |
-|---|---|
-| PostgreSQL (Economy / Business) | `DATABASE_URL` |
-| MySQL (Economy / Business) | `DATABASE_URL` |
-| Redis-compatible KVS | `REDIS_URL` |
-| OpenSearch | `OPENSEARCH_URL` |
-| S3-compatible Object Storage | `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_REGION`, `S3_BUCKET`, `S3_ENDPOINT` |
+| Service                         | Injected env var(s)                                                                    |
+|---------------------------------|----------------------------------------------------------------------------------------|
+| PostgreSQL (Economy / Business) | `DATABASE_URL`                                                                         |
+| MySQL (Economy / Business)      | `DATABASE_URL`                                                                         |
+| Redis-compatible KVS            | `REDIS_URL`                                                                            |
+| OpenSearch                      | `OPENSEARCH_URL`                                                                       |
+| S3-compatible Object Storage    | `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_REGION`, `S3_BUCKET`, `S3_ENDPOINT` |
 
 ```
 Add a PostgreSQL database and wire it up
 I need Redis for Sidekiq
 Set up S3-compatible object storage
-Add a Sidekiq worker
 ```
 
 ### CI/CD pipeline: `deploio-ci-cd`
 
-Creates a Deploio service account and writes the workflow file for your CI platform, then guides you through adding the three required secrets.
+Creates a Deploio service account, writes the workflow file, and walks you through adding the required secrets to your
+CI platform.
 
-Supported platforms: **GitHub Actions, GitLab CI, CircleCI, Bitbucket Pipelines**, and any Debian/Ubuntu-based CI system.
+Supported platforms: **GitHub Actions, GitLab CI, CircleCI, Bitbucket Pipelines**, and any Debian/Ubuntu-based CI
+system.
 
-Patterns available:
+Available patterns:
+
 - **Single environment:** push to `main` to deploy
 - **Multi-environment:** `develop` to staging, `main` to production
 - **Per-PR preview environments:** app created on PR open, deleted on PR close
@@ -159,15 +159,16 @@ Create per-PR preview apps on Deploio
 
 ## Slash commands
 
-Two shortcut commands are available after installation:
+Two shortcuts are installed alongside the skills:
 
-| Command | Effect |
-|---|---|
+| Command   | Effect                             |
+|-----------|------------------------------------|
 | `/deploy` | Triggers the deploy skill directly |
-| `/debug` | Triggers the debug skill directly |
+| `/debug`  | Triggers the debug skill directly  |
 
 ## Safety
 
-- **Confirmation before destructive actions:** deleting apps, databases, or storage; pausing an app; running destructive database tasks (`db:drop`, `db:reset`) all require explicit user confirmation.
+- **Destructive operations require confirmation:** deleting apps, databases, or storage; pausing an app; running
+  `db:drop` or `db:reset` all prompt you before proceeding.
 - **Plan before action:** every skill describes what it will do before running any `nctl` command.
 - **Least privilege:** the CI/CD service account is project-scoped with minimal permissions.

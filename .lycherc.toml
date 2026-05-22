@@ -7,4 +7,4 @@ include_fragments = true
 offline = false
 
 # Exclude specific URLs from checking
-exclude = ["https://vite.dev", "https://vitepress.dev"]
+exclude = ["https://vite.dev", "https://vitepress.dev", "https://claude.ai"]

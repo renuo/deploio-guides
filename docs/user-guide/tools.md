@@ -73,4 +73,4 @@ Add a PostgreSQL database and wire it up
 ```
 
 Five skills cover first-time deployments, day-to-day management, debugging, backing service provisioning, and CI/CD
-pipeline setup. See the [full guide](/user-guide/claude-plugin) for installation and usage.
+pipeline setup. See the [full guide](/user-guide/claude-plugin.md) for installation and usage.

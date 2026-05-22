@@ -3,8 +3,8 @@ prev:
   text: Troubleshooting
   link: /user-guide/troubleshooting
 next:
-  text: Migrating from other platforms
-  link: /user-guide/migrating-from-other-platforms
+  text: Claude Code Plugin
+  link: /user-guide/claude-plugin
 ---
 
 # Tools
@@ -60,3 +60,17 @@ CLI. By assuming an [app naming convention](https://github.com/renuo/deploio-cli
 automatically detect the app by matching your git remote URL against nctl apps. This might appeal to developers used to work with Heroku.
 
 Note that this CLI is still in early development and not official.
+
+### Claude Code Plugin
+
+Also by [Renuo](https://renuo.ch), a [Claude Code](https://claude.ai/code) plugin that lets you deploy and manage
+Deploio apps using plain-language prompts instead of `nctl` commands.
+
+```
+Deploy my Rails app to Deploio
+My app is throwing 503s, what's wrong?
+Add a PostgreSQL database and wire it up
+```
+
+Five skills cover first-time deployments, day-to-day management, debugging, backing service provisioning, and CI/CD
+pipeline setup. See the [full guide](/user-guide/claude-plugin) for installation and usage.

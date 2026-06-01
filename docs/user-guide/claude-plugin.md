@@ -24,7 +24,7 @@ Claude picks the right skill, explains what it will do, and runs `nctl` on your 
 require explicit confirmation.
 
 ::: info Community tool
-Created and maintained by [Renuo](https://renuo.ch). Source on [GitHub](https://github.com/renuo/deploio-claude-plugin).
+Created and maintained by [Renuo](https://renuo.ch). Nine maintains a fork on [Github](https://github.com/ninech/deploio-skills).
 :::
 
 ## Prerequisites
@@ -49,16 +49,16 @@ nctl auth whoami  # verify access
 Run this from your project directory (or anywhere for a global install):
 
 ```bash
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/renuo/deploio-claude-plugin/main/install.sh)"
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/ninech/deploio-skills/refs/heads/main/install.sh)"
 ```
 
 The installer asks whether to install **globally** (`~/.claude/`) or **per-project** (`./.claude/`). For non-interactive
 use:
 
 ```bash
-DEPLOIO_INSTALL_SCOPE=global /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/renuo/deploio-claude-plugin/main/install.sh)"
+DEPLOIO_INSTALL_SCOPE=global /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/ninech/deploio-skills/refs/heads/main/install.sh)"
 # or
-DEPLOIO_INSTALL_SCOPE=project /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/renuo/deploio-claude-plugin/main/install.sh)"
+DEPLOIO_INSTALL_SCOPE=project /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/ninech/deploio-skills/refs/heads/main/install.sh)"
 ```
 
 **To update:** re-run the same install command. It overwrites with the latest version.

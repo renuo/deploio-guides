@@ -2,9 +2,7 @@
 prev:
   text: Security
   link: /user-guide/security
-next:
-  text: Our Stack
-  link: /user-guide/our-stack
+next: false
 description: Migration guide for moving applications to Deploio from Heroku and other platforms including database exports, environment variables, DNS updates, and CI/CD adaptation.
 ---
 
@@ -26,7 +24,7 @@ When migrating your application to Deploio, you'll need to migrate your database
 
 First, you'll need to create a new database instance on Deploio. You can do this using the `nctl` command line tool (or in the Cockpit).
 
-For more details on database configuration options when creating a database, see the [Configuring your Database page](/user-guide/configuring-your-database.md)
+For more details on database configuration options when creating a database, see the [Configuring your Database page](/user-guide/configuring-your-database.md).
 
 ### 2. Export Data from Source Platform
 
@@ -37,7 +35,7 @@ The method for exporting your database will depend on your source platform. Here
 For PostgreSQL databases, you can use `pg_dump` to create a backup:
 
 ```bash
-pg_dump -h {SOURCE_HOST} -U {USERNAME} -d {DATABASE_NAME} > backup.dump
+pg_dump -h {SOURCE_HOST} -U {USERNAME} -d {DATABASE_NAME} -f backup.dump
 ```
 
 #### MySQL Databases
@@ -125,7 +123,7 @@ If you encounter issues during the migration:
 - Check the database logs for any errors
 - Verify that your backup file is not corrupted
 
-For more detailed information about database configuration and management on Deploio, see the [database configuration guide](/user-guide/configuring-your-database.md)
+For more detailed information about database configuration and management on Deploio, see the [database configuration guide](/user-guide/configuring-your-database.md).
 
 ## Retrieving environment variables
 
@@ -162,7 +160,7 @@ env_arguments=$(convert_json_to_env "$json_input")
 echo "$env_arguments"
 ```
 
-The script can also be adapted as required, for example we could use the below **grep** to to avoid setting environment variables that start with `HEROKU`.
+The script can also be adapted as required, for example we could use the below **grep** to avoid setting environment variables that start with `HEROKU`.
 
 ```
 jq 'to_entries | map(select(.key | startswith("HEROKU") | not)) | map("\(.key)=\(.value)") | join(";")
@@ -186,15 +184,15 @@ nctl update app gifcoins --env='ADMIN_EMAIL=admin@damin.ch;ADMIN_PASSWORD=passwo
 
 **Disclaimer:**
 
-Please be aware that this is just an example of how to automate retrieving the environment variables. The user should make sure that they understand the script, which environment variables that they require, and thoroughly check the output.
+Please be aware that this is just an example of how to automate retrieving the environment variables. The user should make sure that they understand the script, which environment variables they require, and thoroughly check the output.
 
 ## Updating DNS records
 
-Given that we now have a new url for the application, we will need to update the DNS records to point to the new application running on Deploio.
+Given that we now have a new URL for the application, we will need to update the DNS records to point to the new application running on Deploio.
 
 ##### An example using Cloudflare
 
-Below we go through an example of adapting this where we use Cloudflare to manage our DNS records..
+Below we go through an example of adapting this where we use Cloudflare to manage our DNS records.
 
 [//]: # (TODO: show an example with some images)
 

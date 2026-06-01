@@ -117,8 +117,8 @@ flaws:
 [//]: # (TODO: There are plans to add the functionality into `nctl` to block the update command until the deployment is finished.)
 
 To circumvent these issues, you might want to add a check that waits for the deployment to finish and then check its
-status. A more sophisticated approach including an example of a status check script in Ruby can be found in
-.
+status. A more sophisticated approach including an example of a status check script in Ruby can be found
+[here](/user-guide/ci-cd-integration.md#deployment-feedback-on-the-ci).
 This Ruby script can be adapted for your preferred language and setup.
 
 ### Troubleshooting

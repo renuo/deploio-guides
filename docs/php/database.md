@@ -232,8 +232,8 @@ In that shell, run the following command to create the database:
 bin/console doctrine:database:create
 ```
 
-You can verify that this database was created by logging into the database using `psql -U dbadmin -h {FQDN} -d postgres`
-and then running the command `\l` to list the databases on the server.
+You can verify that this database was created by logging into the database (using `mysql -h {FQDN} -u dbadmin -p`)
+and then running the command `SHOW DATABASES;` to list the databases on the server.
 
 > **Alternative:** If you do not use Doctrine or otherwise want to do something differently, make sure that your IP is allowed to connect
 > to the database and then use a MySQL client from your machine to create the database. E.g. with the MySQL CLI:

@@ -14,7 +14,7 @@ We have a basic Python Django app in our [examples repository](https://github.co
 You can deploy it with `nctl`.
 The example application shows a random message on every page reload.
 The Django admin interface can be used to add messages.
-Just visit `https://<URL of app>/admin` to access it and use the credentials which you pass via the env variables below to login.
+Just visit `https://<URL of app>/admin` to access it and use the credentials which you pass via the env variables below to log in.
 Please also define the `SECRET_KEY` which is needed to secure signed data and should be kept secret.
 
 ```bash

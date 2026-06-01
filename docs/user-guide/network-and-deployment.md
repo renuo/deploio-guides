@@ -1,7 +1,7 @@
 ---
 prev:
-  text: Configuring Your Application
-  link: /user-guide/configuring-your-application
+  text: Other dependencies
+  link: /user-guide/other-dependencies
 next:
   text: CI/CD Integration
   link: /user-guide/ci-cd-integration
@@ -12,7 +12,8 @@ description: Guide for setting up custom domains with DNS records (CNAME and TXT
 
 Once your application is built and running, the next step is making it accessible to the world.
 
-This section focuses on the external-facing aspects - domains, security, and deployment configuration - that allow users to connect to your app. In this section, you will learn how to configure how your app is seen and secured on the web.
+This section focuses on the external-facing aspects - domains, security, static IPs and deployment configuration - that
+allow users to connect to your app. In this section, you will learn how to configure how your app is seen and secured on the web.
 
 ## Setting up a custom domain
 
@@ -47,8 +48,8 @@ Your service should provide an overview of the DNS records for your domain and a
 
 For Deploio, you will need to add both a CNAME and TXT record.
 
-The **CNAME** record will require a "Name" field, which should match the domain or subdomain you want to use for your application
-. The target will be the **default URL** for your application, as discussed [above](#check-the-app-is-running). If your DNS provider offers proxy settings (like cyon.ch or other providers), we recommend initially setting it to direct DNS routing without proxying to ensure there are no connection issues. You can enable proxying features later if needed, but disabling them initially will help troubleshoot any connection problems.
+The **CNAME** record will require a "Name" field, which should match the domain or subdomain you want to use for your application.
+The target will be the **default URL** for your application, as discussed [above](#check-the-app-is-running). If your DNS provider offers proxy settings (like cyon.ch or other providers), we recommend initially setting it to direct DNS routing without proxying to ensure there are no connection issues. You can enable proxying features later if needed, but disabling them initially will help troubleshoot any connection problems.
 
 The **TXT** record will also require a "Name" field. The content for the TXT record can be found on the Application page in the Cockpit, under the **Hosts** tab. Copy the **TXT Record Content** and paste it into the TXT record, including the quotation marks. For example:
 
@@ -116,3 +117,50 @@ status:
 As we are using the Let's Encrypt HTTP-01 challenge type, the certificate will only be successfully issued once all of your custom hostnames point to the Deploio infrastructure. We use an optimized DNS resolving path to quickly react to DNS changes, but it might still take a few minutes before the certificate can be issued.
 
 Please also keep in mind that Let's Encrypt favors IPv6 DNS entries over IPv4 ones. If you have DNS AAAA records for your custom hostnames, make sure to delete them when migrating to Deploio (as Deploio does not currently support IPv6).
+
+## Static egress IP
+
+We provide the option to configure a static egress IP address.
+This ensures that outgoing traffic from your Deploio application always comes from the same IP address.
+The same IP address will also be used for worker and scheduled jobs.
+
+::: info Why?
+For example if your app talks to an on-premises backend which is guarded by a firewall
+allowing only traffic from specific IP addresses.
+:::
+
+In order to configure a static egress IP, follow these instructions:
+
+1. Replace the placeholders in the following YAML configuration and save it as `deploio-static-egress.yaml`
+
+```yaml
+apiVersion: networking.nine.ch/v1alpha1
+kind: StaticEgress
+metadata:
+  name: my-deploio-static-egress
+  namespace: <REPLACE WITH PROJECT OF APPLICATION>
+spec:
+  forProvider:
+    disabled: false
+    target:
+      group: apps.nine.ch
+      kind: Application
+      name: <REPLACE WITH NAME OF APPLICATION>
+```
+
+2. Apply the configuration
+
+```bash
+nctl apply -f deploio-static-egress.yaml
+```
+
+Once the configuration is applied, all egress traffic will come from the same IP address. You can find the IP address by
+running the following command:
+
+```bash
+kubectl --context nineapis.ch get staticegress my-deploio-static-egress \
+        -n <NAME OF PROJECT> -o yaml
+```
+
+See the [Nine Technical Reference](https://docs.nine.ch/docs/managed-kubernetes/nke/static-egress-nke/?client=kubectl#details)
+for more details about the static egress feature.

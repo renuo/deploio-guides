@@ -52,12 +52,6 @@ export default withMermaid(
         pattern: "https://github.com/renuo/deploio-guides/edit/main/docs/:path",
         text: "Edit this page on GitHub",
       },
-      socialLinks: [
-        { icon: "facebook", link: "https://www.facebook.com/deploioch/" },
-        { icon: "instagram", link: "https://www.instagram.com/deploio/" },
-        { icon: "linkedin", link: "https://linkedin.com/company/deploio" },
-        { icon: "x", link: "https://x.com/deplo_io" },
-      ],
       // https://vitepress.dev/reference/default-theme-config
       nav: [
         { text: "Home", link: "/" },
@@ -66,6 +60,15 @@ export default withMermaid(
         { text: "Deploio Website", link: "https://deplo.io", target: "_blank" },
         { text: "Pricing", link: "https://deplo.io/pricing", target: "_blank" },
         { text: "Login", link: "https://cockpit.nine.ch/en/session/new?origin=deploio", target: "_blank" },
+        { 
+          component: 'VPButton',
+          props: {
+            type: 'medium',
+            text: 'Get Started',
+            href: 'https://cockpit.nine.ch/en/signup?origin=deploio',
+            target: "_blank" 
+           } 
+        }
       ],
       outline: {
         level: [2, 3],
@@ -80,6 +83,10 @@ export default withMermaid(
               text: "How Deploio Works",
               link: "/introduction/how-deploio-works",
             },
+            {
+              text: "Our stack",
+              link: "/introduction/our-stack",
+            },
           ],
         },
         {
@@ -92,16 +99,16 @@ export default withMermaid(
               link: "/user-guide/code-repository-setup",
             },
             {
+              text: "Configuring Your Application",
+              link: "/user-guide/configuring-your-application",
+            },
+            {
               text: "Configuring Your Database",
               link: "/user-guide/configuring-your-database",
             },
             {
-              text: "Other dependecies",
+              text: "Other dependencies",
               link: "/user-guide/other-dependencies",
-            },
-            {
-              text: "Configuring Your Application",
-              link: "/user-guide/configuring-your-application",
             },
             {
               text: "Network & Deployment",
@@ -112,10 +119,6 @@ export default withMermaid(
               link: "/user-guide/ci-cd-integration",
             },
             {
-              text: "Troubleshooting",
-              link: "/user-guide/troubleshooting",
-            },
-            {
               text: "Monitoring and Logs",
               link: "/user-guide/monitoring-and-logs",
             },
@@ -124,16 +127,16 @@ export default withMermaid(
               link: "/user-guide/security",
             },
             {
-              text: "Migrating from other platforms",
-              link: "/user-guide/migrating-from-other-platforms",
-            },
-            {
-              text: "Our stack",
-              link: "/user-guide/our-stack",
+              text: "Troubleshooting",
+              link: "/user-guide/troubleshooting",
             },
             {
               text: "Tools",
               link: "/user-guide/tools",
+            },
+            {
+              text: "Migrating from other platforms",
+              link: "/user-guide/migrating-from-other-platforms",
             },
           ],
         },

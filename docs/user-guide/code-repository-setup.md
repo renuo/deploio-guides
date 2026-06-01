@@ -3,8 +3,8 @@ prev:
   text: Getting Started
   link: /user-guide/getting-started
 next:
-  text: Configuring Your Database
-  link: /user-guide/configuring-your-database
+  text: Configuring Your Application
+  link: /user-guide/configuring-your-application
 description: Instructions for connecting Git repositories to Deploio using SSH keys or HTTPS for GitHub, GitLab, Bitbucket, and private Git servers.
 ---
 
@@ -35,8 +35,6 @@ When creating a new application in the Cockpit or via the nctl CLI, you will nee
 
    > ⚠️ Your PAT acts like a password — do not share or expose it.
 
-You can view more details about creating the application for creating applications.
-
 ##### SSH Key Integration
 
 1. **Generate an SSH key** (if you don’t have one yet):
@@ -60,7 +58,7 @@ You can view more details about creating the application for creating applicatio
        < ~/.ssh/deploio_id_ed25519.pub
      ```
 
-3. **Provide the private key to Deploio**  when creating the app in Cockpit or via `nctl`:
+3. **Provide the private key to Deploio** when creating the app in Cockpit or via `nctl`:
 
    This can be done via the `--git-ssh-private-key` flag or the `--git-ssh-private-key-from-file`
    flag to specify the SSH key to use:
@@ -72,8 +70,6 @@ You can view more details about creating the application for creating applicatio
    ```
 
    > ⚠️ Ensure the key is unquoted — quotation marks around the private key must be removed before use.
-
-You can view more details about creating the application for creating applications.
 
 ### GitLab
 
@@ -112,18 +108,18 @@ If you're using a custom Git server (e.g., Gitea, Gitolite, bare Git over SSH):
 ## Repository Access
 
 Once you have successfully connected your git repository, Deploio starts polling every minute for new changes, unless
-your git revision points to a specific commit hash. In that case, Deploio will not poll at all (as the hash is
-not going to change).
+your git revision points to a specific commit hash. In that case, Deploio will not poll at all until you update the hash
+via CLI or Cockpit.
 
 #### 🔐 Private Repositories
 
 - Require an SSH key to authenticate.
 - Best practice: create a **read-only deploy key per application**.
-- Periodically rotate keys for security
+- Periodically rotate keys for security.
 - Ensure your application has **access to the correct branch or tag**.
 
 #### 🌍 Public Repositories
 
 - No authentication needed.
-- Simply provide the HTTPS or SSH URL
+- Simply provide the HTTPS or SSH URL.
 - Still recommended to **pin a specific branch or tag** to ensure stability.

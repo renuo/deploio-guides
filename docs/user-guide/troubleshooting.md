@@ -1,10 +1,10 @@
 ---
 prev:
-  text: CI/CD Integration
-  link: /user-guide/ci-cd-integration
+  text: Security
+  link: /user-guide/security
 next:
-  text: Monitoring and Logs
-  link: /user-guide/monitoring-and-logs
+  text: Tools
+  link: /user-guide/tools
 ---
 
 # Troubleshooting
@@ -17,7 +17,7 @@ If you want to debug a runtime error, you could start by looking at the latest l
 Use the following command:
 
 ```bash
-nctl logs app {application_name} --project {project_name} --follow
+nctl logs app {application_name} --follow
 ```
 
 See the [Monitoring and Logs](./monitoring-and-logs.md) section for more information.
@@ -28,14 +28,14 @@ To find out under which domain name your app is reachable,
 you can print a list of verified and unverified hosts:
 
 ```bash
-nctl get app {application_name} --project {project_name}
+nctl get app {application_name}
 ```
 
 If you see entries as "unverified", you need to configure your DNS server.
 Therefore you can print the DNS target configuration:
 
 ```bash
-nctl get app {application_name} --project {project_name} --dns
+nctl get app {application_name} --dns
 ```
 
 The technical reference has more [details about custom hostname configuration](https://docs.nine.ch/a/myshbw3EY1).
@@ -43,10 +43,10 @@ The technical reference has more [details about custom hostname configuration](h
 ## Which revision is live?
 
 ```bash
-nctl get app {application_name} --project {project_name} --output yaml | grep revision
+nctl get app {application_name} --output yaml | grep revision
 ```
 
-Prints the revision of the latest deployment. Use this revision to find the corresponding git commit in the git 
+Prints the revision of the latest deployment. Use this revision to find the corresponding git commit in the git
 history.
 
 ## Database
@@ -60,14 +60,14 @@ guide for more information.
 
 ### Backups
 
-See the [Database Backups](./configuring-your-database.md#backup-and-restore) guide for instructions on how to create 
+See the [Database Backups](./configuring-your-database.md#backup-and-restore) guide for instructions on how to create
 and restore database backups.
 
 ## Rollback deployments
 
 In case you want to rollback to a previous revision, you can use the following command:
 ```bash
-nctl update app {application_name} --project {project_name} --git-revision={git_revision}
+nctl update app {application_name} --git-revision={git_revision}
 ```
 
 If you're not sure which revision was live, you can find out by looking at release and build information:
@@ -80,21 +80,21 @@ For rolling back to the previous release you would choose the build of the most 
 
 ## Kubernetes
 
-In case you want to reproduce an issue with a certain build, you can use the following commands to pull the corresponding 
+In case you want to reproduce an issue with a certain build, you can use the following commands to pull the corresponding
 image and run it locally with Docker or podman:
 
 1. List builds
 ```bash
-nctl get builds --application-name {application_name} --project {project_name}
+nctl get builds --application-name {application_name}
 ```
 2. Pull image for a specific build
 ```bash
-nctl get builds {build_name} --application-name {application_name} --project {project_name} --pull-image
+nctl get builds {build_name} --application-name {application_name} --pull-image
 ```
 
 You can also see the full configuration of the build by running:
 ```bash
-nctl get builds {build_name} --application-name {application_name} --project {project_name} --output json
+nctl get builds {build_name} --application-name {application_name} --output json
 ```
 
 ## Deploio system status
@@ -107,7 +107,7 @@ Should you have any other questions or issues, please reach out to us via the fo
 
 ### Slack Community
 
-We do have an official [Deploio Slack community](https://join.slack.com/t/deploiocommunity/shared_invite/zt-20tb3k93m-O4NEUs0RjZYGQNQoih8zkA).
+We do have an official [Deploio Slack community](https://join.slack.com/t/deploiocommunity/shared_invite/zt-3wcpoa6ud-UfQ8JCns6FLe0HLp7s4JdQ).
 We'll try to answer your questions as soon as possible.
 
 ### Contact

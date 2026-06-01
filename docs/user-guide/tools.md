@@ -1,8 +1,10 @@
 ---
 prev:
-  text: Our Stack
-  link: /user-guide/our-stack
-next: false
+  text: Troubleshooting
+  link: /user-guide/troubleshooting
+next:
+  text: Migrating from other platforms
+  link: /user-guide/migrating-from-other-platforms
 ---
 
 # Tools
@@ -16,7 +18,7 @@ divided into two categories:
 
 ### CLI
 
-Our [nctl CLI]((https://github.com/ninech/nctl) seamlessly integrates Deploio into your workflows. You can use it to manage applications, databases,
+Our [nctl CLI](https://github.com/ninech/nctl) seamlessly integrates Deploio into your workflows. You can use it to manage applications, databases,
 and more from the command line. Follow [the Getting Started guide](/user-guide/getting-started.md#installing-nctl) 
 to set it up.
 

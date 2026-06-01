@@ -6,14 +6,271 @@
   --vp-c-brand-3: #1a2668;
 
   --vp-c-brand-soft: rgba(20, 29, 80, 0.1);
+
+  --vp-c-bg-hover: #E2E2E3;
+  
+  --vp-c-text-heading: var(--vp-c-brand-1);
 }
 
 .dark {
   --vp-c-brand-1: #6482c4;
   --vp-c-brand-2: #4a68a8;
   --vp-c-brand-3: #35508e;
+
+  --vp-c-bg-hover: #292B33;
+
+  --vp-c-text-heading: var(--vp-c-neutral);
 }
 
 .VPFooter {
   display: none;
 }
+
+h1 {
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  letter-spacing: 0.02em;
+  color: var(--vp-c-text-heading);
+}
+
+.vp-doc h1{
+  letter-spacing: 0.02em;
+  font-size: 40px;
+  line-height: 48px;
+  font-weight: 400;
+}
+
+.vp-doc h2, .vp-doc h3, .vp-doc h4, .vp-doc h5, .vp-doc h6 {
+    font-weight: 500;
+}
+
+.vp-doc h3 {
+  margin: 48px 0 0;
+}
+
+.vp-doc h4{
+  margin: 32px 0 0;
+}
+
+.vp-doc h5{
+  margin: 24px 0 0;
+}
+
+/* Button */
+
+.Layout .VPButton.medium{
+  border-radius: 0px;
+  text-transform: uppercase;
+  font-size: 16px;
+}
+
+.VPNav .VPButton.medium {
+  margin-top: 12px;
+  width: 100%;
+}
+
+@media (min-width: 1280px) {
+  .VPNav .VPButton.medium {
+    margin: auto;
+    margin-left: 12px;
+  }
+}
+
+/* NavBar */
+
+.VPNavBarMenuLink {
+  text-transform: uppercase;
+}
+
+.VPNavBarMenu.menu {
+  order: 1;
+}
+
+.VPNavBar .appearance::before {
+  display: none;
+}
+
+.VPNavBar .appearance::after {
+  margin-right: 8px;
+  margin-left: 16px;
+  width: 1px;
+  height: 24px;
+  background-color: var(--vp-c-divider);
+  content: "";
+}
+
+/* NavBar Responsive Behaviour */
+
+@media (min-width: 768px) {
+  .VPNav .VPNavBarMenu {
+    display: none;
+  }
+}
+
+@media (min-width: 1280px) {
+  .VPNav .VPNavBarMenu {
+    display: flex;
+  }
+}
+
+@media (min-width: 768px) {
+  .VPNav .VPNavBarExtra {
+    display: none;
+  }
+}
+
+@media (min-width: 768px) {
+  .VPNav .VPNavBarHamburger {
+    display: flex;
+  }
+} 
+
+@media (min-width: 1280px) {
+  .VPNav .VPNavBarHamburger {
+    display: none;
+  }
+} 
+
+@media (min-width: 768px) {
+  .VPNav .VPNavScreen {
+    display: flex;
+  }
+}
+
+@media (min-width: 1280px) {
+  .VPNav .VPNavScreen {
+    display: none;
+  }
+}
+
+@media (min-width: 768px) {
+  .VPNavScreen .container {
+    width: 100%;
+  }
+}
+
+/* Search */
+
+button.DocSearch-Button, 
+.VPLocalSearchBox div.shell,
+.VPLocalSearchBox form.search-bar,
+.VPLocalSearchBox a.result
+{
+  border-radius: 0px;
+}
+
+/* Home Hero  */
+
+.VPHero .name {
+  font-weight: 500;
+  letter-spacing: inherit;
+}
+
+.VPHero .text {
+  font-weight: 300;
+  line-height: 28px;
+  font-size: 24px;
+  letter-spacing: inherit;
+  color: var(--vp-c-text-1)
+}
+
+@media (min-width: 640px) {
+.VPHero .text {
+  line-height: 32px;
+  font-size: 28px;
+  }
+}
+
+@media (min-width: 960px) {
+.VPHero .text {
+  max-width: 640px;
+  line-height: 40px;
+  font-size: 32px;
+  }
+}
+
+.VPHero .heading {
+  gap: 12px;;
+}
+
+.VPHero .tagline {
+  padding-top: 24px;
+  font-weight: 400;
+  line-height: 26px;
+
+  color: var(--vp-c-text-1)
+}
+
+@media (min-width: 640px) {
+  .VPHero .tagline {
+      padding-top: 32px;
+      line-height: 28px;
+      font-size: 20px;
+  }
+}
+ 
+.VPHero.VPHomeHero {
+  padding-bottom: 48px;
+} 
+
+@media (min-width: 640px) {
+.VPHero.VPHomeHero {
+      padding-bottom: 80px;
+  }
+}
+
+/* Feature Box */
+
+.VPFeatures .VPFeature {
+  border-radius: 0;
+  border: 0;
+}
+
+.VPFeature.link:hover{
+  border: 0;
+  background-color: var(--vp-c-bg-hover);
+}
+
+/* Pager-Links */
+
+.VPLink.link.pager-link {
+  border-radius: 0;
+  border: 0;
+  background-color: var(--vp-c-bg-soft);
+}
+
+.VPLink.link.pager-link:hover {
+  background-color: var(--vp-c-bg-hover);
+}
+
+/* Remove border-radius on all other 'boxes' */
+
+.vp-doc .custom-block div[class*='language-'], 
+.vp-block, 
+.custom-block, 
+.plugin-tabs, 
+.plugin-tabs .plugin-tabs--content div[class*='language-']
+{
+  border-radius: 0px;
+} 
+
+@media (min-width: 640px) {
+  .vp-doc div[class*='language-'],
+  .vp-block {
+    border-radius: 0;
+  }
+}
+
+/* Nested Lists */
+
+.vp-doc ol:has(ul) > li + li{
+  margin-top: 24px; 
+}
+
+
+
+
+

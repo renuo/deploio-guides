@@ -10,7 +10,7 @@ The Deploio build environment makes use of the [Paketo Python Buildpack](https:/
 
 ## Example App
 
-We have a basic Python Django app in our [examples repository](https://github.com/ninech/deploio-examples#python).
+We have a basic Python Django app in our [examples repository](https://github.com/ninech/deploio-examples/tree/main/heroku-stack#python).
 You can deploy it with `nctl`.
 The example application shows a random message on every page reload.
 The Django admin interface can be used to add messages.
@@ -20,7 +20,8 @@ Please also define the `SECRET_KEY` which is needed to secure signed data and sh
 ```bash
 nctl create app django-example \
   --git-url=https://github.com/ninech/deploio-examples \
-  --git-sub-path=python/django \
+  --git-sub-path=heroku-stack/python/django \
+  --buildpack-stack=heroku \
   --env=DJANGO_SU_NAME=admin \
   --env=DJANGO_SU_EMAIL=admin@example.com \
   --env=DJANGO_SU_PASSWORD=<INSERT A PASSWORD HERE> \

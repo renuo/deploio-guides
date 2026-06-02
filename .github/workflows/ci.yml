@@ -13,8 +13,9 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Links
-        uses: lycheeverse/lychee-action@v2
+        uses: lycheeverse/lychee-action@v2.8.0
         with:
+          lycheeVersion: "0.24.2"
           args: >-
             --config ${{ github.workspace }}/lychee.toml
             --root-dir ${{ github.workspace }}/docs

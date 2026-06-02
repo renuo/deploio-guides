@@ -4,9 +4,20 @@ set -euo pipefail
 
 npm install
 
+# Keep this in sync with lycheeVersion in .github/workflows/ci.yml
+LYCHEE_VERSION="0.24.2"
+
 # check if lychee command exists
 if ! command -v lychee &> /dev/null; then
   echo "lychee command not found. Please install it (see https://github.com/lycheeverse/lychee) and try again."
+  exit 1
+fi
+
+# check the lychee version matches CI to avoid config parse differences
+INSTALLED_LYCHEE_VERSION="$(lychee --version | awk '{print $2}')"
+if [ "$INSTALLED_LYCHEE_VERSION" != "$LYCHEE_VERSION" ]; then
+  echo "lychee version mismatch: found $INSTALLED_LYCHEE_VERSION, CI uses $LYCHEE_VERSION."
+  echo "Install the matching version (e.g. 'cargo install lychee --version $LYCHEE_VERSION' or 'brew install lychee')."
   exit 1
 fi
 

@@ -1,0 +1,22 @@
+# Lychee link checker configuration
+# Auto-discovered by lychee when named `lychee.toml`; also passed explicitly
+# via `--config` from package.json and .github/workflows/ci.yml so all runners
+# share one source of truth.
+
+# Check that anchors/fragments exist in documents
+include_fragments = true
+
+# Check both internal and external links
+offline = false
+
+# Exclude specific URLs from checking (regex patterns).
+# claude.ai and other hosts reject lychee's user-agent with 403.
+exclude = [
+  "claude\\.ai",
+  "vite\\.dev",
+  "vitepress\\.dev",
+  "symfony\\.com",
+  "dev\\.mysql\\.com",
+  "join\\.slack\\.com",
+  "/img/",
+]

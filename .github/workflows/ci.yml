@@ -16,12 +16,8 @@ jobs:
         uses: lycheeverse/lychee-action@v2
         with:
           args: >-
+            --config ${{ github.workspace }}/lychee.toml
             --root-dir ${{ github.workspace }}/docs
-            --exclude 'dev\.mysql\.com'
-            --exclude 'vitepress.dev'
-            --exclude 'symfony.com'
-            --exclude 'join\.slack\.com'
-            --exclude '/img/'
             --verbose
             docs/
         env:

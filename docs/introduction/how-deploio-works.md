@@ -64,7 +64,7 @@ Configuration isn’t limited to environment variables: Deploio uses a **hierarc
 
 Deployments are rolled out through Kubernetes using rolling updates and readiness checks to ensure zero downtime. Each deployment references a specific container image and configuration version.
 
-Deploy jobs can also be configured to execute before a new release is deployed. The rollout of the release will only continue if the deploy job finished successfully. This can be defined in the `.deploio.yaml`. See more information [here](/user-guide/configuring-your-application.md#deploioyaml).
+Deploy jobs can also be configured to execute before a new release is deployed. The rollout of the release will only continue if the deploy job finished successfully. This can be defined in the `.deploio.yaml`. See more information [here](/user-guide/configuring-your-application.md#_3-deploio-yaml).
 
 
 ```mermaid

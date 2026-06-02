@@ -11,7 +11,7 @@ description: Guide for configuring S3-compatible object storage for PHP applicat
 # Create an Object Storage for your PHP application
 
 ::: info
-Should you require a file upload or a writeable storage, you can use our S3-compatible object storage.
+Should you require a file upload or a writable storage, you can use our S3-compatible object storage.
 You can use Amazon S3 together with Deploio as you would with any other hosting provider.
 If you wish to have a persistent, S3 compatible storage that also runs on Nine's infrastructure
 and is directly connected to Deploio, you can use our S3-compatible object storage.

@@ -323,7 +323,7 @@ $conn = new mysqli($parameters['host'], $parameters['user'], $parameters['passwo
 
 Doctrine provides the [doctrine/migrations](https://www.doctrine-project.org/projects/doctrine-migrations/en/3.9/index.html)
 package to manage database schema migrations.
-To run the migrations, specify a deploy job in your [`deploio.yaml`](/user-guide/configuring-your-application.md#deploioyaml)
+To run the migrations, specify a deploy job in your [`deploio.yaml`](/user-guide/configuring-your-application.md#_3-deploio-yaml)
 or run the migrations manually:
 
 ```bash

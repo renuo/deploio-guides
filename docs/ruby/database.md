@@ -224,7 +224,7 @@ current configuration is appropriate.
 ##### Run Migrations
 
 You can now run the migrations on your Rails application to create the tables in the database.
-This can be done through the [`deploio.yaml`](/user-guide/configuring-your-application.md#deploioyaml) file by specifying a deploy job or by
+This can be done through the [`deploio.yaml`](/user-guide/configuring-your-application.md#_3-deploio-yaml) file by specifying a deploy job or by
 manually running the migrations:
 
 ```bash

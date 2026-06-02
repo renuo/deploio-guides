@@ -12,17 +12,25 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # lychee-action v2.8.0 cannot install lychee 0.24.x: it expects the binary
+      # at the archive root, but 0.24.x nests it in a subdirectory. Install the
+      # pinned release binary directly instead. Keep LYCHEE_VERSION in sync with
+      # bin/setup so CI and local runs share one lychee (and one config dialect).
       - name: Links
-        uses: lycheeverse/lychee-action@v2.8.0
-        with:
-          lycheeVersion: "v0.24.2"
-          args: >-
-            --config ${{ github.workspace }}/lychee.toml
-            --root-dir ${{ github.workspace }}/docs
-            --verbose
-            docs/
         env:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          LYCHEE_VERSION: "0.24.2"
+        run: |
+          set -euo pipefail
+          archive="lychee-x86_64-unknown-linux-gnu"
+          curl -sfL -o lychee.tar.gz \
+            "https://github.com/lycheeverse/lychee/releases/download/lychee-v${LYCHEE_VERSION}/${archive}.tar.gz"
+          tar -xzf lychee.tar.gz "${archive}/lychee"
+          "./${archive}/lychee" \
+            --config "${{ github.workspace }}/lychee.toml" \
+            --root-dir "${{ github.workspace }}/docs" \
+            --verbose \
+            docs/
 
       - name: Spelling
         uses: crate-ci/typos@v1.43.0

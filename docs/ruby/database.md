@@ -16,7 +16,16 @@ In this guide, we will show you how to create a database for your Ruby on Rails 
 Should you wish to migrate an already existing database from elsewhere, you can view this section in the documentation [here](/user-guide/migrating-from-other-platforms.md).
 :::
 
-[//]: # (TODO: do I talk about SSH keys etc here or just creating?)
+## Choose a tier
+
+Deploio offers two database tiers. See the [database guide](/user-guide/configuring-your-database.md) for full details.
+
+|                            | Economy                                 | Business                       |
+|----------------------------|-----------------------------------------|--------------------------------|
+| **Best for**               | Development, testing, low-traffic sites | Production, high-traffic sites |
+| **Databases per instance** | 1                                       | Multiple                       |
+| **Storage**                | Up to 10 GB                             | 20 GB+ (auto-expanding)        |
+| **Resources**              | Shared (multi-tenant)                   | Dedicated instance             |
 
 ## Create the database
 
@@ -33,25 +42,48 @@ Alternatively, you can specify the project name with the `-p, --project` flag in
 :::tabs key:db
 == PostgreSQL
 
-To create a postgres database server for your Rails application, you can use the `nctl create` command like this:
+#### Economy
+
+Create a PostgreSQL database:
+
+```bash
+nctl create postgresdatabase {NAME}
+```
+
+Retrieve the connection details:
+
+```bash
+$ nctl get postgresdatabase {NAME} --print-connection-string
+postgres://user:password@{NAME}.postgres.nineapis.ch/{NAME}
+```
+
+Set the `DATABASE_URL` environment variable:
+
+```bash
+nctl update app {APP_NAME} \
+  --env="DATABASE_URL=$(nctl get postgresdatabase {NAME} --print-connection-string)"
+```
+
+No further database creation is needed — the database is ready to use immediately.
+
+#### Business
+
+Create a PostgreSQL database server:
 
 ```bash
 nctl create postgres {NAME} \
-  --postgres-version=15 \
-  --machine-type=nine-db-s \
+  --postgres-version=17 \
+  --machine-type=nine-db-xs \
   --allowed-cidrs="203.0.113.1/32,..." \
   --ssh-keys-file=my-key.pub
 ```
 
-Further details on the flags can be found in the manual by running `nctl create postgres --help`.
-
-You can now access the server using the **fully-qualified domain name (FQDN)** and generated user and password.
-You can find this information as follows:
+Retrieve the connection details:
 
 ```bash
 $ nctl get postgres {NAME}
 PROJECT       NAME      FQDN                                   LOCATION     MACHINE TYPE
-my-project    {NAME}    {NAME}.1234567.postgres.nineapis.ch    nine-cz41    nine-db-s
+my-project    {NAME}    {NAME}.postgres.nineapis.ch    nine-cz41    nine-db-xs
 
 $ nctl get postgres {NAME} --print-user
 dbadmin
@@ -60,56 +92,44 @@ $ nctl get postgres {NAME} --print-password
 ...password...
 ```
 
-To create a database on the server, create an interactive shell in your web application with:
+With a Business database, you get a full server and need to create the database yourself.
+Open a shell in your application:
 
 ```bash
 nctl exec app {APP_NAME}
 ```
 
-In that shell, run the following command to create the database:
+Then create the database:
 
 ```bash
 createdb -U dbadmin -h {FQDN} my-database
 ```
 
-You will be asked for the password.
+You will be asked for the password. You can verify the database was created by connecting with
+`psql -U dbadmin -h {FQDN} -d postgres` and running `\l`.
 
-> **Alternative:** You can use `rails db:create` to create the database after setting the `DATABASE_URL` environment variable. This will create the database on the server with the name specified in your `database.yml` configuration. Note that the database server must be created first using `nctl create postgres` before running `rails db:create`. For more details on setting the `DATABASE_URL`, refer to the section below on configuring your Rails application.
+> **Alternative:** You can use `rails db:create` after setting `DATABASE_URL` instead. The database
+> server must be created first with `nctl create postgres`.
 
-You can verify that this database was created by logging into the server using `psql -U dbadmin -h {FQDN} -d postgres`
-and then running the command `\l` to list the databases on the server.
-
-### Configure Your Rails Application
-
-To connect your Rails application to the database, you need to set the `DATABASE_URL` environment variable.
-You can retrieve the value of this environment variable by running:
-
-```bash
-nctl get postgres {NAME} --print-connection-string
-```
-
-> **Note:** The connection string will look something like this: `postgres://dbadmin:password@{FQDN}`. Append the database name to the end of this string to create the full connection string.
-
-To configure the `DATABASE_URL` environment variable in your application, run:
+Set the `DATABASE_URL` environment variable:
 
 ```bash
 nctl update app {APP_NAME} \
---env="DATABASE_URL=$(nctl get postgres {NAME} --print-connection-string)/my-database"
+  --env="DATABASE_URL=$(nctl get postgres {NAME} --print-connection-string)/my-database"
 ```
 
 Where `my-database` is the name of the database you created.
 
-### Troubleshooting
+#### Troubleshooting
 
-If you encounter any issues when **connecting to the database**, check that your IP address was correctly added to the
-allowed CIDRs. You can do this by running:
+If you encounter any issues when **connecting to a Business database**, check that your IP address
+was correctly added to the allowed CIDRs:
 
 ```bash
 nctl get postgres {NAME} -o yaml
 ```
 
-and then search for the `allowedCIDRs` field.
-To add your current IP address, you could use the following command:
+Search for the `allowedCIDRs` field. To add your current IP address:
 
 ```bash
 nctl update postgres {NAME} --allowed-cidrs "$(curl -s ipinfo.io/ip)/32"
@@ -120,26 +140,52 @@ You can find the currently used version in the YAML output of `nctl get` by sear
 
 == MySQL
 
-To create a MySQL database server for your Rails application, you can use the `nctl create` command like this:
+#### Economy
+
+Create a MySQL database:
+
+```bash
+nctl create mysqldatabase {NAME}
+```
+
+This creates a single database. Retrieve the connection details:
+
+```bash
+$ nctl get mysqldatabase {NAME} --print-user
+$ nctl get mysqldatabase {NAME} --print-password
+$ nctl get mysqldatabase {NAME}
+```
+
+Set the `DATABASE_URL` environment variable:
+
+```bash
+nctl update app {APP_NAME} \
+  --env="DATABASE_URL=mysql2://{USER}:{PASSWORD}@{FQDN}/{NAME}"
+```
+
+No further database creation is needed — the database is ready to use immediately.
+
+#### Business
+
+Create a MySQL database server:
 
 ```bash
 nctl create mysql {NAME} \
   --character-set-collation=utf8mb4_unicode_ci \
-  --machine-type=nine-db-s \
+  --machine-type=nine-db-xs \
   --allowed-cidrs="203.0.113.1/32,..." \
   --ssh-keys-file=my-key.pub
 ```
 
-Further details on the flags can be found in the manual by running `nctl create mysql --help`.
+Further details on the flags can be found by running `nctl create mysql --help`.
 Note that currently, only MySQL 8 databases are supported.
 
-You can now access the server using the **fully-qualified domain name (FQDN)** and generated user and password.
-You can find this information as follows:
+Retrieve the connection details:
 
 ```bash
 $ nctl get mysql {NAME}
 PROJECT       NAME      FQDN                                LOCATION     MACHINE TYPE
-my-project    {NAME}    {NAME}.1234567.mysql.nineapis.ch    nine-cz41    nine-db-s
+my-project    {NAME}    {NAME}.1234567.mysql.nineapis.ch    nine-cz41    nine-db-xs
 
 $ nctl get mysql {NAME} --print-user
 dbadmin
@@ -148,62 +194,53 @@ $ nctl get mysql {NAME} --print-password
 ...password...
 ```
 
-To create a database on the server, create an interactive shell in your web application with:
+With a Business database, you get a full server and need to create the database yourself.
+Open a shell in your application:
 
 ```bash
 nctl exec app {APP_NAME}
 ```
 
-In that shell, run the following command to create the database:
+Connect to MySQL:
 
 ```bash
 mysql -h {FQDN} -u dbadmin -p
 ```
 
-> **Warning:** Currently, Deploio supports **MySQL version 8**. If you have MySQL version 9 installed on your local machine, you probably lack the `mysql_native_password` plugin as it has been removed in MySQL 9. Hence, you would need to install an older version of the client (e.g. `brew install mysql-client@8.4` and then `/opt/homebrew/opt/mysql-client@8.4/bin/mysql -h ...` on macOS using Homebrew).
+> **Warning:** Deploio supports **MySQL version 8**. If you have MySQL 9 installed locally, you
+> may lack the `mysql_native_password` plugin. Install an older client instead
+> (e.g. `brew install mysql-client@8.4`).
 
-You will be prompted to enter the password. Once connected, you can create the database:
+Once connected, create the database:
 
 ```sql
 CREATE DATABASE my_database;
 ```
 
-To check that the database was created, you can run the command `SHOW DATABASES;`.
+Verify with `SHOW DATABASES;`.
 
-> **Alternative:** You can use `rails db:create` to create the database after setting the `DATABASE_URL` environment variable. This will create the database on the server with the name specified in your `database.yml` configuration. Note that the database server must be created first using `nctl create mysql` before running `rails db:create`. For more details on setting the `DATABASE_URL`, refer to the section below on configuring your Rails application.
+> **Alternative:** You can use `rails db:create` after setting `DATABASE_URL` instead. The database
+> server must be created first with `nctl create mysql`.
 
-For more setup commands, visit the
-[official MySQL documentation](https://docs.nine.ch/docs/on-demand-databases/on-demand-databases-mysql/).
-
-### Configure Your Rails Application
-
-To connect your Rails application to the database, you need to set the `DATABASE_URL` environment variable.
-You can retrieve the value of this environment variable by running:
-
-```bash
-nctl get mysql {NAME} --print-connection-string
-```
-
-> **Note:** The connection string will look something like this: `mysql://dbadmin:password@{FQDN}`. Append the database name to the end of this string to create the full connection string.
-
-Thus, you can set the `DATABASE_URL` environment variable as follows:
+Set the `DATABASE_URL` environment variable:
 
 ```bash
 nctl update app {APP_NAME} \
---env="DATABASE_URL=$(nctl get mysql {NAME} --print-connection-string)/my_database"
+  --env="DATABASE_URL=$(nctl get mysql {NAME} --print-connection-string)/my_database"
 ```
 
 Where `my_database` is the name of the database you created.
 
-### Troubleshooting
+#### Troubleshooting
 
-If you encounter any issues when **connecting to the database**, check that your IP address was correctly added to the allowed CIDRs. You can do this by running:
+If you encounter any issues when **connecting to a Business database**, check that your IP address
+was correctly added to the allowed CIDRs:
 
 ```bash
 nctl get mysql {NAME} -o yaml
 ```
 
-and then search for the `allowedCIDRs` field. To add your current IP address, you could use the following command:
+Search for the `allowedCIDRs` field. To add your current IP address:
 
 ```bash
 nctl update mysql {NAME} --allowed-cidrs "$(curl -s ipinfo.io/ip)/32"
@@ -219,16 +256,53 @@ Also, ensure that your current **client version is compatible with the database 
 
 Rails should automatically use the `DATABASE_URL` environment variable to connect to the database. However, you may need
 to adjust the `database.yml` file in your Rails application to ensure that it is using the correct database and that the
-current configuration is appropriate.
+current configuration is appropriate. Here is an example configuration:
+
+```yaml
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: project_name_development
+
+test:
+  <<: *default
+  database: project_name_test
+
+production:
+  <<: *default
+  url: <%= ENV['DATABASE_URL'] %>
+```
+
+To verify that Rails can connect to the database, open a shell in your app and run a quick query via the Rails runner:
+
+```bash
+nctl exec app {APP_NAME} -- bundle exec rails runner "puts ActiveRecord::Base.connection.execute('SELECT 1').first"
+```
+
+If the connection is working, this prints `{"?column?"=>"1"}` (PostgreSQL) or `{"1"=>1}` (MySQL). If it fails, double-check your `DATABASE_URL` and `database.yml` settings.
 
 ##### Run Migrations
 
-You can now run the migrations on your Rails application to create the tables in the database.
-This can be done through the [`deploio.yaml`](/user-guide/configuring-your-application.md#_3-deploio-yaml) file by specifying a deploy job or by
-manually running the migrations:
+You can now run the database migrations to create the tables in the database.
+This can be done through the [`.deploio.yaml`](/user-guide/configuring-your-application.md#_3-deploio-yaml) file by specifying 
+a deploy job:
+
+```yaml
+deployJob:
+  name: db-migrations
+  command: bundle exec rails db:migrate
+  retries: 0
+  timeout: 5m
+```
+
+or by manually running the migrations:
 
 ```bash
-nctl exec app {APP_NAME} rails db:migrate
+nctl exec app {APP_NAME} bundle exec rails db:migrate
 ```
 
 If you did not get any errors during the migration, you should now have a healthy connection to your database and be able

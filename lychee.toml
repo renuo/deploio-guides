@@ -1,0 +1,27 @@
+# Lychee link checker configuration
+# Auto-discovered by lychee when named `lychee.toml`; also passed explicitly
+# via `--config` from package.json and .github/workflows/ci.yml so all runners
+# share one source of truth.
+
+# Fragment/anchor checking is intentionally disabled: lychee uses GitHub-style
+# slugs, which do not match VitePress's slugifier (e.g. the heading
+# `### 3. .deploio.yaml` becomes `#_3-deploio-yaml` in VitePress but
+# `#3-deploioyaml` in lychee). Enabling it produces false positives on every
+# heading with digits or punctuation, and "fixing" links to satisfy lychee
+# would break the rendered site. We only check link reachability here.
+include_fragments = "none"
+
+# Check both internal and external links
+offline = false
+
+# Exclude specific URLs from checking (regex patterns).
+# claude.ai and other hosts reject lychee's user-agent with 403.
+exclude = [
+  "claude\\.ai",
+  "vite\\.dev",
+  "vitepress\\.dev",
+  "symfony\\.com",
+  "dev\\.mysql\\.com",
+  "join\\.slack\\.com",
+  "/img/",
+]

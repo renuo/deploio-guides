@@ -135,6 +135,10 @@ export default withMermaid(
               link: "/user-guide/tools",
             },
             {
+              text: "Claude Code Plugin",
+              link: "/user-guide/claude-plugin",
+            },
+            {
               text: "Migrating from other platforms",
               link: "/user-guide/migrating-from-other-platforms",
             },

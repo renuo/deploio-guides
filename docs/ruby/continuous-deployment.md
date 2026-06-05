@@ -118,7 +118,7 @@ status check.
 :::
 
 In the meantime, for a more robust setup that waits for the deployment to finish and checks its
-status, see the [deployment feedback guide](/user-guide/ci-cd-integration.md#deployment-feedback-on-the-ci),
+status, see the [deployment feedback guide](/user-guide/ci-cd-integration.md#poll-build-and-release-status),
 which includes an example status check script in Ruby.
 
 ### Troubleshooting

@@ -1,7 +1,7 @@
 ---
 prev:
-  text: Security
-  link: /user-guide/security
+  text: Claude Code Plugin
+  link: /user-guide/claude-plugin
 next: false
 description: Migration guide for moving applications to Deploio from Heroku and other platforms including database exports, environment variables, DNS updates, and CI/CD adaptation.
 ---

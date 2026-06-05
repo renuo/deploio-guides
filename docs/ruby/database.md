@@ -288,7 +288,7 @@ If the connection is working, this prints `{"?column?"=>"1"}` (PostgreSQL) or `{
 ##### Run Migrations
 
 You can now run the database migrations to create the tables in the database.
-This can be done through the [`.deploio.yaml`](/user-guide/configuring-your-application.md#deploioyaml) file by specifying 
+This can be done through the [`.deploio.yaml`](/user-guide/configuring-your-application.md#_3-deploio-yaml) file by specifying 
 a deploy job:
 
 ```yaml

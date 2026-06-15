@@ -254,6 +254,20 @@ Environment variables cannot be configured in the Procfile. Please use one of th
 
 :::
 
+#### Debugging Environment Variables
+
+Several parts of Deploio might inject env variables into your application
+(e.g. [connected services](https://docs.nine.ch/docs/deplo-io/configuration/deploio-connecting-to-services/#injected-environment-variables) or [buildpacks](https://docs.nine.ch/docs/deplo-io/configuration/buildpack-stacks)).
+If you want to know what env variables are used for real during runtime,
+there is no other way than to look into the running application:
+
+```bash
+nctl exec app my-app -- env
+```
+
+The sourcing order of environment variables is complex. So
+If you want to know what env variables are used in reality, the easiest way to
+
 ### Basic Authentication
 
 Protect non-production environments (like staging) with HTTP Basic Auth, configurable directly in the Cockpit and built in to Deploio.

@@ -265,9 +265,6 @@ there is no other way than to look into the running application:
 nctl exec app my-app -- env
 ```
 
-The sourcing order of environment variables is complex. So
-If you want to know what env variables are used in reality, the easiest way to
-
 ### Basic Authentication
 
 Protect non-production environments (like staging) with HTTP Basic Auth, configurable directly in the Cockpit and built in to Deploio.

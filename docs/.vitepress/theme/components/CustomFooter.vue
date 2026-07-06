@@ -110,11 +110,11 @@
 
                     <div class="certificates-wrapper">
                         <img
-                            src="/img/iso_9001:2015_certification.png"
+                            src="/img/iso_9001_2015_certification.png"
                             alt="ISO 9001:2015 certification"
                         />
                         <img
-                            src="/img/iso_27001:2022_certification.png"
+                            src="/img/iso_27001_2022_certification.png"
                             alt="ISO 27001:2022 certification"
                         />
                         <img

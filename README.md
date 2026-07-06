@@ -17,7 +17,7 @@ Official guides for Deploio, a container-based infrastructure platform by [Nine]
   For detail configuration and options you should link to the technical reference at Nine: https://docs.nine.ch/. 
 * `nctl` is canonical for the user guide.
   We should not mention the Cockpit GUI if not absolutely needed.
-  Everything should be done with `nctl` because it's is simpler, more stable and can be automated.
+  Everything should be done with `nctl` because it is simpler, more stable and can be automated.
 * Deploio should bring your **code** to **live** as easily as possible.
   Much documentation is an indication that there are issues with Deploio.
   Don't accept discomfort or quirks.

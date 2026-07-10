@@ -41,3 +41,9 @@ your data lives. The buckets are hosted in Switzerland, operated by Nine.
 See the [Active Storage](../ruby/active-storage.md) (Rails) and
 [Object storage](../php/object-storage.md) (PHP) guides for configuration
 examples.
+
+## Why is my app down during maintenance windows?
+
+Nine [defines maintenance windows](https://docs.nine.ch/docs/general/weekly-maintenance-window)
+to introduce security patches and upgrades. You can prevent these downtimes by
+configuring at least 2 replicas for your app.

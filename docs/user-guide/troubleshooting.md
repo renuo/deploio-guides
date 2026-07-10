@@ -3,8 +3,8 @@ prev:
   text: Security
   link: /user-guide/security
 next:
-  text: Tools
-  link: /user-guide/tools
+  text: FAQ
+  link: /user-guide/faq
 ---
 
 # Troubleshooting

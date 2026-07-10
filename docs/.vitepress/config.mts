@@ -131,6 +131,10 @@ export default withMermaid(
               link: "/user-guide/troubleshooting",
             },
             {
+              text: "FAQ",
+              link: "/user-guide/faq",
+            },
+            {
               text: "Tools",
               link: "/user-guide/tools",
             },

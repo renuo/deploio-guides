@@ -110,7 +110,7 @@ deploio:
 
 ::: info
 For S3, a `region` must be specified. Deploio uses the S3 default value of `us-east-1`, even though the servers are in
-Switzerland, operated by Nine.
+Switzerland, operated by Nine. See the [FAQ](../user-guide/faq.md#why-do-i-have-to-set-the-s3-region-to-us-east-1) for details.
 :::
 
 The underlying ActiveStorage service (`ActiveStorage::Service::S3Service`) uses the [AWS SDK for Ruby](https://github.com/aws/aws-sdk-ruby).

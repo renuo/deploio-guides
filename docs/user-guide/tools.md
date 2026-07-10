@@ -1,7 +1,7 @@
 ---
 prev:
-  text: Troubleshooting
-  link: /user-guide/troubleshooting
+  text: FAQ
+  link: /user-guide/faq
 next:
   text: Claude Code Plugin
   link: /user-guide/claude-plugin

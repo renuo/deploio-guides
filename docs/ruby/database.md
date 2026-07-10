@@ -171,7 +171,9 @@ In that shell, run the following command to create the database:
 createdb -U dbadmin -h {FQDN} my-database
 ```
 
-You will be asked for the password. You can verify the database was created by connecting **locally** with
+
+1. You will be asked for the password. You can verify the database was created by connecting with
+
 `psql -U dbadmin -h {FQDN} -d postgres` and running the following SQL query:
 
 ```sql

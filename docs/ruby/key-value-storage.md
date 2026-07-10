@@ -37,26 +37,22 @@ the associated uncertainty about the future development of Redis, Deploio will s
 alternative as a replacement soon.
 :::
 
-## Set the Environment Variable
+## Bind the Key Value Store to your Application
 
-Retrieve the connection details for your store:
-
-```bash
-$ nctl get kvs {KVS_NAME}
-PROJECT       NAME         FQDN                                              TLS     MEMORY SIZE
-my-project    {KVS_NAME}   {KVS_NAME}.keyvaluestore.nineapis.ch      true    1Gi
-
-$ nctl get kvs {KVS_NAME} --print-token
-...password...
-```
-
-Set the `REDIS_URL` environment variable on your application. Note the `rediss://` protocol (double s) — TLS is
-enabled on all KVS instances:
+Add the key-value store as a service reference to your application. By using `redis=` as the alias, Deploio will automatically inject the granular `NINE_KVS_REDIS_*` environment variables into your application.
 
 ```bash
 nctl update app {APP_NAME} \
-  --env="REDIS_URL=rediss://:{PASSWORD}@{PUBLIC FQDN};REDISCLI_AUTH={PASSWORD}"
+  --service redis=kvs/{KVS_NAME}
 ```
+
+If the application is already running, create a new release so the injected service variables become available:
+
+```bash
+nctl update app {APP_NAME} --retry-release
+```
+
+See the [technical reference](https://docs.nine.ch/docs/deplo-io/configuration/deploio-connecting-to-services) for more info on service references, injected environment variables, and how to remove a service reference.
 
 ## Configure Rails
 
@@ -67,20 +63,22 @@ gem "redis"
 ```
 
 Deploio KVS instances use self-signed TLS certificates. You need to disable certificate
-verification in every Redis connection by passing `ssl_params`.
+verification in every Redis connection by passing `ssl_params`. Since the reference name used in the binding step was `redis`, your injected variables are prefixed with `NINE_KVS_REDIS_`.
 
 ### Sidekiq
 
-If you're using Sidekiq, configure it to use `REDIS_URL`. Create or update
+If you're using Sidekiq, construct the Redis connection URL using your injected variables. Create or update
 `config/initializers/sidekiq.rb`:
 
 ```ruby
+redis_url = "redis://#{ENV['NINE_KVS_REDIS_USER']}:#{ENV['NINE_KVS_REDIS_PASSWORD']}@#{ENV['NINE_KVS_REDIS_FQDN']}:#{ENV['NINE_KVS_REDIS_PORT']}"
+
 Sidekiq.configure_server do |config|
-  config.redis = { url: ENV["REDIS_URL"], ssl_params: { verify_mode: OpenSSL::SSL::VERIFY_NONE } }
+  config.redis = { url: redis_url, ssl_params: { verify_mode: OpenSSL::SSL::VERIFY_NONE } }
 end
 
 Sidekiq.configure_client do |config|
-  config.redis = { url: ENV["REDIS_URL"], ssl_params: { verify_mode: OpenSSL::SSL::VERIFY_NONE } }
+  config.redis = { url: redis_url, ssl_params: { verify_mode: OpenSSL::SSL::VERIFY_NONE } }
 end
 ```
 
@@ -95,22 +93,23 @@ nctl update app {APP_NAME} \
 
 ### ActionCable
 
-To use ActionCable with Redis, update `config/cable.yml`:
+To use ActionCable with Redis, construct the URL string directly in your `config/cable.yml`:
 
 ```yaml
 production:
   adapter: redis
-  url: <%= ENV["REDIS_URL"] %>
+  url: redis://<%= ENV["NINE_KVS_REDIS_USER"] %>:<%= ENV["NINE_KVS_REDIS_PASSWORD"] %>@<%= ENV["NINE_KVS_REDIS_FQDN"] %>:<%= ENV["NINE_KVS_REDIS_PORT"] %>
   ssl_params:
     verify_mode: <%= OpenSSL::SSL::VERIFY_NONE %>
 ```
 
 ### Cache Store
 
-To use Redis as the Rails cache store, add the following to `config/environments/production.rb`:
+To use Redis as the Rails cache store, add the following connection configuration to `config/environments/production.rb`:
 
 ```ruby
-config.cache_store = :redis_cache_store, { url: ENV["REDIS_URL"], ssl_params: { verify_mode: OpenSSL::SSL::VERIFY_NONE } }
+redis_url = "redis://#{ENV['NINE_KVS_REDIS_USER']}:#{ENV['NINE_KVS_REDIS_PASSWORD']}@#{ENV['NINE_KVS_REDIS_FQDN']}:#{ENV['NINE_KVS_REDIS_PORT']}"
+config.cache_store = :redis_cache_store, { url: redis_url, ssl_params: { verify_mode: OpenSSL::SSL::VERIFY_NONE } }
 ```
 
 ## Verify the Connection
@@ -120,7 +119,7 @@ via `nctl exec`:
 
 ```bash
 nctl exec app {APP_NAME} -- bundle exec rails runner \
-  "r = Redis.new(url: ENV['REDIS_URL'], ssl_params: { verify_mode: OpenSSL::SSL::VERIFY_NONE }); r.set('ping', 'pong'); puts r.get('ping')"
+  "r = Redis.new(host: ENV['NINE_KVS_REDIS_FQDN'], port: ENV['NINE_KVS_REDIS_PORT'], username: ENV['NINE_KVS_REDIS_USER'], password: ENV['NINE_KVS_REDIS_PASSWORD'], ssl_params: { verify_mode: OpenSSL::SSL::VERIFY_NONE }); r.set('ping', 'pong'); puts r.get('ping')"
 ```
 
 If the connection is working, this prints `pong`.

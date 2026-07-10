@@ -22,15 +22,14 @@ Before you create resources, ensure that the project you want to create the reso
 running `nctl auth set-project {project_name}`.
 :::
 
-In this guide, we will provide a simple example to demonstrate how to attach a key value store to your application.
-Start by creating the key value store with the `create kvs` command:
+Create the key value store with the `create kvs` command:
 
-```
-nctl create kvs {application_name}
+```bash
+nctl create kvs {KVS_NAME}
 ```
 
-This creates the on-demand key-value store instance with name `{application_name}` owned by the currently active project.
-The created store supports the latest API of Redis (Version 7).
+This creates a key-value store owned by the currently active project.
+The key-value store supports the Redis 7 API.
 
 ::: info
 Due to [license changes](https://redis.io/blog/what-redis-license-change-means-for-our-managed-service-providers/) and
@@ -38,64 +37,69 @@ the associated uncertainty about the future development of Redis, Deploio will s
 alternative as a replacement soon.
 :::
 
-## Configuring the Key Value Store in your PHP Application
+## Bind the Key Value Store to your Application
 
-Once the store has been created, you need to retrieve the connection information, and set the environment variables
-using this information.
-To fetch information about the key-value store, including the fully qualified domain name (FQDN), run:
-
-```bash
-$ nctl get kvs {application_name}
-PROJECT       NAME                  FQDN                                                    TLS     MEMORY SIZE
-my-project    {application_name}    {application_name}.1234567.keyvaluestore.nineapis.ch    true    1Gi
-```
-
-Retrieve the password for the key-value store:
-
-```bash
-$ nctl get kvs {application_name} --print-token
-...password...
-```
-
-With this information, you can construct and set the `REDIS_URL` and `REDISCLI_AUTH` environment variable as follows:
-
-```bash
-nctl update app {application_name} --env='REDIS_URL=rediss://:{PASSWORD}@{FQDN};REDISCLI_AUTH={PASSWORD}'
-```
-
-Note that you need to specify `rediss` as protocol because TLS (transport layer security) is enabled. The `REDIS_URL`
-can then be used in your application to connect to the key-value store.
-
-You can read more about configuration of the KVS instance in more detail in
-the [documentation](https://docs.nine.ch/docs/on-demand-databases/on-demand-key-value-store/).
-
-## Using the Key Value Store in your PHP Application
-
-When using Symfony, make sure that your application is reading the `REDIS_URL` DSN:
-
-```php file="config/packages/cache.yaml"
-framework:
-    cache:
-        default_redis_provider: '%env(resolve:REDIS_URL)%'
-```
-
-If your application needs something else than the connection string, set the necessary variables for your requirements.
-
-::: tip
-If you need separate fields for your connection, you can JSON encode the connection parameters and set that as
-environment variable (manually copying the settings from the connection string you got from Deploio):
+Add the key-value store as a service reference to your application. By using `redis=` as the alias, Deploio will automatically inject the granular `NINE_KVS_REDIS_*` environment variables into your application.
 
 ```bash
 nctl update app {APP_NAME} \
---env='KEYVALUE={"host": "{HOST}", "auth": "{PASS}"}'
+  --service redis=kvs/{KVS_NAME}
 ```
 
-In PHP, you then `json_decode` the variable, and create a [PHPRedis](https://github.com/phpredis/phpredis) client with:
+If the application is already running, create a new release so the injected service variables become available:
+
+```bash
+nctl update app {APP_NAME} --retry-release
+```
+
+See the [technical reference](https://docs.nine.ch/docs/deplo-io/configuration/deploio-connecting-to-services) for more info on service references, injected environment variables, and how to remove a service reference.
+
+## Using the Key Value Store in your PHP Application
+
+When using Symfony, you must update your configuration to construct the connection string using the granular environment variables Deploio injects. Since the reference name used in the binding step was `redis`, the placeholder name becomes `REDIS`, meaning your injected variables are prefixed with `NINE_KVS_REDIS_`.
+
+Update your cache config file `(config/packages/cache.yaml)`:
+
+```yaml file="config/packages/cache.yaml"
+framework:
+    cache:
+        default_redis_provider: 'redis://%env(NINE_KVS_REDIS_USER)%:%env(NINE_KVS_REDIS_PASSWORD)%@%env(NINE_KVS_REDIS_FQDN)%:%env(NINE_KVS_REDIS_PORT)%'
+```
+
+If your Redis setup does not require an explicit username configuration, you can alternatively format the provider string like this:
+
+```yaml file="config/packages/cache.yaml"
+framework:
+    cache:
+        default_redis_provider: 'redis://:%env(NINE_KVS_REDIS_PASSWORD)%@%env(NINE_KVS_REDIS_FQDN)%:%env(NINE_KVS_REDIS_PORT)%'
+```
+
+If you use a native PHP Redis client (such as PHPRedis) instead of the framework configuration, you no longer need complex JSON-encoding workarounds or URL parsers to handle your connection parameters. You can initialize your connection parameters directly using the individual environment variables:
 
 ```php
-$parameters = json_decode(getenv('KEYVALUE'), true, JSON_THROW_ON_ERROR);
-$redis = new Redis($parameters);
+<?php
+$redis = new Redis();
+
+$host = getenv('NINE_KVS_REDIS_FQDN');
+$port = (int) getenv('NINE_KVS_REDIS_PORT');
+$user = getenv('NINE_KVS_REDIS_USER');
+$password = getenv('NINE_KVS_REDIS_PASSWORD');
+
+$redis->connect($host, $port);
+
+if ($password) {
+    if ($user) {
+        // For Redis setups leveraging modern ACL usernames
+        $redis->auth(['user' => $user, 'pass' => $password]);
+    } else {
+        // Classic password-only authentication
+        $redis->auth($password);
+    }
+}
 ```
+
+::: tip
+Because Deploio automatically handles the heavy lifting by injecting granular environment variables (like `NINE_KVS_REDIS_FQDN` and `NINE_KVS_REDIS_PASSWORD`), you do not need to manage a monolithic `REDIS_URL` string or run custom parsing scripts to separate your connection components.
 :::
 
 ## Next Steps

@@ -181,6 +181,12 @@ Deploio automatically handles process failures for both web and worker processes
 
 Environment variables allow you to customize your application's behavior between environments (e.g. development, staging, production) without changing code.
 
+When you connect on-demand services (like databases or key-value stores) to your application, Deploio automatically injects their connection details as runtime environment variables. These variables use a predictable prefix based on your chosen service type and reference name (e.g., `NINE_PG_DB_DSN`).
+
+::: info
+ Injected service variables only become available when a new release is created. If your application is already running, you will need to trigger a redeployment (e.g., via `nctl update app {APP_NAME} --retry-release`) for the changes to take effect.
+:::
+
 #### Build Variables
 
 Build variables are available **only during the build phase** (i.e., when the container is being created using the Dockerfile or buildpack). They are not available at runtime.

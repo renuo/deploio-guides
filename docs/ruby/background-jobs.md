@@ -113,15 +113,17 @@ Add `sidekiq` to your `Gemfile`:
 gem "sidekiq"
 ```
 
-Configure Sidekiq to use `REDIS_URL` in `config/initializers/sidekiq.rb`:
+Configure Sidekiq using your injected variables in `config/initializers/sidekiq.rb`:
 
 ```ruby
+redis_url = "redis://#{ENV['NINE_KVS_REDIS_USER']}:#{ENV['NINE_KVS_REDIS_PASSWORD']}@#{ENV['NINE_KVS_REDIS_FQDN']}:#{ENV['NINE_KVS_REDIS_PORT']}"
+
 Sidekiq.configure_server do |config|
-  config.redis = { url: ENV["REDIS_URL"], ssl_params: { verify_mode: OpenSSL::SSL::VERIFY_NONE } }
+  config.redis = { url: redis_url, ssl_params: { verify_mode: OpenSSL::SSL::VERIFY_NONE } }
 end
 
 Sidekiq.configure_client do |config|
-  config.redis = { url: ENV["REDIS_URL"], ssl_params: { verify_mode: OpenSSL::SSL::VERIFY_NONE } }
+  config.redis = { url: redis_url, ssl_params: { verify_mode: OpenSSL::SSL::VERIFY_NONE } }
 end
 ```
 

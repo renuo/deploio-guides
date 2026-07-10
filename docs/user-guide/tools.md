@@ -57,7 +57,7 @@ This section contains tools created and maintained by the community. Feel free t
 
 The folks at [Renuo](https://renuo.ch) have created a wrapper around [nctl](#cli) that aims to simplify the usage of the
 CLI. By assuming an [app naming convention](https://github.com/renuo/deploio-cli#app-naming-convention), the CLI will
-automatically detect the app by matching your git remote URL against nctl apps. This might appeal to developers used to work with Heroku.
+automatically detect the app by matching your git remote URL against nctl apps. This might appeal to developers used to working with Heroku.
 
 Note that this CLI is still in early development and not official.
 

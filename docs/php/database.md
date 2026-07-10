@@ -356,7 +356,7 @@ In that shell, run the following command to create the database:
 bin/console doctrine:database:create
 ```
 
-You can verify that this database was created by logging into the database server on your local machine (using `mysql -h {FQDN} -u dbadmin -p --ssl-mode=REQUIRED`)
+You can verify that this database was created by logging into the database server from your local machine (using `mysql -h {FQDN} -u dbadmin -p --ssl-mode=REQUIRED`)
 and then running the command `SHOW DATABASES;` to list the databases on the server.
 
 > **Alternative:** If you do not use Doctrine or otherwise want to do something differently, make sure that your IP is allowed to connect

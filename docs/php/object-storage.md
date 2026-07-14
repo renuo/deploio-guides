@@ -97,7 +97,7 @@ nctl update app {application_name} --env="STORAGE_URL=s3://{ACCESS KEY}:{SECRET 
 
 ::: info
 For S3, a `region` must be specified. Deploio uses the S3 default value of `us-east-1`, even though the servers are in
-Switzerland, operated by Nine.
+Switzerland, operated by Nine. See the [FAQ](../user-guide/faq.md#why-do-i-have-to-set-the-s3-region-to-us-east-1) for details.
 :::
 
 ## Next Steps

@@ -49,6 +49,23 @@ nctl get app {application_name} --output yaml | grep revision
 Prints the revision of the latest deployment. Use this revision to find the corresponding git commit in the git
 history.
 
+## Run a command in all your apps
+
+If you have many apps you might need to run a command in a container for each application.
+Use a shell script with `nctl` to generate a list of commands for you:
+
+For example if you want to check your _libvips_ version for all your apps:
+
+```bash
+nctl get apps -A -o no-header | while read -r project app _; do
+  printf '%s\n' "nctl exec app $app -p $project --stdin=false -- bash -c \
+    'dpkg -l | grep libvips'"
+done
+```
+
+Double-check the output before running. Maybe try it on a few apps at first.
+The example above assumes a Debian build with _dpkg_ available.
+
 ## Database
 
 ### Access

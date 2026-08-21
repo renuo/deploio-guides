@@ -76,5 +76,5 @@ your sub-repo or submodule.
 
 **Github** does not allow to use the same deploy key in different repositories, so
 you must use a [classic PAT](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#personal-access-tokens-classic)
-or refer to a [Docker build](../docker/quick-start.html#build-arguments) using a custom secret in your
+or refer to a [Docker build](../docker/quick-start.md#build-arguments) using a custom secret in your
 the build environment.

@@ -42,7 +42,7 @@ See the [Active Storage](../ruby/active-storage.md) (Rails) and
 [Object storage](../php/object-storage.md) (PHP) guides for configuration
 examples.
 
-## What do the data center regions names mean?
+## What do the data center region names mean?
 
 The data center locations (e.g. named `nine-cz42` or `nine-es34`) are all in Switzerland.
 * `cz` stands for ["ColoZüri"](https://www.peeringdb.com/fac/336) in Zürich Altstetten.

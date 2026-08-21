@@ -42,6 +42,12 @@ See the [Active Storage](../ruby/active-storage.md) (Rails) and
 [Object storage](../php/object-storage.md) (PHP) guides for configuration
 examples.
 
+## What do the data center region names mean?
+
+The data center locations (e.g. named `nine-cz42` or `nine-es34`) are all in Switzerland.
+* `cz` stands for ["ColoZüri"](https://www.peeringdb.com/fac/336) in Zürich Altstetten.
+* `es` stands for "e-shelter", the old name of [NTT Zürich 1](https://www.peeringdb.com/fac/1185) in Rümlang.
+
 ## How much Heroku is in Deploio?
 
 Hopefully a lot! Heroku is one of the giants on whose shoulders we stand.

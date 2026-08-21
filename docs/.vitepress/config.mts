@@ -64,7 +64,7 @@ export default withMermaid(
           component: 'VPButton',
           props: {
             type: 'medium',
-            text: 'Get Started',
+            text: 'Sign Up',
             href: 'https://cockpit.nine.ch/en/signup?origin=deploio',
             target: "_blank" 
            } 

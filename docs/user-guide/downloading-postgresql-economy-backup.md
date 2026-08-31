@@ -31,99 +31,177 @@ nctl auth login
 Replace the two bracketed placeholders, then run the complete block in Bash or zsh. The script shows the selected database and asks for confirmation before retrieving credentials or backup data.
 
 ```bash
-(
+#!/usr/bin/env bash
+
+main() (
   set -euo pipefail
 
   PROJECT="[MY_PROJECT]"
   DATABASE="[MY_DATABASE]"
   DESTINATION="./${PROJECT}-${DATABASE}-latest.sql.zst"
 
-  if [[ "$PROJECT" == "[MY_PROJECT]" || "$DATABASE" == "[MY_DATABASE]" ]]; then
-    echo "Replace [MY_PROJECT] and [MY_DATABASE] before running this script." >&2
+  NCTL="${HOME}/vendor/nctl"
+  RCLONE="/opt/local/bin/rclone"
+
+  if [[ ! -x "$NCTL" ]]; then
+    echo "nctl is not executable: $NCTL" >&2
     exit 1
   fi
+
+  if [[ ! -x "$RCLONE" ]]; then
+    echo "rclone is not executable: $RCLONE" >&2
+    exit 1
+  fi
+
+  if ! command -v jq >/dev/null 2>&1; then
+    echo "Required command not found: jq" >&2
+    exit 1
+  fi
+
+  # Capture stdout only. If nctl fails, print its human-readable stdout as an
+  # error instead of passing it to jq and hiding the real failure behind a JSON
+  # parse error.
+  capture_nctl() {
+    local output
+
+    if ! output="$("$NCTL" "$@")"; then
+      if [[ -n "$output" ]]; then
+        printf '%s\n' "$output" >&2
+      fi
+      return 1
+    fi
+
+    printf '%s\n' "$output"
+  }
 
   echo "Project:     $PROJECT"
   echo "Database:    $DATABASE"
   echo "Destination: $DESTINATION"
-  printf "Download this database backup? [y/N] "
-  read -r CONFIRM
+
+  if [[ -e "$DESTINATION" ]]; then
+    echo "Destination already exists; refusing to overwrite it: $DESTINATION" >&2
+    exit 1
+  fi
+
+  read -r -p "Download this database backup? [y/N] " CONFIRM
   if [[ "$CONFIRM" != "y" && "$CONFIRM" != "Y" ]]; then
     echo "Download cancelled."
     exit 0
   fi
 
-  DATABASE_INSTANCE="$(
-    nctl get postgresdatabase "$DATABASE" \
-      --project "$PROJECT" \
-      -o json |
-      jq -er '.status.atProvider.name'
+  PROJECTS_JSON="$(capture_nctl get projects --output json)"
+  PROJECT_ID="$(
+    jq -er --arg project "$PROJECT" '
+      [
+        .[]
+        | select(
+            .metadata.name == $project
+            or .spec.displayName == $project
+          )
+      ]
+      | if length == 1
+          then .[0].metadata.name
+          else error("expected exactly one matching project")
+        end
+    ' <<<"$PROJECTS_JSON"
   )"
 
+  DATABASE_JSON="$(
+    capture_nctl get postgresdatabase "$DATABASE" \
+      --project "$PROJECT_ID" \
+      --output json
+  )"
+  DATABASE_INSTANCE="$(jq -er '.status.atProvider.name' <<<"$DATABASE_JSON")"
+
+  BUCKETS_JSON="$(
+    capture_nctl get bucket \
+      --project "$PROJECT_ID" \
+      --output json
+  )"
   BUCKET="$(
-    nctl get bucket --project "$PROJECT" -o json |
-      jq -ce --arg prefix "postgresdatabase-${DATABASE}-" '
-        [.[]
-          | select(.metadata.labels["nine.ch/controllerKind"] == "DatabaseBackupSchedule")
-          | select(.metadata.name | startswith($prefix))]
-        | if length == 1
+    jq -ce --arg prefix "postgresdatabase-${DATABASE}-" '
+      [
+        .[]
+        | select(
+            .metadata.labels["nine.ch/controllerKind"]
+            == "DatabaseBackupSchedule"
+          )
+        | select(.metadata.name | startswith($prefix))
+      ]
+      | if length == 1
           then .[0]
           else error("expected exactly one backup bucket")
-          end
-      '
+        end
+    ' <<<"$BUCKETS_JSON"
   )"
 
-  BUCKET_NAME="$(jq -er '.metadata.name' <<< "$BUCKET")"
-  BUCKET_ENDPOINT="$(jq -er '.status.atProvider.endpoint' <<< "$BUCKET")"
+  BUCKET_NAME="$(jq -er '.metadata.name' <<<"$BUCKET")"
+  BUCKET_ENDPOINT="$(jq -er '.status.atProvider.endpoint' <<<"$BUCKET")"
 
+  # These variables exist only inside the main subshell and do not modify an
+  # rclone configuration file or the calling shell's environment.
   export RCLONE_CONFIG_DEPLOIO_TYPE="s3"
   export RCLONE_CONFIG_DEPLOIO_PROVIDER="Other"
   export RCLONE_CONFIG_DEPLOIO_ENDPOINT="https://${BUCKET_ENDPOINT}"
   export RCLONE_CONFIG_DEPLOIO_ACCESS_KEY_ID="$(
-    nctl get bucketuser "$BUCKET_NAME" \
-      --project "$PROJECT" \
+    capture_nctl get bucketuser "$BUCKET_NAME" \
+      --project "$PROJECT_ID" \
       --print-access-key
   )"
   export RCLONE_CONFIG_DEPLOIO_SECRET_ACCESS_KEY="$(
-    nctl get bucketuser "$BUCKET_NAME" \
-      --project "$PROJECT" \
+    capture_nctl get bucketuser "$BUCKET_NAME" \
+      --project "$PROJECT_ID" \
       --print-secret-key
   )"
 
-  BACKUP_OBJECT="$(
-    rclone lsjson "DEPLOIO:${BUCKET_NAME}" --s3-no-check-bucket |
-      jq -er --arg prefix "PostgresDatabase-${DATABASE_INSTANCE}-" '
-        [.[] | select(.Name | startswith($prefix))]
-        | sort_by(.ModTime)
-        | last
-        | .Name
-      '
+  BACKUPS_JSON="$(
+    "$RCLONE" lsjson "deploio:${BUCKET_NAME}" \
+      --recursive \
+      --files-only \
+      --s3-no-check-bucket \
+      --log-level ERROR
+  )"
+  BACKUP_PATH="$(
+    jq -er --arg instance "$DATABASE_INSTANCE" '
+      [
+        .[]
+        | select(
+            (.IsDir == false)
+            and (.Path | endswith(".sql.zst"))
+          )
+      ] as $all
+      | [$all[] | select(.Path | contains($instance))] as $matching
+      | (if ($matching | length) > 0 then $matching else $all end)
+      | if length == 0
+          then error("no .sql.zst backup found")
+          else max_by(.ModTime).Path
+        end
+    ' <<<"$BACKUPS_JSON"
   )"
 
-  rclone copyto \
-    "DEPLOIO:${BUCKET_NAME}/${BACKUP_OBJECT}" \
+  echo "Project API: $PROJECT_ID"
+  echo "Backup:      $BACKUP_PATH"
+
+  "$RCLONE" copyto \
+    "deploio:${BUCKET_NAME}/${BACKUP_PATH}" \
     "$DESTINATION" \
     --progress \
-    --stats-one-line \
-    --s3-no-check-bucket
+    --s3-no-check-bucket \
+    --log-level ERROR
 
-  zstd --test "$DESTINATION"
-
-  SQL_DESTINATION="${DESTINATION%.zst}"
-  printf "Extract the backup to %s? [y/N] " "$SQL_DESTINATION"
-  read -r EXTRACT
-  if [[ "$EXTRACT" == "y" || "$EXTRACT" == "Y" ]]; then
-    if [[ -e "$SQL_DESTINATION" ]]; then
-      echo "Refusing to overwrite ${SQL_DESTINATION}." >&2
-      exit 1
-    fi
-
-    zstd --decompress --keep \
-      --output "$SQL_DESTINATION" \
-      "$DESTINATION"
-    echo "Extracted SQL: $SQL_DESTINATION"
+  if [[ ! -s "$DESTINATION" ]]; then
+    echo "Downloaded backup is empty: $DESTINATION" >&2
+    exit 1
   fi
+
+  if command -v zstd >/dev/null 2>&1; then
+    zstd --test "$DESTINATION"
+  fi
+
+  echo "Downloaded:  $DESTINATION"
 )
+
+main "$@"
 ```
 
 ::: warning Sensitive data

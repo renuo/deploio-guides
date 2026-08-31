@@ -1,7 +1,7 @@
 ---
 prev:
-  text: Configuring Your Database
-  link: /user-guide/configuring-your-database
+  text: Download an Economy Database Backup
+  link: /user-guide/downloading-postgresql-economy-backup
 next:
   text: Network & Deployment
   link: /user-guide/network-and-deployment

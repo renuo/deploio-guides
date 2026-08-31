@@ -36,9 +36,31 @@ Replace the two bracketed placeholders, then run the complete block in Bash or z
 main() (
   set -euo pipefail
 
-  PROJECT="[MY_PROJECT]"
-  DATABASE="[MY_DATABASE]"
+  if (( $# > 2 )); then
+    echo "Usage: $0 [PROJECT [DATABASE]]" >&2
+    exit 2
+  fi
+
+  PROJECT="${1:-}"
+  DATABASE="${2:-}"
+
+  if [[ -z "$PROJECT" ]]; then
+    printf "Project: " >&2
+    IFS= read -r PROJECT
+  fi
+
+  if [[ -z "$DATABASE" ]]; then
+    printf "Database: " >&2
+    IFS= read -r DATABASE
+  fi
+
+  if [[ -z "$PROJECT" || -z "$DATABASE" ]]; then
+    echo "Project and database must not be empty." >&2
+    exit 1
+  fi
+
   DESTINATION="./${PROJECT}-${DATABASE}-latest.sql.zst"
+  EXTRACTED_DESTINATION="${DESTINATION%.zst}"
 
   NCTL="${HOME}/vendor/nctl"
   RCLONE="/opt/local/bin/rclone"
@@ -55,6 +77,11 @@ main() (
 
   if ! command -v jq >/dev/null 2>&1; then
     echo "Required command not found: jq" >&2
+    exit 1
+  fi
+
+  if ! command -v zstd >/dev/null 2>&1; then
+    echo "Required command not found: zstd" >&2
     exit 1
   fi
 
@@ -77,13 +104,20 @@ main() (
   echo "Project:     $PROJECT"
   echo "Database:    $DATABASE"
   echo "Destination: $DESTINATION"
+  echo "Extracted:   $EXTRACTED_DESTINATION"
 
   if [[ -e "$DESTINATION" ]]; then
     echo "Destination already exists; refusing to overwrite it: $DESTINATION" >&2
     exit 1
   fi
 
-  read -r -p "Download this database backup? [y/N] " CONFIRM
+  if [[ -e "$EXTRACTED_DESTINATION" ]]; then
+    echo "Extracted destination already exists; refusing to overwrite it: $EXTRACTED_DESTINATION" >&2
+    exit 1
+  fi
+
+  printf "Download this database backup? [y/N] " >&2
+  IFS= read -r CONFIRM
   if [[ "$CONFIRM" != "y" && "$CONFIRM" != "Y" ]]; then
     echo "Download cancelled."
     exit 0
@@ -175,7 +209,7 @@ main() (
       | if length == 0
           then error("no .sql.zst backup found")
           else max_by(.ModTime).Path
-        end
+      [118;1:3u  end
     ' <<<"$BACKUPS_JSON"
   )"
 
@@ -194,11 +228,11 @@ main() (
     exit 1
   fi
 
-  if command -v zstd >/dev/null 2>&1; then
-    zstd --test "$DESTINATION"
-  fi
+  zstd --test "$DESTINATION"
+  zstd --decompress --keep "$DESTINATION" -o "$EXTRACTED_DESTINATION"
 
   echo "Downloaded:  $DESTINATION"
+  echo "Extracted:   $EXTRACTED_DESTINATION"
 )
 
 main "$@"

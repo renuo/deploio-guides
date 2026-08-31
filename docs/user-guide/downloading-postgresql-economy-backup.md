@@ -5,28 +5,30 @@ prev:
 next:
   text: Other dependencies
   link: /user-guide/other-dependencies
-description: Download, verify, extract, and load a PostgreSQL Economy backup using nctl and standard command-line tools.
+description: Retrieve, verify, extract, and load a PostgreSQL Economy backup using nctl and standard command-line tools.
 ---
 
-# Download a PostgreSQL Economy backup
+# PostgreSQL Economy backups
 
-PostgreSQL Economy backups are created daily and stored in S3-compatible object storage. Downloading a backup does not restore it.
+This guide shows how to retrieve the latest managed backup, optionally extract it, and load it into another database. Downloading a backup does not change the source database.
 
-> **PostgreSQL only:** The [MySQL Economy reference](https://docs.nine.ch/docs/on-demand-services/mysql/economy/#backups) currently states that backups are unavailable.
+::: warning PostgreSQL only
+MySQL Economy backups are currently unavailable. See the [Nine technical reference](https://docs.nine.ch/docs/on-demand-services/mysql/economy/#backups) for details.
+:::
 
-## Requirements
+## Before you begin
 
 Install [`nctl`](https://docs.nine.ch/docs/nctl/), [`jq`](https://jqlang.github.io/jq/), [`rclone`](https://rclone.org/), and [`zstd`](https://facebook.github.io/zstd/).
 
-Sign in if necessary:
+Authenticate with `nctl` if necessary:
 
 ```bash
 nctl auth login
 ```
 
-## Download the latest backup
+## Retrieve the latest backup
 
-Replace the two bracketed placeholders, then run the complete block in Bash. The script shows the selected database and asks for confirmation before retrieving credentials or backup data.
+Replace the two bracketed placeholders, then run the complete block in Bash or zsh. The script shows the selected database and asks for confirmation before retrieving credentials or backup data.
 
 ```bash
 (
@@ -44,7 +46,8 @@ Replace the two bracketed placeholders, then run the complete block in Bash. The
   echo "Project:     $PROJECT"
   echo "Database:    $DATABASE"
   echo "Destination: $DESTINATION"
-  read -r -p "Download this database backup? [y/N] " CONFIRM
+  printf "Download this database backup? [y/N] "
+  read -r CONFIRM
   if [[ "$CONFIRM" != "y" && "$CONFIRM" != "Y" ]]; then
     echo "Download cancelled."
     exit 0
@@ -53,14 +56,14 @@ Replace the two bracketed placeholders, then run the complete block in Bash. The
   DATABASE_INSTANCE="$(
     nctl get postgresdatabase "$DATABASE" \
       --project "$PROJECT" \
-      --output json |
+      -o json |
       jq -er '.status.atProvider.name'
   )"
 
   BUCKET="$(
-    nctl get bucket --project "$PROJECT" --output json |
+    nctl get bucket --project "$PROJECT" -o json |
       jq -ce --arg prefix "postgresdatabase-${DATABASE}-" '
-        [.[ ]
+        [.[]
           | select(.metadata.labels["nine.ch/controllerKind"] == "DatabaseBackupSchedule")
           | select(.metadata.name | startswith($prefix))]
         | if length == 1
@@ -107,7 +110,8 @@ Replace the two bracketed placeholders, then run the complete block in Bash. The
   zstd --test "$DESTINATION"
 
   SQL_DESTINATION="${DESTINATION%.zst}"
-  read -r -p "Extract the backup to ${SQL_DESTINATION}? [y/N] " EXTRACT
+  printf "Extract the backup to %s? [y/N] " "$SQL_DESTINATION"
+  read -r EXTRACT
   if [[ "$EXTRACT" == "y" || "$EXTRACT" == "Y" ]]; then
     if [[ -e "$SQL_DESTINATION" ]]; then
       echo "Refusing to overwrite ${SQL_DESTINATION}." >&2
@@ -122,9 +126,11 @@ Replace the two bracketed placeholders, then run the complete block in Bash. The
 )
 ```
 
-The download does not change the database, but the resulting `.zst` or `.sql` file may contain sensitive production data. The subshell removes the temporary S3 credentials when it exits.
+::: warning Sensitive data
+The resulting `.zst` or `.sql` file may contain production data. Store it securely and delete it when it is no longer needed. The subshell removes the temporary S3 credentials when it exits.
+:::
 
-## Load the backup with psql
+## Load the backup into another database
 
 The `.zst` file is compressed. If you accepted the extraction prompt above, load the resulting `.sql` file:
 
@@ -143,6 +149,8 @@ zstd --decompress --stdout "$BACKUP_FILE" |
   psql "$TARGET_DATABASE_URL" --set ON_ERROR_STOP=on
 ```
 
-Check `TARGET_DATABASE_URL` carefully: loading a backup writes to that database. Prefer a newly created, empty target database.
+::: warning Check the target
+Loading a backup writes to `TARGET_DATABASE_URL`. Check it carefully and prefer a newly created, empty target database.
+:::
 
 For additional restore information, see the [Nine PostgreSQL Economy reference](https://docs.nine.ch/docs/on-demand-services/postgresql/economy/#backups).

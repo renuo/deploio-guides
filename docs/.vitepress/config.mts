@@ -107,6 +107,10 @@ export default withMermaid(
               link: "/user-guide/configuring-your-database",
             },
             {
+              text: "PostgreSQL Economy Backups",
+              link: "/user-guide/downloading-postgresql-economy-backup",
+            },
+            {
               text: "Other dependencies",
               link: "/user-guide/other-dependencies",
             },

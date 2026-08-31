@@ -1,6 +1,6 @@
 ---
 prev:
-  text: Download an Economy Database Backup
+  text: PostgreSQL Economy Backups
   link: /user-guide/downloading-postgresql-economy-backup
 next:
   text: Network & Deployment

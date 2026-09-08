@@ -30,19 +30,22 @@ Created and maintained by [Renuo](https://renuo.ch). Nine maintains a fork on [G
 ## Prerequisites
 
 1. **Claude Code** installed ([get it here](https://claude.ai/code))
-2. **nctl v1.16.0+** installed and authenticated:
+2. **`nctl` v1.16.0+** installed:
 
-```bash
-# macOS
-brew install ninech/tap/nctl
+    MacOS installation
 
-# Linux: download from https://github.com/ninech/nctl/releases/latest
-```
+    ```bash
+    brew install ninech/tap/nctl
+    ```
 
-```bash
-nctl auth login   # opens browser OAuth
-nctl auth whoami  # verify access
-```
+    Linux binary can be downloaded from: https://github.com/ninech/nctl/releases/latest
+
+3. `nctl` is properly authenticated
+
+    ```bash
+    nctl auth login   # opens browser OAuth
+    nctl auth whoami  # verify access
+    ```
 
 ## Installation
 
@@ -57,7 +60,11 @@ use:
 
 ```bash
 DEPLOIO_INSTALL_SCOPE=global /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/ninech/deploio-skills/refs/heads/main/install.sh)"
-# or
+```
+
+or
+
+```bash
 DEPLOIO_INSTALL_SCOPE=project /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/ninech/deploio-skills/refs/heads/main/install.sh)"
 ```
 

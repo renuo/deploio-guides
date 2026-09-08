@@ -22,7 +22,7 @@ export default withMermaid(
       ],
     },
     head: [
-      ["link", { rel: "icon", href: "/icon/logo.svg" }],
+      ["link", { rel: "icon", href: "/icon/favicon.svg" }],
       ["link", { rel: "preconnect", href: "https://fonts.googleapis.com" }],
       [
         "link",
@@ -47,7 +47,11 @@ export default withMermaid(
     },
     themeConfig: {
       search: { provider: "local" },
-      logo: "/icon/logo.svg",
+      logo: {
+        light: "/icon/logo.svg",
+        dark: "/icon/logo-dark.svg",
+        alt: "Deploio",
+      },
       editLink: {
         pattern: "https://github.com/renuo/deploio-guides/edit/main/docs/:path",
         text: "Edit this page on GitHub",

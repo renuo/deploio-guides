@@ -4,8 +4,8 @@ prev:
   link: /user-guide/configuring-your-application
 
 next:
-  text: Other dependencies
-  link: /user-guide/other-dependencies
+  text: PostgreSQL Economy Backups
+  link: /user-guide/downloading-postgresql-economy-backup
 description: Comprehensive guide for creating and managing PostgreSQL and MySQL databases on Deploio including Economy and Business tiers, configuration, backups, monitoring, and troubleshooting.
 ---
 
@@ -40,10 +40,10 @@ Databases in the Economy tier run in a logically separated tenant on a shared, m
 — ideal for development, testing, and low-traffic applications. They start fast, making them a good fit for automated testing pipelines e.g.
 
 
-::: info Manual Backup Restore
-The Economy tier is still missing a one-click backup restore feature.
-You currently need to open a [support ticket with Nine](mailto:support@nine.ch) for restore.
-We'll make this as easy as a button-click soon.
+::: info Backup restore
+Deploio does not currently provide one-click, in-place backup restore. You can
+[download a PostgreSQL Economy backup](/user-guide/downloading-postgresql-economy-backup.md)
+and load it into an empty target database, or contact [Nine support](mailto:support@nine.ch) for an in-place restore.
 :::
 
 #### Packages
@@ -124,19 +124,12 @@ mysql -h {FQDN} -u {USER} -p
 
 ### Backups
 
-Backups are created daily and stored in S3-compatible object storage.
+PostgreSQL Economy backups are created daily and stored in S3-compatible object storage.
+Follow [PostgreSQL Economy backups](/user-guide/downloading-postgresql-economy-backup.md)
+to retrieve, optionally extract, and load the latest backup.
 
-To restore a PostgreSQL Economy backup:
-1. Find the corresponding bucket for your database backup
-```bash
-nctl get bucket
-```
-2. Get the S3 credentials for the bucket user with the same name as the bucket
-```bash
-nctl get bucketuser {backup_bucket_name} --print-credentials
-```
-
-3. Download the backup using any S3-compatible client tool, e.g. `awscli`, see the [Nine technical reference](https://docs.nine.ch/docs/on-demand-services/postgresql/economy#backups) for more details
+MySQL Economy backups are currently unavailable. See the
+[Nine technical reference](https://docs.nine.ch/docs/on-demand-services/mysql/economy/#backups) for details.
 
 ## Business tier
 

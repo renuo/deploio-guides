@@ -64,14 +64,14 @@ export default withMermaid(
         { text: "Deploio Website", link: "https://deplo.io", target: "_blank" },
         { text: "Pricing", link: "https://deplo.io/pricing", target: "_blank" },
         { text: "Login", link: "https://cockpit.nine.ch/en/session/new?origin=deploio", target: "_blank" },
-        { 
+        {
           component: 'VPButton',
           props: {
             type: 'medium',
             text: 'Sign Up',
             href: 'https://cockpit.nine.ch/en/signup?origin=deploio',
-            target: "_blank" 
-           } 
+            target: "_blank"
+          }
         }
       ],
       outline: {
@@ -211,6 +211,13 @@ export default withMermaid(
           items: [
             { text: "Quick start", link: "/static-pages/quick-start" },
             { text: "Static Site Generators", link: "/static-pages/static-site-generators" },
+          ],
+        },
+        {
+          text: "App Recipes",
+          collapsed: true,
+          items: [
+            { text: "Metabase", link: "/app-recipes/metabase" },
           ],
         },
       ],

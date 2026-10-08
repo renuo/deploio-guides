@@ -19,7 +19,7 @@ Create a PostgreSQL database in Deploio. See [Configuring your database](../user
 
 ## 2. Deploy Metabase
 
-Create an application in Deploio using the official Metabase container image. If your deployment uses a Dockerfile, commit it to a Git repository or subdirectory configured as the application's source. For example, the [Deploio examples repository](https://github.com/Stiwyy/deploio-examples) includes a Metabase Dockerfile.
+Create an application in Deploio using the official Metabase container image. If your deployment uses a Dockerfile, commit it to a Git repository or subdirectory configured as the application's source. For example, the [Metabase Deploio Repository](https://github.com/Stiwyy/metabase-deploio) includes a Metabase Dockerfile.
 
 Configure these environment variables on the application. Use the credentials for the Database created in step 1:
 

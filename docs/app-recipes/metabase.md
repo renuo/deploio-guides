@@ -19,7 +19,7 @@ Create a PostgreSQL database in Deploio. See [Configuring your database](../user
 
 ## 2. Deploy Metabase
 
-Create an application in Deploio using the official Metabase container image. If your deployment uses a Dockerfile, commit it to a Git repository or subdirectory configured as the application's source. For example, the [Metabase Deploio Repository](https://github.com/Stiwyy/metabase-deploio) includes a Metabase Dockerfile.
+Create an application in Deploio using the official Metabase container image. If your deployment uses a Dockerfile, commit it to a Git repository or subdirectory configured as the application's source. For example, the [Metabase Deploio Repository](https://github.com/renuo/metabase-deploio) includes a Metabase Dockerfile.
 
 Configure these environment variables on the application. Use the credentials for the Database created in step 1:
 
@@ -48,5 +48,17 @@ Configure these environment variables on the application. Use the credentials fo
 2. Select **MySQL** and enter a display name.
 3. In the Deploio Cockpit, open the MySQL database and go to **Access**. Use its FQDN as the host, along with its database name, username, password, and port (usually `3306`).
 4. Enable **Use a secure connection (SSL)** and provide the server CA certificate from **Access → Certificate Authority**.
-5. Open advanced options and add `disableSslHostnameVerification=true` under **Additional JDBC connection string options**. Use this only if required.
-6. Save the connection and verify that Metabase can connect.
+5. Save the connection and verify that Metabase can connect.
+
+#### Troubleshooting connection issues
+
+If Metabase can't connect to your database because of SSL certificate errors, try one or both of the following options to the **Additional JDBC connection string options** field of the data source.
+
+| Option                                  | What it does                                                                                                                                  |
+|-----------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------|
+| `disableSslHostnameVerification=true`   | Skips the check that the server's hostname matches the name in its SSL certificate. Use it if the error mentions a hostname mismatch.         |
+| `trustServerCertificate=true`           | Accepts the server's certificate without validating it against a trusted root certificate. Use it if the error mentions an untrusted or unknown certificate. |
+
+::: warning
+These options make the connection less strict. The traffic stays encrypted, but Metabase no longer verifies that it is talking to the right server. For MySQL, prefer providing the server CA certificate (see above), and only fall back to these options if that doesn't work.
+:::

@@ -8,13 +8,13 @@ Official guides for Deploio, a container-based infrastructure platform by [Nine]
 
 * Heroku is the giant on whose shoulders we stand.
   For example we support Heroku Buildpacks.
-  If in doubt, orient yourself towards https://devcenter.heroku.com/articles.
+  If in doubt, orient yourself towards <https://devcenter.heroku.com/articles>.
   (fly.io is cool as well, but way younger)
 * This is the **user guide** for Deploio.
   It's about use cases. **It should read like a story**.
   It's not a technical reference but a suggestion.
   The menu is omakase. So we assume sane defaults.
-  For detail configuration and options you should link to the technical reference at Nine: https://docs.nine.ch/. 
+  For detail configuration and options you should link to the technical reference at Nine: <https://docs.nine.ch/>.
 * `nctl` is canonical for the user guide.
   We should not mention the Cockpit GUI if not absolutely needed.
   Everything should be done with `nctl` because it is simpler, more stable and can be automated.
@@ -56,12 +56,13 @@ docs/
 ├── go/                # Go guides
 ├── nodejs/            # Node.js guides
 ├── docker/            # Docker guides
+├── app-recipes/       # Setup of external apps
 └── static-pages/      # Static site guides
 ```
 
 ## Built With
 
-- [VitePress](https://vitepress.dev/) - Static site generator
-- [vitepress-plugin-tabs](https://github.com/red-gate/vitepress-plugin-tabs) - Tabbed content
-- [vitepress-plugin-mermaid](https://github.com/emersonbottero/vitepress-plugin-mermaid) - Diagrams
-- [lychee](https://github.com/lycheeverse/lychee) - Link validation
+* [VitePress](https://vitepress.dev/) - Static site generator
+* [vitepress-plugin-tabs](https://github.com/red-gate/vitepress-plugin-tabs) - Tabbed content
+* [vitepress-plugin-mermaid](https://github.com/emersonbottero/vitepress-plugin-mermaid) - Diagrams
+* [lychee](https://github.com/lycheeverse/lychee) - Link validation

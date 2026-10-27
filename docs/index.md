@@ -55,4 +55,10 @@ features:
       alt: Static Sites
     link: 'static-pages/quick-start'
     details: Deploy your static sites
+  - title: App Recipes
+    icon:
+      src: /icon/metabase.svg
+      alt: App Recipes
+    link: 'app-recipes/metabase'
+    details: Deploy with external apps
 ---

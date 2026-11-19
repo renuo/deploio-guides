@@ -5,71 +5,62 @@ prev:
 next:
   text: Configuring Your Application
   link: /user-guide/configuring-your-application
-description: Instructions for connecting Git repositories to Deploio using SSH keys or HTTPS for GitHub, GitLab, Bitbucket, and private Git servers.
+description: Instructions for connecting Git repositories to Deploio using SSH deploy keys for GitHub, GitLab, Bitbucket, and private Git servers.
 ---
 
 # Code Repository Setup
 
-To deploy your application with Deploio, you must connect your code repository so that we can fetch your application code during the build process. We explain how to set it up in this section.
+To deploy your application with Deploio, you must connect your code repository so that we
+can fetch your application code during the build process. We explain how to set it up in this section.
 
-We support all major Git platforms, including GitHub, GitLab, Bitbucket, and private Git servers. This guide explains how to set up secure access and configure your repository properly.
+We support all major Git platforms, including GitHub, GitLab, Bitbucket, and private Git servers.
+This guide explains how to set up secure access and configure your repository properly.
 
 ### GitHub
 
 [//]: # (TODO: speak to Nine about OAuth support - I would expect a button to authorize with GitHub)
 
-When creating a new application in the Cockpit or via the nctl CLI, you will need to enter the **Git URL** and authentication details. Deploio supports both **HTTPS** and **SSH** access methods for GitHub repositories.
+Deploio fetches your code with a [deploy key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/managing-deploy-keys#deploy-keys):
+read-only access to exactly one repository.
+For that, we create a **temporary SSH key** just for Deploio.
+Never upload your personal SSH key.
 
-##### HTTPS Access with Personal Access Token (PAT)
+::: info
+Alternatively, you can create a [fine-grained personal access token](https://github.com/settings/personal-access-tokens/new)
+with read-only access to the repository's contents.
+Pass it to `nctl` with `--git-username` and `--git-password` and an HTTPS `--git-url`.
+:::
 
-1. [Generate a GitHub Personal Access Token](https://github.com/settings/tokens) with `repo` scope (or fine-grained read-only access).
+We use the [GitHub CLI](https://cli.github.com/), so the key never passes through your hands.
+First, create the key pair in a temporary directory:
 
-2. In Cockpit:
+```sh
+KEY_DIR=$(mktemp -d)
+ssh-keygen -t ed25519 -N "" -C "deploio-{APP_NAME}" -f "$KEY_DIR/id_ed25519"
+```
 
-   - Set the **Git URL** to your repo, e.g.
-     ```
-     https://github.com/your-org/your-repo.git
-     ```
-   - Enter the **Username**: your GitHub username
-   - Enter the **Password**: your GitHub PAT
+Register the public key as a read-only deploy key:
 
-   > ⚠️ Your PAT acts like a password — do not share or expose it.
+```sh
+gh repo deploy-key add "$KEY_DIR/id_ed25519.pub" \
+  --repo {GITHUB_OWNER}/{GITHUB_REPO} \
+  --title "deploio-{APP_NAME}"
+```
 
-##### SSH Key Integration
+Hand the private key to Deploio.
+For an existing app, use `nctl update app` instead.
 
-1. **Generate an SSH key** (if you don’t have one yet):
+```sh
+nctl create app {APP_NAME} \
+  --git-url=git@github.com:{GITHUB_OWNER}/{GITHUB_REPO}.git \
+  --git-ssh-private-key-from-file="$KEY_DIR/id_ed25519"
+```
 
-   ```bash
-   ssh-keygen -t ed25519 -C "deploio-access"
-   ```
-   Save it somewhere like `~/.ssh/deploio_id_ed25519`. Alternatively, you can use a tool like 1Password to generate and store the key securely.
+Finally, delete the temporary key:
 
-2. **Add the public key to GitHub**
-
-   - Manually via GitHub:
-     Go to your repository → **Settings > Deploy Keys** → **Add deploy key**, give it a name, and paste the **public key**.
-     Only read access is required.
-
-   - Or via the CLI:
-     ```bash
-     gh repo deploy-key add \
-       --repo your-org/your-repo \
-       --title deploio_deploy_key_main \
-       < ~/.ssh/deploio_id_ed25519.pub
-     ```
-
-3. **Provide the private key to Deploio** when creating the app in Cockpit or via `nctl`:
-
-   This can be done via the `--git-ssh-private-key` flag or the `--git-ssh-private-key-from-file`
-   flag to specify the SSH key to use:
-
-   ```bash
-   nctl create app main \
-   --project my-project \
-   --git-ssh-private-key-from-file=~/.ssh/deploio_id_ed25519
-   ```
-
-   > ⚠️ Ensure the key is unquoted — quotation marks around the private key must be removed before use.
+```sh
+rm -r "$KEY_DIR"
+```
 
 ### GitLab
 

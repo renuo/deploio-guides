@@ -35,7 +35,7 @@ You can deploy them with `nctl`:
   ```bash
   nctl create app static-react \
   --git-url=https://github.com/ninech/deploio-examples \
-  --git-sub-path=heroku-stack/static/react
+  --git-sub-path=heroku-stack/static/react \
   --buildpack-stack=heroku # notice that we use Heroku buildpacks here
   ```
 

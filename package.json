@@ -6,13 +6,15 @@
     "docs:build": "vitepress build docs",
     "docs:preview": "vitepress preview docs",
     "check-links": "lychee --config lychee.toml --root-dir $(pwd)/docs docs/",
-    "check-typos": "typos docs/"
+    "check-typos": "typos docs/",
+    "test:llm-as-a-reader": "node --test 'tests/llm-as-a-reader/test/*.test.mjs'"
   },
   "devDependencies": {
     "mermaid": "^11.12.1",
     "vitepress": "^1.0.0",
     "vitepress-plugin-llms": "^1.10.0",
     "vitepress-plugin-mermaid": "^2.0.17",
-    "vitepress-plugin-tabs": "^0.7.3"
+    "vitepress-plugin-tabs": "^0.7.3",
+    "yaml": "^2.9.1"
   }
 }

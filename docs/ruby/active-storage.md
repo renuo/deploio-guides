@@ -26,7 +26,7 @@ or [bring your own server hardware](https://nine.ch/de/produkte/colocation/) ins
 
 You can use Amazon S3 together with Deploio as you would on any other hoster.
 First you set up the bucket on the third-party service
-(e.g. [AWS S3](https://aws.amazon.com/s3/) or [Swiss Backup by Informaniak](https://docs.infomaniak.cloud/object_storage/s3/)).
+(e.g. [AWS S3](https://aws.amazon.com/s3/) or [Swiss Backup by Infomaniak](https://docs.infomaniak.cloud/object_storage/s3/)).
 Then you follow the official [Rails Guides on S3 service configuration](https://guides.rubyonrails.org/active_storage_overview.html#s3-service-amazon-s3-and-s3-compatible-apis).
 
 ## S3 Service by Nine
@@ -81,8 +81,9 @@ nctl update app {APP_NAME} --env="\
 
 ### CORS
 
-Active Storage supports uploading files directly from the client to the bucket. To make the direct uploads work,
-you need to [configure CORS](https://guides.rubyonrails.org/active_storage_overview.html#cross-origin-resource-sharing-cors-configuration) 
+Active Storage supports uploading files directly from the client to the bucket.
+To make the direct uploads work,
+you need to [configure CORS](https://guides.rubyonrails.org/active_storage_overview.html#cross-origin-resource-sharing-cors-configuration)
 on the bucket.
 
 ```sh
@@ -109,8 +110,9 @@ deploio:
 ```
 
 ::: info
-For S3, a `region` must be specified. Deploio uses the S3 default value of `us-east-1`, even though the servers are in
-Switzerland, operated by Nine. See the [FAQ](../user-guide/faq.md#why-do-i-have-to-set-the-s3-region-to-us-east-1) for details.
+For S3, a `region` must be specified.
+Deploio uses the S3 default value of `us-east-1`, even though the servers are in Switzerland, operated by Nine.
+See the [FAQ](../user-guide/faq.md#why-do-i-have-to-set-the-s3-region-to-us-east-1) for details.
 :::
 
 The underlying ActiveStorage service (`ActiveStorage::Service::S3Service`) uses the [AWS SDK for Ruby](https://github.com/aws/aws-sdk-ruby).
@@ -141,31 +143,31 @@ puts blob.download
 # "dummy"
 
 puts blob.url
-# "{S3_BUCKET}.es34.objects.nineapis.ch/9etnjjbujcqk7vm8tqzvsj2q8cpj?response-content-disposition=attachment%3B%20filename%3D%22dummy.txt%22%3B%20filename%2A%3DUTF-8%27%27dummy.txt&response-content-type=text%2Fplain&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=qqMGtWnoxWK58YAdB6MjVDTB7kgxSRST%2F20251217%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20251217T154115Z&X-Amz-Expires=300&X-Amz-SignedHeaders=host&X-Amz-Signature=04565c440d7a0d32b4ddecd372d242ad8df391cd686a26a551ae0c9b9dbdf31c"
+# "{BUCKET_NAME}.es34.objects.nineapis.ch/9etnjjbujcqk7vm8tqzvsj2q8cpj?response-content-disposition=attachment%3B%20filename%3D%22dummy.txt%22%3B%20filename%2A%3DUTF-8%27%27dummy.txt&response-content-type=text%2Fplain&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=qqMGtWnoxWK58YAdB6MjVDTB7kgxSRST%2F20251217%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20251217T154115Z&X-Amz-Expires=300&X-Amz-SignedHeaders=host&X-Amz-Signature=04565c440d7a0d32b4ddecd372d242ad8df391cd686a26a551ae0c9b9dbdf31c"
 ```
 
 ### Public Access
 
-Notice that per default you will receive a signed URL because Rails assumes that S3 buckets
-are not publicly accessible. You can change this by creating a public Deploio S3 bucket 
+Notice that per default you will receive a signed URL because Rails assumes that S3 buckets are not publicly accessible.
+You can change this by creating a public Deploio S3 bucket
 
 ```sh
 nctl create bucket --location=nine-es34 {BUCKET_NAME} --public-read
 ```
 
 and then [adding the `public: true` flag](https://guides.rubyonrails.org/active_storage_overview.html#public-access)
-to the Active Storage configuration. Your URLs will then be accessible like this (without the signature part):
+to the Active Storage configuration.
+Your URLs will then be accessible like this (without the signature part):
 
 ```text
-{S3_BUCKET}.es34.objects.nineapis.ch/9etnjjbujcqk7vm8tqzvsj2q8cpj
+{BUCKET_NAME}.es34.objects.nineapis.ch/9etnjjbujcqk7vm8tqzvsj2q8cpj
 ```
 
 ### Custom Bucket Hostnames
 
-For production apps you might want to hide the fact that assets are hosted on Nine S3. This often has the two
-practical reasons:
-* **Appearance**: all URLs should only point to your app, e.g. www.example.com and assets.example.com for brand
-  and reputation reasons.
+For production apps you might want to hide the fact that assets are hosted on Nine S3.
+This often has the two practical reasons:
+* **Appearance**: all URLs should only point to your app, e.g. www.example.com and assets.example.com for brand and reputation reasons.
 * **Performance**: there should be a CDN in front of your assets but TLS should still be end-to-end.
   So you need to be in control of DNS to provide the Let's Encrypt challenge.
 
@@ -187,7 +189,7 @@ So you need to add two DNS records at your DNS provider:
 The verification record can be retrieved via `nctl`:
 
 ```sh
-nctl get bucket {APP_NAME} --output="yaml"
+nctl get bucket {BUCKET_NAME} --output="yaml"
 ```
 
 The output will look something like that. Look out for the `txtRecordValue`
@@ -291,8 +293,8 @@ deploio:
 
 ### Example App
 
-We also provide an example app that has Active Storage configured to work with Nine S3 buckets. See the [examples repository](
-https://github.com/ninech/deploio-examples/tree/main#ruby-on-rails-with-activestorage) for more details.
+We also provide an example app that has Active Storage configured to work with Nine S3 buckets.
+See the [examples repository](https://github.com/ninech/deploio-examples/tree/main#ruby-on-rails-with-activestorage) for more details.
 
 ## Next Steps
 

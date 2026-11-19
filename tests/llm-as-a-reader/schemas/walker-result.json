@@ -1,0 +1,51 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["deviations", "skipped", "stuck"],
+  "properties": {
+    "deviations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["guide", "line", "guide_said", "you_did", "why"],
+        "properties": {
+          "guide": { "type": "string" },
+          "line": { "type": ["integer", "null"] },
+          "guide_said": { "type": "string" },
+          "you_did": { "type": "string" },
+          "why": { "type": "string" }
+        }
+      }
+    },
+    "skipped": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["guide", "line", "step", "why"],
+        "properties": {
+          "guide": { "type": "string" },
+          "line": { "type": ["integer", "null"] },
+          "step": { "type": "string" },
+          "why": { "type": "string" }
+        }
+      }
+    },
+    "stuck": {
+      "anyOf": [
+        { "type": "null" },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["guide", "line", "what_happened"],
+          "properties": {
+            "guide": { "type": "string" },
+            "line": { "type": ["integer", "null"] },
+            "what_happened": { "type": "string" }
+          }
+        }
+      ]
+    }
+  }
+}

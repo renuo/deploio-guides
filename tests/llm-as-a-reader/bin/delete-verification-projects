@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# Deletes every verification project of the organization, with all resources in it.
+
+set -euo pipefail
+
+: "${LLM_READER_ORGANIZATION:?Deploio organization}"
+prefix="${LLM_READER_ORGANIZATION}-deploio-guides-verification-"
+
+nctl get projects -o json |
+  jq -r --arg prefix "$prefix" '(if type == "array" then . else [.] end)[] | .metadata.name | select(startswith($prefix))' |
+  while read -r project; do
+    echo "Deleting project $project"
+    nctl delete project "$project" --force --wait --wait-timeout=15m
+  done

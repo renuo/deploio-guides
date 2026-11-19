@@ -1,0 +1,203 @@
+name: LLM as a Reader
+
+on:
+  schedule:
+    - cron: "0 4 1 * *"
+  workflow_dispatch:
+    inputs:
+      journeys:
+        description: Journeys to walk, separated by spaces (all if empty)
+        required: false
+        default: ""
+
+concurrency:
+  group: llm-as-a-reader
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+env:
+  LLM_READER_ORGANIZATION: renuotest
+
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    outputs:
+      project: ${{ steps.project.outputs.name }}
+      journeys: ${{ steps.journeys.outputs.list }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - run: npm ci
+
+      - name: List journeys
+        id: journeys
+        env:
+          JOURNEYS: ${{ inputs.journeys }}
+        run: |
+          read -ra wanted <<< "$JOURNEYS"
+          echo "list=$(node tests/llm-as-a-reader/bin/journeys.mjs "${wanted[@]}")" >> "$GITHUB_OUTPUT"
+
+      - name: Install nctl
+        run: |
+          echo 'deb [trusted=yes] https://repo.nine.ch/deb/ /' | sudo tee /etc/apt/sources.list.d/repo.nine.ch.list
+          sudo apt-get update -qqo Dir::Etc::sourcelist=/etc/apt/sources.list.d/repo.nine.ch.list
+          sudo apt-get install -qq nctl
+
+      - name: Authenticate nctl
+        env:
+          NCTL_API_CLIENT_ID: ${{ secrets.LLM_READER_NCTL_API_CLIENT_ID }}
+          NCTL_API_CLIENT_SECRET: ${{ secrets.LLM_READER_NCTL_API_CLIENT_SECRET }}
+        run: nctl auth login --api-client-id="$NCTL_API_CLIENT_ID" --api-client-secret="$NCTL_API_CLIENT_SECRET" --organization="$LLM_READER_ORGANIZATION"
+
+      - name: Delete leftover verification projects
+        run: tests/llm-as-a-reader/bin/delete-verification-projects
+
+      - name: Create verification project
+        id: project
+        run: |
+          name="${LLM_READER_ORGANIZATION}-deploio-guides-verification-$(date -u +%F)"
+          nctl create project "$name" --wait
+          echo "name=$name" >> "$GITHUB_OUTPUT"
+
+  walk:
+    needs: prepare
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    strategy:
+      fail-fast: false
+      matrix:
+        journey: ${{ fromJSON(needs.prepare.outputs.journeys) }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - run: npm ci
+
+      - name: Install nctl
+        run: |
+          echo 'deb [trusted=yes] https://repo.nine.ch/deb/ /' | sudo tee /etc/apt/sources.list.d/repo.nine.ch.list
+          sudo apt-get update -qqo Dir::Etc::sourcelist=/etc/apt/sources.list.d/repo.nine.ch.list
+          sudo apt-get install -qq nctl
+
+      - name: Authenticate nctl
+        env:
+          NCTL_API_CLIENT_ID: ${{ secrets.LLM_READER_NCTL_API_CLIENT_ID }}
+          NCTL_API_CLIENT_SECRET: ${{ secrets.LLM_READER_NCTL_API_CLIENT_SECRET }}
+          PROJECT: ${{ needs.prepare.outputs.project }}
+        run: |
+          nctl auth login --api-client-id="$NCTL_API_CLIENT_ID" --api-client-secret="$NCTL_API_CLIENT_SECRET" --organization="$LLM_READER_ORGANIZATION"
+          nctl auth set-project "$PROJECT"
+
+      - name: Install Codex
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          npm install --global @openai/codex@0.170.0
+          printenv OPENAI_API_KEY | codex login --with-api-key
+
+      - name: Walk
+        env:
+          LLM_READER_PROJECT: ${{ needs.prepare.outputs.project }}
+          LLM_READER_WALKER_MODEL: ${{ vars.LLM_READER_WALKER_MODEL }}
+          # Not for the agent (Codex hides them from its shell), but so they are redacted by value.
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          NCTL_API_CLIENT_SECRET: ${{ secrets.LLM_READER_NCTL_API_CLIENT_SECRET }}
+        run: node tests/llm-as-a-reader/bin/walk.mjs "${{ matrix.journey }}" --out "results/${{ matrix.journey }}"
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: walk-${{ matrix.journey }}
+          path: results/${{ matrix.journey }}
+          retention-days: 30
+          if-no-files-found: ignore
+
+  report:
+    needs: [prepare, walk]
+    if: always() && needs.prepare.result == 'success'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - run: npm ci
+
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: walk-*
+          path: results
+
+      - name: Judge
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          LLM_READER_JUDGE_MODEL: ${{ vars.LLM_READER_JUDGE_MODEL }}
+        run: node tests/llm-as-a-reader/bin/judge.mjs results
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: reviews
+          path: results/*/review.json
+          retention-days: 30
+
+      - name: File the monthly issue
+        env:
+          GH_TOKEN: ${{ secrets.RENUOBOT_GITHUB_TOKEN }}
+          JOURNEYS: ${{ needs.prepare.outputs.journeys }}
+        run: |
+          gh label create llm-as-a-reader --color 5319E7 --description "Monthly AI walkthrough of the guides" --force
+          previous=$(gh issue list --label llm-as-a-reader --state open --limit 1 --json number --jq '.[0].number // empty')
+          previous_args=()
+          if [ -n "$previous" ]; then
+            gh issue view "$previous" --json body --jq .body > previous-body.md
+            previous_args=(--previous-issue "$previous" --previous-body previous-body.md)
+          fi
+
+          node tests/llm-as-a-reader/bin/report.mjs results \
+            --month "$(date -u +%Y-%m)" \
+            --journeys "$JOURNEYS" \
+            "${previous_args[@]}" \
+            --title-file title.txt \
+            --body-file body.md
+
+          url=$(gh issue create --title "$(cat title.txt)" --body-file body.md --label llm-as-a-reader)
+          echo "Filed $url"
+          if [ -n "$previous" ]; then
+            gh issue close "$previous" --reason completed --comment "Superseded by $url"
+          fi
+
+  cleanup:
+    needs: [prepare, walk, report]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install nctl
+        run: |
+          echo 'deb [trusted=yes] https://repo.nine.ch/deb/ /' | sudo tee /etc/apt/sources.list.d/repo.nine.ch.list
+          sudo apt-get update -qqo Dir::Etc::sourcelist=/etc/apt/sources.list.d/repo.nine.ch.list
+          sudo apt-get install -qq nctl
+
+      - name: Authenticate nctl
+        env:
+          NCTL_API_CLIENT_ID: ${{ secrets.LLM_READER_NCTL_API_CLIENT_ID }}
+          NCTL_API_CLIENT_SECRET: ${{ secrets.LLM_READER_NCTL_API_CLIENT_SECRET }}
+        run: nctl auth login --api-client-id="$NCTL_API_CLIENT_ID" --api-client-secret="$NCTL_API_CLIENT_SECRET" --organization="$LLM_READER_ORGANIZATION"
+
+      - name: Delete verification projects
+        run: tests/llm-as-a-reader/bin/delete-verification-projects

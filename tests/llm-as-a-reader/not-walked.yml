@@ -1,0 +1,16 @@
+# Pages the monthly walkthrough does not follow, and why.
+# Every page under docs/ is either listed here or in exactly one prompts/*.md.
+
+index.md: Landing page without steps.
+introduction/about-deploio.md: Background reading without steps.
+introduction/how-deploio-works.md: Background reading without steps.
+introduction/our-stack.md: Background reading without steps.
+user-guide/faq.md: Questions and answers without a story to follow.
+user-guide/tools.md: Overview of tools without steps.
+user-guide/code-repository-setup.md: Needs a Git repository of our own with deploy keys.
+user-guide/ci-cd-integration.md: Needs a Git repository of our own with a CI pipeline.
+user-guide/migrating-from-other-platforms.md: Needs an account on the platform to migrate from.
+user-guide/claude-plugin.md: Installs by piping a script from the internet into bash, and needs Claude Code.
+about.md: Not in the sidebar; an older copy of introduction/about-deploio.md.
+api-examples.md: Not in the sidebar; example page left over from the VitePress template.
+markdown-examples.md: Not in the sidebar; example page left over from the VitePress template.

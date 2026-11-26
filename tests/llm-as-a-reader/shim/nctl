@@ -1,0 +1,71 @@
+#!/usr/bin/env bash
+# Stands in for nctl while the walker agent follows the guides: it records every
+# call for the literal check and keeps the agent inside the verification project.
+
+set -uo pipefail
+
+: "${LLM_READER_REAL_NCTL:?path of the real nctl binary}"
+: "${LLM_READER_NCTL_LOG:?path of the JSON lines log}"
+: "${LLM_READER_PROJECT:?full name of the verification project}"
+: "${LLM_READER_ORGANIZATION:?Deploio organization}"
+
+short_project="${LLM_READER_PROJECT#"${LLM_READER_ORGANIZATION}-"}"
+
+log() {
+  local exit_code=$1 refused=$2
+  shift 2
+  jq -cn --argjson exit "$exit_code" --arg refused "$refused" --arg at "$(date -u +%FT%TZ)" \
+    '{at: $at, argv: $ARGS.positional, exit: $exit} + (if $refused == "" then {} else {refused: $refused} end)' \
+    --args -- "$@" >>"$LLM_READER_NCTL_LOG"
+}
+
+refuse() {
+  log 126 "$1" "${args[@]}"
+  echo "nctl (llm-as-a-reader): refused: $1" >&2
+  exit 126
+}
+
+own_project() {
+  [[ "$1" == "$LLM_READER_PROJECT" || "$1" == "$short_project" ]]
+}
+
+args=("$@")
+words=()
+for ((i = 0; i < ${#args[@]}; i++)); do
+  arg=${args[i]}
+  case "$arg" in
+    --) break ;;
+    -p | --project)
+      own_project "${args[i + 1]:-}" || refuse "only the project $LLM_READER_PROJECT may be used"
+      ((i++))
+      ;;
+    -p=* | --project=*)
+      own_project "${arg#*=}" || refuse "only the project $LLM_READER_PROJECT may be used"
+      ;;
+    -p?*)
+      own_project "${arg#-p}" || refuse "only the project $LLM_READER_PROJECT may be used"
+      ;;
+    -A | --all-projects) all_projects=1 ;;
+    -*) ;;
+    *) words+=("$arg") ;;
+  esac
+done
+
+command="${words[0]:-} ${words[1]:-}"
+case "$command" in
+  "auth login" | "auth logout")
+    refuse "you are already logged in to the organization $LLM_READER_ORGANIZATION; skip this step" ;;
+  "auth set-project")
+    own_project "${words[2]:-}" || refuse "the default project is already $LLM_READER_PROJECT" ;;
+  "create project" | "create proj")
+    refuse "the project $LLM_READER_PROJECT already exists for you; use it" ;;
+  "delete project" | "delete proj")
+    refuse "deleting projects is not part of this walkthrough" ;;
+esac
+[[ "${words[0]:-}" == "apply" ]] && refuse "nctl apply can target any project and is not walked automatically"
+[[ -n "${all_projects:-}" && "${words[0]:-}" != "get" ]] && refuse "--all-projects is only allowed for nctl get"
+
+"$LLM_READER_REAL_NCTL" "$@"
+exit_code=$?
+log "$exit_code" "" "$@"
+exit "$exit_code"
